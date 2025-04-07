@@ -4,17 +4,23 @@
 
 \chapter{最优增长与动态规划基础} \label{ch-ngm-dp}
 
-动态规划是量化宏观经济学的基础。本章首先通过最优增长模型——现代宏观经济学的基石模型，
-将序列问题分解为递归为题，进而介绍确定性动态规划的基本理论方法。
-接着分析模型的动态特征，引入与其相关的均衡概念，并介绍这一模型的初步数值解法，为后续不确定性动态规划的学习奠定基础。
+动态规划是量化宏观经济学的基础。本章借助最优增长模型这一现代宏观经济学的基石模型（Workhouse Model），
+通过将原始的序列问题转化为递归形式问题，进而引入确定性动态规划的基本理论方法，建立了贝尔曼方程，对其解的存在性和相应性质进行分析，
+并介绍了这一模型的初步数值解法，为后续学习奠定基础。
 
 
 % ===== 1.1 确定性动态规划 =====
-\section{最优增长模型设定} \label{sec-ngm}
+\section{最优增长模型} \label{sec-ngm}
 
 现代增长理论始于Ramsey（1928）的经典论文，此后Solow（1956）和Swan（1956）的工作标志这新古典增长理论的诞生。
-Cass（1965）和Koopmans（1965）对新古典理论进行了扩展，引入家庭偏好，建立了最优增长的确定性理论。因此，
-最优增长模型通常被称为RCK模型（Ramsey-Cass-Koopmans Model）。
+
+首先回顾经典的Solow模型。总量生产函数：
+\begin{equation*}
+    Y_t = F\left(K_t, L_t\right)
+\end{equation*}
+
+Solow模型的主要问题在于，模型中储蓄率是外生给定的。Cass（1965）和Koopmans（1965）在Solow工作的基础上，对新古典理论进行了拓展，
+在模型中引入家庭偏好，同时将资本积累内生化，建立了确定性情形下的最优增长理论。因此最优增长模型通常被称为RCK模型（Ramsey-Cass-Koopmans Model）。
 
 典型的确定性最优增长模型形式如下：
 假设时间是离散且无穷的，由$t=0,1,\dots, \infty$表示，给定第0期资本存量：
@@ -72,7 +78,7 @@ $$-\lambda_t+\beta\lambda_{t+1}\left[1-\delta+f^{\prime}\left(k_{t+1}\right)\rig
 福利增加了$\lambda_t\epsilon$；从第0期看，则福利增加了$\beta^t\lambda_t$单位。
 合并两个一阶条件可得：
 $$
-\frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=1+f^{\prime}\left(k_{t+1}\right)-\delta
+\frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
 $$
 这一条件表明：计划者的最优选择是使得今明两天消费的MRS与MRT相等
 
@@ -84,9 +90,9 @@ $$
 \beta^T \lambda_T \geq 0, \quad k_{T+1} \geq 0, \quad \beta^T \lambda_T k_{T+1}=0
 $$
 这意味着在终期第$T$期选择的$k_{T+1}=0$或$k_{T+1}$的影子价值为0，因为不存在$T+1$期，从而在第$T$期选择$k_{T+1}$没有意义。
-又由于$\lambda_T=U^{\prime}\left(c_T\right)$，而模型\textbf{假设}$U^{\prime} > 0$，因此，终期T存在角点解：
+又由于$\lambda_T=u^{\prime}\left(c_T\right)$，而模型\textbf{假设}$u^{\prime} > 0$，因此，终期T存在角点解：
 $$k_{T+1}=0$$
-或者说，如果终期选择$k_{T+1}>0$，则计划者会余下未使用资源，在规范化假设下这不会是最优策略（因为$U^{\prime}>0$）。
+或者说，如果终期选择$k_{T+1}>0$，则计划者会余下未使用资源，在规范化假设下这不会是最优策略（因为$u^{\prime}>0$）。
 
 % 1.2.2 无限期情形
 \subsection{无限期情形} \label{subsec-infinit-h}
@@ -101,7 +107,7 @@ $$
 无限期最优增长模型中，计划者的最优配置$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$是符合
 如下欧拉方程（optimality）、资源约束（feasibility）和边界条件的一条\textbf{唯一路径}（unique path）：
 \begin{equation}    \label{eq-euler-sp}
-    \frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=1+f^{\prime}\left(k_{t+1}\right)-\delta
+    \frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
 \end{equation}
 \begin{equation}    \label{eq-res-const-sp}
     k_{t+1}=f\left(k_t\right)+(1-\delta) k_t-c_t
@@ -226,7 +232,7 @@ $$
 \end{itemize}
 包络定理表明，由于一阶条件的最优性，间接效应被抵消，因此只剩下直接效应。在动态规划问题中，上述条件也被称为\textbf{Benveniste-Schenkman条件}
 
-基于所得到的值函数导数$v^{\prime}\left(k\right)$公式\eqref{bs}，自然可知：
+基于所得到的值函数导数$v^{\prime}\left(k\right)$公式\eqref{bs}，容易得到：
 $$
 v^{\prime}\left(k^{\prime}\right)
     =u^{\prime}\left(\gamma\left(k^{\prime}\right)-g\left(k^{\prime}\right)\right)\gamma^{\prime}\left(k^{\prime}\right)
@@ -244,7 +250,7 @@ $$
 \end{equation*}
 式\eqref{func-euler}就是\textbf{欧拉方程（Euler Equation）}。回顾此前序列问题中得到的欧拉方程：
 $$
-\frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=1+f^{\prime}\left(k_{t+1}\right)-\delta
+\frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
 $$
 实际也符合这一形式，但其中的重要区别在于：序列问题的最优方程中，要求解的未知量是资本的无穷序列值；
 但递归问题的欧拉方程\eqref{func-euler}本质上是一个泛函，对所有$k$成立，\textbf{未知的是策略函数}$k^{\prime}=g\left(k\right)$。

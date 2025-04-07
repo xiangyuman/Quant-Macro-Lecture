@@ -2,15 +2,60 @@
 
 % 导言
 
-\chapter{完备市场理论：宏观经济学中的均衡}
+\chapter{完备市场理论与宏观经济学中的均衡}
 
 从最优增长的例子引出不同均衡概念，再抽象到AD上
+
 
 % 2.1 ==== 引出竞争均衡的概念
 \section{最优增长模型中的均衡分析}
 
+回顾第一章建立的确定性最优增长模型：我们将原始的序列问题（Sequence Problem）转化为了递归形式（Recursive Formulation），
+进而引入了动态规划的基本概念与方法，建立了如下形式的贝尔曼方程：
+$$
+v\left(k\right)=\max _{k^{\prime}}\left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+$$
+其中$\gamma\left(k\right)\equiv f\left(k\right)+\left(1-\delta\right)k$。通过对贝尔曼方程的研究，我们证明了值函数的存在性和唯一性，
+同时还发现，计划者序列问题的最优条件和递归形式的最优条件形式一致：
+\begin{equation*}    
+    u^{\prime}\left(\gamma\left(k_t\right)-k_{t+1}\right) = 
+        \beta u^{\prime}\left(\gamma\left(k_{t+1}\right)-k_{t+2}\right)\gamma^{\prime}\left(k_{t+1}\right)
+\end{equation*}
+等价于：
+\begin{equation*}
+    \begin{aligned}
+        u^{\prime}\left(f\left(k_t\right)+\left(1-\delta\right)k_t-k_{t+1}\right) &= 
+        \beta u^{\prime}\left(f\left(k_{t+1}\right)+\left(1-\delta\right)k_{t+1}-k_{t+2}\right)\left(f^{\prime}\left(k_{t+1}\right)+1-\delta\right) \\
+        u^{\prime}\left(c_t\right)&=\beta u^{\prime}\left(c_{t+1}\right)\left(f^{\prime}\left(k_{t+1}\right)+1-\delta\right)
+    \end{aligned}
+\end{equation*}
+在本节，我们将进一步研究：
+\begin{itemize}
+    \item 最优增长模型中的稳态
+    \item 最优增长模型中竞争均衡的定义
+    \item 竞争均衡的帕累托有效性
+\end{itemize}
+
+
 %
 \subsection{稳态、黄金率与平衡增长路径}
+
+\begin{definition}[\textbf{稳态}]
+    如果$k^*$满足：$k^*=g(k^*)$，则称$k^*$为一个稳态（Steady State）。
+\end{definition}
+
+\begin{property}[\textbf{稳态存在性}]
+    确定性最优增长模型存在唯一非零稳态。在稳态下，资本存量$k=k^*$，其中$k^*$满足：
+    $$1=\beta\left[f^{\prime}\left(k^*\right)+1-\delta\right]$$
+    也即：
+    \begin{equation} \label{eq-r-rho}
+        f^{\prime}\left(k^*\right)-\delta = \rho \equiv \frac{1}{\beta}-1
+    \end{equation}
+    其中$\rho$被称为时间贴现因子（time discount rate）。这一等式表明：稳态时储蓄的社会回报等于储蓄的社会成本（时间贴现因子）。
+\end{property}
+\begin{proof}
+    
+\end{proof}
 
 
 % Kruger Decentralized Equilibrium Lafo
@@ -46,6 +91,13 @@
 
 %
 \subsection{两种均衡的等价性}
+
+
+% Kruger 71
+\subsection{Recursive Comptetitive Equilibrium}
+
+在一些宏观模型中，均衡可能并非帕累托最优，也可能难以通过序列形式或Arrow-Debreu形式求解，这时我们通常会定义递归竞争均衡（Recursive Comptetitive Equilibrium）。
+
 
 
 % 完备市场的意义：perfect risk sharing % consumption smoothing
