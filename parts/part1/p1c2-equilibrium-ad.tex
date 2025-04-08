@@ -5,22 +5,164 @@
 \chapter{完备市场理论与宏观经济学中的均衡}
 
 目前为止，我们都是从\textbf{计划者}（Social Planner）角度和\textbf{代表性家庭}（同质家庭）的假设下处理最优增长模型。
-那么，如果市场结构是分散的（Decentralized），如何定义经济中的均衡？这样的市场结构下产生的均衡配置（allocation）有什么特征，和
-计划者配置下的均衡有什么关系？代表性家庭的设定有什么含义？
+那么，如果市场结构是分散的（Decentralized），即存在家庭和企业等在市场上的互动，如何定义经济中的均衡？
+这样的市场结构下产生的均衡配置（Equilibrium Allocation）有什么特征，和计划者配置下的均衡有什么关系？代表性家庭的设定为什么具有合理性？
 
-理解上述问题离不开宏观经济学中的一个重要概念：完备市场（Complete Market）。
-本章将先对完备市场理论进行介绍，引出两种市场交易结构和帕累托最优的概念（Jla、Edmond）；
+回答上述问题离不开宏观经济学中的一个重要理论：完备市场（Complete Market）。
+本章将先对完备市场理论进行介绍，引出两种市场交易结构下的竞争均衡（Competitive Equilibrium）和帕累托最优（Pareto Optimal / Efficiency）的概念；
 接着，借助相关概念定义竞争均衡，并将其运用在最优增长模型上，研究竞争均衡下的福利问题；
-最后，本章将介绍随机最优增长模型，在其上定义递归竞争均衡，引出后续对数值方法的进一步学习。
+最后，本章将介绍随机最优增长模型，在其上定义递归竞争均衡（Recursive Competetive Equilibrium，RCE），引出后续对数值方法的进一步学习。
+
+
+% 2.1 ==== Complete Market ====
+\section{完备市场理论}
+
+
+% 2.1.1 经济环境设定（LS / Edmond / JLao）
+\subsection{经济环境设定}
+
+经济的时间是离散且无穷的：$t=0,1,\cdots, \infty$。在每一期，都有一个\textbf{随机事件}（Stochastic Event）实现，记为：
+$$s_t\in S$$
+通常我们将其称之为\textbf{状态}（State）。集合$S$是所有可能发生的事件的集合。记截至$t$时刻，所有实现事件的\textbf{历史}（History）为：
+$$s^t = \left(s_0,s_1,\cdots,s_t\right) = \left(s^{t-1},s_t\right)$$
+历史$s^t$发生的\textbf{无条件概率}（Unconditional Probability）记为：
+$$\pi_t\left(s^t\right)$$
+对时刻$t>\tau$，记在$s^{\tau}$实现的条件下，观测到$s^t$实现的\textbf{条件概率}（Conditional Probability）为：
+$$\pi_t\left(s^t|s^{\tau}\right)$$
+在本章，我们始终假设交易在观测到$s_0$的实现后进行，也就是说：$\pi_0\left(s_0\right)=1$。此外，我们暂时无需假设马尔可夫性。
+
+经济中有$I$个个体（消费者），标记为$i=1,\cdots, I$。个体$i$获得的随机禀赋为$y_t^i\left(s^t\right)$，这一禀赋依赖于实现的事件历史$s^t$，
+同时历史$s^t$是公共可观测的。个体$i$选择历史依赖的消费计划（History-Dependent Consumption Plan）：
+$$
+c^i \equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}
+$$
+从而其偏好为：
+\begin{equation}    \label{eq-ad-preference}
+    \begin{aligned}
+        U\left(c^i\right) &\equiv \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) \\
+            &= \mathbb{E}_0 \sum_{t=0}^{\infty} \beta^t u\left(c_t^i\right)
+    \end{aligned}
+\end{equation}
+其中，$\mathbb{E}_0$是基于$s_0$的\textbf{条件期望}。效用$u$符合相关规范化假设，同时额外假设二次可微性。
+此外，假设个体间分享概率$\pi_t\left(s^t\right)$的信息，即可以不使用记号$\pi_t^i$。
+经济中的可行计划（Feasibale Allocation）满足资源约束：
+\begin{equation}    \label{eq-ad-resource-constraing}
+    \sum_i c_t^i\left(s^t\right) \leq \sum_i y_t^i\left(s^t\right), \quad \text { all } t, s^t
+\end{equation}
+
+
+% 2.1.2 两种交易结构（LS / Edmond）
+\subsection{两种交易结构}
+
+我们在此先介绍定义均衡所涉及的两种重要交易（市场）结构：
+
+（1）\textbf{阿罗-德布鲁交易}（Arrow-Debreu Trading / Structure） 
+
+在这一交易结构下，市场只在$t=0$时刻开放，消费者在市场上交易的是对所有未来时刻$t\geq 1$的消费品的索取权（Claims）。
+这些索取权是状态依存的（Contigent）——依赖于截至$t$时所有可能发生的事件历史$s^t$。消费者签订的合约也被称为\textbf{状态依存合约}（State-Contingent Claims）。
+在$t=0$时刻后，签订的合约生效，但没有额外交易再发生，因此这一交易结构也被称为\textbf{零时交易}（Time-Zero Trading）。
+\begin{definition}[状态依存合约（State-Contingent Claims）]
+    合约的支付依赖于未来某个事件（状态）$s^t$是否实现。例如如果未来可能发生$\{\text{晴天，下雨}\}$两种状态，消费者可以购买下雨时获得1单位消费品
+    和晴天时获得1单位消费品的合约。
+\end{definition}
+事实上，只要存在足够多的状态依存合约，市场就是\textbf{完备的}，消费者可以通过合约实现任意可行配置，对冲所有风险。
+
+图\ref{gr-admarket-tree}刻画了一个两状态马尔可夫链的阿罗-德布鲁商品空间。
+随机事件$s_t\in S=\{0,1\}$，站在$t=0$时刻，$s_0=1$给定，截至$t=3$时刻所有可能的事件历史有8种。
+在阿罗-德布鲁市场结构下，个体在$t=0$时对$t\geq3$时所有8个可能节点下的商品索取权进行交易。
+
+\begin{figure}
+    \includegraphics[width=1\textwidth]{figures/part1/p1c2-admarket-tree.png}
+    \caption{两状态马尔科夫链的阿罗-德布鲁商品空间}
+    \label{gr-admarket-tree}
+\end{figure}
+
+（2）\textbf{序贯交易}（Sequential Trading）
+
+与Arrow-Debreu市场不同，序贯交易是分阶段的市场交易。在这一交易结构下，市场每一期都会重新开放，但是市场上只存在一种
+单期状态依存合约（one-period-ahead state-contingent claims）。在$t$时刻，交易的范围仅针对已实现的$s^t$这一条件下所有可能的$s^{t+1}=\left(s^t,s_{t+1}\right)$。
+序贯交易市场也被称为\textbf{阿罗市场}（Arrow Market Structure）或Radner市场，其中的单期状态依存合约被称为\textbf{阿罗债券}（Arrow Securities）。
+
+图\ref{gr-sqmarket-tree}给出了两状态马尔可夫链在序贯交易市场下，截至$t=2$时刻实现的一个特定历史，和给定这一实现的历史下，$t=3$时刻的两种可能性。
+在$t=2$，个体仅能交易在当前历史$(0,0,1)$下所能达到的$t=3$时节点的商品。
+
+\begin{figure}
+    \includegraphics[width=1\textwidth]{figures/part1/p1c2-sqmarket-tree.png}
+    \caption{两状态马尔科夫链的阿罗-德布鲁商品空间}
+    \label{gr-sqmarket-tree}
+\end{figure}
+
+对于上述两种市场结构，很自然的问题是：
+\begin{itemize}
+    \item 两种市场中的均衡的配置相同吗，是帕累托最优的吗？
+    \item 消费者的最优配置是否依赖于历史（History-Dependent）？
+\end{itemize}
+
+我们将证明：两种市场交易结构会带来相同的帕累托最优配置，并且在完备市场下，$t$时刻的最优消费配置仅依赖部分刻画$t=0$时刻财富分布的时不变参数
+和$t$时刻经济所实现的总禀赋，不会依赖带来相应总禀赋的历史。
+
+
+% 2.1.3 计划者问题（Pareto Problem）
+\subsection{帕累托问题}
+
+在研究上述两种市场均衡配置的特征前，我们希望先定义一个基准配置用于进行比较，一个自然的想法是帕累托最优。
+帕累托最优表示：任意其他配置都不可能使一个个体变得更好的同时而不使其他人变得更差。如果一个配置是帕累托最优的，我们称其为有效（efficient）。
+我们可以通过为计划者（Social Planner）解如下\textbf{帕累托问题}（Pareto Problem）找到一个有效配置。
+
+计划者为每个个体$i=1,\cdots,I$选择$c^i \equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$来最大化如下目标：
+\begin{equation*}
+    W=\sum_{i=1}^I \lambda_i U_i\left(c^i\right)
+\end{equation*}
+其面临的资源约束为：
+\begin{equation*}
+    \sum_i c_t^i\left(s^t\right) \leq \sum_i y_t^i\left(s^t\right), \quad \text { for all } t, s^t
+\end{equation*}
+其中$\lambda_i$是非负的\textbf{帕累托权重}（Pareto Weights）。
+如果一个配置能构成一组非负权重下\textbf{上述问题的解}，我们就称这一配置为\textbf{帕累托有效}（Pareto Efficient）。
+对这一优化问题，构建拉格朗日函数：
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{L} &= \sum_i \lambda_i \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
+                    + \sum_{t=0}^{\infty} \sum_{s^t} \theta_t\left(s^t\right) \sum_i\left[y_t^i\left(s^t\right)-c_t^i\left(s^t\right)\right] \\
+                    &= \sum_{t=0}^{\infty} \sum_{s^t}
+                    \left\{\sum_{i=1}^I \lambda_i \beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
+                        +\theta_t\left(s^t\right) \sum_{i=1}^I\left[y_t^i\left(s^t\right)-c_t^i\left(s^t\right)\right]\right\} \\
+                    &= \sum_i \sum_{t=0}^{\infty} \sum_{s^t}
+                    \left\{\lambda_i \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
+                        +\theta_t\left(s^t\right)\left[y_t^i\left(s^t\right)-c_t^i\left(s^t\right)\right]\right\}
+    \end{aligned}
+\end{equation*}
+其中非负的$\theta_t\left(s^t\right)$为第$t$期和历史$s^t$对应约束的拉格朗日乘子。
+
+
+% 2.1.4 AD的均衡
+\subsection{Arrow-Debreu市场中的竞争均衡}
+
+
+% 2.1.5 S的均衡
+\subsection{序贯交易下的竞争均衡}
 
 
 
-% 2.1 ==== Kruger Decentralized Equilibrium Lafo
-\section{最优增长模型中的竞争均衡}
+% 2.1.6 代表性家庭的存在性
+\subsection{代表性家庭的存在性}
 
-目前为止，我们都是从\textbf{计划者}（Social Planner）角度和\textbf{代表性家庭}（同质家庭）的假设下处理最优增长模型。
-在后面我们将会证明，由此得到的配置（allocation）是帕累托有效（最优）的（Pareto Efficiency / Optimal）。从直觉上讲，
-如果这一问题下的最优配置不是帕累托有效的，那么计划者的目标效用函数就存在提高空间。
+
+% 完备市场的意义：perfect risk sharing % consumption smoothing
+%\subsection{完备市场的意义}
+
+
+% 2.2 ==== 资产定价
+\section{完备市场理论的应用：资产定价}
+
+
+
+% 2.3 ==== Kruger Decentralized Equilibrium Lafo
+\section{均衡概念的运用：最优增长模型}
+
+
+% 2.3.1 AD均衡
+\subsection{AD}
 
 为了更清晰的阐明宏观经济学中相关的均衡概念，现在先考虑如下问题：
 当模型中包含企业（firm）和消费者（consumer）在市场上的互动时，经济中的竞争均衡（Competitive Equilibrium）是怎样的？
@@ -28,8 +170,27 @@
 是完全竞争的（perfectly competitive），这意味着家庭和企业都将价格视为给定（take as given）。
 
 
-% 2.2 ==== 随机最优增长：引出不确定性的概念 Edmond
+% 2.3.2 ST均衡
+\subsection{ST}
+
+
+% 2.3.3 RCE
+\subsection{Recursive Comptetitive Equilibrium}
+
+在一些宏观模型中，均衡可能并非帕累托最优，也可能难以通过序列形式或Arrow-Debreu形式求解，这时我们通常会定义递归竞争均衡（Recursive Comptetitive Equilibrium）。
+
+不难发现，在对AD和ST进行介绍时，我们所解决问题的出发形式都是动态优化而不是此前介绍的递归形式（动态规划）。事实上，
+在递归方法下同样也可以定义均衡概念。同时，RCE时ST的递归表示。
+
+
+% 2.3.4 三种均衡概念的总结
+
+
+
+% 2.4 ==== 随机最优增长 Edmond
 \section{随机最优增长模型}
+
+Brock and Mirman（1972）首次在计划者问题下引入了随机TFP冲击，建立了随机最优增长模型，成为现代宏观模型的基准框架。
 
 
 % Edmond
@@ -37,43 +198,4 @@
 
 
 \subsection{recursive approach}
-
-
-% 2.3 ==== 完备市场理论：抽象
-\section{完备市场理论}
-
-
-%
-\subsection{计划者问题}
-
-
-% AD介绍、与Pareto均衡的关系 （equilibrium allocation vs. planning allocation） Kruger、Edmond
-\subsection{Arrow-Debreu Equilibrium}
-
-
-%
-\subsection{Sequential Equilibrium}
-
-
-%
-\subsection{两种均衡的等价性}
-
-
-% Kruger 71
-\subsection{Recursive Comptetitive Equilibrium}
-
-在一些宏观模型中，均衡可能并非帕累托最优，也可能难以通过序列形式或Arrow-Debreu形式求解，这时我们通常会定义递归竞争均衡（Recursive Comptetitive Equilibrium）。
-
-
-
-% 完备市场的意义：perfect risk sharing % consumption smoothing
-\subsection{完备市场的意义}
-
-
-% 
-\subsection{RA设定原理}
-
-
-% 2.4 ====
-\section{完备市场理论的应用：资产定价}
 
