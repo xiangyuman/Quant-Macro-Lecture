@@ -128,10 +128,10 @@ $$
 \begin{equation}    \label{eq-pareto-maxU}
     W=\sum_{i=1}^I \lambda_i U_i\left(c^i\right)
 \end{equation}
-其面临的资源约束为：
-\begin{equation}    \label{eq-pareto-rc}
+其面临的资源约束为\ref{eq-cm-rc}：
+\begin{equation*}    \label{eq-pareto-rc}
     \sum_i c_t^i\left(s^t\right) \leq \sum_i y_t^i\left(s^t\right), \quad \text { for all } t, s^t
-\end{equation}
+\end{equation*}
 其中$\lambda_i$是非负的\textbf{帕累托权重}（Pareto Weights）。
 如果一个配置能构成一组非负权重下\textbf{上述问题的解}，我们就称这一配置为\textbf{帕累托有效}（Pareto Efficient）。
 对这一优化问题，构建拉格朗日函数：
@@ -161,7 +161,7 @@ $$
 \begin{equation}    \label{eq-pareto-ci}
     c_t^i\left(s^t\right)=u_i^{\prime-1}\left(\frac{\lambda_1}{\lambda_i} u_1^{\prime}\left(c_t^1\left(s^t\right)\right)\right)
 \end{equation}
-这意味着任意个体的消费都可以写为关于个体1的消费$c_t^1\left(s^t\right)$的函数。进一步，将上式代入资源约束\ref{eq-pareto-rc}可得：
+这意味着任意个体的消费都可以写为关于个体1的消费$c_t^1\left(s^t\right)$的函数。进一步，将上式代入资源约束\ref{eq-cm-rc}可得：
 \begin{equation}    \label{eq-pareto-c1}
     \sum_i u_i^{\prime-1}\left(\frac{\lambda_1}{\lambda_i} u_1^{\prime}\left(c_t^1\left(s^t\right)\right)\right)
         =\sum_i y_t^i\left(s^t\right) \equiv Y_t\left(s^t\right), \quad \text { for all } t, s^t
@@ -170,7 +170,7 @@ $$
 右侧对$i$的求和可以定义为经济的\textbf{总禀赋}，而由于帕累托权重$\{\lambda_i\}_{i=1}^I$是一组给定的参数，因此左侧对$i$求和后也与个体$i$无关，
 进而可以从中解出$c_t^1\left(s^t\right)$。
 
-进一步观察式\ref{eq-pareto-c1}可知，给定一组参数$\{\lambda_i\}_{i=1}^I$，$c_t^1\left(s^t\right)$\textbf{只依赖当前实现的总禀赋}
+进一步观察式\ref{eq-pareto-c1}可知，给定一组外生参数$\{\lambda_i\}_{i=1}^I$，$c_t^1\left(s^t\right)$\textbf{只依赖当前实现的总禀赋}
 （current relization of the aggregate endowment），既不依赖时刻$t$，也不依赖特定的能够带来当前总禀赋的历史$s^t$
 或是在$t$时刻个体禀赋的分布。
 同时，式\ref{eq-pareto-ci}将$c_t^i$表为了$c_t^1\left(s^t\right)$的函数，从而可得其余所有个体的消费配置$c_t^i\left(s^t\right)$：
@@ -201,7 +201,7 @@ $$
 阿罗德布鲁均衡时竞争均衡在完备市场下的实现形式。
 
 回顾我们在本章开头提出的问题，计划者问题中的帕累托均衡是否能通过\textbf{市场配置}或者说\textbf{价格机制}实现？
-我们之前已经介绍了阿罗-德布鲁市场和序贯市场两种市场结构，在本节，
+我们之前已经介绍了阿罗-德布鲁市场和序贯市场两种市场结构，本节先研究前者，
 我们将会证明：帕累托最优可以由Arrow-Debrue市场下的一组竞争均衡（Competitive Equilibrium）实现。
 
 交易在$t=0$时发生，$s_0$已经实现。消费者只能在$t=0$时刻购买或售出未来$t$时刻消费品的索取权，这些权利依历史$s^t$而定（contingent on history $s^t$）。
@@ -210,18 +210,156 @@ $$
 因此被称为阿罗-德布鲁价格（Arrow-Debreu Price）。
 个体$i$\textbf{将价格视为给定}，面临预算约束：
 
-\begin{equation}    \label{eq-ad-rc}
+\begin{equation}    \label{eq-ad-bc}
     \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) c_t^i\left(s^t\right) 
         \leq \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) y_t^i\left(s^t\right)
 \end{equation}
 方程右侧表示零时刻个体$i$未来禀赋的价值（即初始财富），左侧是表示其消费在零时刻的价值。
-需要强调，个体$i$面临的预算约束是\textbf{单一}（single）的一个方程。原因在于：在阿罗-德布鲁市场中，所有交易都生在零时刻。
-个体$i$的目标是选择$c^i\equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$来最大化效用函数\ref{eq-cm-preference-i}：
+需要强调，个体$i$面临的预算约束是\textbf{单一}（single）的一个方程。原因在于：在阿罗-德布鲁市场中，所有交易都在零时刻进行。
+个体$i$的目标是选择$c^i\equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$来最大化自身效用函数\ref{eq-cm-preference-i}：
 \begin{equation*}
     U_i\left(c^i\right)=\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u_i\left[c_t^i\left(s^t\right)\right] \pi_t\left(s^t\right)
 \end{equation*}
+记与个体$i$资源约束相关的拉格朗日乘子为$\mu_i$，则拉格朗日方程为：
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{L} &=\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) 
+            +\mu_i \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right)\left[y_t^i\left(s^t\right)-c_t^i\left(s^t\right)\right] \\
+            &= \sum_{t=0}^{\infty} \sum_{s^t}\left\{\beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
+                +\mu_i q_t^0\left(s^t\right)\left[y_t^i\left(s^t\right)-c_t^i\left(s^t\right)\right]\right\}
+    \end{aligned}
+\end{equation*}
+关于$c_t^i\left(s^t\right)$的FOC为：
+\begin{equation}    \label{eq-ad-foc}
+    \beta^t u_i^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)=\mu_i q_t^0\left(s^t\right), \quad \text { for all } t, s^t
+\end{equation}
+
+\begin{definition}
+    \textbf{价格体系}（Price System）由一组函数序列$\{q_t^0\left(s^t\right)\}_{t=0}^{\infty}$构成；
+    \textbf{配置}（Allocation）$\{c^i\}_{i=1}^{I}$集成了每个个体$i$的消费函数序列$c^i=\{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$
+\end{definition}
+
+\begin{definition}[\textbf{竞争均衡}]
+    竞争均衡（Comptetitive Equilibrium）由一个\textbf{价格体系}$\{q_t^0\left(s^t\right)\}_{t=0}^{\infty}$
+    和一组\textbf{可行配置}（Feasible Allocation）$\{c^i\}_{i=1}^{I}$构成，在竞争均衡下：
+    \begin{itemize}
+        \item 给定价格体系，相应配置构成个体最优化问题的解；
+        \item 相应配置使市场出清：$\sum_i c_t^i\left(s^t\right) \leq \sum_i y_t^i\left(s^t\right), \quad \text { for all } t, s^t$
+    \end{itemize}
+    
+\end{definition}
+
+回到一阶条件，不难看出，个体$(i,j)$间边际效用的比值关于所有历史和时间都是不变的：
+\begin{equation}
+    \frac{u_i^{\prime}\left[c_t^i\left(s^t\right)\right]}{u_j^{\prime}\left[c_t^j\left(s^t\right)\right]}=\frac{\mu_i}{\mu_j}
+\end{equation}
+与处理计划者帕累托问题的方法相似，不失一般性地取个体$i$和个体$1$，从而有：
+\begin{equation}    \label{eq-ad-ci}
+    c_t^i\left(s^t\right)=u_i^{\prime-1}\left(\frac{\mu_i}{\mu_1} u^{\prime}\left(c_t^1\left(s^t\right)\right)\right)
+\end{equation}
+同样，将其带入经济的资源约束\ref{eq-cm-rc}可得：
+\begin{equation}    \label{eq-ad-c1}
+    \sum_i u^{\prime-1}\left(\frac{\mu_i}{\mu_1} u^{\prime}\left(c_t^1\left(s^t\right)\right)\right)=\sum_i y_t^i\left(s^t\right)
+        \equiv Y_t\left(s^t\right)
+\end{equation}
+和帕累托问题一致，方程右侧式当前实现的总禀赋。
+由此式，我们可以去求解$c_t^1\left(s^t\right)$，它仅依赖于当前的总禀赋和一个比值序列$\{\frac{\mu_i}{\mu_1}\}_{i=2}^{\infty}$。
+由\ref{eq-ad-ci}式我们就能解得其余所有个体的消费配置。均衡消费具有形式：
+\begin{equation*}
+    c_t^i=g\left(\mu_i, Y_t ; \boldsymbol{\mu}\right)
+\end{equation*}
+
+\begin{property}
+    阿罗-德布鲁市场中的竞争均衡具有如下特征：
+    \begin{itemize}
+        \item 历史无关，只依赖当前实现的总禀赋；
+        \item 与$t$时刻个体禀赋的分布无关；
+        \item $g$是时不变的。
+    \end{itemize}
+\end{property}
+
+但需要注意的是，对于阿罗-德布鲁市场，我们此时\textbf{尚未得到一般均衡问题的解}。
+在计划者的帕累托问题中，我们通过比值消去了乘子$\theta_t\left(s^t\right)$，其解$c_t^i\left(s^t\right)$只与总禀赋和权重比值有关，
+而对计划者而言，权重是一组外生参数，因此解相对容易。
+但对于阿罗-德布鲁市场中的问题，我们在求解$c_t^i\left(s^t\right)$时还有内生的乘子向量$\boldsymbol{\mu}=(\mu_1,\cdots,\mu_I)$未知。
+换句话说，竞争均衡是由\textbf{数量-价格}体系构成的，除了数量，我们还需要求解价格。
 
 
+% 2.1.4.1
+\subsubsection{竞争均衡价格}
+
+一个自然的想法是通过每个个体的预算约束\ref{eq-ad-bc}来求解价格体系或乘子向量，因为截至目前我们仍未使用这一条件。
+对每个个体$i$，将均衡配置$c_t^i=g\left(\mu_i, Y_t ; \boldsymbol{\mu}\right)$带入预算约束：
+\begin{equation*}
+    \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) g\left(\mu_i, Y_t ; \boldsymbol{\mu}\right)
+        =\sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) y_t^i\left(s^t\right), \quad \text { all } i
+\end{equation*}
+不难看出，可以构建出关于$I$个未知量$\mu_i$的$I$个非线性方程。由\ref{eq-ad-ci}可知，$\mu_i$以$\mu_i/\mu_1$的形式进入函数$g(\cdot)$，
+因此我们可以正则化后进行求解。并且由\ref{eq-ad-c1}式，乘子$\mu_i$是依赖于财富分布的，二者反相关。
+
+事实上，也可以从下面的视角进行理解：假设$\{c^i\}_{i=1}^{I}$是一个均衡配置，则一阶条件\ref{eq-ad-foc}式：
+\begin{equation*} 
+    \beta^t u_i^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)=\mu_i q_t^0\left(s^t\right), \quad \text { for all } t, s^t
+\end{equation*}
+可以看作将价格体系$q_t^0\left(s^t\right)$描述为任意个体$i$的均衡配置的函数。因此，我们需要一个计算方法，使得可以先避开价格的计算就得到均衡配置。
+我们下面将看到，通过解计划者问题将会提供极大的方便。
+此外，由于价格体系的单位是任意的，因此其中一个价格可以被正则化，我们通常选择
+$q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意味着：$\mu_i = u_i^{\prime}\left(c_0^i\left(s_0\right)\right)$。
+
+
+% 2.1.4.2
+\subsubsection{阿罗-德布鲁均衡配置}
+
+我们还未回答的一个重要问题是：阿罗-德布鲁市场中的竞争均衡和社会计划者的帕累托最优均衡有什么关系。
+回顾计划者问题中所得的条件\ref{eq-pareto-ci}和\ref{eq-pareto-c1}：
+\begin{equation*}
+    \begin{aligned}
+        c_t^i\left(s^t\right)&=u_i^{\prime-1}\left(\frac{\lambda_1}{\lambda_i} u_1^{\prime}\left(c_t^1\left(s^t\right)\right)\right) \\
+        \sum_i u_i^{\prime-1}\left(\frac{\lambda_1}{\lambda_i} u_1^{\prime}\left(c_t^1\left(s^t\right)\right)\right)
+            &=\sum_i y_t^i\left(s^t\right) \equiv Y_t\left(s^t\right), \quad \text { for all } t, s^t
+    \end{aligned}
+\end{equation*}
+与阿罗-德布鲁市场中竞争均衡问题所得的条件\ref{eq-ad-ci}和\ref{eq-ad-c1}：
+\begin{equation*}
+    \begin{aligned}
+        c_t^i\left(s^t\right) &= u_i^{\prime-1}\left(\frac{\mu_i}{\mu_1} u^{\prime}\left(c_t^1\left(s^t\right)\right)\right) \\
+        \sum_i u^{\prime-1}\left(\frac{\mu_i}{\mu_1} u^{\prime}\left(c_t^1\left(s^t\right)\right)\right)
+            &=\sum_i y_t^i\left(s^t\right)\equiv Y_t\left(s^t\right)
+    \end{aligned}
+\end{equation*}
+对帕累托问题，权重$\boldsymbol{\lambda}$是一组外生参数，当其变化时，帕累托最优配置就可以构成一个前沿集合，也就是说帕累托均衡不止一个。
+对比两个问题的最优条件发现，\textbf{竞争均衡配置就是一个特殊的帕累托最优配置}，其满足$\lambda_i = \mu_i^{-1}$。
+同时，由于乘子$\mu_i$与个体$i$的财富反相关，这说明：竞争均衡意味着计划者给予了穷人更低的权重。
+
+此外，在竞争均衡时，对应计划者问题的资源约束（注意不是预算约束）的影子价格$\theta_t\left(s^t\right)$等于竞争均衡价格$q_t^0\left(s^t\right)$。
+
+
+% 2.1.4.3 
+\subsubsection{福利经济学定理}
+
+通过对比计划者问题的一阶条件\ref{eq-pareto-foc}：
+\begin{equation*}
+    \lambda_i \beta^t u_i^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)=\theta_t\left(s^t\right), \quad \text { for all } i, t, s^t
+\end{equation*}
+和阿罗-德布鲁均衡的一阶条件\ref{eq-ad-foc}：
+\begin{equation*}
+    \beta^t u_i^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)=\mu_i q_t^0\left(s^t\right), \quad \text { for all } t, s^t
+\end{equation*}
+可知，当竞争均衡是帕累托最优，即$\lambda_i = \mu_i^{-1}$时，
+应计划者问题的资源约束（注意不是预算约束）的影子价格$\theta_t\left(s^t\right)$等于竞争均衡价格$q_t^0\left(s^t\right)$。
+
+% 2.1.4.4
+\subsubsection{竞争均衡的算法}
+
+我们已经得到，想要求解竞争均衡（数量-价格），必须要得到\ref{eq-ad-ci}和\ref{eq-ad-c1}式中的比值$\mu_i/\mu_1, \quad i=1,\cdots,I$。
+下面的\textit{Negishi}算法可以完成这项工作：
+\begin{itemize}
+    \item 任意选取一个$\mu_i$，例如$\mu_1$，使其始终取一个固定的正数（正则化）。猜测其余$\mu_i$的取值，然后从过\ref{eq-ad-ci}和\ref{eq-ad-c1}式
+        解得一个候选的配置$c^i, i=1,\cdots,I$
+    \item 对任意一个个体$i$，利用一阶条件\ref{eq-ad-foc}求得价格体系$q_t^0\left(s^t\right)$
+    \item 对$i=1,\cdots,I$，检查预算约束\ref{eq-ad-bc}是否满足。若某一个体$i$的消费花费超过了其财富，那么提高其乘子$\mu_i$猜测值；反之降低
+    \item 迭代上述至收敛。
+\end{itemize}
 
 
 % 2.1.5 S的均衡
