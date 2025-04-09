@@ -5,13 +5,18 @@
 \chapter{完备市场理论与宏观经济学中的均衡}
 
 目前为止，我们都是从\textbf{计划者}（Social Planner）角度和\textbf{代表性家庭}（同质家庭）的假设下处理最优增长模型。
-那么，如果市场结构是分散的（Decentralized），即存在家庭和企业等在市场上的互动，如何定义经济中的均衡？
-这样的市场结构下产生的均衡配置（Equilibrium Allocation）有什么特征，和计划者配置下的均衡有什么关系？代表性家庭的设定为什么具有合理性？
+在计划者问题中，计划者能够直接配置资源而不需要通过市场调节，因此价格并没有显示出现在优化问题中。
+那么，计划者问题中的均衡能通过\textbf{市场配置}或者说\textbf{价格机制}实现吗？
+即：如果经济是分散的（Decentralized Economy），存在家庭和企业等在市场上的互动，如何定义经济中的均衡，价格在其中起到什么作用？
+这一均衡产生的配置有什么特征，和计划者问题中的均衡配置有什么关系？
+代表性家庭的设定为什么具有合理性？
 
-回答上述问题离不开宏观经济学中的一个重要理论：完备市场（Complete Market）。
-本章将先对完备市场理论进行介绍，引出两种市场交易结构下的竞争均衡（Competitive Equilibrium）和帕累托最优（Pareto Optimal / Efficiency）的概念；
-接着，借助相关概念定义竞争均衡，并将其运用在最优增长模型上，研究竞争均衡下的福利问题；
-最后，本章将介绍随机最优增长模型，在其上定义递归竞争均衡（Recursive Competetive Equilibrium，RCE），引出后续对数值方法的进一步学习。
+回答上述问题离不开宏观经济学中的一个重要理论：完备市场（Complete Market）理论。
+首先，本章将介绍\textbf{阿罗-德布鲁市场}和\textbf{序贯市场}两种不同的市场交易结构下；
+其次，研究这两种市场结构下竞争均衡与计划者问题（帕累托问题）均衡的关系，引出完备市场的概念，并证明代表性家庭的存在性；
+再次，引用完备市场理论讨论资产定价问题；
+接着，将相关均衡概念运用于一个分散经济下的最优增长模型，并进一步介绍递归均衡（Recursive Equilibrium）的概念；
+最后，本章将介绍随机最优增长模型，引出后续对数值方法的进一步学习。
 
 
 % 2.1 ==== Complete Market ====
@@ -36,17 +41,18 @@ $$\pi_t\left(s^t|s^{\tau}\right)$$
 $$
 c^i \equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}
 $$
-从而其偏好为：
-\begin{equation}    \label{eq-ad-preference}
+个体$i$的偏好为：
+\begin{equation}    \label{eq-cm-preference-i}
     \begin{aligned}
-        U\left(c^i\right) &\equiv \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) \\
-            &= \mathbb{E}_0 \sum_{t=0}^{\infty} \beta^t u\left(c_t^i\right)
+        U_i\left(c^i\right) &\equiv \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) \\
+            &= \mathbb{E}_0 \sum_{t=0}^{\infty} \beta^t u_i\left(c_t^i\right)
     \end{aligned}
 \end{equation}
-其中，$\mathbb{E}_0$是基于$s_0$的\textbf{条件期望}。效用$u$符合相关规范化假设，同时额外假设二次可微性。
+其中，$\mathbb{E}_0$是基于$s_0$的\textbf{条件期望}。注意这里效用函数除了其自变量的下标不同，
+同时我们也允许不同个体效用函数本身结构的差异，即效用函数具有下标，即$u_i$，但所有个体的效用$u_i$都符合相关规范化假设，同时假设二次可微性。
 此外，假设个体间分享概率$\pi_t\left(s^t\right)$的信息，即可以不使用记号$\pi_t^i$。
 经济中的可行计划（Feasibale Allocation）满足资源约束：
-\begin{equation}    \label{eq-ad-resource-constraing}
+\begin{equation}    \label{eq-cm-rc}
     \sum_i c_t^i\left(s^t\right) \leq \sum_i y_t^i\left(s^t\right), \quad \text { all } t, s^t
 \end{equation}
 
@@ -54,18 +60,23 @@ $$
 % 2.1.2 两种交易结构（LS / Edmond）
 \subsection{两种交易结构}
 
-我们在此先介绍定义均衡所涉及的两种重要交易（市场）结构：
-
-（1）\textbf{阿罗-德布鲁交易}（Arrow-Debreu Trading / Structure） 
-
-在这一交易结构下，市场只在$t=0$时刻开放，消费者在市场上交易的是对所有未来时刻$t\geq 1$的消费品的索取权（Claims）。
-这些索取权是状态依存的（Contigent）——依赖于截至$t$时所有可能发生的事件历史$s^t$。消费者签订的合约也被称为\textbf{状态依存合约}（State-Contingent Claims）。
-在$t=0$时刻后，签订的合约生效，但没有额外交易再发生，因此这一交易结构也被称为\textbf{零时交易}（Time-Zero Trading）。
+完备市场是宏观经济学中的重要概念，它是指：经济中存在足够多的金融工具（如状态依存债券），等于未来所有可能的状态数，
+个体通过交易这些工具构建资产组合，进而能够实现任意可行配置，对冲所有风险。
 \begin{definition}[状态依存合约（State-Contingent Claims）]
     合约的支付依赖于未来某个事件（状态）$s^t$是否实现。例如如果未来可能发生$\{\text{晴天，下雨}\}$两种状态，消费者可以购买下雨时获得1单位消费品
     和晴天时获得1单位消费品的合约。
 \end{definition}
-事实上，只要存在足够多的状态依存合约，市场就是\textbf{完备的}，消费者可以通过合约实现任意可行配置，对冲所有风险。
+
+通过如下两种经典的市场结构，可以实现市场的完备性，我们在此分别介绍。
+
+（1）\textbf{阿罗-德布鲁市场}（Arrow-Debreu Market） 
+
+在Arrow-Debreu结构下，市场只在$t=0$时刻开放，消费者在市场上交易的是对所有未来时刻$t\geq 1$的消费品的索取权（Claims）。
+这些索取权是状态依存的（Contigent）——依赖于截至$t$时所有可能发生的事件历史$s^t$。消费者签订的合约也被称为\textbf{状态依存合约}（State-Contingent Claims）。
+在$t=0$时刻后，签订的合约生效，但没有额外交易再发生，因此这一交易结构也被称为\textbf{零时交易}（Time-Zero Trading）。
+
+在阿罗-德布鲁市场中，由于能交易所有未来时间和可能状态下的消费品索取权（工具足够多），因此阿罗-德布鲁市场天然满足完备市场的定义。
+
 
 图\ref{gr-admarket-tree}刻画了一个两状态马尔可夫链的阿罗-德布鲁商品空间。
 随机事件$s_t\in S=\{0,1\}$，站在$t=0$时刻，$s_0=1$给定，截至$t=3$时刻所有可能的事件历史有8种。
@@ -77,13 +88,16 @@ $$
     \label{gr-admarket-tree}
 \end{figure}
 
-（2）\textbf{序贯交易}（Sequential Trading）
+（2）\textbf{序贯市场}（Sequential Market）
 
-与Arrow-Debreu市场不同，序贯交易是分阶段的市场交易。在这一交易结构下，市场每一期都会重新开放，但是市场上只存在一种
-单期状态依存合约（one-period-ahead state-contingent claims）。在$t$时刻，交易的范围仅针对已实现的$s^t$这一条件下所有可能的$s^{t+1}=\left(s^t,s_{t+1}\right)$。
-序贯交易市场也被称为\textbf{阿罗市场}（Arrow Market Structure）或Radner市场，其中的单期状态依存合约被称为\textbf{阿罗债券}（Arrow Securities）。
+与Arrow-Debreu市场不同，序贯市场中的交易是分阶段进行的。在这一结构下，市场每一期都会重新开放，但是市场上只存在一种
+单期状态依存合约（one-period-ahead state-contingent claims）。在$t$时刻，交易的范围仅针对已实现的历史$s^t$这一条件下所有可能的$s^{t+1}=\left(s^t,s_{t+1}\right)$。
+序贯市场也被称为\textbf{阿罗市场}（Arrow Market）或Radner市场，其中的单期状态依存合约被称为\textbf{阿罗债券}（Arrow Securities）。
 
-图\ref{gr-sqmarket-tree}给出了两状态马尔可夫链在序贯交易市场下，截至$t=2$时刻实现的一个特定历史，和给定这一实现的历史下，$t=3$时刻的两种可能性。
+同样，如果存在足够多的阿罗债券，序贯市场也可以达到完备。但是，如果交易工具不足，则序贯交易可能无法达成完备性。
+例如我们在后面不完备市场理论中将会看到的，若经济中仅存在单期无风险债券，则市场是不完备的。
+
+图\ref{gr-sqmarket-tree}给出了两状态马尔可夫链在序贯市场下，截至$t=2$时刻实现的一个特定历史，和给定这一实现的历史下，$t=3$时刻的两种可能性。
 在$t=2$，个体仅能交易在当前历史$(0,0,1)$下所能达到的$t=3$时节点的商品。
 
 \begin{figure}
@@ -92,9 +106,10 @@ $$
     \label{gr-sqmarket-tree}
 \end{figure}
 
-对于上述两种市场结构，很自然的问题是：
+两种市场结构对比而言，阿罗-德布鲁市场更近似一个理论基准，而序贯交易更贴近于现实市场。
+此外，对于上述两种市场结构，我们很自然的会想到：
 \begin{itemize}
-    \item 两种市场中的均衡的配置相同吗，是帕累托最优的吗？
+    \item 两种市场中的均衡的配置相同吗，与计划者均衡配置有什么关系？
     \item 消费者的最优配置是否依赖于历史（History-Dependent）？
 \end{itemize}
 
@@ -110,37 +125,107 @@ $$
 我们可以通过为计划者（Social Planner）解如下\textbf{帕累托问题}（Pareto Problem）找到一个有效配置。
 
 计划者为每个个体$i=1,\cdots,I$选择$c^i \equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$来最大化如下目标：
-\begin{equation*}
+\begin{equation}    \label{eq-pareto-maxU}
     W=\sum_{i=1}^I \lambda_i U_i\left(c^i\right)
-\end{equation*}
+\end{equation}
 其面临的资源约束为：
-\begin{equation*}
+\begin{equation}    \label{eq-pareto-rc}
     \sum_i c_t^i\left(s^t\right) \leq \sum_i y_t^i\left(s^t\right), \quad \text { for all } t, s^t
-\end{equation*}
+\end{equation}
 其中$\lambda_i$是非负的\textbf{帕累托权重}（Pareto Weights）。
 如果一个配置能构成一组非负权重下\textbf{上述问题的解}，我们就称这一配置为\textbf{帕累托有效}（Pareto Efficient）。
 对这一优化问题，构建拉格朗日函数：
 \begin{equation*}
     \begin{aligned}
-        \mathcal{L} &= \sum_i \lambda_i \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
+        \mathcal{L} &= \sum_i \lambda_i \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
                     + \sum_{t=0}^{\infty} \sum_{s^t} \theta_t\left(s^t\right) \sum_i\left[y_t^i\left(s^t\right)-c_t^i\left(s^t\right)\right] \\
                     &= \sum_{t=0}^{\infty} \sum_{s^t}
                     \left\{\sum_{i=1}^I \lambda_i \beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
                         +\theta_t\left(s^t\right) \sum_{i=1}^I\left[y_t^i\left(s^t\right)-c_t^i\left(s^t\right)\right]\right\} \\
                     &= \sum_i \sum_{t=0}^{\infty} \sum_{s^t}
-                    \left\{\lambda_i \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
+                    \left\{\lambda_i \beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
                         +\theta_t\left(s^t\right)\left[y_t^i\left(s^t\right)-c_t^i\left(s^t\right)\right]\right\}
     \end{aligned}
 \end{equation*}
 其中非负的$\theta_t\left(s^t\right)$为第$t$期和历史$s^t$对应约束的拉格朗日乘子。
+从这一优化问题的形式上看，计划者实际面临的是一个静态问题（Static Problem）序列，因为问题中并不涉及跨期变量。
+具体看，对$c_t^i\left(s^t\right)$求解FOC得：
+\begin{equation}    \label{eq-pareto-foc}
+    \lambda_i \beta^t u_i^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)=\theta_t\left(s^t\right), \quad \text { for all } i, t, s^t
+\end{equation}
+不失一般性，取个体$i$和个体$1$，将他们的FOC结合可得：
+\begin{equation}    \label{eq-pareto-r-foc}
+    \frac{u_i^{\prime}\left(c_t^i\left(s^t\right)\right)}{u_1^{\prime}\left(c_t^1\left(s^t\right)\right)}=\frac{\lambda_1}{\lambda_i}
+\end{equation}
+也即：
+\begin{equation}    \label{eq-pareto-ci}
+    c_t^i\left(s^t\right)=u_i^{\prime-1}\left(\frac{\lambda_1}{\lambda_i} u_1^{\prime}\left(c_t^1\left(s^t\right)\right)\right)
+\end{equation}
+这意味着任意个体的消费都可以写为关于个体1的消费$c_t^1\left(s^t\right)$的函数。进一步，将上式代入资源约束\ref{eq-pareto-rc}可得：
+\begin{equation}    \label{eq-pareto-c1}
+    \sum_i u_i^{\prime-1}\left(\frac{\lambda_1}{\lambda_i} u_1^{\prime}\left(c_t^1\left(s^t\right)\right)\right)
+        =\sum_i y_t^i\left(s^t\right) \equiv Y_t\left(s^t\right), \quad \text { for all } t, s^t
+\end{equation}
+注意到，式\ref{eq-pareto-c1}是关于$c_1^t\left(s^t\right)$的单一非线性方程（Single Nonlinear Equation）。
+右侧对$i$的求和可以定义为经济的\textbf{总禀赋}，而由于帕累托权重$\{\lambda_i\}_{i=1}^I$是一组给定的参数，因此左侧对$i$求和后也与个体$i$无关，
+进而可以从中解出$c_t^1\left(s^t\right)$。
+
+进一步观察式\ref{eq-pareto-c1}可知，给定一组参数$\{\lambda_i\}_{i=1}^I$，$c_t^1\left(s^t\right)$\textbf{只依赖当前实现的总禀赋}
+（current relization of the aggregate endowment），既不依赖时刻$t$，也不依赖特定的能够带来当前总禀赋的历史$s^t$
+或是在$t$时刻个体禀赋的分布。
+同时，式\ref{eq-pareto-ci}将$c_t^i$表为了$c_t^1\left(s^t\right)$的函数，从而可得其余所有个体的消费配置$c_t^i\left(s^t\right)$：
+同样是只依赖于所实现的总禀赋的。至此，我们就得到了计划者在参数$\{\lambda_i\}_{i=1}^I$下的一个帕累托有效配置，且均衡解的形式为：
+\begin{equation*}
+    c_t^i\left(s^t\right) = f\left(\lambda_i, Y_t ; \boldsymbol{\lambda}\right)
+\end{equation*}
+
+\begin{property}
+    对于计划者的帕累托问题，一组有效配置具有如下特征：
+    \begin{itemize}
+        \item 历史关的（\textit{history-independent or history-free}：当前的$Y_t$是所有历史的充分统计量）；
+        \item 与$t$时刻个体禀赋的分布无关（\textit{Distribution-free}：只有求和后的$Y_t$重要）；
+        \item 也就是说，这组配置是经济所实现的总禀赋的时不变函数（$f$ \textit{time-invariant}）。
+    \end{itemize}
+\end{property}
+
+至此，我们通过求解计划者的帕累托问题，建立了一个基准均衡配置。这一均衡是帕累托有效的，因为计划者不可能使某一个体变好而不使其他人变差。
+从计算的角度看：我们通过式\ref{eq-pareto-c1}解出$c_t^1\left(s^t\right)$，
+再通过式\ref{eq-pareto-ci}解出其余个体的$c_t^i\left(s^t\right)$。并且由式\ref{eq-pareto-ci}可知：
+只有不同个体间帕累托权重的比值是值得关注的。因此，我们可以进行正则化，将权重和定为1：$\sum_{i}\lambda_i = 1$。
+由于每个个体的消费配置只是总禀赋的函数，因此其个体消费与总禀赋（总消费）完全相关，并且所占份额与其所分配得的帕累托权重相关。
 
 
 % 2.1.4 AD的均衡
 \subsection{Arrow-Debreu市场中的竞争均衡}
 
+阿罗德布鲁均衡时竞争均衡在完备市场下的实现形式。
+
+回顾我们在本章开头提出的问题，计划者问题中的帕累托均衡是否能通过\textbf{市场配置}或者说\textbf{价格机制}实现？
+我们之前已经介绍了阿罗-德布鲁市场和序贯市场两种市场结构，在本节，
+我们将会证明：帕累托最优可以由Arrow-Debrue市场下的一组竞争均衡（Competitive Equilibrium）实现。
+
+交易在$t=0$时发生，$s_0$已经实现。消费者只能在$t=0$时刻购买或售出未来$t$时刻消费品的索取权，这些权利依历史$s^t$而定（contingent on history $s^t$）。
+又被称为阿罗-德布鲁债券（Arrow-Debreu Security）。
+记$q_t^0\left(s_t\right)$为$t=0$时交易的阿罗-德布鲁债券的价格：他表示约定了在时间$t$和历史$s^t$实现时交割1单位消费品的阿罗-德布鲁债券的价格，
+因此被称为阿罗-德布鲁价格（Arrow-Debreu Price）。
+个体$i$\textbf{将价格视为给定}，面临预算约束：
+
+\begin{equation}    \label{eq-ad-rc}
+    \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) c_t^i\left(s^t\right) 
+        \leq \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) y_t^i\left(s^t\right)
+\end{equation}
+方程右侧表示零时刻个体$i$未来禀赋的价值（即初始财富），左侧是表示其消费在零时刻的价值。
+需要强调，个体$i$面临的预算约束是\textbf{单一}（single）的一个方程。原因在于：在阿罗-德布鲁市场中，所有交易都生在零时刻。
+个体$i$的目标是选择$c^i\equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$来最大化效用函数\ref{eq-cm-preference-i}：
+\begin{equation*}
+    U_i\left(c^i\right)=\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u_i\left[c_t^i\left(s^t\right)\right] \pi_t\left(s^t\right)
+\end{equation*}
+
+
+
 
 % 2.1.5 S的均衡
-\subsection{序贯交易下的竞争均衡}
+\subsection{序贯市场下的竞争均衡}
 
 
 

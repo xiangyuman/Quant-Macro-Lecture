@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  9 APR 2025 00:19
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  9 APR 2025 18:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1066,14 +1066,15 @@ Chapter 2.
 ] [35]
 File: figures/part1/p1c2-admarket-tree.png Graphic file (type bmp)
 <figures/part1/p1c2-admarket-tree.png>
+ [36]
 File: figures/part1/p1c2-sqmarket-tree.png Graphic file (type bmp)
 <figures/part1/p1c2-sqmarket-tree.png>
- [36] [37] [38]) [39]
+ [37] [38] [39] [40]) [41] [42]
 \openout2 = `parts/part1/p1c3-numerical-methods.aux'.
 
  (./parts/part1/p1c3-numerical-methods.tex
 Chapter 3.
-) [40
+) [43
 
 
 
@@ -1083,7 +1084,7 @@ Chapter 3.
 
  (./parts/part1/p1c4-dsge.tex
 Chapter 4.
-) [41
+) [44
 
 
 
@@ -1093,12 +1094,12 @@ Chapter 4.
 
  (./parts/part1/p1c5-macro-econometrics.tex
 Chapter 5.
-) [42
+) [45
 
 
 
 
-] [43
+] [46
 
 
 
@@ -1107,7 +1108,7 @@ Chapter 5.
 
  (./parts/part2/p2c1-incomplete-market.tex
 Chapter 6.
-) [44
+) [47
 
 
 ]
@@ -1115,7 +1116,7 @@ Chapter 6.
 
  (./parts/part2/p2c2-ha-model.tex
 Chapter 7.
-) [45
+) [48
 
 
 
@@ -1125,28 +1126,6 @@ Chapter 7.
 
  (./parts/part2/p2c3-firm-dynamics.tex
 Chapter 8.
-) [46
-
-
-
-
-] [47
-
-
-
-]
-\openout2 = `parts/part3/p3c1-household-heterogeneity.aux'.
-
- (./parts/part3/p3c1-household-heterogeneity.tex
-Chapter 9.
-) [48
-
-
-]
-\openout2 = `parts/part3/p3c2-firm-heterogeneity.aux'.
-
- (./parts/part3/p3c2-firm-heterogeneity.tex
-Chapter 10.
 ) [49
 
 
@@ -1157,11 +1136,33 @@ Chapter 10.
 
 
 ]
+\openout2 = `parts/part3/p3c1-household-heterogeneity.aux'.
+
+ (./parts/part3/p3c1-household-heterogeneity.tex
+Chapter 9.
+) [51
+
+
+]
+\openout2 = `parts/part3/p3c2-firm-heterogeneity.aux'.
+
+ (./parts/part3/p3c2-firm-heterogeneity.tex
+Chapter 10.
+) [52
+
+
+
+
+] [53
+
+
+
+]
 \openout2 = `parts/part4/p4c1-bank.aux'.
 
  (./parts/part4/p4c1-bank.tex
 Chapter 11.
-) [51
+) [54
 
 
 ]
@@ -1169,7 +1170,7 @@ Chapter 11.
 
  (./parts/part4/p4c2-macro-debt.tex
 Chapter 12.
-) [52
+) [55
 
 
 
@@ -1179,7 +1180,7 @@ Chapter 12.
 
  (./parts/part4/p4c3-ha-computation.tex
 Chapter 13.
-) [53
+) [56
 
 
 
@@ -1197,18 +1198,18 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2022/07/14>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9EA8B4698B437FE359908BDA9037327E;8827.
+(rerunfilecheck)             Checksum: 4EF73F8EB66BED645975590CE019D9FD;8827.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 32773 strings out of 474773
- 738459 string characters out of 5761289
- 1942842 words of memory out of 5000000
- 54418 multiletter control sequences out of 15000+600000
+ 32787 strings out of 474773
+ 738664 string characters out of 5761289
+ 1943842 words of memory out of 5000000
+ 54432 multiletter control sequences out of 15000+600000
  574801 words of font info for 142 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,16n,97p,1876b,1115s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (57 pages).
+Output written on main.pdf (60 pages).
