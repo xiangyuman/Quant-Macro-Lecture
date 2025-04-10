@@ -14,14 +14,15 @@
 \usepackage{titlesec,titletoc,setspace,enumitem}
 \usepackage{amsmath, amssymb, amsthm, bm, mathtools}
 \usepackage{graphicx, subcaption,float}
-\usepackage{xcolor, siunitx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{siunitx}
 \usepackage{mdframed}
 
 %%%%
 % 定义定理样式（统一为 "definition" 风格）
 \newtheoremstyle{mytheorem}
-  {6pt}               % 上方间距
-  {6pt}               % 下方间距
+  {3pt}               % 上方间距
+  {3pt}               % 下方间距
   {\normalfont}       % 正文字体
   {0pt}               % 缩进
   {\bfseries}         % 标题字体
@@ -38,13 +39,51 @@
 \newtheorem{property}{性质}[chapter]
 \newtheorem{assumption}{假设}[chapter]
 
-% 定理添加背景色
+% 定理类环境添加背景色
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Blue,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = true
+]{theorem}
+
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Cyan,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = true
+]{lemma}
+
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor=Red,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = true
+]{definition}
+
 \surroundwithmdframed[
   backgroundcolor=gray!10,
   linewidth=0pt,
-  innertopmargin=6pt,
-  innerbottommargin=6pt
-]{theorem}
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = true
+]{example}
+
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Green,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = true
+]{property}
 
 %%%% 默认定义
 % \theoremstyle{plain}
@@ -91,6 +130,7 @@
 %usepackage{natlib}
 %\bibliographystyle{apalike}
 %\bibliography{back/refs}
+
 
 % ===== 全局设置 =====
 \title{\Huge\bfseries 量化宏观经济学}
