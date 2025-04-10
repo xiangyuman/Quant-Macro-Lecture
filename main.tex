@@ -15,18 +15,49 @@
 \usepackage{amsmath, amssymb, amsthm, bm, mathtools}
 \usepackage{graphicx, subcaption,float}
 \usepackage{xcolor, siunitx}
+\usepackage{mdframed}
 
-\theoremstyle{plain}
+%%%%
+% 定义定理样式（统一为 "definition" 风格）
+\newtheoremstyle{mytheorem}
+  {6pt}               % 上方间距
+  {6pt}               % 下方间距
+  {\normalfont}       % 正文字体
+  {0pt}               % 缩进
+  {\bfseries}         % 标题字体
+  {}                  % 标点符号
+  {0.5em}             % 标题后间距
+  {}                  % 定理头格式
+
+% 应用样式到所有定理类环境
+\theoremstyle{mytheorem}
 \newtheorem{theorem}{定理}[chapter]
 \newtheorem{lemma}{引理}[chapter]
-
-\theoremstyle{definition}
 \newtheorem{definition}{定义}[chapter]
 \newtheorem{example}{例}[chapter]
-
-\theoremstyle{remark}
 \newtheorem{property}{性质}[chapter]
 \newtheorem{assumption}{假设}[chapter]
+
+% 定理添加背景色
+\surroundwithmdframed[
+  backgroundcolor=gray!10,
+  linewidth=0pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt
+]{theorem}
+
+%%%% 默认定义
+% \theoremstyle{plain}
+% \newtheorem{theorem}{定理}[chapter]
+% \newtheorem{lemma}{引理}[chapter]
+
+% \theoremstyle{definition}
+% \newtheorem{definition}{定义}[chapter]
+% \newtheorem{example}{例}[chapter]
+
+% \theoremstyle{remark}
+% \newtheorem{property}{性质}[chapter]
+% \newtheorem{assumption}{假设}[chapter]
 
 % 引用、链接包
 \usepackage{hyperref,cleveref}
@@ -66,17 +97,26 @@
 \author{\LARGE 满翔宇}
 \date{\vspace{5cm}\Large 2025}
 
+\setstretch{1.3}
+
 \setcounter{secnumdepth}{4}    % 支持四级编号
 \setcounter{tocdepth}{4}       % 目录显示到第四级
-\setstretch{1.4}
 
 \renewcommand{\thepart}{\Roman{part}}   % 篇：罗马数字
 \renewcommand{\thechapter}{\arabic{chapter}} % 章：阿拉伯数字
 \renewcommand{\thesection}{\thechapter.\arabic{section}} % 1.1
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}} % 1.1.1
+
+% 全局设置列表间距：条目间距（itemsep）和段落间距（parsep）
+\setlist[enumerate]{itemsep=0pt, parsep=0pt, topsep=2pt} % 有序列表
+\setlist[itemize]{itemsep=0pt, parsep=0pt, topsep=2pt}   % 无序列表
+% 若需调整嵌套列表缩进，可添加 leftmargin=*
+%\setlist[itemize,1]{leftmargin=2em}  % 一级列表缩进
+%\setlist[itemize,2]{leftmargin=3em}  % 二级列表缩进
 % 列表标题
 %\setlist[enumerate,1]{label=(\arabic*), leftmargin=3em}
 %\setlist[enumerate,2]{label=(\alph*), leftmargin=4.5em}
+
 
 % ===== part篇格式设置 =====
 \titleformat{\part}[block]
