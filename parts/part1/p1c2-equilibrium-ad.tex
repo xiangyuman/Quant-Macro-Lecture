@@ -13,8 +13,8 @@
 
 回答上述问题离不开宏观经济学中的一个重要理论：完备市场（Complete Market）理论。
 首先，本章将介绍\textbf{阿罗-德布鲁市场}和\textbf{序贯市场}两种不同的市场交易结构下；
-其次，研究这两种市场结构下竞争均衡与计划者问题（帕累托问题）均衡的关系，引出完备市场的概念，并证明代表性家庭的存在性；
-再次，引用完备市场理论讨论资产定价问题；
+其次，研究这两种市场结构下竞争均衡与计划者问题（帕累托问题）均衡的关系，并证明代表性家庭的存在性；
+再次，应用完备市场理论讨论资产定价问题；
 接着，将相关均衡概念运用于一个分散经济下的最优增长模型，并进一步介绍递归均衡（Recursive Equilibrium）的概念；
 最后，本章将介绍随机最优增长模型，引出后续对数值方法的进一步学习。
 
@@ -57,53 +57,51 @@ $$
 \end{equation}
 
 
-% 2.1.2 两种交易结构（LS / Edmond）
+% 2.1.2 两种交易结构（LS / Edmond / Kruger / PHS）
 \subsection{两种交易结构}
 
-\textbf{完备市场}是宏观经济学中的重要概念，它是指：经济中存在足够多的金融工具（如状态依存债券），等于未来所有可能的状态数，
-个体通过交易这些工具构建资产组合，进而能够实现任意可行配置，对冲所有风险。
+\textbf{完备市场}是宏观经济学中的重要概念，它与\textbf{不完备市场}的主要区别在于：经济中存在足够多的如状态依存合约等金融工具（数量等于未来所有可能的状态数），
+个体通过交易这些工具构建资产组合，进而能够实现任意可行配置，对冲所有个体风险（Idiosyncratic Risk）。
 \begin{definition}
     \textbf{状态依存合约}（State-Contingent Claims）是一种支付依赖于未来某个事件（状态）$s^t$是否实现的合约。
     例如如果未来可能发生$\{\text{晴天，下雨}\}$两种状态，消费者可以购买下雨时获得1单位消费品和晴天时获得1单位消费品的合约。
 \end{definition}
 
-通过如下两种经典的市场结构，可以实现市场的完备性，我们在此分别介绍。
+完备市场可以在如下两种经典的市场结构下实现，我们在此分别介绍。
 
 （1）\textbf{阿罗-德布鲁市场}（Arrow-Debreu Market） 
 
-在Arrow-Debreu结构下，市场只在$t=0$时刻开放，消费者在市场上交易的是对所有未来时刻$t\geq 1$的消费品的索取权（claims）。
-这些索取权是状态依存的（contigent）——依赖于截至$t$时所有可能发生的事件历史$s^t$。消费者签订的合约也被称为\textbf{状态依存合约}（state-contingent claims）。
+在Arrow-Debreu结构下，市场只在$t=0$时刻开放，消费者在市场上交易的是对所有未来时刻$t\geq 1$的消费品的索取权（Complete Set of Contingent Consumption Claims）。
+这些索取权是状态依存的（State-Contingent Claims）——依赖于截至$t$时所有可能发生的事件历史$s^t$，也被称为阿罗-德布鲁证券（Arrow-Debreu Security）。
 在$t=0$时刻后，签订的合约生效，但没有额外交易再发生，因此这一交易结构也被称为\textbf{零时交易}（Time-Zero Trading）。
 在阿罗-德布鲁市场中，由于能交易所有未来时间和可能状态下的消费品索取权（工具足够多），因此阿罗-德布鲁市场天然满足完备市场的定义。
 \begin{property}
     阿罗-德布鲁市场天然是完备的。
 \end{property}
 
-图\ref{gr-admarket-tree}刻画了一个两状态马尔可夫链的阿罗-德布鲁商品空间。
-随机事件$s_t\in S=\{0,1\}$，站在$t=0$时刻，$s_0=1$给定，截至$t=3$时刻所有可能的事件历史有8种。
-在阿罗-德布鲁市场结构下，个体在$t=0$时对$t\geq3$时所有8个可能节点下的商品索取权进行交易。
-
-\begin{figure}
-    \includegraphics[width=1\textwidth]{figures/part1/p1c2-admarket-tree.png}
-    \caption{两状态马尔科夫链的阿罗-德布鲁商品空间}
-    \label{gr-admarket-tree}
-\end{figure}
-
 （2）\textbf{序贯市场}（Sequential Market）
 
 与Arrow-Debreu市场不同，序贯市场中的交易是分阶段进行的。在这一结构下，市场每一期都会重新开放，但是市场上只存在一种
 单期状态依存合约（one-period-ahead state-contingent claims）。在$t$时刻，交易的范围仅针对已实现的历史$s^t$这一条件下所有可能的$s^{t+1}=\left(s^t,s_{t+1}\right)$。
-序贯市场也被称为\textbf{阿罗市场}（Arrow Market）或Radner市场，其中的单期状态依存合约被称为\textbf{阿罗债券}（Arrow Securities）。
-同样，如果存在足够多的阿罗债券，序贯市场也可以达到完备。但是，如果交易工具不足，则序贯交易可能无法达成完备性。
+序贯市场也被称为\textbf{阿罗市场}（Arrow Market）或Radner市场，其中的单期状态依存合约被称为\textbf{阿罗证券}（Arrow Securities）。
+同样，如果每期都存在足够多的阿罗证券，可以覆盖未来所有可能状态，那么序贯市场也可以达到完备。但是，如果交易工具不足，则序贯交易可能无法达成完备性。
 例如我们在后面不完备市场理论中将会看到的，若经济中仅存在单期无风险债券，则市场是不完备的。
 
 \begin{property}
     序贯市场可以达到完备状态。但如果市场中只存在无风险债券，那么序贯市场是不完备的。
 \end{property}
 
-图\ref{gr-sqmarket-tree}给出了两状态马尔可夫链在序贯市场下，截至$t=2$时刻实现的一个特定历史，和给定这一实现的历史下，$t=3$时刻的两种可能性。
+图\ref{gr-admarket-tree}和图\ref{gr-sqmarket-tree}分别给出了三期情形下一个两状态马尔科夫链在两种市场下的商品空间的例子。
+随机事件$s_t\in S=\{0,1\}$。在阿罗-德布鲁市场下（图\ref{gr-admarket-tree}），站在$t=0$时刻，$s_0=1$给定，截至$t=3$时刻所有可能的事件历史有8种。
+个体在$t=0$时对$t\geq3$时所有8个可能节点下的商品索取权进行交易。
+图\ref{gr-sqmarket-tree}是在序贯市场下，截至$t=2$时刻实现的一个特定历史，和给定这一实现的历史下，$t=3$时刻的两种可能性。
 在$t=2$，个体仅能交易在当前历史$(0,0,1)$下所能达到的$t=3$时节点的商品。
 
+\begin{figure}
+    \includegraphics[width=1\textwidth]{figures/part1/p1c2-admarket-tree.png}
+    \caption{两状态马尔科夫链的阿罗-德布鲁商品空间}
+    \label{gr-admarket-tree}
+\end{figure}
 \begin{figure}
     \includegraphics[width=1\textwidth]{figures/part1/p1c2-sqmarket-tree.png}
     \caption{两状态马尔科夫链的阿罗-德布鲁商品空间}
@@ -207,10 +205,11 @@ $$
 我们之前已经介绍了阿罗-德布鲁市场和序贯市场两种市场结构，本节先研究前者，
 我们将会证明：\textbf{帕累托最优可以由Arrow-Debrue市场下的一组竞争均衡（Competitive Equilibrium）实现}。
 
-交易在$t=0$时发生，$s_0$已经实现。消费者只能在$t=0$时刻购买或售出未来$t$时刻消费品的索取权，这些权利依历史$s^t$而定（contingent on history $s^t$）。
-又被称为阿罗-德布鲁债券（Arrow-Debreu Security）。
-记$q_t^0\left(s_t\right)$为$t=0$时交易的阿罗-德布鲁债券的价格：他表示约定了在时间$t$和历史$s^t$实现时交割1单位消费品的阿罗-德布鲁债券的价格，
-因此被称为阿罗-德布鲁价格（Arrow-Debreu Price）。经济中总的资源约束仍为：
+回顾阿罗-德布鲁市场的结构：
+交易在$t=0$时发生，$s_0$已经实现。消费者只能在$t=0$时刻购买或售出未来$t$时刻消费品的索取权（阿罗-德布鲁证券），
+这些权利依历史$s^t$而定（contingent on history $s^t$）。
+记$q_t^0\left(s_t\right)$为$t=0$时交易的阿罗-德布鲁证券的价格：其表示约定了在时间$t$和历史$s^t$实现时交割1单位消费品的状态依存合约的价格，
+也称为阿罗-德布鲁价格（Arrow-Debreu Price）。经济中总的资源约束仍为：
 \begin{equation}    \label{eq-ad-rc}
     \sum_i c_t^i\left(s^t\right) = \sum_i y_t^i\left(s^t\right), \quad \text { for all } t, s^t
 \end{equation}
@@ -219,13 +218,13 @@ $$
     \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) c_t^i\left(s^t\right) 
         \leq \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) y_t^i\left(s^t\right)
 \end{equation}
-方程右侧表示零时刻个体$i$未来禀赋的价值（即初始财富），左侧是表示其消费在零时刻的价值。
+方程右侧表示零时刻个体$i$未来禀赋的价值（即初始财富），左侧表示其消费在零时刻的价值。
 需要强调，个体$i$面临的预算约束是\textbf{单一}（single）的一个方程。原因在于：在阿罗-德布鲁市场中，所有交易都在零时刻进行。
 个体$i$的目标是选择$c^i\equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$来最大化自身效用函数：
 \begin{equation}    \label{eq-ad-preference-i}
     U_i\left(c^i\right)=\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u_i\left[c_t^i\left(s^t\right)\right] \pi_t\left(s^t\right)
 \end{equation}
-记与个体$i$资源约束相关的拉格朗日乘子为$\mu_i$，则拉格朗日方程为：
+记与个体$i$\textbf{预算约束}相关的拉格朗日乘子为$\mu_i$，则拉格朗日方程为：
 \begin{equation*}
     \begin{aligned}
         \mathcal{L} &=\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) 
@@ -239,6 +238,7 @@ $$
     \beta^t u_i^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)=\mu_i q_t^0\left(s^t\right), \quad \text { for all } t, s^t
 \end{equation}
 
+在进一步求解问题前，我们先介绍与均衡有关的几个概念：
 \begin{definition}
     \textbf{价格系统}（Price System）是一组价格函数序列$\{q_t^0\left(s^t\right)\}_{t=0}^{\infty}$
         
@@ -298,14 +298,33 @@ $$
 \end{property}
 假设存在两条不同历史路径$s^t$和$\tilde{s}^{\tau}$，但只要$Y_t\left(s^t\right)=Y_{\tau}\left(\tilde{s}^{\tau}\right)$，
 就有$c_t^i\left(s^t\right)=c_{\tau}^i\left(\tilde{s}^\tau\right)$。
-不过，根据预算约束\ref{eq-ad-bc}：
+
+不过，根据预算约束\ref{eq-ad-bc}式：
 \begin{equation*}
     \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) g\left(\mu_i, Y_t ; \boldsymbol{\mu}\right)
         =\sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) y_t^i\left(s^t\right), \quad \text { all } i
 \end{equation*}
-均衡时$\mu_i$是依赖于个体禀赋分布的$y_t^i\left(s^t\right)$的，因此不同个体禀赋分布会带来不同配置。
+均衡时$\mu_i$会通过价格$q$依赖于个体禀赋分布$y^i=\{y_t^i\left(s^t\right)\}$的，也就是说，不同个体禀赋分布会带来不同的配置结果。
 换句话说，如果我们想得到某一配置结果$c^i=\{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$，我们可以通过改变$y^i$，
-找到一个能够带来这一配置的乘子$\mu_i$。简言之，\textbf{任意可行均衡配置都能通过适当重新分配财富来实现}。
+找到一个能够带来这一配置的乘子$\mu_i$。简言之，\textbf{任意可行均衡配置都能通过重新调整财富分配来实现}。这对于后文理解福利经济学第二定理十分关键。
+
+
+% 2.1.4.1 
+\subsubsection{完美风险分担与消费平滑}
+
+前面提到，阿罗-德布鲁市场天然是完备市场，那么，这一市场有什么特点？首先回忆计划者问题的最优条件\ref{eq-pareto-r-foc}式：
+\begin{equation*}
+    \frac{u_i^{\prime}\left(c_t^i\left(s^t\right)\right)}{u_1^{\prime}\left(c_t^1\left(s^t\right)\right)}=\frac{\lambda_1}{\lambda_i}
+\end{equation*}
+不难看出，
+
+\begin{property}
+    阿罗-德布鲁均衡实现了完美风险分担（Perfect Risk Sharing / Perfect Consumption Insurance）
+\end{property}
+
+
+
+
 
 还需注意的是，对于阿罗-德布鲁市场，我们此时\textbf{尚未得到一般均衡问题的解}。
 在计划者的帕累托问题中，我们通过比值消去了乘子$\theta_t\left(s^t\right)$，其解$c_t^i\left(s^t\right)$只与总禀赋和权重比值有关，
