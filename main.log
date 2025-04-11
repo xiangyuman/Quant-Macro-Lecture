@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  11 APR 2025 14:33
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  11 APR 2025 18:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1292,33 +1292,37 @@ File: figures/part1/p1c2-sqmarket-tree.png Graphic file (type bmp)
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 184.
- [40] [41]
+ [40]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 242.
+(mdframed)              on input line 204.
+ [41]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 246.
+(mdframed)              on input line 257.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 250.
+(mdframed)              on input line 261.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 264.
+(mdframed)              on input line 265.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 279.
  [42]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 293.
+(mdframed)              on input line 309.
  [43]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 321.
- [44] [45] [46] [47]) [48]
+(mdframed)              on input line 355.
+ [44] [45] [46] [47] [48]) [49]
 \openout2 = `parts/part1/p1c3-numerical-methods.aux'.
 
  (./parts/part1/p1c3-numerical-methods.tex
 Chapter 3.
-) [49
+) [50
 
 
 
@@ -1328,7 +1332,7 @@ Chapter 3.
 
  (./parts/part1/p1c4-dsge.tex
 Chapter 4.
-) [50
+) [51
 
 
 
@@ -1338,12 +1342,12 @@ Chapter 4.
 
  (./parts/part1/p1c5-macro-econometrics.tex
 Chapter 5.
-) [51
+) [52
 
 
 
 
-] [52
+] [53
 
 
 
@@ -1352,7 +1356,7 @@ Chapter 5.
 
  (./parts/part2/p2c1-incomplete-market.tex
 Chapter 6.
-) [53
+) [54
 
 
 ]
@@ -1360,7 +1364,7 @@ Chapter 6.
 
  (./parts/part2/p2c2-ha-model.tex
 Chapter 7.
-) [54
+) [55
 
 
 
@@ -1370,12 +1374,12 @@ Chapter 7.
 
  (./parts/part2/p2c3-firm-dynamics.tex
 Chapter 8.
-) [55
+) [56
 
 
 
 
-] [56
+] [57
 
 
 
@@ -1384,7 +1388,7 @@ Chapter 8.
 
  (./parts/part3/p3c1-household-heterogeneity.tex
 Chapter 9.
-) [57
+) [58
 
 
 ]
@@ -1392,12 +1396,12 @@ Chapter 9.
 
  (./parts/part3/p3c2-firm-heterogeneity.tex
 Chapter 10.
-) [58
+) [59
 
 
 
 
-] [59
+] [60
 
 
 
@@ -1406,7 +1410,7 @@ Chapter 10.
 
  (./parts/part4/p4c1-bank.tex
 Chapter 11.
-) [60
+) [61
 
 
 ]
@@ -1414,7 +1418,7 @@ Chapter 11.
 
  (./parts/part4/p4c2-macro-debt.tex
 Chapter 12.
-) [61
+) [62
 
 
 
@@ -1424,7 +1428,7 @@ Chapter 12.
 
  (./parts/part4/p4c3-ha-computation.tex
 Chapter 13.
-) [62
+) [63
 
 
 
@@ -1442,18 +1446,18 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2022/07/14>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 883C7730662BB7D4E0D2497FBFE341EA;9512.
+(rerunfilecheck)             Checksum: 17C028D7751B778D80BFDB5EDA9A4138;9352.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 33691 strings out of 474773
- 753648 string characters out of 5761289
+ 33693 strings out of 474773
+ 753703 string characters out of 5761289
  1947842 words of memory out of 5000000
- 55308 multiletter control sequences out of 15000+600000
+ 55310 multiletter control sequences out of 15000+600000
  574809 words of font info for 143 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 93i,16n,97p,1876b,1037s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,16n,97p,1876b,1039s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (66 pages).
+Output written on main.pdf (67 pages).
