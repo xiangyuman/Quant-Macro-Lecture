@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  11 APR 2025 23:35
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  11 APR 2025 23:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -972,89 +972,101 @@ Package biblatex Info: ... and expl3
 (biblatex)             setting 'casechanger=expl3'.
  (d:/texlive/2024/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
 Package: blx-case-expl3 2023/03/05 v3.19 expl3 case changing code for biblatex
-))
-Package translations Info: No language package found. I am going to use `english' as default language. on input line 207.
-\@quotelevel=\count493
-\@quotereset=\count494
+)) (d:/texlive/2024/texmf-dist/tex/latex/datetime2/datetime2.sty
+Package: datetime2 2021/03/21 v1.5.7 (NLCT) date and time formats
+ (d:/texlive/2024/texmf-dist/tex/latex/tracklang/tracklang.sty
+Package: tracklang 2022/12/13 v1.6.1 (NLCT) Track Languages
+ (d:/texlive/2024/texmf-dist/tex/generic/tracklang/tracklang.tex)) (d:/texlive/2024/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
+ (d:/texlive/2024/texmf-dist/tex/generic/xkeyval/xkeyval.tex (d:/texlive/2024/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks37
+\XKV@tempa@toks=\toks38
+)
+\XKV@depth=\count493
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)))
+Package translations Info: No language package found. I am going to use `english' as default language. on input line 209.
+\@quotelevel=\count494
+\@quotereset=\count495
  (./main.aux (./front/preface.aux) (./parts/part1/p1c1-dynamic-macro.aux) (./parts/part1/p1c2-equilibrium-ad.aux) (./parts/part1/p1c3-numerical-methods.aux) (./parts/part1/p1c4-dsge.aux) (./parts/part1/p1c5-macro-econometrics.aux) (./parts/part2/p2c1-incomplete-market.aux) (./parts/part2/p2c2-ha-model.aux) (./parts/part2/p2c3-firm-dynamics.aux) (./parts/part3/p3c1-household-heterogeneity.aux) (./parts/part3/p3c2-firm-heterogeneity.aux) (./parts/part4/p4c1-bank.aux) (./parts/part4/p4c2-macro-debt.aux) (./parts/part4/p4c3-ha-computation.aux) (./back/appendix.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 207.
-LaTeX Font Info:    ... okay on input line 207.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 209.
+LaTeX Font Info:    ... okay on input line 209.
 
 Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
 (fontspec)             this).
 
 \symlegacymaths=\mathgroup9
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 207.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 207.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 207.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 207.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 207.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 207.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 207.
-LaTeX Font Info:    Redeclaring math accent \check on input line 207.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 207.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 207.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 207.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 207.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 207.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 209.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 209.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 209.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 209.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 209.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 209.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 209.
+LaTeX Font Info:    Redeclaring math accent \check on input line 209.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 209.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 209.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 209.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 209.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 209.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 207.
+(Font)              `operators' in the math version `normal' on input line 209.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 207.
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 209.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 207.
+(Font)              `operators' in the math version `bold' on input line 209.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 207.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 209.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 207.
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 209.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 207.
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 209.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 207.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 209.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 207.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 209.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 207.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 209.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 207.
+(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 209.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 207.
+(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 209.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 207.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 209.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 207.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 209.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
@@ -1062,8 +1074,8 @@ Package caption Info: End \AtBeginDocument code.
  (d:/texlive/2024/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
-Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 207.
-Package hyperref Info: Link coloring ON on input line 207.
+Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 209.
+Package hyperref Info: Link coloring ON on input line 209.
  (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -1122,13 +1134,13 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 207.
-Package biblatex Info: Reference segment=0 on input line 207.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 212.
+Package biblatex Info: Reference section=0 on input line 209.
+Package biblatex Info: Reference segment=0 on input line 209.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 214.
  (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 212.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 214.
  (d:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
@@ -1469,7 +1481,7 @@ Chapter 13.
 
  (./back/appendix.tex)
 
-LaTeX Warning: Empty bibliography on input line 252.
+LaTeX Warning: Empty bibliography on input line 254.
 
 (./main.aux (./front/preface.aux) (./parts/part1/p1c1-dynamic-macro.aux) (./parts/part1/p1c2-equilibrium-ad.aux) (./parts/part1/p1c3-numerical-methods.aux) (./parts/part1/p1c4-dsge.aux) (./parts/part1/p1c5-macro-econometrics.aux) (./parts/part2/p2c1-incomplete-market.aux) (./parts/part2/p2c2-ha-model.aux) (./parts/part2/p2c3-firm-dynamics.aux) (./parts/part3/p3c1-household-heterogeneity.aux) (./parts/part3/p3c2-firm-heterogeneity.aux) (./parts/part4/p4c1-bank.aux) (./parts/part4/p4c2-macro-debt.aux) (./parts/part4/p4c3-ha-computation.aux) (./back/appendix.aux))
  ***********
@@ -1483,11 +1495,11 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 34225 strings out of 474773
- 762158 string characters out of 5761289
+ 36860 strings out of 474773
+ 824131 string characters out of 5761289
  1951842 words of memory out of 5000000
- 55831 multiletter control sequences out of 15000+600000
- 574809 words of font info for 143 fonts, out of 8000000 for 9000
+ 58446 multiletter control sequences out of 15000+600000
+ 574801 words of font info for 142 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,16n,97p,1876b,1039s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
