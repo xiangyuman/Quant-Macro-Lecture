@@ -19,11 +19,11 @@
 最后，本章将介绍随机最优增长模型，引出后续对数值方法的进一步学习。
 
 
-% 2.1 ==== Complete Market ====
+% 2.1 =============== Complete Market ===============
 \section{完备市场理论}
 
 
-% 2.1.1 经济环境设定（LS / Edmond / JLao）
+% 2.1.1 ===== 经济环境设定（LS / Edmond / JLao）
 \subsection{经济环境设定}
 
 经济的时间是离散且无穷的：$t=0,1,\cdots, \infty$。在每一期，都有一个\textbf{随机事件}（Stochastic Event）实现，记为：
@@ -57,7 +57,7 @@ $$
 \end{equation}
 
 
-% 2.1.2 两种交易结构（LS / Edmond / Kruger / PHS）
+% 2.1.2 ===== 两种交易结构（LS / Edmond / Kruger / PHS）
 \subsection{两种交易结构}
 
 \textbf{完备市场}是宏观经济学中的重要概念，它与\textbf{不完备市场}的主要区别在于：经济中存在足够多的如状态依存合约等金融工具（数量覆盖未来所有可能的状态数），
@@ -81,7 +81,7 @@ $$
 
 （2）\textbf{序贯市场}（Sequential Market）
 
-与Arrow-Debreu市场不同，序贯市场中的交易是分阶段进行的。在这一结构下，市场每一期都会重新开放，但是市场上只存在一种
+与Arrow-Debreu市场不同，序贯市场中的交易是按期进行的。市场每一期都会重新开放，但是市场上只存在一种
 单期状态依存合约（one-period-ahead state-contingent claims）。在$t$时刻，交易的范围仅针对已实现的历史$s^t$这一条件下所有可能的$s^{t+1}=\left(s^t,s_{t+1}\right)$。
 序贯市场也被称为\textbf{阿罗市场}（Arrow Market）或Radner市场，其中的单期状态依存合约被称为\textbf{阿罗证券}（Arrow Securities）。
 同样，如果每期都存在足够多的阿罗证券，可以覆盖未来所有可能状态，那么序贯市场也可以达到完备。但是，如果交易工具不足，则序贯交易可能无法达成完备性。
@@ -119,7 +119,7 @@ $$
 和$t$时刻经济所实现的总禀赋，不会依赖带来相应总禀赋的历史。
 
 
-% 2.1.3 计划者问题（Pareto Problem）
+% 2.1.3 ===== 计划者问题（Pareto Problem）
 \subsection{帕累托问题}
 
 在研究上述两种市场均衡配置的特征前，我们希望先定义一个基准配置用于进行比较，一个自然的想法是帕累托最优。
@@ -213,8 +213,8 @@ $$
 由于每个个体的消费配置只是总禀赋的函数，因此其个体消费与总禀赋（总消费）完全相关，并且所占份额与其所分配得的帕累托权重相关。
 
 
-% 2.1.4 AD的均衡
-\subsection{Arrow-Debreu市场中的竞争均衡}
+% 2.1.4 ===== AD的均衡
+\subsection{Arrow-Debreu市场中的均衡}
 
 我们在本章开头提出了问题：计划者问题中的帕累托均衡是否能通过\textbf{市场配置}或者说\textbf{价格机制}实现？
 我们之前已经介绍了阿罗-德布鲁市场和序贯市场两种市场结构，本节先研究前者，
@@ -263,7 +263,7 @@ $$
 \end{definition}
 
 \begin{definition}
-    \textbf{阿罗-德布鲁竞争均衡}（Arrow-Debreu Competitive Equilibrium），也可称阿罗-德布鲁均衡，
+    \textbf{阿罗-德布鲁均衡}（Arrow-Debreu Equilibrium），也可称为阿罗-德布鲁竞争均衡（Arrow-Debreu Competitive Equilibrium），
     由满足如下条件的一个\textbf{价格系统}$\{q_t^0\left(s^t\right)\}_{t=0}^{\infty}$
     和一组\textbf{可行配置}$\{c^i\}_{i=1}^{I}$构成：
     \begin{itemize}
@@ -275,7 +275,7 @@ $$
 \end{definition}
 
 需要强调，竞争均衡是一个广义的概念，适用于任何分散决策的市场结构（Decentralized），并不限于阿罗-德布鲁市场。
-在这样的市场上，家庭、企业等经济主体将价格视为给定，最优化其目标函数，均衡时所有市场出清。\textbf{阿罗-德布鲁均衡其实是竞争均衡在一个完备市场下的实现形式}。
+在这样的市场上，家庭、企业等经济主体将价格视为给定，最优化其目标函数，均衡时所有市场出清。\textbf{阿罗-德布鲁均衡正是竞争均衡在一个完备市场下的实现形式}。
 \begin{definition}
     \textbf{竞争均衡}（Comptetitive Equilibrium）由一个\textbf{价格系统}$\{q_t^0\left(s^t\right)\}_{t=0}^{\infty}$
     和一组\textbf{可行配置}（Feasible Allocation）$\{c^i\}_{i=1}^{I}$构成。在竞争均衡下：
@@ -364,7 +364,7 @@ $$
 
 
 % 2.1.4.1
-\subsubsection{竞争均衡价格}    \label{subsubsec-ad-price}
+\subsubsection{AD竞争均衡价格}    \label{subsubsec-ad-price}
 
 一个自然的想法是通过每个个体的预算约束\ref{eq-ad-bc}来求解价格系统或乘子向量，目前我们仍未使用这一条件。
 对每个个体$i$，将均衡配置$c_t^i=g\left(\mu_i, Y_t ; \boldsymbol{\mu}\right)$带入预算约束：
@@ -392,7 +392,7 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 
 
 % 2.1.4.2
-\subsubsection{竞争均衡的算法}  \label{subsubsec-ad-compu}
+\subsubsection{AD竞争均衡的算法}  \label{subsubsec-ad-compu}
 
 我们已经知道：想要求解竞争均衡（数量-价格），必须想办法得到\ref{eq-ad-ci}式和\ref{eq-ad-c1}式中的比值$\mu_i/\mu_1, \quad i=1,\cdots,I$。
 同时我们也已经阐明，寻找一组自我一致的均衡价格$q_t^0\left(s^t\right)$和乘子$\mu_i$本质是一个不动点问题。
@@ -454,17 +454,170 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 \end{itemize}
 
 在\ref{subsubsec-ad-price}节，我们曾提出求解竞争均衡价格的另一个视角：绕过价格系统，通过解计划者问题来寻找阿罗-德布鲁均衡，
-其背后的支撑其实就是福利经济学第二定理。一旦找到了帕累托最优配置（同时也得到了资源约束的影子价格），我们就可以通过设定影子价格$\theta_t\left(s^t\right)$
+其背后的支撑就是福利经济学第二定理。一旦找到了帕累托最优配置（同时也得到了资源约束的影子价格），我们就可以通过设定影子价格$\theta_t\left(s^t\right)$
 等于竞争均衡价格$q_t^0\left(s^t\right)$和调整初始财富，将帕累托均衡转化为一个竞争均衡。
 
 
-% 2.1.5 SQ的均衡
-\subsection{序贯市场下的竞争均衡}
+% 2.1.5 ===== SQ的均衡
+\subsection{序贯市场下的均衡}
+
+本小节研究另一种市场结构——序贯市场中的均衡（Sequential Market Equiliibrium, SME）。
+我们之前提到，虽然阿罗-德布鲁市场是具有良好性质的天然完备市场，但更适于作为一个理论基础，而序贯市场则更贴近于实践中的金融交易。
+实际上，在序贯市场中，只要每期阿罗证券（单期状态依存证券）的数量足够覆盖下期所有状态（Complete Set of one-period-ahead Contingent Claims），
+那么序贯市场也可以达到\textbf{动态完备（Sequentially Complete）}。
+由此，我们自然会猜想：序贯市场（竞争）均衡应该也是帕累托最优的，并且与阿罗-德布鲁市场（竞争）均衡等价。我们将对此进行证明，并给出均衡的存在条件。
+
+回顾序贯市场交易的特征：市场每期都会重新开放，但是只有一种单期状态依存合约，交易按期进行形成一个序列。
+记在第$t$期历史$s^t$下签订的在第$t+1$期状态$s_{t+1}$实现下交割$1$单位消费品的\textbf{阿罗证券的价格}为$q_t\left(s^t,s_{t+1}\right)$；
+记个体$i$购买（售出）的这一证券的\textbf{数量}为$a_{t+1}^i\left(s^t,s_{t+1}\right)$，从而其\textbf{预算约束}为：
+\begin{equation}    \label{eq-sq-bc}
+    c_t^i\left(s^t\right)+\sum_{s_{t+1}} q_t\left(s^t, s_{t+1}\right) a_{t+1}^i\left(s^t, s_{t+1}\right) 
+        \leq y_t^i\left(s^t\right)+a_t^i\left(s^{t-1}, s_t\right)
+\end{equation}
+对$a_{t+1}^i\left(s^t,s_{t+1}\right)>0$，个体将会在$s_{t+1}$实现时收到消费品，因此是一种资产；
+反之是一种负债。
+需要注意的是这一问题中个体$i$的\textbf{状态变量}：
+在第$t$期，个体会购买所有可能发生的状态（事件）$s_{t+1}\in S$对应的阿罗证券，
+即在第$t$期需要构建一个\textbf{资产组合}$\{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}$。一旦此后某一特定状态$s_{t+1}$实现，
+只有对应于这一特定实现的$s_{t+1}$的债券$a_{t+1}^i\left(s^{t+1}\right)$才会支付（注意此时$t+1$的历史$s^{t+1}$形成），
+进而决定个体$i$的下期开始时的资产状态（\textbf{Asset Position}）。
+因此对第$t$期，不等式右侧$a_{t}^i\left(s^{t-1}, s_t\right)$可写为$a_t^i\left(s^t\right)$，
+即在第$t$期决策时，个体状态变量（资产）由已经实现的历史$s^t$确定。
+
+在竞争市场上，个体$i$将价格视为给定，其\textbf{序列问题}为：在预算约束\ref{eq-sq-bc}下，
+通过选择\textbf{当期消费}$c_t^i\left(s^t\right)$和\textbf{资产组合}$\{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}$最大化效用：
+\begin{equation}
+    U\left(c^i\right)=\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
+\end{equation}  
+记个体$i$第$t$期预算约束相关的乘子为$\mu_t^i\left(s^t\right)$，容易写出个体$i$的拉格朗日函数：
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{L}^i & =\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) \\
+        &+\sum_{t=0}^{\infty} \sum_{s^t} \mu_t^i\left(s^t\right)
+            \left[y_t^i\left(s^t\right)+a_t^i\left(s^t\right)-c_t^i\left(s^t\right)
+                -\sum_{s_{t+1}} q_t\left(s^t, s_{t+1}\right) a_{t+1}^i\left(s^t, s_{t+1}\right)\right]
+        \end{aligned}
+\end{equation*}
+
+这里需要强调的有两点：
+一是，在阿罗-德布鲁问题中，个体的预算约束是单一的一个方程；但在序贯市场中，个体面临的是序列问题，
+因此约束条件是一系列不同期的预算约束，也就是说乘子是时变的。
+二是，如上文刚强调过的，对任意$t$期，个体构建的是所有可能发生状态（事件）$s_{t+1}\in S$
+所对应的阿罗证券的资产组合$\{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}$，它是$t+1$期消费品索取权的向量，
+每一个元素都依赖于$t+1$可能实现的一个特定的状态（事件）$s_{t+1}$。
+进一步求解优化问题，易得关于$c_t^i\left(s^t\right)$和$\{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}$中代表元素（如特定$s_{t+1}$）实现的一阶条件为：
+\begin{align}
+    \beta^t u^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) = \mu_t^i\left(s^t\right) \\
+    q_t\left(s^t, s_{t+1}\right) \mu_t^i\left(s^t\right) = \mu_{t+1}^i\left(s^t, s_{t+1}\right)
+\end{align}
+消去乘子可得：
+\begin{equation}    \label{eq-sq-foc}
+    q_t\left(s^t, s_{t+1}\right) = \beta \frac{u^{\prime}\left(c_{t+1}^i\left(s^{t+1}\right)\right)}{u^{\prime}\left(c_t^i\left(s^t\right)\right)} 
+        \pi_{t+1}\left(s^{t+1} \mid s^t\right), \quad s^{t+1}=(s^t,s_{t+1}) \quad \forall s_{t+1}, t, s^t
+\end{equation}
+
+
+% 2.1.5.1 自然债务限制与
+\subsubsection{自然债务限制}
+
+至此我们已经完成了主要工作，但是对于定义序贯市场均衡，还遗留了一个重要问题：庞氏骗局（Ponzi Game）。
+第一章介绍无限期最优增长模型时，我们提到，经济需要横截性条件来排除资本存量无限增长。
+在定义序贯市场均衡时，我们也需要一个类似的条件来确保借款者未来的还款能力，排除庞氏骗局。
+否则，无限期模型中的个体将会不断地借新还旧，导致消费者预算集无界，使得问题无解。
+
+实践中，我们希望增加的这一债务约束在均衡时是非紧的，这样此前得到的一阶条件仍然是正确的，进而为研究序贯市场均衡与阿罗-德布鲁均衡的关系提供方便。
+排除庞氏骗局的条件是多样的，但通常我们会寻找一个最弱的债务限制，被称为\textbf{自然债务限制（Natural Debt Limit）}，
+其想法是：借款者的债务不能超过其未来收入的现值。我们主要研究这一限制。
+
+首先看一个简单的局部均衡例子。假设一个无限期经济体中，禀赋为外生过程，代表性家庭每期的预算约束为：
+\begin{equation*}
+    c_t+a_{t+1} \leq y_t + \left(1+r\right)a_t
+\end{equation*}
+其中$a$为资产（小于零时为负债），$r$为恒定的利率（局部均衡）。
+对$t=0$：
+\begin{equation*}
+    a_1 = y_0+(1+r)a_0-c_0
+\end{equation*}
+对$t=1$：
+\begin{equation*}
+    \begin{aligned}
+        a_2 &= y_1+(1+r)a_1-c_1 \\
+            &= y_1+(1+r)\left[y_0+\left(1+r\right)a_0-c_0\right]-c_1 \\
+            &= y_1+(1+r)y_0+(1+r)^2a_0-(1+r)c_0-c_1
+    \end{aligned}
+\end{equation*}
+依次递归展开，可得终身预算约束为：
+\begin{equation*}
+    \sum_{t=0}^{\infty}\frac{c_t}{\left(1+r\right)^t} \leq \sum_{t=0}^{\infty}\frac{t_t}{\left(1+r\right)^t} + a_0
+\end{equation*}
+为了防止无限制积累债务，要求未来财富的现值大于等于零，即：
+\begin{equation*}
+    \lim_{T\rightarrow\infty}\frac{a_T}{\left(1+r\right)^T} \geq 0
+\end{equation*}
+等价于：
+\begin{equation*}
+    a_t \geq -\sum_{s=t}^{\infty}\frac{y_s}{\left(1+r\right)^{s-t}}
+\end{equation*}
+在序贯市场均衡中，问题相对变得复杂。我们首先需要理解尾部资产的相关概念。
+
+对于给定的一组阿罗债券的价格过程$q=\{q_t\left(s^t,s_{t+1}\right)\}$，定义零时刻状态依存的消费品索取权价格
 
 
 
-% 2.1.6 代表性家庭的存在性
-\subsection{代表性家庭的存在性}
+需要额外指出的是，自然债务限制与横截性条件虽然直觉上相似，但并不是同一件事。在序贯市场中，个体每一期都面临自然债务限制，
+而横截性条件是长期极限条件。
+
+
+\begin{equation}    \label{eq-sq-natural-debt-lim}
+    \tilde{a}_{t+1}^i\left(s^{t+1}\right) \geq -A_{t+1}^i\left(s^{t+1}\right)
+\end{equation}
+
+记$\nu_t^i\left(s^t;s_{t+1}\right)$为个体$i$第$t$期面临的、在$t+1$期实现状态$s_{t+1}$时的自然债务限制约束乘子，则正确的拉格朗日函数为：
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{L}^i & =\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) \\
+        &+\sum_{t=0}^{\infty} \sum_{s^t} \mu_t^i\left(s^t\right)
+            \left[y_t^i\left(s^t\right)+a_t^i\left(s^t\right)-c_t^i\left(s^t\right)
+                -\sum_{s_{t+1}} q_t\left(s^t, s_{t+1}\right) a_{t+1}^i\left(s^t, s_{t+1}\right)\right]  \\
+        &+ \sum_{t=0}^{\infty} \sum_{s^t} \sum_{s_{t+1}} \nu_t^i\left(s^t,s_{t+1}\right)
+            \left[A_{t+1}^i\left(s^{t+1}\right)+a_{t+1}^i\left(s^{t+1}\right)\right]
+        \end{aligned}
+\end{equation*}
+则正确的一阶条件为：
+\begin{align}
+    \beta^t u^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) = \mu_t^i\left(s^t\right) \\
+    q_t\left(s^t, s_{t+1}\right) \mu_t^i\left(s^t\right) = \mu_{t+1}^i\left(s^t, s_{t+1}\right) + \nu_t^i\left(s^t;s_{t+1}\right)
+\end{align}
+但是，\textbf{均衡时自然债务限制约束一定是非紧的}：
+
+从而，乘子$\nu_t^i\left(s^t;s_{t+1}\right)$始终为0，之前得到的最优条件\ref{eq-sq-foc}是正确的，即：
+\begin{equation}    \label{eq-sq-opt}
+    q_t\left(s^t, s_{t+1}\right) = \beta \frac{u^{\prime}\left(c_{t+1}^i\left(s^{t+1}\right)\right)}{u^{\prime}\left(c_t^i\left(s^t\right)\right)} 
+        \pi_{t+1}\left(s^{t+1} \mid s^t\right), \quad s^{t+1}=(s^t,s_{t+1}) \quad \forall s_{t+1}, t, s^t
+\end{equation}
+
+
+
+% 2.1.5.2 均衡等价性
+\subsubsection{均衡等价性}
+
+
+
+
+
+% 2.1.6 ===== RCE均衡
+\subsection{递归均衡}
+
+在对序贯市场均衡进行介绍时，我们思考问题的出发点是序列形式，不过在第一章曾指出，序列问题的维度较高。
+因此，我们将依照\textbf{将序列问题转化为递归形式的思路}，进一步定义\textbf{递归均衡}（Recursive Equilibrium）的。
+事实上，在一些宏观模型中，均衡可能并非帕累托最优，或是难以通过序列形式求解，此时定义递归均衡（Recursive Comptetitive Equilibrium）是非常有效的。
+
+递归均衡，也可称为递归竞争均衡（Recursive Competitive Equilibrium），主要想法是将状态进行映射。。。。。
+
+
+
+% 2.2 =============== 代表性家庭的存在性 ===============
+\section{代表性家庭的存在性}
 
 在本节我们证明代表性家庭（Representative Household）设定的合理性：其背后是由完备市场所支撑的。
 不失一般性，假设存在两个家庭，$1$和$2$，效用函数分别为$u\left(c^1\right)$和$v\left(c^2\right)$，符合相关规范化假设。
@@ -563,19 +716,19 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 实际上，当我们写下一个代表性家庭模型，其实就隐含地假设了家庭所在市场的完备性。
 
 
-% 2.2 ==== 资产定价
+% 2.3 =============== 资产定价 ===============
 \section{完备市场理论的应用：资产定价}
 
 
 
-% 2.3 ==== Kruger Decentralized Equilibrium Lafo
+% 2.4 =============== Kruger Decentralized Equilibrium Lafo ===============
 \section{均衡概念的运用：最优增长模型}
 
 回顾本章开头的问题：我们希望证明，在一个分散经济最优增长模型中，其竞争均衡时帕累托最优的。
 
 
 
-% 2.3.1 AD均衡
+% 2.4.1 ===== AD均衡
 \subsection{AD}
 
 为了更清晰的阐明宏观经济学中相关的均衡概念，现在先考虑如下问题：
@@ -584,11 +737,11 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 是完全竞争的（perfectly competitive），这意味着家庭和企业都将价格视为给定（take as given）。
 
 
-% 2.3.2 ST均衡
-\subsection{ST}
+% 2.4.2 ===== SQ均衡
+\subsection{SQ}
 
 
-% 2.3.3 RCE
+% 2.4.3 ===== RCE
 \subsection{Recursive Comptetitive Equilibrium}
 
 在一些宏观模型中，均衡可能并非帕累托最优，也可能难以通过序列形式或Arrow-Debreu形式求解，这时我们通常会定义递归竞争均衡（Recursive Comptetitive Equilibrium）。
@@ -597,11 +750,11 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 在递归方法下同样也可以定义均衡概念。同时，RCE时ST的递归表示。
 
 
-% 2.3.4 三种均衡概念的总结
+% 2.4.4 ==== 三种均衡概念的总结
 
 
 
-% 2.4 ==== 随机最优增长 Edmond
+% 2.5 =============== 随机最优增长 Edmond ===============
 \section{随机最优增长模型}
 
 Brock and Mirman（1972）首次在计划者问题下引入了随机TFP冲击，建立了随机最优增长模型，成为现代宏观模型的基准框架。
