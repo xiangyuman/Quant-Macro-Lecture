@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  12 APR 2025 23:32
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  13 APR 2025 18:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1200,106 +1200,106 @@ Chapter 1.
 ] [3] [4] [5] [6] [7] [8] [9] [10] [11]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 431.
+(mdframed)              on input line 430.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 442.
+(mdframed)              on input line 441.
  [12]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 460.
+(mdframed)              on input line 459.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 470.
+(mdframed)              on input line 469.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 487.
+(mdframed)              on input line 486.
  [13]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 494.
+(mdframed)              on input line 493.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 500.
+(mdframed)              on input line 499.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 503.
+(mdframed)              on input line 502.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 508.
+(mdframed)              on input line 507.
  [14]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 529.
+(mdframed)              on input line 528.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 533.
+(mdframed)              on input line 532.
  [15]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 559.
+(mdframed)              on input line 558.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 566.
+(mdframed)              on input line 565.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 575.
+(mdframed)              on input line 574.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 579.
+(mdframed)              on input line 578.
  [16] [17]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 651.
+(mdframed)              on input line 650.
  [18] [19] [20] [21]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 828.
+(mdframed)              on input line 827.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 836.
+(mdframed)              on input line 835.
  [22]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 892.
+(mdframed)              on input line 891.
  [23] [24]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1001.
+(mdframed)              on input line 1000.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1008.
+(mdframed)              on input line 1007.
  [25]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1036.
+(mdframed)              on input line 1035.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1056.
+(mdframed)              on input line 1055.
  [26]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1101.
+(mdframed)              on input line 1100.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1117.
+(mdframed)              on input line 1116.
  [27] [28] [29]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1225.
+(mdframed)              on input line 1224.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1229.
+(mdframed)              on input line 1228.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1250.
+(mdframed)              on input line 1249.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1258.
+(mdframed)              on input line 1257.
  [30]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1283.
+(mdframed)              on input line 1282.
 ) [31]
 \openout2 = `parts/part1/p1c2-equilibrium-ad.aux'.
 
@@ -1356,16 +1356,24 @@ Package mdframed Info: mdframed detected package amsthm
  [41] [42] [43] [44] [45] [46] [47]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 648.
+(mdframed)              on input line 635.
+ [48]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 655.
- [48] [49]) [50]
+(mdframed)              on input line 661.
+ [49]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 710.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 717.
+ [50] [51]) [52]
 \openout2 = `parts/part1/p1c3-numerical-methods.aux'.
 
  (./parts/part1/p1c3-numerical-methods.tex
 Chapter 3.
-) [51
+) [53
 
 
 
@@ -1375,7 +1383,7 @@ Chapter 3.
 
  (./parts/part1/p1c4-dsge.tex
 Chapter 4.
-) [52
+) [54
 
 
 
@@ -1385,12 +1393,12 @@ Chapter 4.
 
  (./parts/part1/p1c5-macro-econometrics.tex
 Chapter 5.
-) [53
+) [55
 
 
 
 
-] [54
+] [56
 
 
 
@@ -1399,7 +1407,7 @@ Chapter 5.
 
  (./parts/part2/p2c1-incomplete-market.tex
 Chapter 6.
-) [55
+) [57
 
 
 ]
@@ -1407,7 +1415,7 @@ Chapter 6.
 
  (./parts/part2/p2c2-ha-model.tex
 Chapter 7.
-) [56
+) [58
 
 
 
@@ -1417,12 +1425,12 @@ Chapter 7.
 
  (./parts/part2/p2c3-firm-dynamics.tex
 Chapter 8.
-) [57
+) [59
 
 
 
 
-] [58
+] [60
 
 
 
@@ -1431,7 +1439,7 @@ Chapter 8.
 
  (./parts/part3/p3c1-household-heterogeneity.tex
 Chapter 9.
-) [59
+) [61
 
 
 ]
@@ -1439,12 +1447,12 @@ Chapter 9.
 
  (./parts/part3/p3c2-firm-heterogeneity.tex
 Chapter 10.
-) [60
+) [62
 
 
 
 
-] [61
+] [63
 
 
 
@@ -1453,7 +1461,7 @@ Chapter 10.
 
  (./parts/part4/p4c1-bank.tex
 Chapter 11.
-) [62
+) [64
 
 
 ]
@@ -1461,7 +1469,7 @@ Chapter 11.
 
  (./parts/part4/p4c2-macro-debt.tex
 Chapter 12.
-) [63
+) [65
 
 
 
@@ -1471,7 +1479,7 @@ Chapter 12.
 
  (./parts/part4/p4c3-ha-computation.tex
 Chapter 13.
-) [64
+) [66
 
 
 
@@ -1495,12 +1503,12 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36878 strings out of 474773
- 824844 string characters out of 5761289
+ 36882 strings out of 474773
+ 824918 string characters out of 5761289
  1951842 words of memory out of 5000000
- 58464 multiletter control sequences out of 15000+600000
+ 58468 multiletter control sequences out of 15000+600000
  574801 words of font info for 142 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,16n,97p,1876b,1039s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (68 pages).
+Output written on main.pdf (70 pages).

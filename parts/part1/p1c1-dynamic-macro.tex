@@ -131,11 +131,10 @@ $$k_{T+1}=0$$
 现在，\textbf{由有限期转向无限期问题}。回忆在有限期问题中，终期时$k_{T+1}$的最优条件满足：
 $$\beta^T \lambda_T k_{T+1}=0$$
 从直觉出发，令$T \rightarrow \infty$，那么可以得到无限期情形下的\textbf{横截性条件}（Transversality Condition）：
-$$
-\lim _{T \rightarrow \infty} \beta^T \lambda_T k_{T+1}=0
-$$
-
-无限期最优增长模型中，计划者的最优配置$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$是符合
+\begin{equation}
+    \lim _{T \rightarrow \infty} \beta^T \lambda_T k_{T+1}=0
+\end{equation}
+\textbf{这一条件排除了无限期情形下资本无限增长的可能性}。计划者的最优配置$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$是符合
 如下欧拉方程（optimality）、资源约束（feasibility）和边界条件的一条\textbf{唯一路径}（unique path）：
 \begin{equation}    \label{eq-euler-sp}
     \frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
