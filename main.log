@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  14 APR 2025 18:17
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  16 APR 2025 18:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1234,31 +1234,31 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 532.
- [15]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 558.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 565.
+ [15]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 574.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 578.
- [16] [17]
+ [16]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 650.
- [18] [19] [20] [21]
+ [17] [18] [19] [20]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 827.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 835.
- [22]
+ [21] [22]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 891.
@@ -1269,10 +1269,10 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1007.
- [25]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1035.
+ [25]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1055.
@@ -1353,27 +1353,38 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 365.
- [41] [42] [43] [44] [45] [46] [47]
+ [41] [42] [43]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 657.
- [48]
+(mdframed)              on input line 476.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 692.
- [49] [50]
+(mdframed)              on input line 484.
+ [44] [45] [46]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 743.
+(mdframed)              on input line 595.
+ [47] [48] [49]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 750.
- [51] [52]) [53]
+(mdframed)              on input line 702.
+ [50]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 737.
+ [51] [52]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 827.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 834.
+ [53] [54]) [55]
 \openout2 = `parts/part1/p1c3-numerical-methods.aux'.
 
  (./parts/part1/p1c3-numerical-methods.tex
 Chapter 3.
-) [54
+) [56
 
 
 
@@ -1383,7 +1394,7 @@ Chapter 3.
 
  (./parts/part1/p1c4-dsge.tex
 Chapter 4.
-) [55
+) [57
 
 
 
@@ -1393,12 +1404,12 @@ Chapter 4.
 
  (./parts/part1/p1c5-macro-econometrics.tex
 Chapter 5.
-) [56
+) [58
 
 
 
 
-] [57
+] [59
 
 
 
@@ -1407,7 +1418,7 @@ Chapter 5.
 
  (./parts/part2/p2c1-incomplete-market.tex
 Chapter 6.
-) [58
+) [60
 
 
 ]
@@ -1415,7 +1426,7 @@ Chapter 6.
 
  (./parts/part2/p2c2-ha-model.tex
 Chapter 7.
-) [59
+) [61
 
 
 
@@ -1425,12 +1436,12 @@ Chapter 7.
 
  (./parts/part2/p2c3-firm-dynamics.tex
 Chapter 8.
-) [60
+) [62
 
 
 
 
-] [61
+] [63
 
 
 
@@ -1439,7 +1450,7 @@ Chapter 8.
 
  (./parts/part3/p3c1-household-heterogeneity.tex
 Chapter 9.
-) [62
+) [64
 
 
 ]
@@ -1447,12 +1458,12 @@ Chapter 9.
 
  (./parts/part3/p3c2-firm-heterogeneity.tex
 Chapter 10.
-) [63
+) [65
 
 
 
 
-] [64
+] [66
 
 
 
@@ -1461,7 +1472,7 @@ Chapter 10.
 
  (./parts/part4/p4c1-bank.tex
 Chapter 11.
-) [65
+) [67
 
 
 ]
@@ -1469,7 +1480,7 @@ Chapter 11.
 
  (./parts/part4/p4c2-macro-debt.tex
 Chapter 12.
-) [66
+) [68
 
 
 
@@ -1479,7 +1490,7 @@ Chapter 12.
 
  (./parts/part4/p4c3-ha-computation.tex
 Chapter 13.
-) [67
+) [69
 
 
 
@@ -1497,18 +1508,18 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2022/07/14>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E8B30D47C68E1BC0F706EF928065FA87;9659.
+(rerunfilecheck)             Checksum: 7F8DDD09E71D750741E6579BFC5B5709;9948.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 36969 strings out of 474773
- 829698 string characters out of 5761289
- 1951842 words of memory out of 5000000
- 58548 multiletter control sequences out of 15000+600000
+ 37007 strings out of 474773
+ 831843 string characters out of 5761289
+ 1957842 words of memory out of 5000000
+ 58586 multiletter control sequences out of 15000+600000
  574849 words of font info for 148 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 93i,16n,97p,1876b,1039s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,16n,97p,1876b,960s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (71 pages).
+Output written on main.pdf (73 pages).
