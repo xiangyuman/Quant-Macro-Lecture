@@ -258,7 +258,7 @@ $$
 关于$c_t^i\left(s^t\right)$的FOC为：
 \begin{equation}    \label{eq-ad-foc}
     q_t^0\left(s^t\right) = \beta^t \frac{u_i^{\prime}\left(c_t^i\left(s^t\right)\right)}{\mu_i} \pi_t\left(s^t\right)
-    \quad \text { for all } t, s^t
+    \quad \forall t, s^t
 \end{equation}
 
 在进一步分析求解问题前，我们先介绍与均衡有关的几个概念：
@@ -471,29 +471,53 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 
 
 % 2.1.4.5
-\subsubsection{应用：资产定价}
+\subsubsection{初步应用：资产定价}
+
+在本小节，我们利用阿罗-德布鲁证券讨论资产定价问题。回顾这一证券的定义：它是一个依存于$s^t$的对$t$时刻一单位消费品的索取权。
+与之前一致，记其价格为$q_t^0\left(s^t\right)$，表示在第$0$期交易的依存于$(t,s^t)$交割一单位消费品的合约的价格。
+这一合约在理论上是十分有用的：许多资产定价模型会在完备市场假设下，通过\textbf{将感兴趣的资产分解为一个状态依存合约序列}，
+利用状态价格平减指数（State Price Deflator）$q_t^0\left(s^t\right)$对序列中的每一元素进行估值，
+最后加总得到资产的定价。
 
 \begin{example}
-    \textbf{Redundant Asset}：假设某一资产带来的收益流为$\{d_t\left(s^t\right)\}_{t\geq 0}$，它是对$t$时刻$s^t$历史下的消费品索取权序列。
-    这一资产称为冗余资产（Redundant Asset），其价格必定等于：
-    \begin{equation}
+    \textbf{冗余资产（Redundant Asset）}：这一资产带来的收益流为$\{d_t\left(s^t\right)\}_{t\geq 0}$，是对$t$时刻$s^t$历史下的消费品索取权序列。
+    在完备市场中，根据无套利原则，这一资产的价格必定等于：
+    \begin{equation}    \label{eq-price-redundant}
         p_0^0\left(s_0\right)=\sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right) d_t\left(s^t\right)
     \end{equation}
 \end{example}
 
 \begin{example}
-    \textbf{尾部资产}（Tail Asset）：这一资产对后续序贯市场均衡和阿罗-德布鲁均衡关系的研究至关重要。在冗余资产的收益流中，
-    对$\tau \geq 1$，假设我们砍去前$\tau-1$期的收益，同时希望得到剩余收益流$\{d_t\left(s^t\right)\}_{t\geq \tau}$的零时刻价格。
-    特别的，我们希望得到某一特定历史$s^\tau$下这一\textbf{尾部资产}的价值。
-    记$p_{\tau}^0\left(s^\tau\right)$为历史$s^{\tau}$下带来$\{d_t\left(s^t\right)\}_{t\geq \tau}$的资产的\textbf{零时价格}
-    （即在零时刻交易，注意上标），那么有：
+    \textbf{无风险永续债（Riskless Consol）}：这一资产会在每期都确定地提供一单位消费品，即$d_t\left(s^t\right)=1,~\forall t, s^t$，
+    则这一资产的价格为：
+    \begin{equation}    \label{eq-price-consol}
+        \sum_{t=0}^{\infty} \sum_{s^t} q_t^0\left(s^t\right)
+    \end{equation}
+\end{example}
+
+\begin{example}
+    \textbf{无风险剥离债（Riskless Strips）}：是指将债券的本金和利息现金流拆分成独立的零息债券。
+    考虑将上述无风险永续债未来每期的利息支付单独剥离：当$\tau=t\geq 0$时，$d_{\tau}=1$，否则$d_{\tau}=0$。
+    实际上，拆分后形成的本质上是一个仅在到期日$t$支付的零息债券。剥离出的第$t$期的条带价值为：
+    \begin{equation}    \label{eq-price-strip}
+        \sum_{s^t}q_t^0\left(s^t\right)
+    \end{equation}
+\end{example}
+
+\begin{example}
+    \textbf{尾部资产}（Tail Asset）：这一资产对后续序贯市场均衡和阿罗-德布鲁均衡关系的研究至关重要。考虑冗余资产带来的收益流，
+    对$\tau \geq 1$，假设我们剥离掉前$\tau-1$期的收益，同时希望得到剩余收益流$\{d_t\left(s^t\right)\}_{t\geq \tau}$的零时刻价格。
+    特别的，我们希望得到某一特定实现的历史$s^\tau$下这一\textbf{尾部资产}的价值。
+    记$p_{\tau}^0\left(s^\tau\right)$为条件于历史$s^{\tau}$实现时带来$\{d_t\left(s^t\right)\}_{t\geq \tau}$的资产的\textbf{零时价格}
+    （即在零时刻交易，注意上标），那么价值为：
     \begin{equation}
         p_\tau^0\left(s^\tau\right)=\sum_{t \geq \tau} \sum_{s^t \mid s^\tau} q_t^0\left(s^t\right) d_t\left(s^t\right)
     \end{equation}
-    其中，对于$s^t\mid s^{\tau}$的求和符号表示我们对所有满足$\tilde{s}^{\tau}=s^{\tau}$的可能的后续历史$\tilde{s}^t$进行求和.
-    当价格的单位是零时刻状态$s_0$下的商品，正则化有$q_0^0\left(s_0\right)=1$。为了将价格$p_\tau^0\left(s^\tau\right)$
-    转化为时刻$\tau$历史$s^{\tau}$下（下标和括号中的变量）的商品计价，我们除以$q_{\tau}^0\left(s^{\tau}\right)$（阿鲁-德布鲁价格）就可得到
-    $\tau$时刻交易（上标）的$s^{\tau}$历史下（下标和括号中）的尾部资产价格$p_\tau^\tau\left(s^\tau\right)$：
+    其中，对于$s^t\mid s^{\tau}$的求和符号表示我们对所有满足$\tilde{s}^{\tau}=s^{\tau}$的可能的后续历史$\tilde{s}^t$进行求和。
+    当价格的单位是零时刻状态$s_0$下的商品，正则化有$q_0^0\left(s_0\right)=1$。
+    为了将价格$p_\tau^0\left(s^\tau\right)$ 转化为\textbf{以时刻$\tau$历史$s^{\tau}$下的商品计价}，
+    我们将其除以$q_{\tau}^0\left(s^{\tau}\right)$（阿鲁-德布鲁价格）就可得到正则化后的尾部资产价格$p_\tau^\tau\left(s^\tau\right)$
+    （上标：时刻$\tau$交易，即$\tau$时价格；下标和括号中：依存于$(\tau,s^{\tau})$的合约）：
     \begin{equation}
         p_\tau^\tau\left(s^\tau\right) \equiv \frac{p_\tau^0\left(s^\tau\right)}{q_\tau^0\left(s^\tau\right)}
             =\sum_{t \geq \tau} \sum_{s^t \mid s^\tau} \frac{q_t^0\left(s^t\right)}{q_\tau^0\left(s^\tau\right)} d_t\left(s^t\right)
@@ -509,11 +533,14 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
                     {u_i^{\prime}\left[c_\tau^i\left(s^\tau\right)\right]} \pi_t\left(s^t \mid s^\tau\right)
             \end{aligned}
     \end{equation}
-    这里$q_t^\tau\left(s^t\right)$表示以时刻$\tau$历史$s^{\tau}$下的物品计价的时刻$t$历史$s^t$下交割的一单位消费品的价格。
-    因此，时刻$\tau$历史$s^{\tau}$下的尾部资产价格可以进一步简化为：
+    这里$q_t^\tau\left(s^t\right)$表示\textbf{以时刻$\tau$历史$s^{\tau}$下的物品计价的}许诺在在时刻$t$历史$s^t$下交割的一单位消费品的合约的价格。
+    因此，依存于时刻$\tau$历史$s^{\tau}$的尾部资产的$\tau$时价格可以进一步简化为：
     \begin{equation}    \label{eq-price-tail}
         p_\tau^\tau\left(s^\tau\right)=\sum_{t \geq \tau} \sum_{s^t \mid s^\tau} q_t^\tau\left(s^t\right) d_t\left(s^t\right)
     \end{equation}
+
+    式\ref{eq-price-tail}有非常多运用，例如在$\tau$时刻购买的许诺从此刻$\tau$开始分红的股权定价。
+    实际上，\textbf{尾部资产定价公式\ref{eq-price-tail}就是将资产价格表示为以时刻$\tau$历史$s^{\tau}$下的物品计价。}
 \end{example}
 
 
@@ -523,9 +550,8 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 本小节研究另一种市场中的均衡——序贯市场均衡（Sequential Market Equiliibrium, SME）。
 虽然阿罗-德布鲁市场是具有良好性质的天然完备市场，但更适于作为一个理论基础，而序贯市场则更贴近于实践中的金融交易。
 实际上，在序贯市场中，只要每期阿罗证券（单期状态依存证券）的数量足够覆盖下期所有状态（Complete Set of one-period-ahead Contingent Claims），
-那么序贯市场也可以达到\textbf{动态完备（Sequentially Complete）}。
-由此，我们自然会猜想：序贯市场（竞争）均衡应该也是帕累托最优的，并且与阿罗-德布鲁市场（竞争）均衡等价。我们将给出序贯均衡存在的条件，
-对此均衡间的等价性进行证明，。
+那么序贯市场也可以达到\textbf{动态完备（Sequentially Complete）}。由此，我们自然会猜想：
+序贯市场（竞争）均衡应该也是帕累托最优的，且与阿罗-德布鲁市场（竞争）均衡等价。我们将给出序贯均衡存在的条件，并对均衡间的等价性进行证明。
 
 回顾序贯市场交易的特征：市场每期都会重新开放，但是只有一种单期状态依存合约，交易按期进行形成一个序列。
 记在第$t$期历史$s^t$下签订的在第$t+1$期状态$s_{t+1}$实现时交割$1$单位消费品的\textbf{阿罗证券的价格}为$q_t\left(s^t,s_{t+1}\right)$；
@@ -549,7 +575,7 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 
 在竞争市场上，个体$i$将价格视为给定，其\textbf{序列问题}为：在预算约束\ref{eq-sq-bc}下，
 通过选择\textbf{消费序列}$c^i \equiv \{c_t^i\left(s^t\right)\}_{t=0}^{\infty}$
-和\textbf{资产组合序列}$\{\{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}\}_{t=0}^{\infty}$最大化效用：
+和\textbf{资产组合的序列}$\{\{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}\}_{t=0}^{\infty}$最大化效用：
 \begin{equation} \label{eq-sq-preference-i}
     U\left(c^i\right)=\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u_i\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right)
 \end{equation}  
@@ -569,7 +595,7 @@ $\{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}$中某一代表元素（�
     q_t\left(s^t, s_{t+1}\right) \mu_t^i\left(s^t\right) = \mu_{t+1}^i\left(s^t, s_{t+1}\right)
 \end{align}
 消去乘子可得：
-\begin{equation}    \label{eq-sq-foc}
+\begin{equation}    \label{eq-sq-foc1}
     q_t\left(s^t, s_{t+1}\right) = 
         \beta \frac{u_i^{\prime}\left(c_{t+1}^i\left(s^{t+1}\right)\right)}{u_i^{\prime}\left(c_t^i\left(s^t\right)\right)} 
             \pi_{t+1}\left(s^{t+1} \mid s^t\right), \quad s^{t+1}=(s^t,s_{t+1}) \quad \forall s_{t+1}, t, s^t
@@ -657,20 +683,20 @@ $t\geq\tau$。此处是以时刻$t$历史$s^t$的物品计价，$\tau\geq t$，�
 \begin{equation}
     A_t^i\left(s^t\right)=\sum_{\tau=t}^{\infty} \sum_{s^\tau \mid s^t} q_\tau^t\left(s^\tau\right) y_\tau^i\left(s^\tau\right)
 \end{equation}
-我们将$A_t^i\left(s^t\right)$称为\textbf{自然债务限制（\textit{Natural Debt Limit}）}：\textbf{它是在当前时间和状态下，个体$i$所能偿还的最多债务值，
-即从当期开始，设定此后消费始终为零}。
+我们将$A_t^i\left(s^t\right)$称为\textbf{自然债务限制（\textit{Natural Debt Limit}）}：\textbf{它是在当前时间和状态下，
+个体$i$所能偿还的最多债务值：即从当期开始，设定此后消费始终为零}。
 需要注意的是，在序贯交易下，条件于明天状态$s_t$的实现，个体$i$在时刻$t-1$和历史$s^{t-1}$下无法承诺偿还比$A_t^i\left(s^t\right)$更多的债务。
 也就是说，对于明天每一种可能实现的状态$s_t$，个体$i$在$t-1$都面临一个与之对应的借款约束。
 回顾前面我们所强调的，消费者每期构建的资产组合是一个向量，每个元素都应一种可能实现的状态，
 因此我们将其记为$\{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}$，
-此处正与之一致。对后续优化问题中与这一约束相关的乘子，我们将记为$\nu\left(s^t,s_{t+1}\right)$。
-
-至此，对第$t$期的个体$i$，我们可以写下如下自然债务限制条件：
+此处正与之一致。因此，对后续优化问题中与这一约束相关的乘子，我们将记为$\nu\left(s^t,s_{t+1}\right)$。
+至此，对第$t$期的个体$i$，条件于$s_{t+1}$，我们可以写出如下自然债务限制条件来排除庞氏骗局：
 \begin{equation}    \label{eq-sq-natural-debt-lim}
     a_{t+1}^i\left(s^{t+1}\right) \geq -A_{t+1}^i\left(s^{t+1}\right)
 \end{equation}
-但是，对于债务额外施加约束条件，会导致最优化问题拉格朗日函数的变化。
-我们将看到，自然债务约束在序贯均衡时是非紧的。因此，此前得到的一阶条件仍然是正确的，进而能为研究序贯市场均衡与阿罗-德布鲁均衡的关系提供方便。
+
+但是，对于债务额外施加约束条件，会导致最优化问题拉格朗日函数的变化。我们将看到，自然债务约束在序贯均衡时是非紧的。
+因此，此前得到的一阶条件仍然是正确的，进而能为研究序贯市场均衡与阿罗-德布鲁均衡的关系提供方便。
 
 记$\nu_t^i\left(s^t,s_{t+1}\right)$为个体$i$第$t$期面临的、条件于在$t+1$期实现状态$s_{t+1}$时的自然债务限制约束乘子，则正确的拉格朗日函数为：
 \begin{equation*}
@@ -683,34 +709,43 @@ $t\geq\tau$。此处是以时刻$t$历史$s^t$的物品计价，$\tau\geq t$，�
             \left[A_{t+1}^i\left(s^{t+1}\right)+a_{t+1}^i\left(s^{t+1}\right)\right]
         \end{aligned}
 \end{equation*}
-则正确的一阶条件为：
+从而关于消费和资产的正确一阶条件为：
 \begin{align}
     \beta^t u_i^{\prime}\left(c_t^i\left(s^t\right)\right) \pi_t\left(s^t\right) &= \mu_t^i\left(s^t\right) \\
     q_t\left(s^t, s_{t+1}\right) \mu_t^i\left(s^t\right) &= \mu_{t+1}^i\left(s^t, s_{t+1}\right) + \nu_t^i\left(s^t;s_{t+1}\right)
 \end{align}
 
-但是，\textbf{均衡时自然债务限制约束一定是非紧的}：假设存在某一历史$s^{t+1}$，带来一个紧的自然债务限制，那么，
-消费者从此时开始，必须设定消费为0，才能保证偿还债务。也就是说，如果自然债务限制为紧，则个体未来的收入全部被用于偿还债务。
-但根据效用函数的Inada条件，$\lim\limits_{c\rightarrow 0}u_i\left(c\right)=+\infty$，这意味着，未来的边际效用将会是无穷。
-那么，个体只需要将此前的部分消费推迟到自然债务限制为紧之后，就能找到一个可行的更好的消费配置。
-因此，乘子$\nu_t^i\left(s^t;s_{t+1}\right)$始终为0，之前得到的最优条件\ref{eq-sq-foc}是正确的，即：
-\begin{equation}    \label{eq-sq-opt}
+实际上，\textbf{均衡时自然债务限制约束一定是非紧的}：假设存在某一历史$s^{t+1}$，带来一个紧的自然债务限制，那么，
+消费者从此时开始，必须设定今后消费为0，才能保证偿还债务。也就是说，如果自然债务限制为紧，则个体未来的收入全部被用于偿还债务。
+但效用函数的Inada条件，$\lim\limits_{c\rightarrow 0}u_i\left(c\right)=+\infty$意味着：未来的边际效用将会是无穷。
+那么，个体只需要将此前的部分消费推迟到自然债务限制为紧之后，就很容易能找到一个可行的更好的消费配置。
+因此，乘子$\nu_t^i\left(s^t;s_{t+1}\right)$始终为0，之前得到的最优条件\ref{eq-sq-foc1}是正确的，即：
+\begin{equation}    \label{eq-sq-foc2}
     q_t\left(s^t, s_{t+1}\right) = \beta \frac{u_i^{\prime}\left(c_{t+1}^i\left(s^{t+1}\right)\right)}{u_i^{\prime}\left(c_t^i\left(s^t\right)\right)} 
         \pi_{t+1}\left(s^{t+1} \mid s^t\right), \quad s^{t+1}=(s^t,s_{t+1}) \quad \forall s_{t+1}, t, s^t
 \end{equation}
 
 \begin{definition}
-    \textbf{序贯市场均衡}（Sequential Market Equilibrium），是一个竞争均衡，
-    由一个初始财富分布$\{a_0\left(s_0\right)\}_{i\in I}$、一组自然债务限制
-    $\left\{ \{ A_t^i\left(s^t\right) \}_{t=0,s^t\in S^t}^{\infty} \right\}_{i\in I}$、
-    一组\textbf{阿罗价格}$\{q\left(s^t,s_{t+1}\right)\}_{t=0, s_{t+1}\in S}^{\infty}$和一组消费-资产组合配置
+    \textbf{财富分布}（Distribution of Wealth），是一组向量
+        $\vec{a}_t\left(s^t\right)=\left\{a_t^i\left(s^t\right)\right\}_{i=1}^I$，
+        满足：$\sum_{i}a_t^i\left(s^t\right)=0$。
+\end{definition}
+
+我们将在后文证明两个市场均衡等价性时详细讨论关于财富的问题。现在给出是因为它是定义均衡的一个必要条件。
+
+\begin{definition}
+    \textbf{序贯市场均衡}（Sequential Market Equilibrium）是一个竞争均衡，
+    由初始财富分布$\vec{a}_0\left(s_0\right)=\{a_0^i\left(s_0\right)\}_{i\in I}$、
+    自然债务限制$\left\{ \{ A_t^i\left(s^t\right) \}_{t=0,s^t\in S^t}^{\infty} \right\}_{i\in I}$、
+    消费-资产组合配置
     $\left\{ \left[c_t^i\left(s^t\right), \{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S} \right]_{t=0}^{\infty} \right\}_{i\in I}$
-    构成，其满足：
+    和\textbf{阿罗价格}$\{q\left(s^t,s_{t+1}\right)\}_{t=0, s_{t+1}\in S}^{\infty}$和
+    构成，满足：
     \begin{itemize}
         \item 任意个体$i$将价格视为给定，在预算约束\ref{eq-sq-bc}和自然债务约束\ref{eq-sq-natural-debt-lim}下选择消费和资产组合序列
             $$\left[c_t^i\left(s^t\right), \{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S} \right]_{t=0}^{\infty}$$
             最大化其目标效用\ref{eq-sq-preference-i}
-        \item 所有个体$i$的消费和资产组合配置
+        \item 所有个体$i$的消费-资产组合配置
             $\left\{ \left[c_t^i\left(s^t\right), \{a_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S} \right]_{t=0}^{\infty} \right\}_{i\in I}$
             使产品和金融市场出清：
             \begin{align*}
@@ -721,33 +756,64 @@ $t\geq\tau$。此处是以时刻$t$历史$s^t$的物品计价，$\tau\geq t$，�
 \end{definition}
 
 
-
 % 2.1.5.2 均衡等价性
 \subsubsection{均衡等价性}
 
-回忆在\textbf{阿罗-德布鲁均衡}下，在第$0$期交易的第$t$期消费品的状态依存合约（阿罗-德布鲁证券）的价格可以写为：
+结合两个竞争市场的均衡配置，我们很容易发现二者的均衡是等价的。我们的证明思路是：给定A市场下的价格-消费配置，
+证明在B市场存在一个均衡价格，使得给定的消费和B市场中的这一价格符合B市场的均衡条件。
+为了方便起见，在此写下两个市场的均衡条件。对\textbf{阿罗-德布鲁市场}，均衡条件为\ref{eq-ad-foc}：
 \begin{equation*}
-    q_t^0\left(s^t\right)=\beta^t \frac{u_i^{\prime}\left(c_t^i\left(s^t\right)\right)}{\mu_i}\pi_t(s^t)
+    q_t^0\left(s^t\right) = \beta^t \frac{u_i^{\prime}\left(c_t^i\left(s^t\right)\right)}{\mu_i} \pi_t\left(s^t\right)
+    \quad \forall t, s^t
 \end{equation*}
-其中乘子$\mu_i$是个体$i$的终身预算约束。对比序贯市场均衡的最优条件，不难看出序贯市场上阿罗证券的价格可以写为：
-\begin{equation}    \label{eq-sq-p-ad}
+其中乘子$\mu_i$是个体$i$的终身预算约束。对\textbf{序贯市场}，均衡条件为\ref{eq-sq-foc2}：
+\begin{equation*}
+    q_t\left(s^t, s_{t+1}\right) = \beta \frac{u_i^{\prime}\left(\tilde{c}_{t+1}^i\left(s^{t+1}\right)\right)}
+        {u_i^{\prime}\left(\tilde{c}_t^i\left(s^t\right)\right)} 
+            \pi_{t+1}\left(s^{t+1} \mid s^t\right), \quad s^{t+1}=(s^t,s_{t+1}) \quad \forall s_{t+1}, t, s^t
+\end{equation*}
+
+现在，\textbf{给定$\left(\{c_t^i\left(s^t\right)\},q_t^0\right)$为阿罗-德布鲁市场中的一个竞争均衡配置}。
+我们假设序贯市场中存在满足下式的阿罗价格（构造序贯市场中的价格）：
+\begin{equation}
     q_t\left(s^t,s_{t+1}\right) = \frac{q_{t+1}^0\left(s^{t+1}\right)}{q_t^0\left(s^t\right)}
 \end{equation}
-事实上，两个市场间均衡的关系可以由如下定理进一步概括：
+使得序贯市场上的均衡消费正为$c$。也就是说，往证这一价格和$\tilde{c}=c$满足序贯均衡条件。
+这是容易的：由阿罗-德布鲁均衡条件可进一步推得：
+\begin{equation}    \label{eq-equiv-ad}
+    \frac{q_{t+1}^0\left(s^{t+1}\right)}{q_t^0\left(s^t\right)}= \beta\frac{ u_i^{\prime}\left(c_{t+1}^i\left(s^{t+1}\right)\right)}
+        {u_i^{\prime}\left(c_t^i\left(s^t\right)\right)}\pi_{t+1}\left(s^{t+1} \mid s^t\right)
+\end{equation}
+从而对我们猜测（构造）的价格$q_t\left(s^t, s_{t+1}\right)$，有：
+\begin{equation}
+    q_t\left(s^t, s_{t+1}\right) = \frac{q_{t+1}^0\left(s^{t+1}\right)}{q_t^0\left(s^t\right)}
+        = \beta\frac{ u_i^{\prime}\left(c_{t+1}^i\left(s^{t+1}\right)\right)}
+        {u_i^{\prime}\left(c_t^i\left(s^t\right)\right)}\pi_{t+1}\left(s^{t+1} \mid s^t\right)
+\end{equation}
+其中第一个等号是根据我们的构造，第二个等号是根据\ref{eq-equiv-ad}。
+不难看出，当序贯均衡条件\ref{eq-sq-foc2}中$\tilde{c}=c$，上述结果正是序贯市场的均衡条件。
+也就是说，\textbf{阿罗-德布鲁市场中给定的这组竞争均衡配置使得序贯市场的均衡条件成立}。反之同理。
+
 \begin{theorem}
-    若
+    若$\left(c,q\right)$是一个阿罗-德布鲁均衡，那么$(a,c,\tilde{Q})$是一个序贯市场均衡，其价格满足：
+    $$\tilde{Q}_t\left(s^t,s_{t+1}\right) = \frac{q_{t+1}^0\left(s^{t+1}\right)}{q_t^0\left(s^t\right)}$$
+    若$(a,c,\tilde{Q})$是一个序贯市场均衡，那么$\left(c,q\right)$是一个阿罗-德布鲁均衡，其价格满足：
+    \begin{equation}
+        \begin{aligned}
+            q_{t}^0\left(s^{t}\right) &= q_{t-1}^0\left(s^{t-1}\right) \tilde{Q}_{t-1}\left(s^{t-1},s_{t}\right)    \\
+                &= q_{t-2}^0\left(s^{t-2}\right)\tilde{Q}_{t-2}\left(s^{t-2},s_{t-1}\right)\tilde{Q}_{t-1}\left(s^{t-1},s_{t}\right)  \\
+                &= \cdots   \\
+                &= 1*\tilde{Q}_0\left(s_0,s_1\right)\tilde{Q}_1\left(s^1,s_2\right)\cdots \tilde{Q}_{t-1}\left(s^{t-1},s_{t}\right)
+        \end{aligned}
+    \end{equation}
 \end{theorem}
-\begin{proof}
-    111
-\end{proof}
 
 这一定理表明，任一阿罗-德布鲁均衡可以在包含了一组完备单期阿罗证券的序贯市场均衡中实现；
 反之，任一序贯市场均衡都可以在阿罗-德布鲁均衡实现。简言之，两个竞争市场均衡是相合的，并且都是帕累托有效的。
+本节开头的论证似乎已经完成了对于这一定理的证明，但我们还遗漏了一个问题，即序贯市场中的财富有什么作用？对于这一问题的讨论有些复杂。
 
-虽然这一定理从直觉上很好理解，但证明过程较为复杂。
 首先，我们需要为个体在$t$时刻历史$s^t$下的值函数找到一个合适的\textbf{状态变量}。我们借助阿罗-德布鲁均衡来构造。
-
-对于所有交易都在$t=0$发生的竞争均衡，个体$i$在$t$时刻历史$s^t$实现后的\textbf{延续财富}（Continuation Wealth）是多少？
+思考如下问题：对于所有交易都在$t=0$发生的竞争均衡，个体$i$在$t$时刻历史$s^t$实现后的\textbf{延续财富}（Continuation Wealth）是多少？
 显然，答案是个体在$(t,s^t)$下持有的对今天和未来消费索取权价值的加总。
 由于历史$s^t$已经实现，对于任意历史$\tilde{s}^t \neq s^t$的索取权，需要忽略掉。因此，财富在$t=0$时交易结束后就被决定下来。
 相当于个体出售了其全部未来禀赋留（预算约束\ref{eq-ad-bc}右侧），以换取状态依存的消费索取权（预算约束\ref{eq-ad-bc}左侧）。
@@ -895,19 +961,16 @@ $\Upsilon_0^8\left(s_0\right)=0, \quad \forall i$。对$t>0$，每个个体$i$�
 实际上，当我们写下一个代表性家庭模型，其实就隐含地假设了家庭所在市场的完备性。
 
 
-% 2.3 =============== 资产定价 ===============
-\section{完备市场理论的应用：资产定价}
 
 
-
-% 2.4 =============== Kruger Decentralized Equilibrium Lafo ===============
+% 2.3 =============== Kruger Decentralized Equilibrium Lafo ===============
 \section{均衡概念的运用：最优增长模型}
 
 回顾本章开头的问题：我们希望证明，在一个分散经济最优增长模型中，其竞争均衡时帕累托最优的。
 
 
 
-% 2.4.1 ===== AD均衡-NGM
+% 2.3.1 ===== AD均衡-NGM
 \subsection{AD}
 
 为了更清晰的阐明宏观经济学中相关的均衡概念，现在先考虑如下问题：
@@ -916,11 +979,11 @@ $\Upsilon_0^8\left(s_0\right)=0, \quad \forall i$。对$t>0$，每个个体$i$�
 是完全竞争的（perfectly competitive），这意味着家庭和企业都将价格视为给定（take as given）。
 
 
-% 2.4.2 ===== SQ均衡-NGM
+% 2.3.2 ===== SQ均衡-NGM
 \subsection{SQ}
 
 
-% 2.4.3 ===== RCE-NGM
+% 2.3.3 ===== RCE-NGM
 \subsection{Recursive Comptetitive Equilibrium}
 
 在一些宏观模型中，均衡可能并非帕累托最优，也可能难以通过序列形式或Arrow-Debreu形式求解，这时我们通常会定义递归竞争均衡（Recursive Comptetitive Equilibrium）。
@@ -929,11 +992,11 @@ $\Upsilon_0^8\left(s_0\right)=0, \quad \forall i$。对$t>0$，每个个体$i$�
 在递归方法下同样也可以定义均衡概念。同时，RCE时ST的递归表示。
 
 
-% 2.4.4 ==== 三种均衡概念的总结
+% 2.3.4 ==== 三种均衡概念的总结
 
 
 
-% 2.5 =============== 随机最优增长 Edmond ===============
+% 2.4 =============== 随机最优增长 Edmond ===============
 \section{随机最优增长模型}
 
 Brock and Mirman（1972）首次在计划者问题下引入了随机TFP冲击，建立了随机最优增长模型，成为现代宏观模型的基准框架。
