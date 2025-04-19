@@ -38,32 +38,32 @@
 \contentsline {subsection}{\numberline {2.1.5}序贯市场下的均衡}{46}{subsection.2.1.5}%
 \contentsline {subsubsection}{\numberline {2.1.5.1}自然债务限制与序贯市场均衡}{47}{subsubsection.2.1.5.1}%
 \contentsline {subsubsection}{\numberline {2.1.5.2}均衡等价性}{51}{subsubsection.2.1.5.2}%
-\contentsline {subsection}{\numberline {2.1.6}递归均衡}{53}{subsection.2.1.6}%
-\contentsline {section}{\numberline {2.2}代表性家庭的存在性}{54}{section.2.2}%
-\contentsline {section}{\numberline {2.3}均衡概念的运用：最优增长模型}{56}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}AD}{56}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}SQ}{56}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Recursive Comptetitive Equilibrium}{56}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}随机最优增长模型}{57}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}sequential approach using histories and contingent plans}{57}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}recursive approach}{57}{subsection.2.4.2}%
-\contentsline {chapter}{\numberline {3}数值方法}{58}{chapter.3}%
-\contentsline {section}{\numberline {3.1}引例：随机最优增长的遗留问题}{58}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Markov Process and Expectation}{58}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}数值积分}{58}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Function Approximation}{58}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Projection Methods}{58}{section.3.4}%
-\contentsline {chapter}{\numberline {4}DSGE}{59}{chapter.4}%
-\contentsline {chapter}{\numberline {5}宏观计量理论与方法}{60}{chapter.5}%
-\contentsline {part}{II\hspace {1em}量化宏观核心理论}{61}{part.2}%
-\contentsline {chapter}{\numberline {6}不完全市场理论}{62}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Heterogeneity Agent Model with Aggregate Uncertainty}{63}{chapter.7}%
-\contentsline {chapter}{\numberline {8}企业动态}{64}{chapter.8}%
-\contentsline {part}{III\hspace {1em}现代量化宏观主要模型：HANK}{65}{part.3}%
-\contentsline {chapter}{\numberline {9}异质性家庭}{66}{chapter.9}%
-\contentsline {chapter}{\numberline {10}异质性企业}{67}{chapter.10}%
-\contentsline {part}{IV\hspace {1em}量化宏观专题}{68}{part.4}%
-\contentsline {chapter}{\numberline {11}银行、金融危机与宏观政策}{69}{chapter.11}%
-\contentsline {chapter}{\numberline {12}宏观债务、经济周期与政策}{70}{chapter.12}%
-\contentsline {chapter}{\numberline {13}异质性模型前沿理论}{71}{chapter.13}%
+\contentsline {subsection}{\numberline {2.1.6}递归均衡}{56}{subsection.2.1.6}%
+\contentsline {section}{\numberline {2.2}代表性家庭的存在性}{56}{section.2.2}%
+\contentsline {section}{\numberline {2.3}均衡概念的运用：最优增长模型}{58}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}AD}{58}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}SQ}{59}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Recursive Comptetitive Equilibrium}{59}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}随机最优增长模型}{59}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}sequential approach using histories and contingent plans}{59}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}recursive approach}{59}{subsection.2.4.2}%
+\contentsline {chapter}{\numberline {3}数值方法}{60}{chapter.3}%
+\contentsline {section}{\numberline {3.1}引例：随机最优增长的遗留问题}{60}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Markov Process and Expectation}{60}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}数值积分}{60}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Function Approximation}{60}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Projection Methods}{60}{section.3.4}%
+\contentsline {chapter}{\numberline {4}DSGE}{61}{chapter.4}%
+\contentsline {chapter}{\numberline {5}宏观计量理论与方法}{62}{chapter.5}%
+\contentsline {part}{II\hspace {1em}量化宏观核心理论}{63}{part.2}%
+\contentsline {chapter}{\numberline {6}不完全市场理论}{64}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Heterogeneity Agent Model with Aggregate Uncertainty}{65}{chapter.7}%
+\contentsline {chapter}{\numberline {8}企业动态}{66}{chapter.8}%
+\contentsline {part}{III\hspace {1em}现代量化宏观主要模型：HANK}{67}{part.3}%
+\contentsline {chapter}{\numberline {9}异质性家庭}{68}{chapter.9}%
+\contentsline {chapter}{\numberline {10}异质性企业}{69}{chapter.10}%
+\contentsline {part}{IV\hspace {1em}量化宏观专题}{70}{part.4}%
+\contentsline {chapter}{\numberline {11}银行、金融危机与宏观政策}{71}{chapter.11}%
+\contentsline {chapter}{\numberline {12}宏观债务、经济周期与政策}{72}{chapter.12}%
+\contentsline {chapter}{\numberline {13}异质性模型前沿理论}{73}{chapter.13}%
 \contentsfinish 

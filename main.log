@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  17 APR 2025 18:22
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  19 APR 2025 22:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1375,37 +1375,34 @@ Package mdframed Info: mdframed detected package amsthm
  [45] [46] [47]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 621.
+(mdframed)              on input line 622.
  [48] [49]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 728.
+(mdframed)              on input line 730.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 736.
-Package mdframed Info: Not enough space on this page on input line 756.
+(mdframed)              on input line 738.
+Package mdframed Info: Not enough space on this page on input line 764.
  [50]
-Package mdframed Info: Not enough space on this page on input line 756.
+Package mdframed Info: Not enough space on this page on input line 764.
  [51]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 798.
- [52] [53]
+(mdframed)              on input line 806.
+ [52] [53] [54] [55] [56]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 894.
+(mdframed)              on input line 1002.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 901.
-Package mdframed Info: Not enough space on this page on input line 903.
- [54]
-Package mdframed Info: Not enough space on this page on input line 903.
- [55] [56]) [57]
+(mdframed)              on input line 1009.
+ [57] [58]) [59]
 \openout2 = `parts/part1/p1c3-numerical-methods.aux'.
 
  (./parts/part1/p1c3-numerical-methods.tex
 Chapter 3.
-) [58
+) [60
 
 
 
@@ -1415,7 +1412,7 @@ Chapter 3.
 
  (./parts/part1/p1c4-dsge.tex
 Chapter 4.
-) [59
+) [61
 
 
 
@@ -1425,12 +1422,12 @@ Chapter 4.
 
  (./parts/part1/p1c5-macro-econometrics.tex
 Chapter 5.
-) [60
+) [62
 
 
 
 
-] [61
+] [63
 
 
 
@@ -1439,7 +1436,7 @@ Chapter 5.
 
  (./parts/part2/p2c1-incomplete-market.tex
 Chapter 6.
-) [62
+) [64
 
 
 ]
@@ -1447,7 +1444,7 @@ Chapter 6.
 
  (./parts/part2/p2c2-ha-model.tex
 Chapter 7.
-) [63
+) [65
 
 
 
@@ -1457,12 +1454,12 @@ Chapter 7.
 
  (./parts/part2/p2c3-firm-dynamics.tex
 Chapter 8.
-) [64
+) [66
 
 
 
 
-] [65
+] [67
 
 
 
@@ -1471,7 +1468,7 @@ Chapter 8.
 
  (./parts/part3/p3c1-household-heterogeneity.tex
 Chapter 9.
-) [66
+) [68
 
 
 ]
@@ -1479,12 +1476,12 @@ Chapter 9.
 
  (./parts/part3/p3c2-firm-heterogeneity.tex
 Chapter 10.
-) [67
+) [69
 
 
 
 
-] [68
+] [70
 
 
 
@@ -1493,7 +1490,7 @@ Chapter 10.
 
  (./parts/part4/p4c1-bank.tex
 Chapter 11.
-) [69
+) [71
 
 
 ]
@@ -1501,7 +1498,7 @@ Chapter 11.
 
  (./parts/part4/p4c2-macro-debt.tex
 Chapter 12.
-) [70
+) [72
 
 
 
@@ -1511,7 +1508,7 @@ Chapter 12.
 
  (./parts/part4/p4c3-ha-computation.tex
 Chapter 13.
-) [71
+) [73
 
 
 
@@ -1535,12 +1532,12 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37016 strings out of 474773
- 832147 string characters out of 5761289
+ 37011 strings out of 474773
+ 831431 string characters out of 5761289
  1955842 words of memory out of 5000000
- 58595 multiletter control sequences out of 15000+600000
+ 58590 multiletter control sequences out of 15000+600000
  574849 words of font info for 148 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,16n,97p,1876b,1037s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (75 pages).
+Output written on main.pdf (77 pages).
