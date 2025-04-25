@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  19 APR 2025 22:45
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.27)  25 APR 2025 16:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -347,6 +347,12 @@ Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 \l_MT_below_shortintertext_sep=\dimen199
 \xmathstrut@box=\box59
 \xmathstrut@dim=\dimen256
+) (d:/texlive/2024/texmf-dist/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
 ) (d:/texlive/2024/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
  (d:/texlive/2024/texmf-dist/tex/latex/graphics/graphics.sty
@@ -988,7 +994,7 @@ File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 Package translations Info: No language package found. I am going to use `english' as default language. on input line 209.
 \@quotelevel=\count494
 \@quotereset=\count495
- (./main.aux (./front/preface.aux) (./parts/part1/p1c1-dynamic-macro.aux) (./parts/part1/p1c2-equilibrium-ad.aux) (./parts/part1/p1c3-numerical-methods.aux) (./parts/part1/p1c4-dsge.aux) (./parts/part1/p1c5-macro-econometrics.aux) (./parts/part2/p2c1-incomplete-market.aux) (./parts/part2/p2c2-ha-model.aux) (./parts/part2/p2c3-firm-dynamics.aux) (./parts/part3/p3c1-household-heterogeneity.aux) (./parts/part3/p3c2-firm-heterogeneity.aux) (./parts/part4/p4c1-bank.aux) (./parts/part4/p4c2-macro-debt.aux) (./parts/part4/p4c3-ha-computation.aux) (./back/appendix.aux))
+ (./main.aux (./front/preface.aux) (./parts/part1/p1c1-dynamic-opt-solow-sequence.aux) (./parts/part1/p1c2-dynamic-programming.aux) (./parts/part1/p1c3-numerical-methods.aux) (./parts/part1/p1c4-equilibrium-ad.aux) (./parts/part1/p1c5-dsge.aux) (./parts/part1/p1c6-macro-econometrics.aux) (./parts/part2/p2c1-incomplete-market.aux) (./parts/part2/p2c2-ha-model.aux) (./parts/part2/p2c3-firm-dynamics.aux) (./parts/part3/p3c1-household-heterogeneity.aux) (./parts/part3/p3c2-firm-heterogeneity.aux) (./parts/part4/p4c1-bank.aux) (./parts/part4/p4c2-macro-debt.aux) (./parts/part4/p4c3-ha-computation.aux) (./back/appendix.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 209.
@@ -1190,244 +1196,289 @@ Package fontspec Info: Font family 'MicrosoftYaHei(0)' created for font
 
 
 ]
-\openout2 = `parts/part1/p1c1-dynamic-macro.aux'.
+\openout2 = `parts/part1/p1c1-dynamic-opt-solow-sequence.aux'.
 
- (./parts/part1/p1c1-dynamic-macro.tex
+ (./parts/part1/p1c1-dynamic-opt-solow-sequence.tex
 Chapter 1.
 [2
 
 
-] [3] [4] [5] [6] [7] [8] [9] [10] [11]
+] [3] [4]) [5]
+\openout2 = `parts/part1/p1c2-dynamic-programming.aux'.
+
+ (./parts/part1/p1c2-dynamic-programming.tex
+Chapter 2.
+[6
+
+
+
+
+] [7] [8] [9] [10] [11] [12]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 430.
+(mdframed)              on input line 295.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 441.
- [12]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 459.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 469.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 486.
+(mdframed)              on input line 306.
  [13]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 493.
+(mdframed)              on input line 324.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 499.
+(mdframed)              on input line 334.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 502.
+(mdframed)              on input line 351.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 507.
+(mdframed)              on input line 358.
  [14]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 528.
+(mdframed)              on input line 364.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 532.
+(mdframed)              on input line 367.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 558.
+(mdframed)              on input line 372.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 565.
+(mdframed)              on input line 393.
  [15]
+Package mdframed Info: Not enough space on this page on input line 395.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 574.
+(mdframed)              on input line 397.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 578.
+(mdframed)              on input line 423.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 430.
  [16]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 650.
- [17] [18] [19] [20]
+(mdframed)              on input line 439.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 827.
+(mdframed)              on input line 443.
+ [17]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 835.
- [21]
+(mdframed)              on input line 515.
+ [18] [19] [20] [21]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 891.
- [22] [23] [24]
+(mdframed)              on input line 692.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1000.
+(mdframed)              on input line 700.
+ [22]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1007.
+(mdframed)              on input line 756.
+ [23] [24] [25]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1035.
- [25]
+(mdframed)              on input line 865.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1055.
+(mdframed)              on input line 872.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 900.
  [26]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1100.
+(mdframed)              on input line 920.
+ [27]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1116.
- [27] [28]
+(mdframed)              on input line 965.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1224.
+(mdframed)              on input line 981.
+ [28] [29]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1228.
- [29]
+(mdframed)              on input line 1089.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1249.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 1257.
+(mdframed)              on input line 1093.
  [30]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1282.
-) [31]
-\openout2 = `parts/part1/p1c2-equilibrium-ad.aux'.
-
- (./parts/part1/p1c2-equilibrium-ad.tex
-Chapter 2.
-[32
-
-
-
-
-]
+(mdframed)              on input line 1114.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 66.
- [33]
+(mdframed)              on input line 1122.
+ [31]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 80.
+(mdframed)              on input line 1147.
+) [32]
+\openout2 = `parts/part1/p1c3-numerical-methods.aux'.
+
+ (./parts/part1/p1c3-numerical-methods.tex
+Chapter 3.
+File: figures/part1/p1c2-event-tree.png Graphic file (type bmp)
+<figures/part1/p1c2-event-tree.png>
+[33
+
+
+
+
+] [34] [35]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 93.
-File: figures/part1/p1c2-admarket-tree.png Graphic file (type bmp)
-<figures/part1/p1c2-admarket-tree.png>
-File: figures/part1/p1c2-sqmarket-tree.png Graphic file (type bmp)
-<figures/part1/p1c2-sqmarket-tree.png>
- [34] [35] [36]
+(mdframed)              on input line 140.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 187.
+(mdframed)              on input line 145.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 207.
- [37]
-Package mdframed Info: Not enough space on this page on input line 211.
- [38]
+(mdframed)              on input line 153.
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 158.
+ (d:/texlive/2024/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+) [36] [37] [38]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 265.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 269.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 273.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 289.
- [39]
-Package mdframed Info: Not enough space on this page on input line 296.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 319.
- [40]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 365.
- [41] [42] [43]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 482.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 490.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 498.
- [44]
-Package mdframed Info: Not enough space on this page on input line 505.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 507.
- [45] [46] [47]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 622.
- [48] [49]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 730.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 738.
-Package mdframed Info: Not enough space on this page on input line 764.
- [50]
-Package mdframed Info: Not enough space on this page on input line 764.
- [51]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 806.
- [52] [53] [54] [55] [56]
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 1002.
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 1009.
- [57] [58]) [59]
-\openout2 = `parts/part1/p1c3-numerical-methods.aux'.
+(mdframed)              on input line 281.
+ [39]) [40]
+\openout2 = `parts/part1/p1c4-equilibrium-ad.aux'.
 
- (./parts/part1/p1c3-numerical-methods.tex
-Chapter 3.
-) [60
-
-
-
-
-]
-\openout2 = `parts/part1/p1c4-dsge.aux'.
-
- (./parts/part1/p1c4-dsge.tex
+ (./parts/part1/p1c4-equilibrium-ad.tex
 Chapter 4.
-) [61
+[41
 
 
 
 
 ]
-\openout2 = `parts/part1/p1c5-macro-econometrics.aux'.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 67.
+ [42]
+Package mdframed Info: Not enough space on this page on input line 70.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 81.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 94.
+File: figures/part1/p1c3-admarket-tree.png Graphic file (type bmp)
+<figures/part1/p1c3-admarket-tree.png>
+File: figures/part1/p1c3-sqmarket-tree.png Graphic file (type bmp)
+<figures/part1/p1c3-sqmarket-tree.png>
+ [43] [44] [45]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 188.
+ [46]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 208.
+ [47]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 266.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 270.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 274.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 290.
+ [48]
+Package mdframed Info: Not enough space on this page on input line 297.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 320.
+ [49]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 366.
+ [50] [51] [52]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 483.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 491.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 499.
+ [53]
+Package mdframed Info: Not enough space on this page on input line 506.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 508.
+ [54]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 546.
+ [55] [56]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 627.
+ [57] [58]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 735.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 743.
+Package mdframed Info: Not enough space on this page on input line 769.
+ [59]
+Package mdframed Info: Not enough space on this page on input line 769.
+ [60]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 811.
+ [61] [62] [63] [64] [65]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1048.
+ [66] [67] [68]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1148.
+ [69]
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1203.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1210.
+ [70] [71]) [72]
+\openout2 = `parts/part1/p1c5-dsge.aux'.
 
- (./parts/part1/p1c5-macro-econometrics.tex
+ (./parts/part1/p1c5-dsge.tex
 Chapter 5.
-) [62
+) [73
 
 
 
 
-] [63
+]
+\openout2 = `parts/part1/p1c6-macro-econometrics.aux'.
+
+ (./parts/part1/p1c6-macro-econometrics.tex
+Chapter 6.
+) [74
+
+
+
+
+] [75
 
 
 
@@ -1435,16 +1486,16 @@ Chapter 5.
 \openout2 = `parts/part2/p2c1-incomplete-market.aux'.
 
  (./parts/part2/p2c1-incomplete-market.tex
-Chapter 6.
-) [64
+Chapter 7.
+) [76
 
 
 ]
 \openout2 = `parts/part2/p2c2-ha-model.aux'.
 
  (./parts/part2/p2c2-ha-model.tex
-Chapter 7.
-) [65
+Chapter 8.
+) [77
 
 
 
@@ -1453,13 +1504,13 @@ Chapter 7.
 \openout2 = `parts/part2/p2c3-firm-dynamics.aux'.
 
  (./parts/part2/p2c3-firm-dynamics.tex
-Chapter 8.
-) [66
+Chapter 9.
+) [78
 
 
 
 
-] [67
+] [79
 
 
 
@@ -1467,21 +1518,21 @@ Chapter 8.
 \openout2 = `parts/part3/p3c1-household-heterogeneity.aux'.
 
  (./parts/part3/p3c1-household-heterogeneity.tex
-Chapter 9.
-) [68
+Chapter 10.
+) [80
 
 
 ]
 \openout2 = `parts/part3/p3c2-firm-heterogeneity.aux'.
 
  (./parts/part3/p3c2-firm-heterogeneity.tex
-Chapter 10.
-) [69
+Chapter 11.
+) [81
 
 
 
 
-] [70
+] [82
 
 
 
@@ -1489,16 +1540,16 @@ Chapter 10.
 \openout2 = `parts/part4/p4c1-bank.aux'.
 
  (./parts/part4/p4c1-bank.tex
-Chapter 11.
-) [71
+Chapter 12.
+) [83
 
 
 ]
 \openout2 = `parts/part4/p4c2-macro-debt.aux'.
 
  (./parts/part4/p4c2-macro-debt.tex
-Chapter 12.
-) [72
+Chapter 13.
+) [84
 
 
 
@@ -1507,8 +1558,8 @@ Chapter 12.
 \openout2 = `parts/part4/p4c3-ha-computation.aux'.
 
  (./parts/part4/p4c3-ha-computation.tex
-Chapter 13.
-) [73
+Chapter 14.
+) [85
 
 
 
@@ -1518,26 +1569,26 @@ Chapter 13.
 
  (./back/appendix.tex)
 
-LaTeX Warning: Empty bibliography on input line 254.
+LaTeX Warning: Empty bibliography on input line 255.
 
-(./main.aux (./front/preface.aux) (./parts/part1/p1c1-dynamic-macro.aux) (./parts/part1/p1c2-equilibrium-ad.aux) (./parts/part1/p1c3-numerical-methods.aux) (./parts/part1/p1c4-dsge.aux) (./parts/part1/p1c5-macro-econometrics.aux) (./parts/part2/p2c1-incomplete-market.aux) (./parts/part2/p2c2-ha-model.aux) (./parts/part2/p2c3-firm-dynamics.aux) (./parts/part3/p3c1-household-heterogeneity.aux) (./parts/part3/p3c2-firm-heterogeneity.aux) (./parts/part4/p4c1-bank.aux) (./parts/part4/p4c2-macro-debt.aux) (./parts/part4/p4c3-ha-computation.aux) (./back/appendix.aux))
+(./main.aux (./front/preface.aux) (./parts/part1/p1c1-dynamic-opt-solow-sequence.aux) (./parts/part1/p1c2-dynamic-programming.aux) (./parts/part1/p1c3-numerical-methods.aux) (./parts/part1/p1c4-equilibrium-ad.aux) (./parts/part1/p1c5-dsge.aux) (./parts/part1/p1c6-macro-econometrics.aux) (./parts/part2/p2c1-incomplete-market.aux) (./parts/part2/p2c2-ha-model.aux) (./parts/part2/p2c3-firm-dynamics.aux) (./parts/part3/p3c1-household-heterogeneity.aux) (./parts/part3/p3c2-firm-heterogeneity.aux) (./parts/part4/p4c1-bank.aux) (./parts/part4/p4c2-macro-debt.aux) (./parts/part4/p4c3-ha-computation.aux) (./back/appendix.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2022/07/14>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1B6AA2F0638274AA4B9C28836DEB013F;9797.
+(rerunfilecheck)             Checksum: DCD5E1D61CE8ACA7CFD3A386E6BC6D21;11077.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 37011 strings out of 474773
- 831431 string characters out of 5761289
+ 37190 strings out of 474773
+ 837864 string characters out of 5761289
  1955842 words of memory out of 5000000
- 58590 multiletter control sequences out of 15000+600000
- 574849 words of font info for 148 fonts, out of 8000000 for 9000
+ 58745 multiletter control sequences out of 15000+600000
+ 576053 words of font info for 157 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,16n,97p,1876b,1037s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (77 pages).
+Output written on main.pdf (89 pages).

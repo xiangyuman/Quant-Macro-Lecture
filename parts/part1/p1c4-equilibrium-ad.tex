@@ -1,4 +1,4 @@
-% 第2章 完备市场理论
+% 第3章 完备市场理论
 
 % 导言
 
@@ -8,22 +8,23 @@
 在计划者问题中，计划者能够直接配置资源而不需要通过市场调节，因此价格并没有显示出现在优化问题中。
 那么，计划者问题中的均衡能通过\textbf{市场配置}或者说\textbf{价格机制}实现吗？
 即：如果经济是分散的（Decentralized Economy），存在家庭和企业等在市场上的互动，如何定义经济中的均衡，价格在其中起到什么作用？
-这一均衡产生的配置有什么特征，和计划者问题中的均衡配置有什么关系？
-代表性家庭的设定为什么具有合理性？
+这一（竞争）均衡产生的配置有什么特征，和计划者问题中的均衡配置有什么关系？
+前一章动态规划和递归的框架能在定义均衡中起到什么作用？
+代表性家庭的设定又为什么具有合理性？
 
 回答上述问题离不开宏观经济学中的一个重要理论：完备市场（Complete Market）理论。
-首先，本章将介绍\textbf{阿罗-德布鲁市场}和\textbf{序贯市场}两种不同的市场交易结构下；
-其次，研究这两种市场结构下竞争均衡与计划者问题（帕累托问题）均衡的关系，并证明代表性家庭的存在性；
-再次，应用完备市场理论讨论资产定价问题；
-接着，将相关均衡概念运用于一个分散经济下的最优增长模型，并进一步介绍递归均衡（Recursive Equilibrium）的概念；
-最后，本章将介绍随机最优增长模型，引出后续对数值方法的进一步学习。
+首先，本章将介绍完备市场理论中两种基础市场结构：\textbf{阿罗-德布鲁市场}和\textbf{序贯市场}；
+其次，研究这两种市场下的竞争均衡与计划者问题（帕累托问题）均衡的关系；
+同时，我们将指出这两种均衡定义方式的不足，并应用递归的思想定义递归竞争均衡；
+再次，应用完备市场理论讨代表性家庭的存在性和资本资产定价问题；
+最后，将相关均衡概念应用于一个分散经济下的最优增长模型，通过具体例子深入分析。
 
 
-% 2.1 =============== Complete Market ===============
+% 3.1 =============== Complete Market ===============
 \section{完备市场理论}
 
 
-% 2.1.1 ===== 经济环境设定（LS / Edmond / JLao）
+% 3.1.1 ===== 经济环境设定（LS / Edmond / JLao）
 \subsection{经济环境设定}
 
 经济的时间是离散且无穷的：$t=0,1,\cdots, \infty$。在每一期，都有一个\textbf{随机事件}（Stochastic Event）实现，记为：
@@ -57,7 +58,7 @@ $$
 \end{equation}
 
 
-% 2.1.2 ===== 两种交易结构（LS / Edmond / Kruger / PHS）
+% 3.1.2 ===== 两种交易结构（LS / Edmond / Kruger / PHS）
 \subsection{两种交易结构}
 
 \textbf{完备市场}是宏观经济学中的重要概念，它与\textbf{不完备市场}的主要区别在于：
@@ -101,12 +102,12 @@ $$
 在$t=2$，个体仅能交易在当前历史$(0,0,1)$下所能达到的$t=3$时节点的商品。
 
 \begin{figure}
-    \includegraphics[width=1\textwidth]{figures/part1/p1c2-admarket-tree.png}
+    \includegraphics[width=1\textwidth]{figures/part1/p1c3-admarket-tree.png}
     \caption{两状态马尔科夫链的阿罗-德布鲁商品空间}
     \label{gr-admarket-tree}
 \end{figure}
 \begin{figure}
-    \includegraphics[width=1\textwidth]{figures/part1/p1c2-sqmarket-tree.png}
+    \includegraphics[width=1\textwidth]{figures/part1/p1c3-sqmarket-tree.png}
     \caption{两状态马尔科夫链的阿罗-德布鲁商品空间}
     \label{gr-sqmarket-tree}
 \end{figure}
@@ -122,7 +123,7 @@ $$
 和$t$时刻经济所实现的总禀赋，不会依赖带来相应总禀赋的历史。
 
 
-% 2.1.3 ===== 计划者问题（Pareto Problem）
+% 3.1.3 ===== 计划者问题（Pareto Problem）
 \subsection{帕累托问题}
 
 在研究上述两种市场均衡配置的特征前，我们希望先定义一个基准配置用于进行比较，一个自然的想法是帕累托最优。
@@ -217,7 +218,7 @@ $$
 由于每个个体的消费配置只是总禀赋的函数，因此其个体消费与总禀赋（总消费）完全相关，并且所占份额与其所分配得的帕累托权重相关。
 
 
-% 2.1.4 ===== AD的均衡
+% 3.1.4 ===== AD的均衡
 \subsection{Arrow-Debreu市场中的均衡}
 
 我们在本章开头提出了问题：计划者问题中的帕累托均衡是否能通过\textbf{市场配置}或者说\textbf{价格机制}实现？
@@ -316,7 +317,7 @@ $$
     c_t^i=g\left(\mu_i, Y_t ; \boldsymbol{\mu}\right)
 \end{equation*}
 
-\begin{property}
+\begin{property}    \label{pr-ad-equi}
     阿罗-德布鲁市场中竞争均衡配置具有如下特征：
     \begin{itemize}
         \item 与时间t无关，总禀赋$Y_t$是历史的充分统计量。
@@ -373,7 +374,7 @@ $$
 换句话说，竞争均衡是由\textbf{数量-价格}体系构成的，除了数量，我们还需要求解价格。
 
 
-% 2.1.4.1
+% 3.1.4.1
 \subsubsection{Arrrow-Debreu竞争均衡价格}    \label{subsubsec-ad-price}
 
 一个自然的想法是通过每个个体的预算约束\ref{eq-ad-bc}来求解价格系统或乘子向量，目前我们仍未使用这一条件。
@@ -402,7 +403,7 @@ $$
 $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意味着：$\mu_i = u_i^{\prime}\left(c_0^i\left(s_0\right)\right)$。
 
 
-% 2.1.4.2
+% 3.1.4.2
 \subsubsection{Arrow-Debreu竞争均衡的算法}  \label{subsubsec-ad-compu}
 
 我们已经知道：想要求解竞争均衡（数量-价格），必须想办法得到\ref{eq-ad-ci}式和\ref{eq-ad-c1}式中的比值$\mu_i/\mu_1, \quad i=1,\cdots,I$。
@@ -417,7 +418,7 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 \end{itemize}
 
 
-% 2.1.4.3
+% 3.1.4.3
 \subsubsection{阿罗-德布鲁均衡配置}
 
 除了均衡价格，我们还面临一个重要问题：阿罗-德布鲁市场中的竞争均衡和社会计划者的帕累托最优均衡有什么关系。
@@ -454,7 +455,7 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 对应计划者问题的资源约束（注意不是预算约束）的影子价格$\theta_t\left(s^t\right)$等于竞争均衡价格$q_t^0\left(s^t\right)$。
 
 
-% 2.1.4.4 
+% 3.1.4.4 
 \subsubsection{福利经济学定理}
 
 阿罗-德布鲁市场中的竞争均衡和计划者帕累托均衡间的关系本质上反映了两条福利经济学基本定理。
@@ -470,8 +471,8 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
 等于竞争均衡价格$q_t^0\left(s^t\right)$和调整初始财富，将帕累托均衡转化为一个竞争均衡。
 
 
-% 2.1.4.5
-\subsubsection{初步应用：资产定价}
+% 3.1.4.5
+\subsubsection{应用：资产定价初步}
 
 在本小节，我们利用阿罗-德布鲁证券讨论资产定价问题。回顾这一证券的定义：它是一个依存于$s^t$的对$t$时刻一单位消费品的索取权。
 与之前一致，记其价格为$q_t^0\left(s^t\right)$，表示在第$0$期交易的依存于$(t,s^t)$交割一单位消费品的合约的价格。
@@ -542,8 +543,12 @@ $q_0^0\left(s_0\right)=1$，即将零时刻的商品作为计价物。这也意�
     实际上，\textbf{尾部资产定价公式\ref{eq-price-tail}就是将资产价格表示为以时刻$\tau$历史$s^{\tau}$下的物品计价。}
 \end{example}
 
+\begin{example}
+    \textbf{单期回报}（One-Period Returns）：
+\end{example}
 
-% 2.1.5 ===== SQ的均衡
+
+% 3.1.5 ===== SQ的均衡
 \subsection{序贯市场下的均衡}
 
 本小节研究另一种市场中的均衡——序贯市场均衡（Sequential Market Equiliibrium, SME）。
@@ -608,7 +613,7 @@ $\{\tilde{a}_{t+1}^i\left(s^t,s_{t+1}\right)\}_{s_{t+1}\in S}$中某一代表元
 因此此处最优条件中条件概率的时间脚标为$t+1$。}
 
 
-% 2.1.5.1 自然债务限制
+% 3.1.5.1 自然债务限制
 \subsubsection{自然债务限制与序贯市场均衡}
 
 回忆第一章介绍的无限期最优增长模型：经济的最优路径要求横截性条件来排除资本存量无限增长。
@@ -764,7 +769,7 @@ $t\geq\tau$。此处是以时刻$t$历史$s^t$的物品计价，$\tau\geq t$，�
 \end{definition}
 
 
-% 2.1.5.2 均衡等价性
+% 3.1.5.2 均衡等价性
 \subsubsection{均衡等价性}
 
 比较两个竞争市场的均衡配置，我们很容易发现二者的均衡是等价的。我们的证明思路是：给定A市场下的价格-消费配置，
@@ -812,9 +817,9 @@ $t\geq\tau$。此处是以时刻$t$历史$s^t$的物品计价，$\tau\geq t$，�
     若$(\vec{\tilde{a}},c,\tilde{Q})$是一个序贯市场均衡，那么$\left(c,q\right)$是一个阿罗-德布鲁均衡，其价格满足：
     \begin{equation}
         \begin{aligned}
-            q_{t}^0\left(s^{t}\right) &= q_{t-1}^0\left(s^{t-1}\right) \tilde{Q}_{t-1}\left(s^{t-1},s_{t}\right)    \\
-                &= q_{t-2}^0\left(s^{t-2}\right)\tilde{Q}_{t-2}\left(s^{t-2},s_{t-1}\right)\tilde{Q}_{t-1}\left(s^{t-1},s_{t}\right)  \\
-                &= \cdots   \\
+            q_{t}^0\left(s^{t}\right) &= q_{t-1}^0\left(s^{t-1}\right) \tilde{Q}_{t-1}\left(s^{t-1},s_{t}\right)  \\
+                &= q_{t-2}^0\left(s^{t-2}\right)\tilde{Q}_{t-2}\left(s^{t-2},s_{t-1}\right)\tilde{Q}_{t-1}\left(s^{t-1},s_{t}\right) \\
+                &= \cdots  \\
                 &= 1*\tilde{Q}_0\left(s_0,s_1\right)\tilde{Q}_1\left(s^1,s_2\right)\cdots \tilde{Q}_{t-1}\left(s^{t-1},s_{t}\right)
         \end{aligned}
     \end{equation}
@@ -959,18 +964,214 @@ $\tilde{a}_{t+1}^i\left(s^t,s_{t+1}\right)=\Upsilon_{t+1}^i\left(s^{t+1}\right),
 因为这样做会使得未来任何时刻任何历史下的消费难以满足序贯市场一阶条件\ref{eq-sq-foc2}。
 
 
-% 2.1.6 ===== RCE均衡
-\subsection{递归均衡}
+% 3.1.6 ===== RCE均衡
+\subsection{递归竞争均衡}
 
-在对序贯市场均衡进行介绍时，我们思考问题的出发点是序列形式，不过在第一章曾指出，序列问题的维度较高。
-因此，我们将依照\textbf{将序列问题转化为递归形式的思路}，进一步定义\textbf{递归均衡}（Recursive Equilibrium）的。
-事实上，在一些宏观模型中，均衡可能并非帕累托最优，或是难以通过序列形式求解，此时定义递归均衡是非常有效的。
+对于序贯市场均衡，我们思考问题的出发点是序列形式。不过在第一章我们曾指出，序列问题的维度较高。
+具体看，在我们的例子中，价格$\tilde{Q}_t\left(s^t,s_{t+1}\right)$和财富分布$\vec{\tilde{a}}_t\left(s^t\right)$
+都依赖于历史$s^t$，因此是过去所有事件$\{s_{\tau}\}_{\tau=0}^t$的时变函数，这也导致很难从实证角度验证。
+我们希望经济可以由有限状态变量的函数来描述，这些状态变量足以包含过去事件的影响和当前的信息。
+第一章介绍的递归方法框架可以在此发挥作用。因此，我们将依照\textbf{将序列问题转化为递归形式的思路}，
+进一步定义\textbf{递归竞争均衡}（Recursive Competitive Equilibrium，RCE）。
+实践中，一些宏观模型的均衡可能并非帕累托最优，或是难以通过序列形式求解，此时定义递归竞争均衡是非常有效的。
 
-递归均衡，也可称为递归竞争均衡（Recursive Competitive Equilibrium），主要想法是将状态进行映射。。。。。
+在阿罗-德布鲁均衡和序贯均衡中，\textbf{均衡由数量和价格的序列构成，即每个时点上的每个变量对应一个数值}。
+递归竞争均衡（也可称为递归均衡）则与之不同，其特点是\textbf{将均衡描述为状态变量的函数}。
+事实上，RCE也具有序列交易的结构，但由于我们将在动态规划的思路下处理问题，因此定义出的\textbf{均衡是以函数而非序列表达的}。
+简言之，序贯均衡是对给定的状态变量值（如初始资本存量）定义的，而递归均衡适用于所有可能的状态变量值。
 
 
+% 3.1.6.1 Markov
+\subsubsection{马尔可夫性下均衡的特征}
 
-% 2.2 =============== 代表性家庭的存在性 ===============
+在当前的经济设定中，能够引发我们对递归和状态的概念进行思考的只剩下随机事件$s_t$。
+我们未对这一随机变量做出任何假定，如独立性或时间不变性等。为了使模型中的状态变量能概括过去和当下，进而使用递归方法，
+我们需要对随机事件的结构做一些假定。一个自然的想法就是马尔可夫性。
+
+给定$\pi\left(s^{\prime}\mid s\right)$为马尔科夫链，初始分布$\pi_0(s)$，状态空间$s\in S$。
+\begin{equation*}
+    \begin{aligned}
+        Pr\left(s_0=s\right) &= \pi_0(s) \\
+        Pr\left(s_{t+1}=s^{\prime}\mid s_t=s\right) &= \pi\left(s^{\prime}|s\right)
+    \end{aligned}
+\end{equation*}
+从而有概率测度：
+\begin{equation*}
+    \pi_t\left(s^t\right)=
+        \pi\left(s_t\mid s_{t-1}\right)\pi\left(s_{t-1}\mid s_{t-2}\right)\ldots\pi\left(s_1 \mid s_0\right)\pi_0\left(s_0\right)
+\end{equation*}
+通常我们会给定初始状态$s_0$，即$\pi_0\left(s_0\right)=1$。
+根据马尔可夫性，$t>\tau$时的条件概率$\pi_t\left(s^t\mid s^{\tau}\right)$仅依赖$\tau$时刻的状态$s_{\tau}$，而不依赖$\tau$之前的历史，因此有：
+\begin{equation}   \label{eq-rce-markov-s}
+    \pi_t\left(s^t \mid s^\tau\right)=
+        \pi\left(s_t \mid s_{t-1}\right) \pi\left(s_{t-1} \mid s_{t-2}\right) \ldots \pi\left(s_{\tau+1} \mid s_\tau\right)
+\end{equation}
+
+从性质\ref{pr-ad-equi}中我们知道，（两种）竞争均衡中个体的消费只与当前实现的总禀赋有关，而与历史和时间无关。并且这一结论是对任意随机过程的禀赋成立的。
+进一步，我们假设个体$i$在$t$期的禀赋是$s_t$的时不变可测函数，即对任意$i$有$y_t^i\left(s^t\right)=y^i\left(s_t\right)$，从而立得：
+\begin{equation}    \label{eq-rce-equi-c}
+    c_t^i\left(s^t\right) = \bar{c}^i\left(s_t\right)
+\end{equation}
+将式\ref{eq-rce-markov-s}和\ref{eq-rce-equi-c}带入序贯市场的最优条件\ref{eq-sq-foc2}可得：
+\begin{equation}    \label{eq-rce-foc}
+    \begin{aligned}
+        \tilde{Q}_t\left(s^t, s_{t+1}\right) 
+        &= \beta \frac{u_i^{\prime}\left(\tilde{c}_{t+1}^i\left(s^{t+1}\right)\right)}
+                    {u_i^{\prime}\left(\tilde{c}_t^i\left(s^t\right)\right)} \pi_{t+1}\left(s^{t+1} \mid s^t\right) \\
+        &= \beta \frac{u_i^{\prime}\left(\bar{c}^i\left(s_{t+1}\right)\right)}{u_i^{\prime}\left(\bar{c}^i\left(s_t\right)\right)} 
+            \pi\left(s_{t+1} \mid s_t\right) \equiv Q\left(s_{t+1} \mid s_t\right), 
+                \quad s^{t+1}=(s^t,s_{t+1}) \quad \forall s_{t+1}, t, s^t        
+    \end{aligned}
+\end{equation}
+即\textbf{序贯均衡价格只与当前状态有关，与历史无关}。
+
+对阿罗-德布鲁市场，回忆在尾部资产定价中，时刻$t$历史$s^t$下交割的一单位消费品，如果以时刻$\tau$和历史$s^{\tau}$计价，其价格为：
+\begin{equation*}
+    \begin{aligned}
+        q_t^\tau\left(s^t\right) 
+            \equiv \frac{q_t^0\left(s^t\right)}{q_\tau^0\left(s^\tau\right)} 
+            & =\frac{\beta^t u_i^{\prime}\left[c_t^i\left(s^t\right)\right] \pi_t\left(s^t\right)}
+                {\beta^\tau u_i^{\prime}\left[c_\tau^i\left(s^\tau\right)\right] \pi_\tau\left(s^\tau\right)} \\
+            & =\beta^{t-\tau} \frac{u_i^{\prime}\left[c_t^i\left(s^t\right)\right]}
+                {u_i^{\prime}\left[c_\tau^i\left(s^\tau\right)\right]} \pi_t\left(s^t \mid s^\tau\right)
+        \end{aligned}
+\end{equation*}
+对此式应用上述假设，可类似得到：\textbf{阿罗-德布鲁均衡中的相对价格$q_t^\tau\left(s^t\right)$
+只与当前时刻$\tau$的状态有关，与历史无关}。
+\begin{equation}
+    \begin{aligned}
+        q_t^{\tau}\left(s^t\right) &= \beta^{t-\tau} \frac{u_i^{\prime}\left[\bar{c}^i\left(s_t\right)\right]}
+            {u_i^{\prime}\left[\bar{c}^i\left(s_{\tau}\right)\right]} \pi_t\left(s_t \mid s_{\tau}\right)
+    \end{aligned}
+\end{equation}
+具体来讲，可以总结为如下性质：
+\begin{property}
+    若时刻$t$的禀赋是马尔可夫状态$s_t$的函数，那么阿罗-德布鲁均衡下\textbf{以时刻$\tau$历史$s^{\tau}$消费品计价的}
+    时刻$t\left(0\leq \tau \leq t\right)$历史$s^t$的物品的\textbf{相对价格}是历史无关的，即对
+    $t-\tau = k-j, ~ \left[s_{\tau},s_{\tau+1},\cdots,s_t\right] 
+        = \left[\tilde{s}_j,\tilde{s}_{j+1},\cdots,\tilde{s}_k\right]$，成立：
+    \begin{equation*}
+        q_t^{\tau}\left(s^t\right) = q_k^j\left(\tilde{s}^k\right), \quad j,k\geq 0
+    \end{equation*}
+\end{property}
+
+利用相对价格的这一性质，我们可知自然债务限制\ref{eq-sq-nature-debt}式和消费者财富水平\ref{eq-ad-fin-wealth-t}式是历史无关的：
+\begin{align}
+    & A_t^i\left(s^t\right)=\bar{A}^i\left(s_t\right) \\
+    & \Upsilon_t^i\left(s^t\right)=\bar{\Upsilon}^i\left(s_t\right) \label{eq-ad-fin-wealth-t-markov}
+\end{align}
+式\ref{eq-ad-fin-wealth-t-markov}对于理解序贯竞争均衡为何能达到最优（First-Best）非常关键。
+在最优结果下，消费者不会承担个体异质性风险（Idiosyncratic Risk）：在每一期，个体初始的财富水平与已经实现的历史禀赋是无关的；
+换句话说，个体过去进行的金融交易保险掉了其自身禀赋流的异质性风险。
+此时，状态依存的财富水平（只与当前状态$s_t$有关）是个体在$t-1$期决定的，并且这一财富可以支撑此前的交易计划。
+
+实际上，由于当期状态$s_t$决定了当期禀赋、当期价格并且包含预测未来禀赋和未来价格实现的所有信息，因此，最优财富选择只与$s_t$有关。
+当下期状态会使个体下期禀赋更低或是使更远的未来有更贫穷的前景时，个体当前会选择更高的财富水平。
+需要注意的是，总体风险（Aggregate Shock）是无法分散掉的。
+市场上看不见的手利用序贯均衡价格$Q\left(s_t\mid s_{t-1}\right)$和市场出清，协调各个消费者在$t-1$时的交易，使他们只承担总体风险。
+
+
+% 3.1.6.2 RCE
+\subsubsection{定义递归均衡}
+
+在当前假设下，序贯价格$Q\left(s^{\prime}\mid s\right)$和禀赋$y^i\left(s\right)$都只是马尔可夫状态$s$的函数。
+这可以使我们进一步研究递归形式下的个体最优化问题。个体$i$在时刻$t$的状态使其期初财富（$t-1$时决定的）$a_t^i$和当前实现的$s_t$。
+我们要寻找一对使个体效用最大化的决策规则$h^i\left(a,s\right),~ g^i\left(a,s;s^{\prime}\right)$：
+\begin{subequations}
+    \begin{align}
+        c_t^i & =h^i\left(a_t^i, s_t\right) \\
+        a_{t+1}^i\left(s_{t+1}\right) & =g^i\left(a_t^i, s_t;s_{t+1}\right)
+    \end{align}
+\end{subequations}
+令$v^i\left(a,s\right)$为个体$i$从状态$\left(a,s\right)$开始的问题的最优值，可以写出贝尔曼方程：
+\begin{equation}    \label{eq-rce-bellman}
+    v^i(a, s)=\max_{c, \{\hat{a}\left(s^{\prime}\right)\}_{s^\prime\in S}}
+        \left[u_i(c)+
+        \beta\sum_{s^{\prime}}v^i\left(\hat{a}\left(s^{\prime}\right), s^{\prime}\right) \pi\left(s^{\prime}\mid s\right)\right]
+\end{equation}
+个体面临预算约束：
+\begin{equation}    \label{eq-rce-bc}
+    c+\sum_{s^{\prime}} Q\left(s^{\prime}\mid s\right) \hat{a}\left(s^{\prime}\right) \leq y^i(s)+a
+\end{equation}
+非负约束和自然债务约束：
+\begin{subequations}
+    \begin{align}
+        c & \geq 0, \\
+        \hat{a}\left(s^{\prime}\right) & \geq -\bar{A}^i\left(s^{\prime}\right), \quad \forall s^{\prime}
+    \end{align}
+\end{subequations}
+进一步将贝尔曼方程写为：
+\begin{equation*}
+    v^i(a, s) = \max_{\{\hat{a}\left(s^{\prime}\right)\}_{s^\prime\in S}}
+        \left[u_i\left(y^i\left(s\right)+a-\sum_{s^{\prime}}Q\left(s^{\prime}\mid s\right)\hat{a}\left(s^{\prime}\right)\right)+      
+        \beta\sum_{s^{\prime}}v^i\left(\hat{a}\left(s^{\prime}\right), s^{\prime}\right) \pi\left(s^{\prime}\mid s\right)\right]
+\end{equation*}
+由于预算约束\ref{eq-rce-bc}中包含了价格，因此贝尔曼方程的解隐性地依赖于$Q\left(\cdot\mid\cdot\right)$。
+记使贝尔曼方程\textbf{右侧}达到最大的策略函数为：
+\begin{subequations}
+    \begin{align}
+        c & =h^i(a, s) \\
+        \hat{a}\left(s^{\prime}\right) & =g^i\left(a, s; s^{\prime}\right)
+    \end{align}
+\end{subequations}
+对\textbf{右侧}求解关于下期财富（在特定$s^{\prime}$实现下）的一阶条件可知：
+\begin{equation*}
+    Q\left(s^{\prime}\mid s\right)u_i^{\prime}\left(y^i\left(s\right) + a
+        -\sum_{s^{\prime}}Q\left(s^{\prime}\mid s\right)\hat{a}\left(s^{\prime}\right)\right)
+        = \beta \pi\left(s^{\prime}\mid s\right) v_a^i\left(\hat{a}\left(s^{\prime}\right), s^{\prime}\right)
+\end{equation*}
+又由包络定理（Benveniste-Scheinkman条件）可知，取最优时：
+\begin{equation*}
+    v_a^i\left(a,s\right) = u_i^{\prime}\left(y^i\left(s\right) + a
+                                -\sum_{s^{\prime}}Q\left(s^{\prime}\mid s\right)\hat{a}\left(s^{\prime}\right)\right)
+\end{equation*}
+从而关于下期财富的一阶条件可以重新整理为如下\textbf{欧拉泛函}，
+其中待求解的是策略函数$\hat{a}\left(s^{\prime}\right)=g^i\left(a,s;s^{\prime}\right)$：
+\begin{equation}    \label{eq-rce-euler1}
+    \begin{aligned}
+        &Q\left(s^{\prime}\mid s\right) u_i^{\prime}\left(y^i\left(s\right) + a 
+        - \sum_{s^{\prime}}Q\left(s^{\prime}\mid s\right)g^i\left(a,s;s^{\prime}\right)\right) \\
+            &= \beta \pi\left(s^{\prime}\mid s\right)
+                u_i^{\prime}\left(y^i\left(s^{\prime}\right) + a^{\prime}\left(s^{\prime}\right)
+                    -\sum_{s^{\prime}}Q\left(s^{\prime\prime}\mid s^{\prime}\right)
+                        g^i\left(g^i\left(a,s;s^{\prime}\right),s^{\prime};s^{\prime\prime}\right)\right)
+    \end{aligned}
+\end{equation}
+利用资源约束和最优策略的定义可将其简化为：
+\begin{equation}    \label{eq-rce-euler2}
+    Q\left(s_{t+1} \mid s_t\right)
+        =\frac{\beta u_i^{\prime}\left(c_{t+1}^i\right)\pi\left(s_{t+1}\mid s_t\right)}{u_i^{\prime}\left(c_t^i\right)}
+\end{equation}
+其中$c_t^i=h^i\left(a_t^i,s^t\right)$，
+$c_{t+1}^i=h^i\left(a_{t+1}^i\left(s_{t+1}\right),s_{t+1}\right)=h^i\left(g^i\left(a_t^i,s_t;s_{t+1}\right),s_{t+1}\right)$
+
+\begin{definition}
+    \textbf{递归竞争均衡},由一个初始财富分布$\vec{a_0}\left(s_0\right)=\{a_0^i\left(s_0\right)\}_{i=1}^I$、
+    一组自然债务限制$\{\bar{A}^i\left(s\right)\}_{i=1}^I$、一组价格（Pricing Kernel）$Q\left(s^{\prime}\mid s\right)$
+    一组值函数$\{v^i\left(a,s\right)\}_{i=1}^I$和一组决策规则（策略函数）
+    $\{h^i\left(a,s\right),~g^i\left(a,s;s^{\prime}\right)\}_{i=1}^I$构成，
+    满足如下条件：
+    \begin{itemize}
+        \item 每期的自然债务限制满足递归方程：
+            \begin{equation}
+                \bar{A}^i(s)=
+                    y^i(s)+\sum_{s^{\prime}} Q\left(s^{\prime} \mid s\right) \bar{A}^i\left(s^{\prime} \mid s\right)
+            \end{equation}
+        \item 所有个体$i$将价格视为给定，在给定的$a_0^i$和$\bar{A}^i\left(s\right)$下，值函数和决策规则构成其优化问题的解；
+        \item 对所有$\{s_t\}_{t=0}^{\infty}$的实现，决策规则中隐含的最优消费-资产组合配置
+            $$\left\{ \{ c_t^i,\{ \hat{a}_{t+1}^i\left(s^{\prime}\right) \}_{s^{\prime}\in S} \} \right\}$$
+            满足资源和金融市场出清条件，即对$\forall t,~ s^{\prime}$成立：
+            \begin{equation*}
+                \begin{aligned}
+                    &\sum_{i}c_t^i =\sum_{i}y^i\left(s_t\right) \\
+                    &\sum_{i}\hat{a}_{t+1}^i\left(s^{\prime}\right)= 0
+                \end{aligned}
+            \end{equation*}
+    \end{itemize}
+\end{definition}
+
+
+% 3.2 =============== 代表性家庭的存在性 ===============
 \section{代表性家庭的存在性}
 
 在本节我们证明代表性家庭（Representative Household）设定的合理性：其背后是由完备市场所支撑的。
@@ -1070,16 +1271,20 @@ $\tilde{a}_{t+1}^i\left(s^t,s_{t+1}\right)=\Upsilon_{t+1}^i\left(s^{t+1}\right),
 实际上，当我们写下一个代表性家庭模型，其实就隐含地假设了家庭所在市场的完备性。
 
 
-
-
-% 2.3 =============== Kruger Decentralized Equilibrium Lafo ===============
-\section{均衡概念的运用：最优增长模型}
-
-回顾本章开头的问题：我们希望证明，在一个分散经济最优增长模型中，其竞争均衡时帕累托最优的。
+% 3.3 =============== Kruger Decentralized Equilibrium Lafo ===============
+\section{资本资产定价（CAPM）}
 
 
 
-% 2.3.1 ===== AD均衡-NGM
+
+% 3.3 =============== Kruger Decentralized Equilibrium Lafo ===============
+\section{均衡概念的运用：分散经济下的最优增长模型}
+
+回顾本章开头的问题：我们希望证明，在一个分散经济最优增长模型中，其竞争均衡是帕累托最优的。
+
+
+
+% 3.3.1 ===== AD均衡-NGM
 \subsection{AD}
 
 为了更清晰的阐明宏观经济学中相关的均衡概念，现在先考虑如下问题：
@@ -1088,11 +1293,11 @@ $\tilde{a}_{t+1}^i\left(s^t,s_{t+1}\right)=\Upsilon_{t+1}^i\left(s^{t+1}\right),
 是完全竞争的（perfectly competitive），这意味着家庭和企业都将价格视为给定（take as given）。
 
 
-% 2.3.2 ===== SQ均衡-NGM
+% 3.3.2 ===== SQ均衡-NGM
 \subsection{SQ}
 
 
-% 2.3.3 ===== RCE-NGM
+% 3.3.3 ===== RCE-NGM
 \subsection{Recursive Comptetitive Equilibrium}
 
 在一些宏观模型中，均衡可能并非帕累托最优，也可能难以通过序列形式或Arrow-Debreu形式求解，这时我们通常会定义递归竞争均衡（Recursive Comptetitive Equilibrium）。
@@ -1101,19 +1306,8 @@ $\tilde{a}_{t+1}^i\left(s^t,s_{t+1}\right)=\Upsilon_{t+1}^i\left(s^{t+1}\right),
 在递归方法下同样也可以定义均衡概念。同时，RCE时ST的递归表示。
 
 
-% 2.3.4 ==== 三种均衡概念的总结
+% 3.3.4 ==== 三种均衡概念的总结
 
 
 
-% 2.4 =============== 随机最优增长 Edmond ===============
-\section{随机最优增长模型}
-
-Brock and Mirman（1972）首次在计划者问题下引入了随机TFP冲击，建立了随机最优增长模型，成为现代宏观模型的基准框架。
-
-
-% Edmond
-\subsection{sequential approach using histories and contingent plans}
-
-
-\subsection{recursive approach}
 

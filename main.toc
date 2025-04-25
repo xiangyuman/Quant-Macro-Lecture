@@ -1,69 +1,80 @@
 \contentsline {part}{I\hspace {1em}量化宏观基础}{1}{part.1}%
-\contentsline {chapter}{\numberline {1}最优增长与动态规划基础}{2}{chapter.1}%
-\contentsline {section}{\numberline {1.1}最优增长模型}{2}{section.1.1}%
-\contentsline {section}{\numberline {1.2}序列问题：基本Lagrangian解法与横截性条件}{3}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}有限期情形}{4}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}无限期情形}{5}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}动态规划：由序列问题转向递归形式}{5}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}概念：值函数、状态变量与贝尔曼方程}{6}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}一阶条件、策略函数、包络定理与欧拉泛函}{7}{subsection.1.3.2}%
-\contentsline {subsubsection}{\numberline {1.3.2.1}由一阶条件到欧拉泛函}{7}{subsubsection.1.3.2.1}%
-\contentsline {subsubsection}{\numberline {1.3.2.2}贝尔曼方程 vs 欧拉方程}{9}{subsubsection.1.3.2.2}%
-\contentsline {subsubsection}{\numberline {1.3.2.3}引利：连续逼近法}{10}{subsubsection.1.3.2.3}%
-\contentsline {subsection}{\numberline {1.3.3}值函数性质：数学准备}{12}{subsection.1.3.3}%
-\contentsline {subsubsection}{\numberline {1.3.3.1}度量空间中的收敛性}{12}{subsubsection.1.3.3.1}%
-\contentsline {subsubsection}{\numberline {1.3.3.2}压缩映射定理}{15}{subsubsection.1.3.3.2}%
-\contentsline {subsubsection}{\numberline {1.3.3.3}应用CMT}{18}{subsubsection.1.3.3.3}%
-\contentsline {subsection}{\numberline {1.3.4}最优性原理与值函数性质}{20}{subsection.1.3.4}%
-\contentsline {subsubsection}{\numberline {1.3.4.1}最优性原理}{20}{subsubsection.1.3.4.1}%
-\contentsline {subsubsection}{\numberline {1.3.4.2}最优策略间的关系}{25}{subsubsection.1.3.4.2}%
-\contentsline {subsubsection}{\numberline {1.3.4.3}最大化定理和解的存在与唯一性}{26}{subsubsection.1.3.4.3}%
-\contentsline {subsubsection}{\numberline {1.3.4.4}值函数与策略函数的性质}{29}{subsubsection.1.3.4.4}%
-\contentsline {section}{\numberline {1.4}最优增长模型的稳态}{29}{section.1.4}%
-\contentsline {section}{\numberline {1.5}确定性最优增长模型的初步数值解法}{31}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}值函数迭代}{31}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Euler Based Methods}{31}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {1.5.3}Howard Improvment Method}{31}{subsection.1.5.3}%
-\contentsline {chapter}{\numberline {2}完备市场理论与宏观经济学中的均衡}{32}{chapter.2}%
-\contentsline {section}{\numberline {2.1}完备市场理论}{32}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}经济环境设定}{32}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}两种交易结构}{33}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}帕累托问题}{36}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Arrow-Debreu市场中的均衡}{38}{subsection.2.1.4}%
-\contentsline {subsubsection}{\numberline {2.1.4.1}Arrrow-Debreu竞争均衡价格}{42}{subsubsection.2.1.4.1}%
-\contentsline {subsubsection}{\numberline {2.1.4.2}Arrow-Debreu竞争均衡的算法}{42}{subsubsection.2.1.4.2}%
-\contentsline {subsubsection}{\numberline {2.1.4.3}阿罗-德布鲁均衡配置}{43}{subsubsection.2.1.4.3}%
-\contentsline {subsubsection}{\numberline {2.1.4.4}福利经济学定理}{44}{subsubsection.2.1.4.4}%
-\contentsline {subsubsection}{\numberline {2.1.4.5}初步应用：资产定价}{44}{subsubsection.2.1.4.5}%
-\contentsline {subsection}{\numberline {2.1.5}序贯市场下的均衡}{46}{subsection.2.1.5}%
-\contentsline {subsubsection}{\numberline {2.1.5.1}自然债务限制与序贯市场均衡}{47}{subsubsection.2.1.5.1}%
-\contentsline {subsubsection}{\numberline {2.1.5.2}均衡等价性}{51}{subsubsection.2.1.5.2}%
-\contentsline {subsection}{\numberline {2.1.6}递归均衡}{56}{subsection.2.1.6}%
-\contentsline {section}{\numberline {2.2}代表性家庭的存在性}{56}{section.2.2}%
-\contentsline {section}{\numberline {2.3}均衡概念的运用：最优增长模型}{58}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}AD}{58}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}SQ}{59}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Recursive Comptetitive Equilibrium}{59}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}随机最优增长模型}{59}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}sequential approach using histories and contingent plans}{59}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}recursive approach}{59}{subsection.2.4.2}%
-\contentsline {chapter}{\numberline {3}数值方法}{60}{chapter.3}%
-\contentsline {section}{\numberline {3.1}引例：随机最优增长的遗留问题}{60}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Markov Process and Expectation}{60}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}数值积分}{60}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Function Approximation}{60}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Projection Methods}{60}{section.3.4}%
-\contentsline {chapter}{\numberline {4}DSGE}{61}{chapter.4}%
-\contentsline {chapter}{\numberline {5}宏观计量理论与方法}{62}{chapter.5}%
-\contentsline {part}{II\hspace {1em}量化宏观核心理论}{63}{part.2}%
-\contentsline {chapter}{\numberline {6}不完全市场理论}{64}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Heterogeneity Agent Model with Aggregate Uncertainty}{65}{chapter.7}%
-\contentsline {chapter}{\numberline {8}企业动态}{66}{chapter.8}%
-\contentsline {part}{III\hspace {1em}现代量化宏观主要模型：HANK}{67}{part.3}%
-\contentsline {chapter}{\numberline {9}异质性家庭}{68}{chapter.9}%
-\contentsline {chapter}{\numberline {10}异质性企业}{69}{chapter.10}%
-\contentsline {part}{IV\hspace {1em}量化宏观专题}{70}{part.4}%
-\contentsline {chapter}{\numberline {11}银行、金融危机与宏观政策}{71}{chapter.11}%
-\contentsline {chapter}{\numberline {12}宏观债务、经济周期与政策}{72}{chapter.12}%
-\contentsline {chapter}{\numberline {13}异质性模型前沿理论}{73}{chapter.13}%
+\contentsline {chapter}{\numberline {1}索洛模型与序列视角下的动态优化}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}索洛模型}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}新古典增长模型}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}序列问题：基本Lagrangian解法与横截性条件}{4}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}有限期情形}{4}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}无限期情形}{5}{subsection.1.3.2}%
+\contentsline {chapter}{\numberline {2}递归方法与动态规划}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}动态规划：由序列问题转向递归形式}{6}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}概念：值函数、状态变量与贝尔曼方程}{6}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}一阶条件、策略函数、包络定理与欧拉泛函}{8}{subsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.1}由一阶条件到欧拉泛函}{8}{subsubsection.2.1.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.2.2}贝尔曼方程 vs 欧拉方程}{10}{subsubsection.2.1.2.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.3}引利：连续逼近法}{11}{subsubsection.2.1.2.3}%
+\contentsline {subsection}{\numberline {2.1.3}值函数性质：数学准备}{13}{subsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.3.1}度量空间中的收敛性}{13}{subsubsection.2.1.3.1}%
+\contentsline {subsubsection}{\numberline {2.1.3.2}压缩映射定理}{16}{subsubsection.2.1.3.2}%
+\contentsline {subsubsection}{\numberline {2.1.3.3}应用CMT}{19}{subsubsection.2.1.3.3}%
+\contentsline {subsection}{\numberline {2.1.4}最优性原理与值函数性质}{20}{subsection.2.1.4}%
+\contentsline {subsubsection}{\numberline {2.1.4.1}最优性原理}{21}{subsubsection.2.1.4.1}%
+\contentsline {subsubsection}{\numberline {2.1.4.2}最优策略间的关系}{26}{subsubsection.2.1.4.2}%
+\contentsline {subsubsection}{\numberline {2.1.4.3}最大化定理和解的存在与唯一性}{27}{subsubsection.2.1.4.3}%
+\contentsline {subsubsection}{\numberline {2.1.4.4}值函数与策略函数的性质}{30}{subsubsection.2.1.4.4}%
+\contentsline {section}{\numberline {2.2}最优增长模型的稳态}{30}{section.2.2}%
+\contentsline {section}{\numberline {2.3}确定性最优增长模型的初步数值解法}{32}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}值函数迭代}{32}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Euler Based Methods}{32}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Howard Improvment Method}{32}{subsection.2.3.3}%
+\contentsline {chapter}{\numberline {3}数值方法}{33}{chapter.3}%
+\contentsline {section}{\numberline {3.1}引例：随机最优增长}{33}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}基本概念与模型设定}{33}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}序列问题和状态依存计划}{34}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}随机最优增长的递归形式}{36}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}数值求解难点}{36}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}Markov Process and Expectation}{36}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}转移路径与概率分布的运动方程}{37}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}平稳分布}{39}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}马尔可夫性与条件期望}{39}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}应用：离散化AR(1)}{39}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Tau-Chen Method}{40}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}数值积分}{40}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Function Approximation}{40}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Projection Methods}{40}{section.3.6}%
+\contentsline {chapter}{\numberline {4}完备市场理论与宏观经济学中的均衡}{41}{chapter.4}%
+\contentsline {section}{\numberline {4.1}完备市场理论}{41}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}经济环境设定}{41}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}两种交易结构}{42}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}帕累托问题}{45}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Arrow-Debreu市场中的均衡}{47}{subsection.4.1.4}%
+\contentsline {subsubsection}{\numberline {4.1.4.1}Arrrow-Debreu竞争均衡价格}{51}{subsubsection.4.1.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.4.2}Arrow-Debreu竞争均衡的算法}{51}{subsubsection.4.1.4.2}%
+\contentsline {subsubsection}{\numberline {4.1.4.3}阿罗-德布鲁均衡配置}{52}{subsubsection.4.1.4.3}%
+\contentsline {subsubsection}{\numberline {4.1.4.4}福利经济学定理}{53}{subsubsection.4.1.4.4}%
+\contentsline {subsubsection}{\numberline {4.1.4.5}应用：资产定价初步}{53}{subsubsection.4.1.4.5}%
+\contentsline {subsection}{\numberline {4.1.5}序贯市场下的均衡}{55}{subsection.4.1.5}%
+\contentsline {subsubsection}{\numberline {4.1.5.1}自然债务限制与序贯市场均衡}{56}{subsubsection.4.1.5.1}%
+\contentsline {subsubsection}{\numberline {4.1.5.2}均衡等价性}{60}{subsubsection.4.1.5.2}%
+\contentsline {subsection}{\numberline {4.1.6}递归竞争均衡}{65}{subsection.4.1.6}%
+\contentsline {subsubsection}{\numberline {4.1.6.1}马尔可夫性下均衡的特征}{65}{subsubsection.4.1.6.1}%
+\contentsline {subsubsection}{\numberline {4.1.6.2}定义递归均衡}{67}{subsubsection.4.1.6.2}%
+\contentsline {section}{\numberline {4.2}代表性家庭的存在性}{69}{section.4.2}%
+\contentsline {section}{\numberline {4.3}资本资产定价（CAPM）}{71}{section.4.3}%
+\contentsline {section}{\numberline {4.4}均衡概念的运用：分散经济下的最优增长模型}{71}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}AD}{72}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}SQ}{72}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Recursive Comptetitive Equilibrium}{72}{subsection.4.4.3}%
+\contentsline {chapter}{\numberline {5}DSGE}{73}{chapter.5}%
+\contentsline {chapter}{\numberline {6}宏观计量理论与方法}{74}{chapter.6}%
+\contentsline {part}{II\hspace {1em}量化宏观核心理论}{75}{part.2}%
+\contentsline {chapter}{\numberline {7}不完全市场理论}{76}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Heterogeneity Agent Model with Aggregate Uncertainty}{77}{chapter.8}%
+\contentsline {chapter}{\numberline {9}企业动态}{78}{chapter.9}%
+\contentsline {part}{III\hspace {1em}现代量化宏观主要模型：HANK}{79}{part.3}%
+\contentsline {chapter}{\numberline {10}异质性家庭}{80}{chapter.10}%
+\contentsline {chapter}{\numberline {11}异质性企业}{81}{chapter.11}%
+\contentsline {part}{IV\hspace {1em}量化宏观专题}{82}{part.4}%
+\contentsline {chapter}{\numberline {12}银行、金融危机与宏观政策}{83}{chapter.12}%
+\contentsline {chapter}{\numberline {13}宏观债务、经济周期与政策}{84}{chapter.13}%
+\contentsline {chapter}{\numberline {14}异质性模型前沿理论}{85}{chapter.14}%
 \contentsfinish 

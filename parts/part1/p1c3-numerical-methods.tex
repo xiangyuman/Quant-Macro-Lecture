@@ -1,26 +1,348 @@
-% 第3章 数值方法
+% 第2章 数值方法
 
 %导言
 
 \chapter{数值方法}
 
-为什么需要数值方法？
+在第一章处理的确定性最有增长模型中，状态变量维度很低，只有资本存量$k$，我们通过值函数和策略函数迭代可以快速得到其数值解。
+但是，量化宏观模型状态变量的维度通常较高，可能包含多个外生冲击或内生状态变量，部分异质性个体模型可能还涉及无穷维的分布作为状态，
+这些都会带来维度诅咒（Curse of Dimention），导致基础的值函数迭代方法消耗大量计算时间，甚至不收敛等问题。
+因此，必须对数值方法进行更进一步的学习。
 
-% 引例
-\section{引例：随机最优增长的遗留问题}
+我们将从随机最优增长模型开始，引出模型中计算条件期望的难点，并在马尔可夫假设下引出AR(1)过程的离散化方法，以解决这一难题；
+其次，我们将介绍更为灵活和一般化的数值积分方法来处理期望的问题；
+然后，我们将跳出值函数迭代的思想，从直接处理值函数入手解决问题：我们将先介绍函数逼近方法，在此基础上着重研究投影方法的理论和应用；
+最后，我们将对其他常用算法进行介绍。
 
 
-%
-\subsection{Markov Process and Expectation}
+% 2.1 =============== 随机最优增长 Edmond ===============
+\section{引例：随机最优增长}
+
+本节先对随机最优增长模型（Stochastic Optimal Growth Model / Stochastic Neoclassical Growth Model）进行介绍。
+一方面，自Brock and Mirman（1972）首次将随机TFP冲击引入计划者问题，将其作为宏观变量内生波动的解释后，
+随机最优增长模型就逐渐成为几乎所有经济周期模型的基本框架。
+另一方面，以随机最优增长作为引例，我们将说明外生冲击给模型计算带来的难点，并初步窥探相应数值方法的运用。
 
 
-% ====
+% 2.1.1 ===== 基本概念与模型设定
+\subsection{基本概念与模型设定}
+
+在确定性模型中，给定期初资本存量，生产函数是确定的，代表性家庭（计划者）面临的资源约束为：
+\begin{equation*}
+    c_t + k_{t+1} \leq f(k_t)+\left(1-\delta\right)k_t
+\end{equation*}
+随机最优增长模型与其核心的区别在于生产函数面临\textbf{随机事件}（Stochastic Event）给生产率带来的不确定性，
+资源约束形式为：
+\begin{equation*}  
+    c_t\left(s^t\right)+k_{t+1}\left(s^t\right) \leq z_t\left(s^t\right) f\left(k_t\left(s^{t-1}\right)\right)
+    +\left(1-\delta\right)k_t\left(s^{t-1}\right), \quad \forall s^t
+\end{equation*}
+
+其中，称$s_t\in S$是$t$时刻实现的一个随机事件，$S$是随机过程的状态空间（或称为支撑），
+称$s^t\equiv \left(s_0,s_1,\cdots,s_t\right)=\left(s^{t-1},s_t\right)$为至$t$时刻已经实现的事件的\textbf{历史}。
+举例来看，假设$s_t\in\{0,1\}$，例如$s_t=1$对应高生产率$z$，$s_t=0$对应低生产率$z$。
+图\ref{event-tree}给出了这一情形下（即$S=\{0,1\}$）随机事件可能的展开路径。
+从$t=0$时刻看，时刻$t$时历史$s^t$实现的\textbf{无条件概率}为$\pi_t\left(s^t\right)$；
+对$t>\tau$，$z^t$实现的\textbf{条件概率}为$\pi_t\left(s^t\mid s^{\tau}\right)$。
+\begin{figure}
+    \includegraphics[width=1\textwidth]{figures/part1/p1c2-event-tree.png}
+    \caption{随机事件树}
+    \label{event-tree}
+\end{figure}
+
+不失一般性，假设$s_t$在离散空间上取值。从而模型中代表性家庭（计划者）偏好可写为：
+\footnote{为了形式的方便，我们通常使用$\mathbb{E}_0$表示基于零时刻给定状态$z_0$下的期望效用}
+\begin{equation}    \label{eq-sngm-preference}
+    \begin{aligned}
+        U &= \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t\left(s^t\right)\right) \pi_t\left(s^t\right) \\
+        &= \mathbb{E}_0 \sum_{t=0}^{\infty} \beta^t u\left(c_t\right)
+    \end{aligned}
+\end{equation}
+
+
+% 2.1.2 ===== Edmond
+\subsection{序列问题和状态依存计划}
+
+在确定性问题中，家庭的最优选择一个\textbf{确定性的序列}；
+而在随机问题中，家庭的最优选择依赖于随机过程$z_t$，因此选择的消费和资本序列
+$\{c_t\left(z^t\right)\}_{t=0}^{\infty},~ \{k_{t+1}\left(z^t\right)\}_{t=0}^{\infty}$也是随机过程，
+通常我们将其称为\textbf{状态依存计划}（Contingent Plans）。我们将先利用序列方法求解状态依存计划的最优条件。
+
+在序列问题下，家庭将概率序列$\pi_t\left(s^t\right)$视为给定，选择消费和资本序列来最大化自身期望效用\ref{eq-sngm-preference}：
+\begin{equation*}
+    \max _{\left\{c_t\left(s^t\right), k_{t+1}\left(s^t\right)\right\}_{t=0}^{\infty}} 
+        \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t\left(s^t\right)\right) \pi_t\left(s^t\right)
+\end{equation*}
+资源约束为：
+\begin{equation}    \label{eq-sngm-rc}
+    c_t\left(s^t\right)+k_{t+1}\left(s^t\right) \leq z_t\left(s^t\right) f\left(k_t\left(s^{t-1}\right)\right)
+        + \left(1-\delta\right)k_t\left(s^{t-1}\right), \quad \forall s^t
+\end{equation}
+非负性约束为：
+\begin{equation*}
+    c_t\left(s^t\right), k_{t+1}\left(s^t\right) \geq 0, \quad \forall s^t
+\end{equation*}
+其中第0期的资本$k_0$和状态$s_0$给定，即$\pi_0\left(s_0\right)=1$。
+记与资源约束相关的拉格朗日乘子为$\lambda_t\left(s^t\right)$，则拉格朗日函数为：
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{L} &=\sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t\left(s^t\right)\right) \pi_t\left(s^t\right) \\
+            &+\sum_{t=0}^{\infty} \sum_{s^t} \lambda_t\left(s^t\right)
+            \left[z_t\left(s^t\right)f\left(k_t\left(s^{t-1}\right)\right)+\left(1-\delta\right)k_t\left(s^{t-1}\right)
+            -c_t\left(s^t\right)-k_{t+1}\left(s^t\right)\right]
+    \end{aligned}
+\end{equation*}
+容易得到,关于$c_t\left(s^t\right)$的一阶条件为：
+\begin{equation}    \label{eq-sngm-foc-c}
+    \beta^t \pi_t\left(s^t\right) u^{\prime}\left(c_t\left(s^t\right)\right)=\lambda_t\left(s^t\right)
+\end{equation}
+关于$k_{t+1}\left(s^t\right)$的一阶条件为：
+\begin{equation}    \label{eq-sngm-foc-k}
+    \lambda_t\left(s^t\right)=\sum_{s^{t+1} \mid s^t} \lambda_{t+1}\left(s^{t+1}\right)
+        \left[z_{t+1}\left(s^{t+1}\right)f^{\prime}\left(k_{t+1}\left(s^t\right)\right)+\left(1-\delta\right)\right]
+\end{equation}
+这里的一个关键点在于：当前$k_{t+1}\left(s^t\right)$的选择会影响$t+1$时刻基于$s^t$的所有可能的$s^{t+1}$下的生产，
+反映为求和符号下的$s^{t+1} \mid s^t$。
+结合两个一阶条件，可以写出\textbf{随机形式的消费欧拉方程}：
+\begin{equation}    \label{eq-sngm-euler1}
+    u^{\prime}\left(c_t\left(s^t\right)\right) = 
+        \beta\sum_{s^{t+1}\mid s^t} \pi_{t+1}\left(s^{t+1}\mid s^t\right) u^{\prime}\left(c_{t+1}\left(s^{t+1}\right)\right)
+            \left[z_{t+1}\left(s^{t+1}\right) f^{\prime}\left(k_{t+1}\left(s^t\right)\right)+\left(1-\delta\right)\right] 
+\end{equation}
+其中条件概率$\pi_{t+1}\left(s^{t+1}\mid s^t\right) =\pi_{t+1}\left(s^{t+1}\right)/\pi_t\left(s^t\right)$。
+因此，方程右侧是一个\textbf{条件期望}，我们习惯将其写为：
+\begin{equation}    \label{eq-sngm-euler2}
+    u^{\prime}\left(c_t\right) = 
+        \beta\mathbb{E}_t\left\{u^{\prime}\left(c_{t+1}\right)
+            \left[z_{t+1} f^{\prime}\left(k_{t+1}\right) + \left(1-\delta\right)\right]\right\}
+\end{equation}
+注意$\mathbb{E}_t$是一个\textbf{条件期望符号}，表示我们在$\{s^{t+1}\mid s^t\}$上求和（或积分）。
+也可以将其理解为基于$t$时刻信息的期望。
+
+
+% 2.1.3 递归形式
+\subsection{随机最优增长的递归形式}
+
+
+
+\subsection{数值求解难点}
+求解难点-期望-AR1-离散化
+
+markov
+
+应用AR1
+
+
+
+% 2.2 =============== Markov ===============
+\section{Markov Process and Expectation}
+
+\begin{definition}
+    \textbf{随机过程}（Stochastic Process）是某一\textbf{随机变量}（Random Variable）$z_t$构成的时间序列$\{z_t\}_{t=0}^{\infty}$。
+    若$z_t$的\textbf{状态空间}$\mathbb{Z}$是有限或可数的，则称这一随机过程是离散取值的。
+\end{definition}
+
+\begin{definition}
+    随机过程$\{z_t\}_{t=0}^{\infty}$被称为\textbf{马尔可夫过程}，若对任意$k\geq1$和任意$t$，成立：
+    \begin{equation*}
+        \operatorname{Pr}\left(z_{t+1}\mid z_t,z_{t-1},\cdots,z_{t-k}\right)=\operatorname{Pr}\left(z_{t+1}\mid z_t\right)
+    \end{equation*}
+    即条件于当前$z_t$，未来独立于历史$z^{t-1}$。如果上述概率不依赖于时间$t$，则称这一马尔可夫过程是\textbf{时间齐次}的。
+\end{definition}
+
+\begin{definition}
+    \textbf{马尔科夫链}（Markov Chain）是离散取值的马尔可夫过程，即状态空间$\mathbb{Z}$可数或有限。
+\end{definition}
+
+我们将主要考虑时间齐次的马尔可夫链。为了记号的方便，同时不失一般性，假设随机变量$z_t$的取值空间
+$\mathbb{Z}=\{\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\}$。
+\footnote{通常我们用大写字母如$Z_t$表示随机变量，用小写字母如$z_t$表示样本的实现。这里是为了记号的方便以及与随机增长模型中一致，
+我们使用小写的$z_t$表示随机变量}
+通常，$n$维马尔可夫链可用三元符号$\left(\boldsymbol{\mathbbm{z}},\boldsymbol{P},\boldsymbol{\pi}_0\right)$表示。
+其中：
+
+（1）\textbf{状态空间}$\boldsymbol{\mathbbm{z}}=\left(\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\right)^{\prime}$
+是包含状态所有可能取值的$n$维列向量；
+
+（2）\textbf{转移概率矩阵}$\boldsymbol{P}$具有如下形式的：
+\begin{equation*}
+    \boldsymbol{P}=\left(\begin{array}{cccccc}
+        p_{11} & p_{12} & \cdots & \vdots & \cdots & p_{1 n} \\
+        p_{21} & & & \vdots & & \vdots \\
+        \vdots & & & \vdots & & \vdots \\
+        p_{i 1} & \cdots & \cdots & p_{i j} & \cdots & p_{i n} \\
+        \vdots & & & \vdots & & \vdots \\
+        p_{n 1} & \cdots & \cdots & \vdots & \cdots & p_{n n}
+        \end{array}\right)
+\end{equation*}
+满足：
+\begin{equation*}   
+    \sum_{j=1}^{n}p_{ij}=1 \quad 0\leq p_{ij}\leq 1 \quad \forall i
+\end{equation*}
+这一矩阵也被称为\textbf{随机矩阵}。矩阵中的代表元素$\left(i,j\right)$元$p_{ij}$是一个条件概率，表示：
+\begin{equation*}
+    p_{ij}=\operatorname{Pr}\left(z_{t+1}=\mathbbm{z}_j\mid z_t = \mathbbm{z}_i\right)
+\end{equation*}
+
+（3）\textbf{初始分布}$\boldsymbol{\pi}_0=\left(\pi_{01},\pi_{01},\cdots,\pi_{0n}\right)^{\prime}$是一个$n$维列向量，
+其元素$\pi_{0i}=\operatorname{Pr}\left(s_0=s_i\right)$表示初始状态$z_0=\mathbbm{z}_i$，满足$\sum_{i=1}^{n}\pi_{0i}=1$。
+在应用中，通常选定某一$i$，使$\pi_{0i}=1$，即从确定的初始状态$\mathbbm{z}_i$开始。
+
+
+% 2.2.1 Law of Motion for Pr
+\subsection{转移路径与概率分布的运动方程}
+
+马尔科夫链假设能够极大简化模型转移路径的计算。给定转移概率矩阵$\boldsymbol{P}$，
+我们可以计算$m=1,2,3,\cdots$步内从状态$\mathbbm{z}_i$转移到状态$\mathbbm{z}_j$的概率。例如，对2步转移：
+\begin{equation*}
+    \begin{aligned}
+        \operatorname{Pr}\left(z_{t+2}=\mathbbm{z}_j \mid z_t=\mathbbm{z}_i\right) 
+            &= \sum_{k=1}^n \operatorname{Pr}\left(z_{t+2}=\mathbbm{z}_j \mid z_{t+1}=\mathbbm{z}_k\right) 
+                    \operatorname{Pr}\left(z_{t+1}=\mathbbm{z}_k \mid z_t=\mathbbm{z}_i\right) \\
+            &= \sum_{k=1}^n p_{k j} p_{i k} = \sum_{k=1}^n p_{i k} p_{k j} \\
+            &= p^{\left(2\right)}_{i j} 
+    \end{aligned}
+\end{equation*}
+其中$p^{\left(2\right)}_{i j}$表示两步转移概率矩阵$\boldsymbol{P}^2=\boldsymbol{P}\boldsymbol{P}$的$(i,j)$元。
+容易验证若$\boldsymbol{P}$是一个转移概率矩阵，则$\boldsymbol{P}$的$m$次幂$\boldsymbol{P}^{m}$也是一个转移概率矩阵。
+一般而言，$\boldsymbol{P}^{m}$的$(i,j)$元不一定等于$\boldsymbol{P}$的$(i,j)$元的$m$次方，
+即$p^{\left(m\right)}_{i j}\neq \left(p_{i j}\right)^m$。
+进一步归纳后不难得到：
+\begin{equation}
+    \operatorname{Pr}\left(z_{t+m}= \mathbbm{z}_j\mid z_t=\mathbbm{z}_i\right) = p^{\left(m\right)}_{i j}
+\end{equation}
+其中右侧表示$m$步转移概率矩阵$\boldsymbol{P}^m$的$(i,j)$元。
+更一般化的，我们有如下查普曼-柯尔莫哥洛夫方程（Chapman-Kolmogorov Equation）：
+\begin{equation}
+    \begin{aligned}
+        \boldsymbol{P}^{m+k} &= \boldsymbol{P}^k\boldsymbol{P}^m \\
+        & \Leftrightarrow \\
+        p^{(m+k)}_{i j} &= \sum_{r=1}^{n}p^{(k)}_{i r}p^{(m)}_{r j}
+    \end{aligned}
+\end{equation}
+
+令$n$维列向量$\boldsymbol{\pi}_t=\left(\pi_{t,1},\cdots,\pi_{t,n}\right)^{\prime}$
+表示随机变量$z_t$其状态空间$\mathbb{S}$上的\textbf{无条件概率分布}，其中的元素：
+\begin{equation*}
+    \pi_{t,i} = \operatorname{Pr}\left(z_t = \mathbbm{z}_i\right), \quad i=1,\cdots n
+\end{equation*}
+由转移概率可得概率随时间的变化：
+\begin{equation*}
+    \begin{aligned}
+        \pi_{1, i} &= \sum_{j=1}^n \operatorname{Pr}\left[z_1=\mathbbm{z}_i \mid z_0=\mathbbm{z}_j\right] 
+                        \operatorname{Pr}\left[z_0=\mathbbm{z}_j\right] 
+                    =  \sum_{j=1}^n \operatorname{Pr}\left[z_1=\mathbbm{z}_i \mid z_0=\mathbbm{z}_j\right]\pi_{0,j}  \\
+        \vdots & \\
+        \pi_{t, i} &= \sum_{j=1}^n \operatorname{Pr}\left[z_t=\mathbbm{z}_i \mid z_{t-1}=\mathbbm{z}_j\right] 
+                        \operatorname{Pr}\left[z_{t-1}=\mathbbm{z}_j\right] 
+                    =  \sum_{j=1}^n \operatorname{Pr}\left[z_t=\mathbbm{z}_i \mid z_{t-1}=\mathbbm{z}_j\right]\pi_{t-1,j}  \\
+        \pi_{t+1, i} &= \sum_{j=1}^n \operatorname{Pr}\left[z_{t+1}=\mathbbm{z}_i \mid z_t=\mathbbm{z}_j\right] 
+                        \operatorname{Pr}\left[z_t=\mathbbm{z}_j\right]
+                    =  \sum_{j=1}^n \operatorname{Pr}\left[z_{t+1}=\mathbbm{z}_i \mid z_t=\mathbbm{z}_j\right]\pi_{t,j}
+        \end{aligned}
+\end{equation*}
+以矩阵形式表示，可得\textbf{概率分布的运动方程}（Law of Motion）为：
+\begin{equation*}
+    \begin{aligned}
+        \boldsymbol{\pi}_1^{\prime} &= \boldsymbol{\pi}_0^{\prime}\boldsymbol{P} \\
+        \boldsymbol{\pi}_2^{\prime} &= \boldsymbol{\pi}_1^{\prime}\boldsymbol{P} 
+            = \boldsymbol{\pi}_0^{\prime}\boldsymbol{P}^2 \\
+        \vdots & \\
+        \boldsymbol{\pi}_t^{\prime} &= \boldsymbol{\pi}_{t-1}^{\prime}\boldsymbol{P} 
+            = \boldsymbol{\pi}_0^{\prime}\boldsymbol{P}^t
+    \end{aligned}
+\end{equation*}
+从而有：
+\begin{equation}    \label{eq-markov-pr-motion}
+    \boldsymbol{\pi}_{t+1} = \boldsymbol{P}^{\prime}\boldsymbol{\pi}_t 
+        = \left(\boldsymbol{P}^{\prime}\right)^{t+1}\boldsymbol{\pi}_0
+\end{equation}
+
+
+% 2.2.2 Stationary Distribution
+\subsection{平稳分布}
+
+\begin{definition}
+    \textbf{稳态或平稳分布}（Stationary Distribution）是指满足如下条件的一个无条件概率分布：
+    \begin{equation*}
+        \boldsymbol{\pi}_{t+1} = \boldsymbol{\pi}_t
+    \end{equation*}
+\end{definition}
+根据概率分布的运动方程\ref{eq-markov-pr-motion}，平稳分布必须满足：
+\begin{equation}    \label{eq-markov-stationary}
+    \boldsymbol{\pi} = \boldsymbol{P}^{\prime}\boldsymbol{\pi}
+\end{equation}
+等价于：
+\begin{equation}
+    \left(\boldsymbol{I}-\boldsymbol{P}^{\prime}\right)\boldsymbol{\pi} = \boldsymbol{0}
+\end{equation}
+这表明：\textbf{平稳分布$\boldsymbol{\pi}$是矩阵$\boldsymbol{P}^{\prime}$对应特征值为1的特征向量}（正则化使$\sum_{i=1}^{n}\pi_i=1$）。
+
+\begin{definition}
+    $\boldsymbol{P}, \boldsymbol{\pi}$被称为\textbf{平稳马尔科夫链}，若分布$\boldsymbol{\pi}$满足\ref{eq-markov-stationary}式。
+\end{definition}
+
+事实上，$\boldsymbol{P}$是随机矩阵（元素非负并且$\sum_{1}^{n}p_{ij}=1$）保证了$\boldsymbol{P}$至少有一个特征根为1，
+进而至少有一个特征向量$\boldsymbol{\pi}$是平稳分布。但是，平稳分布可能不唯一，因为可能有重复为1的特征根。
+平稳分布唯一的一个充分条件是：$0<p_{i j}<1, \forall i, j$。
+
+
+% 2.2.3 Conditional Expectation and Discrete AR(1)
+\subsection{马尔可夫性与条件期望}
+
+马尔可夫性的存在极大简化了宏观模型中条件期望的计算，因为它使得下期状态只依赖于当前而不依赖于历史。
+假设随机过程$\{z_t\}_{t=0}^{\infty}$是一个马尔科夫链，
+取值空间为$\boldsymbol{\mathbbm{z}}=\left(\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\right)^{\prime}$。
+那么给定$z_t=\mathbbm{z}_i$，$z_{t+1}$的条件期望为：
+\begin{equation}
+    \mathbb{E}\left(z_{t+1} \mid z_t=\mathbbm{z}_i\right) = \boldsymbol{P}_i\boldsymbol{\mathbbm{z}}
+\end{equation}
+其中，$\boldsymbol{P}_i$为转移概率矩阵$\boldsymbol{P}$的第$i$行（即条件于当前状态为$\mathbbm{z}_i$）。
+
+而对于随机最优增长模型中的EV|z，有。。。。。。。。
+
+
+% 2.3 Conditional Expectation and Discrete AR(1)
+\section{应用：离散化AR(1)}
+
+虽然写出了EV|z，但仍有问题，zt过程处理？两个方案，
+一是离散化作为逼近
+二是作为连续过程，用数值积分方法处理，本节看前一种。
+
+
+
+\subsection{Tau-Chen Method}
+
+
+离散化后求和仍有V，可以通过离散化后VFI，
+也可作为后面函数逼近和Projection的引入，即用函数逼近V
+
+
+
+% 2.4 =============== 随机最优增长 Edmond ===============
 \section{数值积分}
 
+即使有了离散化，直接计算条件期望可能仍然有困难，例如，如果我们希望保留$z_t$的取值空间作为连续的支撑，
 
-% ====
+
+事实上，虽然数值积分没有使用马尔可夫性去离散化外生过程，但这一性质在条件期望的计算中仍然发挥了基础性的作用，
+因为几分钟变量的演变不依赖于历史
+
+
+% 2.5 =============== 随机最优增长 Edmond ===============
 \section{Function Approximation}
 
+截至目前，无论是基于马尔科夫链离散化AR(1)过程计算积分还是直接数值积分，其后续求解步骤中，都是基于值函数数迭代的方法继续进行，
+因为即便有了积分的数值算法，我们仍然对值函数的形式一无所知。回顾我们在第一章最后介绍的配置算法，它通过直接逼近值函数进行求解。
+事实上，在随机模型中，这一方法也是适用的，在本节，我们详细介绍函数逼近的基本理论，为下一节投影方法奠定基础。
 
-% ====
+
+
+
+
+% 2.6 =============== 随机最优增长 Edmond ===============
 \section{Projection Methods}
+
+我们已经详细了解了值函数逼近的主要理论，
+现在，我们可以通过选定基函数逼近值函数，再配合离散化AR(1)或数值积分方法，避免值函数迭代的缺点。
+通常我们称这一方法为投影法或。。。。法。先看一个简单的例子。
