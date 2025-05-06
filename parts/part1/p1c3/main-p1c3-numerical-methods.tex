@@ -1,0 +1,29 @@
+% 第3章 数值方法
+
+%导言
+
+\chapter{数值方法}  \label{ch-numerical-methods}
+
+在对确定性最有增长模型数值解的学习中，我们窥见了两种处理思路：
+一是基于值函数（或策略函数）迭代的思路；另一是基于函数逼近直接处理值函数（或策略函数）的思路。
+确定性最优增长模型结构简单，并且状态变量维度很低，只有资本存量$k$，两种方法都可以快速得到其数值解。
+但是，量化宏观模型状态变量的维度通常较高，可能包含多个外生冲击或内生状态变量，部分异质性个体模型可能还涉及无穷维的分布作为状态，
+这些都会带来维度诅咒（Curse of Dimention），导致基础的值函数迭代方法消耗大量计算时间，甚至不收敛等问题；
+同时，对于较为复杂的模型，基础的函数逼近方法也面临可靠性下降的风险。
+因此，必须对数值方法进行更进一步的学习，来解决这些麻烦。
+
+本章将从随机最优增长模型开始，引出模型中计算条件期望的难点，并在马尔可夫假设下引出AR(1)过程的离散化方法，以解决这一难题；
+其次，我们将介绍更为灵活和一般化的数值积分方法来处理期望的问题；
+然后，我们将跳出值函数迭代的思想，直接从值函数入手解决问题：先介绍函数逼近方法，在此基础上着重研究投影方法的理论和应用；
+最后，将对其他常用算法进行介绍。
+
+
+% =============== main ch3 ===============
+
+\input{parts/part1/p1c3/p1c31-eg-opt-growth.tex}
+\input{parts/part1/p1c3/p1c32-markov.tex}
+\input{parts/part1/p1c3/p1c33-discrete-approximation.tex}
+\input{parts/part1/p1c3/p1c34-numerical-integeration.tex}
+\input{parts/part1/p1c3/p1c35-func-approximation.tex}
+\input{parts/part1/p1c3/p1c36-projection.tex}
+\input{parts/part1/p1c3/p1c37-egm.tex}

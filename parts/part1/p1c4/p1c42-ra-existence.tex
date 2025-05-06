@@ -1,0 +1,99 @@
+% 4.2 =============== 代表性家庭的存在性 ===============
+
+\section{代表性家庭的存在性}    \label{sec-ra-existence}
+
+在本节我们证明代表性家庭（Representative Household）设定的合理性：其背后是由完备市场所支撑的。
+不失一般性，假设存在两个家庭，$1$和$2$，效用函数分别为$u\left(c^1\right)$和$v\left(c^2\right)$，符合相关规范化假设。
+计划者分配给他们的权重分别为$\lambda$和$1-\lambda$。考虑计划者的帕累托最优问题：
+\begin{equation}
+    U(C) \equiv \max _{\left\{c^1, c^2\right\}} \lambda u\left(c^1\right)+(1-\lambda) v\left(c^2\right)
+\end{equation}
+满足资源约束：
+\begin{equation}
+    c^1+c^2 \equiv C = Y \equiv y^1 + y^2
+\end{equation}
+容易求得FOC：
+\begin{equation}
+    \frac{u^{\prime}\left(c^1\right)}{v^{\prime}\left(c^2\right)} = \frac{1-\lambda}{\lambda}
+\end{equation}
+定义家庭$1$和家庭$2$消费函数分别为$x^1\left(C\right)$和$x^2\left(C\right)$，即：
+\begin{equation*}
+    \left\{x^1(C), x^2(C)\right\} 
+        \equiv \arg\max_{\left\{c^1, c^2\right\}} \lambda u\left(c^1\right)+(1-\lambda) v\left(c^2\right) \text { s.t. } c^1+c^2=C
+\end{equation*}
+显然，$x^1\left(C\right)$和$x^2\left(C\right)$都是总资源的增函数。
+给定$x^1\left(C\right)$和$x^2\left(C\right)$，计划者值函数可以写为：
+\begin{equation}    \label{eq-u-h1h2}
+    U\left(C\right)=\lambda u\left(x^1\left(C\right)\right)+\left(1-\lambda\right) v\left(x^2\left(C\right)\right)
+\end{equation}
+证明代表性家庭的存在性，相当于证明两个异质家庭最优化行为进行加总后的结果与某一效用函数下的最优化行为等价，进而这一函数就能作为代表性家庭的偏好。
+因此必须要证明$U\left(C\right)$是一个合理的效用函数。
+\begin{property}
+    $U\left(\cdot\right)$关于$C$递增
+\end{property}
+\begin{proof}
+    由于$u$和$v$都递增，$x^1\left(C\right)$和$x^2\left(C\right)$关于$C$递增，结论显然。
+\end{proof}
+
+\begin{property}
+    $U\left(\cdot\right)$是凹的
+\end{property}
+\begin{proof}
+    考虑两个不同水平的总资源$C$和$C^{\prime}$，往证：
+    \begin{equation*}
+        \gamma U(C)+(1-\gamma) U\left(C^{\prime}\right)<U\left(\gamma C+(1-\gamma) C^{\prime}\right) \quad \forall \gamma\in (0,1)
+    \end{equation*}
+    将值函数\ref{eq-u-h1h2}进一步写为：
+    \begin{equation*}
+        \begin{aligned}
+            \gamma U(C)+(1-\gamma) U\left(C^{\prime}\right)&= \gamma\left[\lambda u\left(x^1(C)\right)+(1-\lambda) v\left(x^2(C)\right)\right] \\
+            & +(1-\gamma)\left[\lambda u\left(x^1\left(C^{\prime}\right)\right)+(1-\lambda) v\left(x^2\left(C^{\prime}\right)\right)\right] \\
+            &= \lambda\left[\gamma u\left(x^1(C)\right)+(1-\gamma) u\left(x^1\left(C^{\prime}\right)\right)\right] \\
+            & +(1-\lambda)\left[\gamma v\left(x^2(C)\right)+(1-\gamma) v\left(x^2\left(C^{\prime}\right)\right)\right]
+        \end{aligned}
+    \end{equation*}
+    由$u$和$v$的凹性，
+    \begin{equation*}
+        \begin{aligned}
+            & \lambda\left[\gamma u\left(x^1(C)\right)+(1-\gamma) u\left(x^1\left(C^{\prime}\right)\right)\right]
+                +(1-\lambda)\left[\gamma v\left(x^2(C)\right)+(1-\gamma) v\left(x^2\left(C^{\prime}\right)\right)\right] \\
+            & <\lambda u\left(\gamma x^1(C)+(1-\gamma) x^1\left(C^{\prime}\right)\right)
+                +(1-\lambda) v\left(\gamma x^2(C)+(1-\gamma) x^2\left(C^{\prime}\right)\right)
+        \end{aligned}
+    \end{equation*}
+    当总资源为$\gamma C+ (1-\gamma)C^{\prime}$时，对如下两个消费：
+    \begin{align*}
+        c^1 = \gamma x^1(C)+(1-\gamma) x^1\left(C^{\prime}\right), \quad c^2 =\gamma x^2(C)+(1-\gamma) x^2\left(C^{\prime}\right)
+    \end{align*}
+    他们是可行的，但是一定不会比总资源为$\gamma C+ (1-\gamma)C^{\prime}$下的帕累托配置更好，因此结合$x^1\left(C\right)$和$x^2\left(C\right)$的定义可知：
+    \begin{equation*}
+        \begin{aligned}
+            & \lambda u\left(\gamma x^1(C)+(1-\gamma) x^1\left(C^{\prime}\right)\right)
+                +(1-\lambda) v\left(\gamma x^2(C)+(1-\gamma) x^2\left(C^{\prime}\right)\right) \\
+            &\leq \lambda u\left(x^1\left(\gamma C+(1-\gamma) C^{\prime}\right)\right)
+                +(1-\lambda) v\left(x^2\left(\gamma C+(1-\gamma) C^{\prime}\right)\right)
+        \end{aligned}
+    \end{equation*}
+    从而，
+    \begin{equation*}
+        \begin{aligned}
+            \gamma U(C)+(1-\gamma) U\left(C^{\prime}\right)
+            &= \lambda\left[\gamma u\left(x^1(C)\right)+(1-\gamma) u\left(x^1\left(C^{\prime}\right)\right)\right] \\
+                & +(1-\lambda)\left[\gamma v\left(x^2(C)\right)+(1-\gamma) v\left(x^2\left(C^{\prime}\right)\right)\right] \\
+            &< \lambda u\left(\gamma x^1(C)+(1-\gamma) x^1\left(C^{\prime}\right)\right) \\
+                &+(1-\lambda) v\left(\gamma x^2(C)+(1-\gamma) x^2\left(C^{\prime}\right)\right) \\
+            &\leq \lambda u\left(x^1\left(\gamma C+(1-\gamma) C^{\prime}\right)\right) \\
+                &+(1-\lambda) v\left(x^2\left(\gamma C+(1-\gamma) C^{\prime}\right)\right)
+        \end{aligned}
+    \end{equation*}
+    倒数第二个小于号是由于凹性，最后一个不等号时根据$x$的定义和帕累托最优性。最终：
+    \begin{equation*}
+        \gamma U(C)+(1-\gamma) U\left(C^{\prime}\right) < U\left(\gamma C+\left(1-\gamma\right)C^{\prime}\right)
+    \end{equation*}
+\end{proof}
+
+上述论证过程中，我们是在计划者的帕累托最优问题下才构建出了值函数（消费配置取最优时的效用函数）。
+换句话说，想要允许代表性家庭存在，市场必须要能够达到一个帕累托均衡，而我们已经证明，完备市场中的竞争均衡就是帕累托最优的。
+因此，如果市场是完备的，那么即便市场上个体间的偏好是异质性的，
+他们的行为加总后都等价于一个偏好为$U\left(C\right)$的代表性家庭在进行总体决策（Aggregate Decision）。
+实际上，当我们写下一个代表性家庭模型，其实就隐含地假设了家庭所在市场的完备性。

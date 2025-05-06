@@ -1,0 +1,470 @@
+% 2.3 =============== 最大值原理与值函数性质 ===============
+
+\section{最优性原理与值函数性质} \label{sec-value-f-property}
+
+值函数连续性和相关性质的证明相对较为复杂，我们通过引入最优性原理（Principal of Optimality）进而展开。
+
+% 2.3.1 ===== 最优性原理 =====
+\subsection{最优性原理}
+
+首先，我们可以写出更一般化形式的序列问题（Sequential Problem，$\mathbf{SP}$）：
+$$
+\sup _{\left\{x_{t+1}\right\}_{t=0}^{\infty}} \sum_{t=0}^{\infty} \beta^t F\left(x_t, x_{t+1}\right)
+$$
+满足：
+$$
+\begin{aligned}
+    x_{t+1} & \in \Gamma\left(x_t\right), \quad \forall t\\
+    x_0 & \in X \quad \text { 给定 }
+\end{aligned}
+$$
+其中，$X$是$x$所有可能取值集合；$\Gamma : X \rightarrow X$是描述可行性的对应（Correspondence），即
+给定当前状态$x_t$，下期$x_{t+1}$的所有可行取值；$F$是当期回报函数。我们称从$x_0$开始，
+任意可行的序列$\{x_{t+1}\}_{t=0}^{\infty}$为一个可行计划（Feasible Plans）。记所有可行计划构成的集合为：
+$$\pi\left(x_0\right)=\left\{\left\{x_{t+1}\right\}_{t=0}^{\infty} \quad: \quad x_{t+1} \in \Gamma\left(x_t\right), 
+    \quad t=0,1,2, \ldots\right\}$$
+其元素是一个序列，记为$\boldsymbol{x}\in\pi\left(x_0\right)$。
+
+其次，我们写出与$SP$相对应的递归问题（$R$），或称为泛函方程（Functional Equation，$\mathbf{FE}$）：
+$$
+v(x)=\sup _{y \in \Gamma(x)}[F(x, y)+\beta v(y)] \quad \forall x \in X
+$$
+$x$是状态变量，$y$是控制变量。
+
+$SP$与$FE$是否等价？更一般的想法是：
+\begin{itemize}
+    \item 问题$R$的解（函数）$v$在$x=x_0$处的取值达到$SP$的上界
+    \item 序列$\{x_{t+1}\}_{t=0}^{\infty}$达到问题$SP$上界，当且仅当
+        $v\left(x_t\right)=F\left(x_t, x_{t+1}\right)+\beta v\left(x_{t+1}\right), \quad t=0,1,2, \ldots$
+\end{itemize}
+
+贝尔曼将这一想法称为\textbf{最优性原理}。当然，这一结果的成立需要一些假设。
+\begin{assumption} \label{as-nonempty-plan}
+    集合$\Gamma\left(x\right)$对任意$x\in X$非空
+\end{assumption}
+\begin{assumption} \label{as-lim-exist}
+    对任意$\left\{x_0, x_1, \ldots\right\} \in \Pi\left(x_0\right), x_0 \in X$，
+        目标极限$\lim\limits_{n\rightarrow \infty}\sum_{t=0}^{n}\beta^t F\left(x_t,x_{t+1}\right)$存在（可能为无穷）
+\end{assumption}
+不难看出，\cref{as-lim-exist}成立的一个充分条件是：$F\left(x,y\right)$有界（bounded）且$0<\beta<1$。
+对任意$n=0,1,\dots$，定义$u_n: \pi\left(x_0\right)\rightarrow \mathbb{R}$：
+$$
+u_n(\boldsymbol{x}) \equiv \sum_{t=0}^n \beta^t F\left(x_t, x_{t+1}\right), 
+    \quad \boldsymbol{x}=\{x_0,x_1,\dots\} \in \pi\left(x_0\right)
+$$
+由\cref{as-lim-exist}，可定义极限：
+\begin{equation*}
+    u\left(\boldsymbol{x}\right) \equiv \lim _{n\rightarrow\infty}u_n\left(\boldsymbol{x}\right)
+\end{equation*}
+如果\cref{as-nonempty-plan}和\cref{as-lim-exist}均成立，那么序列问题$SP$是良定义的。因此我们可以定义\textbf{上确界函数}：
+\begin{equation*}
+    v^*\left(x_0\right)\equiv \sup _{\boldsymbol{x}\in\pi\left(x_0\right)} u\left(\boldsymbol{x}\right)
+\end{equation*}
+这样，$v^*\left(x_0\right)$是$SP$问题的上确界，即符合上确界定义：
+\begin{equation*}
+    \begin{aligned}
+        &\forall \epsilon > 0, \forall \boldsymbol{x}\in \pi\left(x_0\right): 
+            \quad v^*\left(x_0\right)\geq u\left(\boldsymbol{x}\right) \\
+        &\forall \epsilon > 0, \exists \boldsymbol{x}\in\pi\left(x_0\right): 
+            \quad v^*\left(x_0\right)\leq u\left(\boldsymbol{x}\right)+\epsilon
+    \end{aligned}
+\end{equation*}
+
+我们希望研究$SP$问题的上确界\textbf{函数}$v^*$和$FE$问题的解$v$的关系。需要注意：$v^*$是唯一定义的，但$FE$问题的解$v$可能有很多个。
+简单起见，以下不考虑无穷大的情形，即考虑$\left|v^*\left(x_0\right)\right| < \infty$。那么，$v^*$是$FE$问题的解等价于如下条件成立：
+$$
+\begin{aligned}
+    &\forall y \in \Gamma\left(x_0\right),\quad v^*\left(x_0\right)\geq F\left(x_0,y\right) + \beta v^*\left(y\right)\\
+    &\exists y\in \Gamma\left(x_0\right),\quad v^*\left(x_0\right)\leq F\left(x_0,y\right) + \beta v^*\left(y\right), 
+        \quad \forall \epsilon > 0
+\end{aligned}
+$$
+为了证明$v^*$满足$FE$，引入如下引理：
+\begin{lemma}
+    令$X, \Gamma, F, \beta$符合\cref{as-lim-exist}，
+    则对$\forall x_0 \in X, \forall \left(x_0,x_1,\dots\right)=\boldsymbol{x}\in\pi\left(x_0\right)$，成立：
+    \begin{equation*}
+        u\left(\boldsymbol{x}\right)=
+            F\left(x_0,x_1\right)+\beta u\left(\boldsymbol{x}^{\prime}\right), \quad \boldsymbol{x}^{\prime}
+                =\left(x_1,x_2,\dots\right)
+    \end{equation*}
+\end{lemma}
+\begin{theorem}[SP-FE] \label{th-solution-sp-fe}
+    令$X, \Gamma, F, \beta$符合\cref{as-nonempty-plan}和\cref{as-lim-exist}，则上确界函数$v^*$满足$FE$。
+\end{theorem}
+\begin{proof}
+    前面提到，上确界函数$v^*$是$FE$问题的解等价于成立如下两个条件：
+    $$
+    \begin{aligned}
+        &\forall y \in \Gamma\left(x_0\right),\quad v^*\left(x_0\right)\geq F\left(x_0,y\right) 
+            + \beta v^*\left(y\right)\\
+        &\exists y\in \Gamma\left(x_0\right),\quad v^*\left(x_0\right)\leq F\left(x_0,y\right) 
+            + \beta v^*\left(y\right), \quad \forall \epsilon > 0
+    \end{aligned}
+    $$
+    先证明第一个条件：
+    $\forall y \in \Gamma\left(x_0\right),~ v^*\left(x_0\right)\geq F\left(x_0,y\right) + \beta v^*\left(y\right)$。
+    由$v^*\left(x_0\right)\equiv \sup _{\boldsymbol{x}\in\pi\left(x_0\right)} u\left(\boldsymbol{x}\right)$，
+    根据上确界的定义，成立如下两条：
+    \begin{equation*}
+        \begin{aligned}
+            &\forall \epsilon > 0, \forall \boldsymbol{x}\in \pi\left(x_0\right): 
+                \quad v^*\left(x_0\right)\geq u\left(\boldsymbol{x}\right) \\
+            &\forall \epsilon > 0, \exists \boldsymbol{x}\in\pi\left(x_0\right): 
+                \quad v^*\left(x_0\right)\leq u\left(\boldsymbol{x}\right)+\epsilon
+        \end{aligned}
+    \end{equation*}
+    根据后者，任取$x_1 \in \Gamma\left(x_0\right)$，任取$\epsilon > 0$：
+    $$\exists \boldsymbol{x}^{\prime}=\left(x_1,x_2,\dots\right) \in \pi\left(x_1\right), 
+        \quad u\left(\boldsymbol{x}^{\prime}\right)\geq v^*\left(x_1\right)-\epsilon$$
+    又由于$\boldsymbol{x}=\left(x_0,x_1,\dots\right)\in \pi\left(x_0\right)$，根据前者和上述引理：
+    $$
+    v^*\left(x_0\right)\geq u\left(\boldsymbol{x}\right)=F\left(x_0,x_1\right)+\beta u\left(\boldsymbol{x}^{\prime}\right)
+        \geq F\left(x_0,x_1\right)+\beta v^*\left(x_1\right)-\beta \epsilon
+    $$
+    由于$\epsilon$任意，可知：
+    $$
+    \forall y \in \Gamma\left(x_0\right),\quad v^*\left(x_0\right)\geq F\left(x_0,y\right) + \beta v^*\left(y\right)
+    $$
+    再证明第二个条件：
+    $\exists y\in \Gamma\left(x_0\right),\quad v^*\left(x_0\right)\leq F\left(x_0,y\right) 
+        + \beta v^*\left(y\right), \quad \forall \epsilon > 0$。
+    任取$x_0\in X$和$\epsilon>0$，根据上确界函数定义的第二条和引理可知：
+    $$
+    \exists \boldsymbol{x}=\left(x_0,x_1,\dots\right)\in \pi\left(x_0\right), 
+        \quad v^*\left(x_0\right)\leq u\left(\boldsymbol{x}\right)+\epsilon 
+            = F\left(x_0,x_1\right)+\beta u\left(\boldsymbol{x}^{\prime}\right)+\epsilon
+    $$
+    其中，$\boldsymbol{x}^{\prime}= \left(x_1,x_2,\dots\right)$。从而，结合上确界定义的第一条可知：
+    $$
+    v^*\left(x_0\right)\leq F\left(x_0,x_1\right)+\beta v^*\left(x_1\right)+\epsilon 
+    $$
+    由$\epsilon$任意性和$x_1\in\Gamma\left(x_0\right)$（因为$x_1$在计划中）：
+    $$
+    \exists y\in \Gamma\left(x_0\right),\quad v^*\left(x_0\right)\leq F\left(x_0,y\right) 
+        + \beta v^*\left(y\right), \quad \forall \epsilon > 0
+    $$
+    从而我们证明了$v^*$是$FE$问题的解。
+\end{proof}
+
+至此，我们证明了$SP$的解满足$FE$，但反过来是否成立？一般来说不一定，虽然$v^*$是$FE$的解，但$FE$可能存在很多解。
+但下面的定理表明：若$FE$满足特定有界条件，那么$v=v^*$是其唯一解。
+
+\begin{theorem}[Partial Converse: FE-SP] \label{th-solution-fe-sp}
+    令$X, \Gamma, F, \beta$符合\cref{as-nonempty-plan}和\cref{as-lim-exist}。如果值函数$v$是$FE$的一个解且满足
+    $\lim\limits_{n\rightarrow \infty}\beta^n v\left(x_n\right)=0, 
+    \quad \forall x_0\in X, \forall \boldsymbol{x}=\left(x_0,x_1,\dots\right)\in \pi\left(x_0\right)$，
+    则$v=v^*$。其中：
+    \begin{gather*}
+        v^*\left(x_0\right) \equiv \sup _{\boldsymbol{x}\in\pi\left(x_0\right)} u\left(\boldsymbol{x}\right) \\
+        u\left(\boldsymbol{x}\right) \equiv \lim _{n\rightarrow\infty}u_n\left(\boldsymbol{x}\right) \\
+        u_n(\boldsymbol{x}) \equiv \sum_{t=0}^n \beta^t F\left(x_t, x_{t+1}\right), 
+            \quad \boldsymbol{x}=\{x_0,x_1,\dots\} \in \pi\left(x_0\right)
+    \end{gather*}
+\end{theorem}
+\begin{proof}
+    方便起见仍考虑$v\left(x_0\right)$有限情形。我们此前提到此时$v$是$FE$的解等价于如下条件成立：
+    $$
+    \begin{aligned}
+        &\forall y \in \Gamma\left(x_0\right),\quad v\left(x_0\right)\geq F\left(x_0,y\right) + \beta v\left(y\right)\\
+        &\exists y\in \Gamma\left(x_0\right),\quad v\left(x_0\right)\leq F\left(x_0,y\right) + \beta v\left(y\right), 
+            \quad \forall \epsilon > 0
+    \end{aligned}
+    $$
+    我们的目标是证明$FE$的这一解$v$是$SP$的解，即证明
+    $v\left(x_0\right)=\sup _{\boldsymbol{x}\in\pi\left(x_0\right)} u\left(\boldsymbol{x}\right)$，也即往证$FE$的解$v$符合$SP$中上确界的定义：
+    \begin{equation*}
+        \begin{aligned}
+            &\forall \epsilon > 0, \forall \boldsymbol{x}\in \pi\left(x_0\right): 
+                \quad v\left(x_0\right)\geq u\left(\boldsymbol{x}\right) \\
+            &\forall \epsilon > 0, \exists \boldsymbol{x}\in\pi\left(x_0\right): 
+                \quad v\left(x_0\right)\leq u\left(\boldsymbol{x}\right)+\epsilon
+        \end{aligned}
+    \end{equation*}
+    注意到对任意$\boldsymbol{x}\in \pi\left(x_0\right)$，成立：
+    \begin{equation*}
+        \begin{aligned}
+            v\left(x_0\right) &\geq F\left(x_0,x_1\right) + \beta v\left(x_1\right) \\
+                &\geq  F\left(x_0,x_1\right) + \beta F\left(x_1,x_2\right) + \beta^2v\left(x_2\right) \\
+                &\geq \cdots \\
+                &\geq u_n\left(\boldsymbol{x}\right)+\beta^{n+1}v\left(x_{n+1}\right)
+        \end{aligned}
+    \end{equation*}
+    取极限并利用
+    $\lim\limits_{n\rightarrow \infty}\beta^n v\left(x_n\right)=0, 
+        \quad \forall x_0\in X, \forall \boldsymbol{x}=\left(x_0,x_1,\dots\right)\in \pi\left(x_0\right)$
+    可知上确界定义的前一半成立：
+    \begin{equation*}
+        \forall \epsilon > 0, \forall \boldsymbol{x}\in \pi\left(x_0\right): 
+            \quad v\left(x_0\right)\geq u\left(\boldsymbol{x}\right)
+    \end{equation*}
+    下面证明上确界定义的后一半，即：
+    \begin{equation*}
+        \forall \epsilon > 0, \exists \boldsymbol{x}\in\pi\left(x_0\right): 
+            \quad v\left(x_0\right)\leq u\left(\boldsymbol{x}\right)+\epsilon  
+    \end{equation*}
+    对此，任取一个$\epsilon>0$，从正实数集中选择$\{\delta_t\}_{t=1}^{\infty}$，
+    使得$\sum_{t=1}^{\infty}\beta^{t-1}\delta_t\leq \epsilon /2$。由与$v$是$FE$的解，即：
+    \begin{equation*}
+        \exists y\in \Gamma\left(x_0\right),\quad v\left(x_0\right)\leq F\left(x_0,y\right) + \beta v\left(y\right), 
+            \quad \forall \epsilon > 0
+    \end{equation*}
+    从而可以取到$x_1\in\Gamma\left(x_0\right), x_2\in\Gamma\left(x_1\right),\cdots$，使：
+    \begin{equation*}
+        v\left(x_t\right)\leq F\left(x_t,x_{t+1}\right)+\beta v\left(x_{t+1}\right)+\delta_{t+1},\quad t=0,1,\cdots
+    \end{equation*}
+    也就是说，$\exists\boldsymbol{x}=\left(x_0,x_1,\cdots\right)\in \pi\left(x_0\right)$，使：
+    \begin{equation*}
+        \begin{aligned}
+            v\left(x_0\right) &\leq \sum_{t=0}^{n}\beta^t F\left(x_t,x_{t+1}\right) + 
+                \beta^{n+1}v\left(x_{n+1}\right) + \left(\delta_1+\cdots+\beta^n \delta_{n+1}\right)   \\
+                &\leq u_n\left(\boldsymbol{x}\right)+\beta^{n+1}v\left(x_{n+1}\right)+\epsilon/2, \quad n=1,2,\cdots
+        \end{aligned}
+    \end{equation*}
+    当$n$足够大，由条件$\lim_{n\rightarrow \infty}\beta^n v\left(x_n\right)=0$可知：
+       $v\left(x_0\right)\leq u_n\left(\boldsymbol{x}\right)+\epsilon$。由于$\epsilon$的可知任意性，上确界后半的定义成立：
+    \begin{equation*}
+        \forall \epsilon > 0, \exists \boldsymbol{x}\in\pi\left(x_0\right): 
+            \quad v^*\left(x_0\right)\leq u\left(\boldsymbol{x}\right)+\epsilon
+    \end{equation*}
+    从而：
+    \begin{equation*}
+        v\left(x_0\right)=\sup _{\boldsymbol{x}\in\pi\left(x_0\right)} u\left(\boldsymbol{x}\right)
+    \end{equation*}
+    也即$FE$的解$v$是$SP$的解。
+\end{proof}
+
+至此，我们可以对序列问题（$SP$）和递归（泛函）问题（$FE$）解的关系进行一个总结。方便起见，再次写下这两个一般化的问题：
+\begin{itemize}
+    \item $SP$：
+    $$\sup _{\left\{x_{t+1}\right\}_{t=0}^{\infty}} \sum_{t=0}^{\infty} \beta^t F\left(x_t, x_{t+1}\right),
+    \quad x_{t+1}  \in \Gamma\left(x_t\right), \forall t, \quad x_0 \in X \quad \text { 给定 }
+    $$
+    \item $FE$：
+    $$
+    v(x)=\sup _{y \in \Gamma(x)}[F(x, y)+\beta v(y)] \quad \forall x \in X
+    $$
+\end{itemize}
+
+在\cref{as-nonempty-plan}和\cref{as-lim-exist}下，我们通过构造极限函数的上确界找到了$SP$的解：
+$$
+v^*\left(x_0\right)=\sup _{\boldsymbol{x}\in\pi\left(x_0\right)}u\left(\boldsymbol{x}\right), 
+u\left(\boldsymbol{x}\right)=\lim_{n\rightarrow\infty}\sum_{t=0}^{n}\beta^t F\left(x_t,x_{t+1}\right)
+$$
+同时证明了它至少也是$FE$的一个解，即$SP\rightarrow FE$。
+
+另一方面，$FE$可能存在很多解$v$，我们证明了其中符合有界条件
+$
+\lim\limits_{n\rightarrow \infty}\beta^n v\left(x_n\right)=0, \quad \forall x_0\in X, 
+    \forall \boldsymbol{x}=\left(x_0,x_1,\dots\right)\in \pi\left(x_0\right)
+$
+的解正是$SP$的解$v^*$，即部分可逆。而$FE$的其余解一定违反了这一有界条件.
+
+
+% 2.3.2 ===== 最优策略的关系 =====
+\subsection{最优策略间的关系}
+
+最优性原理（\cref{th-solution-sp-fe}和\cref{th-solution-fe-sp}）给出了序列问题和递归（泛函）问题目标值函数间的关系。
+我们希望进一步研究两个问题最优策略（Plan）间的关系。
+
+\begin{definition}[最优计划]
+    如果可行计划$\boldsymbol{x}^* = \{x_{t+1}^*\} \in\pi\left(x_0\right)$能达到$SP$问题的上确界，即
+    $u\left(\boldsymbol{x}^*\right) \equiv \sum_{t=0}^{\infty}\beta^t F\left(x_t^*,x_{t+1}^*\right) = v^*\left(x_0\right)$，
+    则称$\boldsymbol{x}^*$为从$x_0$开始的最优计划（Optimal Plan）。
+\end{definition}
+下面两个定理给出了最优计划和$FE$问题中满足$v=v^*$的策略方程间的关系。
+
+\begin{theorem} \label{th-policy-sp-fe}
+    令$X, \Gamma, F, \beta$符合\cref{as-nonempty-plan}和\cref{as-lim-exist}。令$\boldsymbol{x}^*\in \pi\left(x_0\right)$
+    为一个达到$SP$问题上确界的可行计划，则:
+    \begin{equation} \label{eq-opt-plan-sp}
+        v^*\left(x_t^*\right) = F\left(x_t^*,x_{t+1}^*\right) + \beta v^*\left(x_{t+1}^*\right), \quad t=0,1,2,\cdots
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    由于$\boldsymbol{x}^*$达到了上确界，因此由\cref{th-solution-sp-fe}，$v^*\left(x_t^*\right)$满足$FE$，即：
+    \begin{equation*}
+        \begin{aligned}
+            v^*\left(x_0^*\right) &= u\left(\boldsymbol{x}^*\right) = F\left(x_0,x_1^*\right) 
+                + \beta u\left(\boldsymbol{x^{*\prime}}\right) \\
+            &\geq u\left(\boldsymbol{x}\right) = F\left(x_0,x_1\right)+\beta u\left(\boldsymbol{x}^{\prime}\right), 
+            \quad \forall \boldsymbol{x}\in \pi\left(x_0\right)
+        \end{aligned}
+    \end{equation*}
+    又由于$\left(x_1^*,x_2,x_3,\cdots\right)\in \pi\left(x_1^*\right)$，
+    从而$\left(x_0,x_1^*,x_2,x_3,\cdots\right)\in \pi\left(x_0\right)$,
+    进而有：
+    $$u\left(\boldsymbol{x}^{*\prime}\right) \geq u\left(\boldsymbol{x}^{\prime}\right), 
+        \quad \forall \boldsymbol{x}\in \pi\left(x_1^*\right)$$
+    从而$u\left(\boldsymbol{x}^{*\prime}\right)=v\left(x_1^*\right)$，带入上式就得到了$t=0$时定理的结论。其余可依此类推即可。
+\end{proof}
+
+\cref{th-policy-sp-fe}表明，$SP$问题的最优计划是$FE$的一个解。
+下面一个定理则提供了相反方向的直觉：它表明，在一定的有界条件下，符合\cref{eq-opt-plan-sp}的序列是一个最优计划。
+
+\begin{theorem} \label{th-policy-fe-sp}
+    令$X, \Gamma, F, \beta$符合\cref{as-nonempty-plan}和\cref{as-lim-exist}。
+    令$\boldsymbol{x}^*\in \pi\left(x_0\right)$，且满足
+    $$v^*\left(x_t^*\right) = F\left(x_t^*,x_{t+1}^*\right) + \beta v^*\left(x_{t+1}^*\right), \quad t=0,1,2,\cdots$$
+    并且$\lim\limits_{t\rightarrow\infty}\sup\beta^t v^*\left(x_t^*\right)\leq 0$。
+    那么，$\boldsymbol{x}^*$达到$SP$的上确界，即是最优计划。
+\end{theorem}
+\begin{proof}
+    由条件：
+    \begin{equation*}
+        \begin{aligned}
+            v^*\left(x_0\right) = u\left(\boldsymbol{x}^*\right)&= F\left(x_0^*,x_1^*\right)
+                +\beta v^*\left(x_1^*\right) \\
+            &= \cdots \\
+            &= u_n\left(\boldsymbol{x}^*\right) + \beta^{n+1}v^*\left(x_{n+1}^*\right)
+        \end{aligned}
+    \end{equation*}
+    又由有界条件可知：$v^*\left(x_0\right)\leq u\left(\boldsymbol{x}^*\right)$。
+    由于$\boldsymbol{x}^*\in \pi\left(x_0\right)$：$v^*\left(x_0\right)\geq u\left(\boldsymbol{x}^*\right)$
+    从而：$v^*\left(x_0\right) = u\left(\boldsymbol{x}^*\right)$，由定义得证。
+\end{proof}
+
+\begin{definition}
+    如果对任意非空对应$G: X\rightarrow X$，成立$G\left(x\right)\subseteq \Gamma\left(X\right)$，
+    则称$G$为策略对应（Policy Correspondence）。若$G$为单值的，我们称其为策略函数（Policy Function），记为$g$。
+    如存在序列$\boldsymbol{x}=\left(x_0,x_1,\cdots\right)$满足
+    $x_{t+1}\in G\left(x_t\right), t=0,1,2,\cdots$，则称$\boldsymbol{x}$由$G$从$x_0$生成。
+    可以定义最优策略对应（Optimal Policy Correspondence）$G^*$：
+    $$
+    G^*(x)=\left\{y \in \Gamma(x): v^*(x)=F(x, y)+\beta v^*(y)\right\}
+    $$
+\end{definition}
+\cref{th-policy-sp-fe}表明：每个最优计划$\{x_t^*\}$都由$G^*$生成；
+\cref{th-policy-fe-sp}表明：每个由$G^*$生成的计划$\{x_t^*\}$，若满足有界条件，就是一个最优计划。
+
+
+% 2.3.3 FE解的存在性
+\subsection{最大化定理和解的存在与唯一性}
+
+我们在\ref{sec-math-pre}节最后提出，对于递归形式的最有增长问题，我们希望利用Blackwell定理证明$T$是压缩映射，
+进而运用压缩映射定理证明贝尔曼方程$v=Tv$这一不动点问题解的存在和唯一性。我们已经证明了贝尔曼算子$T$是压缩映射，
+但是在运用压缩映射定理时遇到了困难：我们希望值函数处于连续空间，确保空间的完备性，进而才能使用压缩映射定理。
+
+在\ref{sec-value-f-property}节，我们将动态规划写成了更一般化的形式，只要完成一般化形式下的证明，
+那么新古典增长模型中相关结论自然成立。我们还需要一些额外假设和定理的辅助。方便起见，在此处写下我们所需研究的一般化形式泛函方程：
+\begin{equation}    \label{eq-general-fe}
+    v\left(x\right)=\max_{y\in\Gamma\left(x\right)}\left[F\left(x,y\right)+\beta v\left(y\right)\right]
+\end{equation}
+
+\begin{assumption}[凸性假设] \label{as-convex-X}
+    状态变量所有可能取值集合$X$是$\mathbb{R}^l$的凸子集，可行性约束对应$\Gamma :X\rightarrow X$是非空、连续、紧急。
+\end{assumption}
+
+\begin{assumption}[有界回报]  \label{as-bounded-returns}
+    函数$F: A\rightarrow \mathbb{R}$是有界连续的，且$0<\beta<1$。
+\end{assumption}
+
+显然，\cref{as-convex-X}和\cref{as-bounded-returns}蕴含了\cref{as-nonempty-plan}和\cref{as-lim-exist}。
+在\ref{sec-math-pre}节最后所提到，为了应用压缩映射定理，我们不仅希望值函数有界，更希望在完备空间中研究值函数，因此
+一个自然的想法就是定义了上确界范数$\|f\|=\sup _{x\in X}|f\left(x\right)|$的有界连续函数
+$f: X\rightarrow \mathbb{R}$构成空间$C\left(X\right)$。定义空间$C\left(X\right)$上的算子$T$：
+\begin{equation}
+    Tf\left(x\right)=\max_{y\in\Gamma\left(x\right)}\left[F\left(x,y\right)+\beta f\left(y\right)\right]
+\end{equation}
+由此，我们将\cref{eq-general-fe}简化为不动点问题$v=Tv$。
+我们将借助最大化定理（Maximum Theorem）（\cref{th-max-th}）、Blackwell充分条件（\cref{th-blackwell}）和
+压缩映射定理（\cref{th-cmt}）证明：算子$T$将$C\left(X\right)$中的元素（函数）映射到$C\left(X\right)$上，
+即$T: C\left(X\right)\rightarrow C\left(X\right)$，从而$T$在有界连续函数空间$C\left(X\right)$上存在唯一不动点。
+
+\begin{theorem}[Maximum Theorem]    \label{th-max-th}
+    令$X\subseteq\mathbb{R}^l$，$Y\subseteq\mathbb{R}^m$，令$f: X\times Y \rightarrow \mathbb{R}$是连续函数，
+    令$\Gamma: X\rightarrow Y$是紧值连续对应（Correspondence），那么：
+    \begin{itemize}
+        \item 从$X\rightarrow R$的函数$h\left(x\right)\equiv \max _{y\in\Gamma\left(x\right)}f\left(x,y\right)$是连续的
+        \item 由$G(x) \equiv \underset{y \in \Gamma(x)}{\operatorname{argmax}} f(x, y)=\{y \in \Gamma(x): f(x, y)=h(x)\}$
+        给定的解对应$G: X\rightarrow Y$是非空、紧值和上半连续的。
+    \end{itemize}
+\end{theorem}
+对于形如：
+\begin{equation*}
+    h\left(x\right)\equiv \max_{y\in\Gamma\left(x\right)}f\left(x,y\right)
+\end{equation*}
+最大化定理给出了$h\left(x\right)$和相应最优$y$值的集合$G\left(x\right)$随$x$连续变化的条件。
+同时，若$f\left(x,y\right)$关于$y$严格凹，并且$\Gamma\left(x\right)$是凸的，那么$G$是单值的，可记为函数$g\left(x\right)$。
+
+\begin{theorem}[$FE$问题解的存在及唯一性] \label{th-fe-solution-exist}
+    令$X, \Gamma, F, \beta$满足\cref{as-convex-X}和\cref{as-bounded-returns}，
+    $C\left(X\right)$为定义了上确界范数的有界连续函数空间，那么：
+    \begin{itemize}
+        \item 算子$T$将$C\left(X\right)$映射到自身
+        \item $T$有唯一不动点$v\in C\left(X\right)$
+        \item 任意给定$v_0\in C\left(X\right)$，成立：$\|T^nv_0-v\|\leq \beta^n \|v_0-v\|$
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    \textbf{Step1：证明算子$T$将有界连续函数空间映射到自身}
+
+    注意到在\cref{as-convex-X}和\cref{as-bounded-returns}下，$F$和$f$均有界连续，集合$\Gamma$是非空、紧值和连续的。
+    因此，对任意$f\in C\left(X\right), x\in X$，如下问题：
+    $$Tf\left(x\right)=\max_{y\in\Gamma\left(x\right)}\left[F\left(x,y\right)+\beta f\left(y\right)\right]$$
+    等价于在紧集$\Gamma\left(x\right)$上最大化一个连续函数，从而最大值必能取到。同时，由于$F$和$f$均有界，从而$Tf$有界。
+    最后，由最大化定理（\cref{th-max-th}），$Tf$（即定理中的函数$h$）连续。
+    从而证明了：$T: C\left(X\right)\rightarrow C\left(X\right)$。
+
+    \textbf{Step2：利用Blackwell条件，证明算子$T$是压缩映射}
+
+    Blakwell充分条件（\cref{th-blackwell}）的前提：定义了上确界范数的有界函数空间，显然$C\left(X\right)$符合。
+    接着验证两个条件:
+
+    （1）单调性：
+    令$f,h \in C\left(X\right), f\leq h$，对$f$应用算子$T$：
+    $$Tf\left(x\right)=\max_{y\in \Gamma\left(x\right)}\left[F\left(x,y\right)+\beta f\left(y\right)\right]$$
+    对$\forall x\in X$，令$g\left(x;f\right)$为达到最大值的$y$的集合：
+    $$
+    g\left(x;f\right)\equiv \{y\in\Gamma\left(x\right)|Tf\left(x\right)=F\left(x,y\right)+\beta f\left(y\right)\}
+    $$
+    由于：$f\left(y\right)\leq h\left(y\right), \forall y\in \Gamma\left(x\right)$
+    从而：$$Tf\left(x\right)=F\left(x,g\left(x;f\right)\right)+\beta f\left(g\left(x;f\right)\right)
+    \leq F\left(x,g\left(x;f\right)\right)+\beta h\left(g\left(x;F\right)\right), \quad \forall x\in X$$
+    注意到：
+    $$
+    F(x, g(x ; f))+\beta h(g(x ; f)) \leq \max _{y \in \Gamma(x)}[F(x, y)+\beta h(y)]=T h(x), \quad \forall x \in X
+    $$
+    因此有：$Tf\left(x\right)\leq Th\left(x\right), \quad x\in X$，即$T$满足单调性。
+    
+    （2）discounting：
+    对任意$f\in C\left(X\right)$：
+    $$
+    \begin{aligned}
+        T\left(f+a\right)\left(x\right) &= 
+            \max_{y\in\Gamma\left(x\right)}\left[F\left(x,y\right)+\beta \left(f\left(y\right)+a\right)\right]  \\
+            &= \max_{y\in\Gamma\left(x\right)}\left[F\left(x,y\right)+\beta \left(f\left(y\right)\right)\right]+\beta a
+    \end{aligned}
+    $$
+    即：$T\left(f+a\right)\left(x\right)=T\left(x\right)+\beta a, \quad f\in C\left(X\right)$。
+
+    因此，算子$T$符合Blackwell充分条件，从而是$C\left(X\right)$上的压缩映射。
+
+    \textbf{Step3：应用压缩映射定理}
+
+    我们已经证明，定义了上确界范数的有界连续函数空间$C(X)$是完备空间。因此由压缩映射定理（定理~\ref{th-cmt}）立得后两条结论。
+\end{proof}
+
+\cref{th-fe-solution-exist}证明了：
+\begin{itemize}
+    \item 对于形如\cref{eq-general-fe}的一般化的泛函问题（$FE$）：
+        $v\left(x\right)=\max_{y\in\Gamma\left(x\right)}\left[F\left(x,y\right)+\beta v\left(y\right)\right]$，不动点存在且唯一
+    \item 数值解法的合理性：给定一个初始猜测，通过迭代算子$T$可以收敛到不动点
+\end{itemize}
+
+回顾\cref{th-solution-fe-sp}：满足特定有界条件的$FE$问题的解$v$就是$SP$问题的解$v^*$（上确界函数）。
+根据这一最优性原理：在\cref{th-fe-solution-exist}的假设下，满足一般化$FE$问题\cref{eq-general-fe}：
+$v\left(x_t\right)=F\left(x_t, x_{t+1}\right)+\beta v\left(x_{t+1}\right), ~ t=0,1,2, \ldots$
+的唯一有界连续函数$v$就是对应序列问题（$SP$）的上确界函数。也就是说，在\cref{as-convex-X}和\cref{as-bounded-returns}下，
+\cref{th-solution-fe-sp}和\cref{th-fe-solution-exist}共同证明：\textbf{上确界函数有界并且连续}。
+
+回顾\cref{th-policy-fe-sp}：满足
+$v^*\left(x_t^*\right) = F\left(x_t^*,x_{t+1}^*\right) + \beta v^*\left(x_{t+1}^*\right), ~ t=0,1,2,\cdots$
+和特定有界性条件的任意序列是一个最优计划。因此，结合\cref{th-policy-fe-sp}和\cref{th-fe-solution-exist}可知，至少存在一个最优计划：
+由非空对应$G$产生的任意计划是最优的。
+
+
+% 2.3.4 值函数性质
+\subsection{值函数与策略函数的性质}

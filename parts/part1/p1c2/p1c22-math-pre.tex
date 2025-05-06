@@ -1,0 +1,352 @@
+% 2.2 =============== 值函数性质：数学准备 ===============
+
+\section{值函数性质：数学准备} \label{sec-math-pre}
+
+上面的例子其实引出了两个问题：
+\begin{itemize}
+    \item 通过定义贝尔曼算子，我们将递归问题变为不动点问题$v=Tv$的求解，但是这个解在理论上是否存在和唯一？
+    \item 给定初始猜测的$v_0\left(k\right)$，由算子$T$生成的值函数序列$\{v_n\}$是否收敛到$v$？即这一算法是否可行？
+\end{itemize}
+
+证明这两个问题需要做一些泛函分析的数学准备,例如，如何定义函数间的距离、函数序列的收敛性等。
+
+
+% 2.2.1 =====  =====
+\subsection{度量空间中的收敛性}
+
+\begin{definition}
+    \textbf{度量空间}（Metric Space）是由一个非空集合$S$和某一度量或称为距离（distance function）$d: S \times S \rightarrow \mathbb{R}$所定义，
+    其中度量$d$性质如下：$\forall x,y,z \in S$
+    \begin{itemize}
+        \item $d\left(x,y\right) \geq 0$，当且仅当$x=y$时取等
+        \item $d\left(x,y\right) = d\left(y,x\right)$
+        \item $d(x,y) \leq d\left(x,z\right)+d\left(z,y\right) $
+    \end{itemize}
+\end{definition}
+在这里，集合$S$远不止于数集，也可能是函数集（例如我们感兴趣的值函数集）等。因此，度量空间的定义比普通欧氏距离（Euclidean Distance）更复杂。
+但显然，实数集$S = \mathbb{R}$和绝对距离$d\left(x,y\right)=\left|x-y\right|$构成一个度量空间。
+\begin{example}
+    下面是一些常见的度量空间例子：
+    \begin{itemize}
+        \item 任意有限维空间$\mathbb{R}^n$和其上定义的距离：
+            \begin{gather*}
+                d\left(x,y\right) = \left(\sum_{i=1}^{n} \left|x_i-y_i\right|^p\right)^{1/p}, \quad 1 \leq p < \infty \\
+                d\left(x,y\right) = \max _i \left(\left|x_i-y_i\right|\right), \quad p=\infty
+            \end{gather*}
+
+        \item 定义在$\left[a,b\right]$上的连续函数集（常记为$C\left[a,b\right]$）和其上定义的距离：     
+            \begin{gather*}
+                d\left(x,y\right)=\left(\int_{a}^{b} \left|x\left(t\right)-y\left(t\right)\right|^{p}dt\right)^{1/p}, \quad 1 \leq p < \infty \\
+                d\left(x,y\right) = \max_{a\leq t \leq b} \left(\left|x\left(t\right)-y\left(t\right)\right|\right), \quad p = \infty
+            \end{gather*}
+
+    \end{itemize}
+\end{example}
+
+\begin{definition}
+    \textbf{赋范向量空间}（Normed Vector Space）是由一个向量空间$S$和范数$\| \cdot \|: S \rightarrow \mathbb{R}$所定义，
+    其中范数性质如下：$\forall x,y \in S$和$a \in \mathbb{R}$
+    \begin{itemize}
+        \item \( \|x\| = 0 \)当且仅当 \(x=\mathbf{0}\)
+        \item $\|x\|=|a|\cdot \|x\|$
+        \item $\|x+y\| \leq \|x\|+\|y\|$
+    \end{itemize}
+\end{definition}
+不难看出，如果令距离$d\left(x,y\right)=\|x-y\|$，那么任意赋范向量空间都是度量空间。
+\begin{example}
+    下面是一些常见的赋范向量空间例子：
+    \begin{itemize}
+        \item 任意有限维空间$\mathbb{R}^n$和其上定义的范数：
+            \begin{gather*}
+                \|x\|=\left(\sum_{i=1}^{n}|x_i|^p\right)^{1/p}, \quad 1\leq p < \infty \\
+                \|x\|=\max_{i}\left(|x_i|\right), \quad p=\infty
+            \end{gather*}
+
+        \item 定义在$\left[a,b\right]$上的连续函数集$C\left[a,b\right]$和其上定义的范数：     
+            \begin{gather*}
+                \|x\|=\left(\int_{a}^{b}|x\left(t\right)|^{p}dt\right)^{1/p}, \quad 1 \leq p < \infty \\
+                \|x\|=\max _{a\leq t \leq b}\left(|x\left(t\right)|\right), \quad p = \infty
+            \end{gather*}
+    \end{itemize}
+\end{example}
+
+\begin{definition}[\textbf{收敛性}]
+    我们称$S$中的序列$\{x_n\}_{n=0}^{\infty}$收敛到$x \in S$：如果对$\forall \epsilon > 0$，存在$N_{\epsilon}$，使得：
+    $$d\left(x_n,x\right)<\epsilon, \quad n\geq N_{\epsilon}$$
+\end{definition}
+注意序列$\{x_n\}$不只限于实数（事实上在动态规划中，我们感兴趣的是函数序列）。但从另一角度看，
+序列$\{x_n\}$收敛到$x \in S$等价于距离的实数序列$\{d\left(x_n,x\right)\}$收敛到0。
+
+\begin{definition}[\textbf{柯西序列}]
+    $S$中的序列$\{x_n\}_{n=0}^{\infty}$被称为柯西序列（Cauchy Sequence）如果其满足柯西准测：
+    对$\forall \epsilon > 0$，存在$N_{\epsilon}$，使得：
+    $$d\left(x_n,x_m\right) < \epsilon, \quad n,m \geq N_{\epsilon}$$
+\end{definition}
+
+\begin{theorem}
+    所有收敛序列都是柯西序列
+\end{theorem}
+\begin{theorem}
+    所有柯西序列都有界
+\end{theorem}
+定义柯西序列的好处在于，可以只利用序列本身信息进行判断，而不用知道实际极限。
+但是需要注意，\textbf{并非所有柯西序列都收敛}。实际上，这与序列所处空间的\textbf{完备性}（Completeness）密切相关。
+\begin{example}
+    考虑$\left[0,1\right]$上的连续函数集合$C\left[0,1\right]$。定义$L^1$度量：
+    $$d\left(f,g\right) = \int_{0}^{1}\left|f\left(x\right)-g\left(x\right)\right|dx$$
+    构造函数序列$\{f_n\}$：
+    $$
+    f_n(x)= \begin{cases}0 & x \in\left[0, \frac{1}{2}-\frac{1}{n}\right] \\ 
+        n\left(x-\left(\frac{1}{2}-\frac{1}{n}\right)\right) & x \in\left(\frac{1}{2}-\frac{1}{n}, \frac{1}{2}\right] 
+        \\ 1 & x \in\left(\frac{1}{2}, 1\right] \end{cases}
+    $$
+    由于对任意$m>n$，成立：
+    $$
+    d\left(f_m, f_n\right)=\int_0^1\left|f_m(x)-f_n(x)\right| d x \leq \frac{1}{n} \rightarrow 0 \quad(n \rightarrow \infty)
+    $$
+    $\{f_n\}$在$L^1$度量下是柯西序列，但其收敛到极限为：
+    $$
+    f(x)= \begin{cases}0 & x \in\left[0, \frac{1}{2}\right] 
+        \\ 1 & x \in\left(\frac{1}{2}, 1\right]\end{cases}
+    $$
+    在$x=\frac{1}{2}$处不连续，因此极限函数$f \notin C[0,1]$。从而 $\left\{f_n\right\}$ 在 $C[0,1]$ 中无极限，不是收敛序列。
+\end{example}
+
+\begin{definition}[\textbf{完备性}]
+    如果$S$中任意柯西序列都收敛到$S$中某一极限，则称度量空间$\left(S,d\right)$是完备的（Complete）。完备的赋范向量空间被称为巴拿赫（Banach）空间。
+\end{definition}
+
+\begin{theorem} \label{Complete-CX}
+    令$X \subseteq \mathbb{R}^n$，定义了上确界范数：$\|f\|=\sup _{x \in X}(|f(x)|)$的所有有界连续函数$f: X \rightarrow \mathbb{R}$的集合
+    $C(X)$是一个完备空间。
+\end{theorem}
+
+定义完备空间的方便之处在于，只要其中的序列符合柯西准测，那么它在这一空间中就存在极限。
+
+
+% 2.2.2 ===== CMT =====
+\subsection{压缩映射定理}
+
+我们已经指出，贝尔曼方程\ref{eq-bellman}的本质是求解一个泛函中的不动点问题：$v=Tv$。其中$T$是贝尔曼算子：
+\begin{equation*}
+    Tv\left(k\right) \equiv \max_{k^{\prime}} 
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+\end{equation*}
+同时,从算法层面（寻找不动点）我们已经构造了递增的值函数序列$\{v_n\}$：
+\begin{equation*}
+    \begin{aligned}
+        Tv_n\left(k\right) &\equiv \max _{k^{\prime}} 
+            \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v_n\left(k^{\prime}\right)\right] \\
+        v_{n+1} &= Tv_n \geq v_n
+    \end{aligned}
+\end{equation*}
+
+我们希望证明，随着迭代次数$n$足够大，值函数序列$\{v_n\}$收敛到唯一极限$v$。这需要用到\textbf{压缩映射定理}
+（Contraction Mapping Theorem）。什么是压缩映射？和前面定义的度量空间和完备性有什么关系？
+
+\begin{definition}[\textbf{压缩映射}]
+    令$\left(S,d\right)$为度量空间，并定义$T:S\rightarrow S$。如果对某一$\beta \in \left(0,1\right)$，成立：
+    \begin{equation*}
+        d\left(Tx,Ty\right) \leq \beta d\left(x,y\right)
+    \end{equation*}
+    则称$T$为压缩映射，$\beta$为压缩系数。
+\end{definition}
+\begin{example}
+    令$S=\left[a,b\right]$，$d\left(x,y\right)=\left|x-y\right|$。当对某一$\beta \in \left(0,1\right)$：
+    \begin{equation*}
+        \left|Tx-Ty\right|\leq \beta \left|x-y\right|
+    \end{equation*}
+    则$T:S\rightarrow S$为压缩映射。
+    考虑$a=0,b=1$，$Tx=0.2+0.6x$：
+    \begin{equation*}
+            \left|Tx-Ty\right|=0.6\left(x-y\right)\leq \beta\left|x-y\right|,\quad \forall \beta \in [0.6,1)
+    \end{equation*}
+    因此$T$是压缩映射。
+\end{example}
+
+\begin{definition}
+    若$x \in S$满足：$Tx=x$，则称$x$为不动点。
+\end{definition}
+
+\begin{theorem}[Contraction Mapping Theorem]   \label{th-cmt}
+    令$\left(S,d\right)$为完备度量空间，令$T:S\rightarrow S$为压缩映射，压缩系数为$\beta$，则
+    \begin{itemize}
+        \item $T$在$S$中有唯一不动点；
+        \item 对任意$x_0 \in S$，成立：
+            $d\left(T^nx_0, x\right) \leq \beta^n d\left(x_0,x\right), \quad n=0,1,2,\dots$
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    先证明不动点存在，接着利用压缩映射定义。前者分三步证明：
+
+    \textbf{Step1：证明迭代算子$T$后形成的序列是一个柯西序列}
+
+    任取一个初始$x_0 \in S$，令$x_n=T^n x_0$，进而得到了序列$\{x_n\}_{n=0}^{\infty}$并且满足$x_{n+1}=Tx_n$。
+    由于$T$是压缩映射，因此有：$d\left(x_2, x_1\right)=d\left(T x_1, T x_0\right) \leq \beta d\left(x_1, x_0\right)$,
+    以此类推，对$n\geq 1$成立：
+    $$
+    d\left(x_{n+1}, x_n\right) \leq \beta^n d\left(x_1, x_0\right)
+    $$
+    因此对任意$m>n$，应用距离的三角不等式性质：
+    $$
+    \begin{aligned}
+    d\left(x_m, x_n\right) & \leq d\left(x_m, x_{m-1}\right)+\cdots+d\left(x_{n+2}, x_{n+1}\right)+d\left(x_{n+1}, x_n\right) \\
+    & \leq\left[\beta^{m-1}+\cdots+\beta^{n+1}+\beta^n\right] d\left(x_1, x_0\right) \\
+    & =\beta^n\left[\beta^{m-n-1}+\cdots+\beta+1\right] d\left(x_1, x_0\right) \\
+    & \leq \frac{\beta^n}{1-\beta} d\left(x_1, x_0\right)
+    \end{aligned}
+    $$
+    由于$\beta \in \left(0,1\right)$，显然$\{x_n\}$为柯西序列。又由于$S$是完备的，因此$x_n\rightarrow x \in S$
+
+    \textbf{Step2：证明极限是$T$的不动点}
+
+    再次运用不三角不等式和压缩映射的定义：
+    $$
+    \begin{aligned}
+        d(T x, x) & \leq d\left(T x, T^n x_0\right)+d\left(T^n x_0, x\right) \\
+        &= d\left(Tx,T\left(T^{n-1}x_0\right)\right) + \left(T^n x_0, x\right) \\
+        & \leq \beta d\left(x, T^{n-1} x_0\right)+d\left(T^n x_0, x\right)
+    \end{aligned}
+    $$
+    显然当$n\rightarrow \infty$，右边两项的距离都趋于0，因此：
+    $$d\left(Tx,x\right)=0, \quad Tx = x$$
+    从而序列$\{x_n\}$的极限$x$是$T$的不动点。
+
+    \textbf{Step3：证明不动点的唯一性}
+
+    反证，假设存在另一不动点$Tx^{\prime}=x^{\prime},x^{\prime} \neq x$，则：
+    $$
+    0<\delta \equiv d\left(x,x^{\prime}\right)=d\left(Tx,Tx^{\prime}\right)\leq \beta d\left(x,x^{\prime}\right)=\beta \delta
+    $$
+    但由于$\beta \in \left(0,1\right)$，显然矛盾，从而唯一性得证。
+
+    最后，由压缩映射的定义立得：
+    $$
+    d\left(T^nx_0,x\right) = d\left(T\left(T^{n-1}x_0\right),Tx\right) \leq \beta d\left(T^{n-1}x_0,x\right)
+    $$
+\end{proof}
+
+压缩映射定理\ref{th-cmt}表明：
+\begin{itemize}
+    \item \textbf{完备空间}上定义的压缩映射存在唯一不动点；
+    \item 从\textbf{完备空间}$S$中任意初始点$x_0 \in S$出发，在其上迭代压缩映射$T$，可以无限接近唯一的不动点。
+        即我们找到了一个求解不动点的算法
+\end{itemize}
+
+再次回顾目标：我们通过迭代贝尔曼算子：
+\begin{equation*}
+    Tv\left(k\right) 
+        \equiv \max_{k^{\prime}} \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+\end{equation*}
+
+得到了递增的值函数序列$v_{n+1}=Tv_n \geq v_n$，我们希望这一序列收敛到贝尔曼方程的不动点$v=Tv$。
+我们已经指出，首先需要证明贝尔曼方程（不动点问题）确实存在唯一解；
+其次去证明递增的值函数序列$\{v_n\}$收敛到不动点。显然，\textbf{如果能够证明贝尔曼算子是压缩映射}，那么直接应用压缩映射定理即可。
+但是难点在于利用压缩映射的定义证明贝尔曼算子是压缩映射的难度较大，在这里给出一个充分条件：
+\begin{theorem}[Blackwell充分条件]  \label{th-blackwell}
+    令$X \subseteq \mathbb{R}^n$，令$B(X)$为有界函数集合$f: X \rightarrow \mathbb{R}$，
+    其上定义了上确界范数（sup norm）：$\|f\|=\sup _{x \in X}(|f(x)|)$。令$T:B\left(X\right)\rightarrow B\left(X\right)$，且满足：
+    \begin{itemize}
+        \item 单调性：对$\forall f, g \in B(X)$，$f \leq g$， 则$T f \leq T g$
+        \item discounting：存在$\beta \in \left(0,1\right)$，使得：$T(f+a) \leq T f+\beta a, \quad \forall f \in B(X)$。其中，
+            函数$\left(f+a\right)\equiv f\left(x\right)+a$，$a \geq 0$。
+    \end{itemize}
+    那么，$T$为压缩映射。
+\end{theorem}
+
+\begin{proof}
+    令$v, w \in B(X)$，从而：
+    $$
+    \begin{aligned}
+        v(x) & =v(x)+w(x)-w(x) \\
+        & \leq w(x)+|v(x)-w(x)| \\
+        & \leq w(x)+\|v-w\|, \quad \text { for all } x \in X
+    \end{aligned}
+    $$
+    由于映射$T$满足单调性和discounting，因此：
+    $$
+    T v \leq T(w+\|v-w\|) \leq T w+\beta\|v-w\|
+    $$
+    同理，
+    $$
+    T w \leq T(v+\|v-w\|) \leq T v+\beta\|v-w\|
+    $$
+    根据这两个不等式可知：
+    $$
+    |T v(x)-T w(x)| \leq \beta\|v-w\|, \quad \text { for all } x \in X
+    $$
+    也即，
+    $$
+    \|T v-T w\| \leq \beta\|v-w\|
+    $$
+    从而$T$是压缩映射。
+\end{proof}
+
+
+% 2.2.3 ===== =====
+\subsection{应用CMT}
+
+重新考虑最优增长模型。我们定义了贝尔曼方程右边为贝尔曼算子：
+\begin{equation*}
+    Tv\left(k\right) \equiv \max_{k^{\prime}} \left[u\left(\gamma\left(k\right)-k^{\prime}\right)
+        +\beta v\left(k^{\prime}\right)\right]
+\end{equation*}
+下面来验证其性质：
+
+（1）$T$满足单调性：
+若$v \leq w$，则:
+$$
+u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right) \leq 
+    u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta w\left(k^{\prime}\right), \quad \forall x
+$$
+从而有：
+$$
+    \max _{k^{\prime}}\left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right] \leq 
+    \max _{k^{\prime}}\left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta w\left(k^{\prime}\right)\right]
+$$
+因此：
+$$Tv\left(k\right)\leq Tw\left(k\right)$$
+
+（2）T满足discounting：
+对$\forall a \geq 0$，成立：
+\begin{equation*}
+    \begin{aligned}
+        T(v+a)(k) & =\max _x[u(f(k)-x)+\beta(v(x)+a)] \\
+            & =\max _x[u(f(k)-x)+\beta v(x)]+\beta a \\
+            & =T v(k)+\beta a
+    \end{aligned}
+\end{equation*}
+因此，贝尔曼算子$T$满足Blackwell充分条件，从而是压缩映射。
+
+再次回忆此前提到所面临的两个问题：
+\begin{itemize}
+    \item 理论层面，贝尔曼方程$v=Tv$有解吗，即是否存在唯一不动点
+    \item 算法层面，构造的值函数序列是否收敛
+\end{itemize}
+
+在证明了贝尔曼算子$T$是压缩映射后，直接应用压缩映射定理，似乎我们已经完成了证明。但实际上，还存在两个确实缺陷：
+一个存在于证明贝尔曼算子压缩性质（即运用Blackwell充分条件）的过程中；另一个则存在于运用压缩映射定理的过程中。具体看：
+
+（1）\textbf{Blackwell充分条件应用的前提}：算子$T$是定义在\textbf{有界函数空间}上的。
+
+对于递归形式下的最优增长模型，我们所分析的也是一个函数空间，
+即$S$中的元素是值函数$v$。但是，值函数是否有界？答案是肯定的，这与我们对生产函数和效用函数的假设密切相关。
+
+根据Inada条件、$\beta < 1$和消费与资本的非负性，由级数收敛性知识，下界的存在是显然的。
+对于上界：由生产函数的凹性，资本积累存在上界，记为$k \leq k^{\star}$，从而$f\left(k\right) \leq f\left(k^{\star}\right)$；
+消费的最大可能取值则为$f\left(k\right)$，即下期资本取0，从而有：
+$u\left(c\right)\leq u\left(f\left(k\right)\right)\leq u\left(f\left(k^{\star}\right)\right)$。因此，
+$$
+v\left(k\right) = \sum_{t=0}^{\infty} \beta^t u\left(c\right) \leq 
+    \sum_{t=0}^{\infty} \beta^t u\left(f\left(k^{\star}\right)\right)
+    = \frac{u\left(f\left(k^{\star}\right)\right)}{1-\beta} < \infty
+$$
+从而值函数有界，可以对贝尔曼算子应用Blackwell充分条件。
+
+（2）\textbf{压缩映射定理应用的前提}：压缩映射$T$是定义在\textbf{完备空间}$\left(S,d\right)$上的。
+
+值函数是有界的，但是值函数空间否是完备的呢？我们曾在\cref{Complete-CX}中指出，
+定义了上确界范数$\|f\|=\sup _{x \in X}(|f(x)|)$的\textbf{有界连续函数集合}空间$C\left(X\right)$是一个完备空间。
+那么，只要能证明\textbf{值函数是连续的}，我们就能在Blackwell条件的基础上进一步应用压缩映射定理：
+证明不动点的存在性和唯一性，并且运用其推广证明值函数序列的收敛性。

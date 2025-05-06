@@ -1,6 +1,11 @@
 % 主控文件
+
+
 % ======================= 导言区 ============================
 \documentclass[12pt,oneside,openright]{book}
+
+
+% ===== 引用包 =====
 
 % 中英文字体配置
 \usepackage[UTF8,fontset=windows]{ctex}
@@ -10,17 +15,70 @@
 % \setCJKsansfont{SimHei}                % 无衬线字体（黑体）
 % \setCJKmonofont{NSimSun}               % 等宽字体（新宋体）
 
-% 公式、图表、排版包
-\usepackage{titlesec,titletoc,setspace,enumitem}
-\usepackage{amsmath, amssymb, amsthm, bm, mathtools, bbm}
-\usepackage{graphicx, subcaption,float}
-\usepackage{algorithm, algorithmicx, algpseudocode}
-\usepackage{caption}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{siunitx}
-\usepackage{mdframed}
+% 主要包：排版、公式、图表、引用、文献
+\usepackage[inner=2.5cm, outer=2.5cm, top=2.5cm, bottom=2.5cm, bindingoffset=0.5cm]{geometry} % 页边距、页眉页脚
+\usepackage{fancyhdr} % 页眉显示内容
 
-%%%%
+\usepackage{datetime2}  % 封面
+
+\usepackage{titlesec,titletoc,setspace,enumitem}  % 版式
+\usepackage{amsmath, amssymb, amsthm, bm, mathtools, bbm, etoolbox} % 公式
+\usepackage{algorithm, algorithmicx, algpseudocode} % 代码块
+\usepackage{caption}
+\usepackage{graphicx, subcaption,float} % 图片
+
+\usepackage{hyperref,cleveref}  % 引用
+
+\usepackage[style=authoryear, backend=bibtex]{biblatex} % 文献
+%\usepackage{natlib}
+
+\usepackage[dvipsnames]{xcolor} % 自定义环境外观
+\usepackage{siunitx, mdframed}
+
+\usepackage{microtype} % 提升字体边缘对齐
+
+
+% ===== 自定义设置 =====
+
+% 封面 \usepackage{datetime2}
+\title{\Huge\bfseries 量化宏观经济学}
+\author{\LARGE 满翔宇}
+%\date{\vspace{5cm}\Large 2025}
+\date{\vspace{5cm}\DTMnow}
+
+% 引用
+\hypersetup{
+    colorlinks = true,
+    linkcolor = blue,
+    citecolor = red,
+    urlcolor = cyan
+}
+
+% 行距
+\setstretch{1.3}
+
+% 公式间距
+\mathtoolsset{mathic=true} % 改善行内公式对齐
+
+\setlength{\abovedisplayskip}{2pt}  % 公式上方间距（原默认值约10pt）
+\setlength{\belowdisplayskip}{2pt}  % 公式下方间距（原默认值约10pt）
+\setlength{\abovedisplayshortskip}{2pt} % 短公式上方间距
+\setlength{\belowdisplayshortskip}{2pt} % 短公式下方间距
+
+% 列表间距：条目间距（itemsep）和段落间距（parsep）
+\setlist[enumerate]{itemsep=1pt, parsep=1pt, topsep=2pt} % 有序列表
+\setlist[itemize]{itemsep=1pt, parsep=1pt, topsep=2pt}   % 无序列表
+% 嵌套列表缩进
+\setlist[enumerate,1]{label=(\arabic*), leftmargin=2.5em}
+\setlist[enumerate,2]{label=(\alph*), leftmargin=4em}
+\setlist[itemize,1]{label=$\bullet$, leftmargin=2.5em}
+\setlist[itemize,2]{label=$\circ$, leftmargin=4em}
+
+% 参考文献包设置 \usepackage[style=authoryear, backend=bibtex]{biblatex} / %usepackage{natlib}
+\addbibresource{back/refs.bib}
+%\bibliographystyle{apalike}
+%\bibliography{back/refs}
+
 % 定义定理样式（统一为 "definition" 风格）
 \newtheoremstyle{mytheorem}
   {3pt}               % 上方间距
@@ -87,62 +145,29 @@
   nobreak = false
 ]{property}
 
-%%%% 默认定义
-% \theoremstyle{plain}
-% \newtheorem{theorem}{定理}[chapter]
-% \newtheorem{lemma}{引理}[chapter]
-
-% \theoremstyle{definition}
-% \newtheorem{definition}{定义}[chapter]
-% \newtheorem{example}{例}[chapter]
-
-% \theoremstyle{remark}
-% \newtheorem{property}{性质}[chapter]
-% \newtheorem{assumption}{假设}[chapter]
-
-% 引用、链接包
-\usepackage{hyperref,cleveref}
-\hypersetup{
-    colorlinks = true,
-    linkcolor = blue,
-    citecolor = red,
-    urlcolor = cyan
-}
+% 引用、链接包 \usepackage{hyperref,cleveref}
 \crefname{theorem}{定理}{定理}
 \crefname{lemma}{引理}{引理}
 \crefname{definition}{定义}{定义}
 \crefname{example}{例}{例}
 \crefname{property}{性质}{性质}
 \crefname{assumption}{假设}{假设}
+\crefname{equation}{式}{式}
+\crefname{figure}{图}{图}
 
-% 页边距
-\usepackage[inner=2.5cm, outer=2.5cm, top=2.5cm, bottom=2.5cm, bindingoffset=0.5cm]{geometry}
-% 单面排版页眉页脚定义
-\usepackage{fancyhdr}
+
+% ===== 排版设置 =====
+
+% 页面
 \setlength{\headheight}{15pt} % 防止页眉高度警告
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[C]{\small\leftmark} % 居中显示章标题
+\fancyhead[L]{\footnotesize\leftmark} % 居中显示章标题
+%\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\color{Blue!60} \hrule width\textwidth height 0.8pt} % 蓝色页眉线
 \fancyfoot[C]{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
 
-% 参考文献包设置
-\usepackage[style=authoryear, backend=bibtex]{biblatex}
-\addbibresource{back/refs.bib}
-%usepackage{natlib}
-%\bibliographystyle{apalike}
-%\bibliography{back/refs}
-
-
-% ===== 全局设置 =====
-\usepackage{datetime2}
-\title{\Huge\bfseries 量化宏观经济学}
-\author{\LARGE 满翔宇}
-%\date{\vspace{5cm}\Large 2025}
-\date{\vspace{5cm}\DTMnow}
-
-\setstretch{1.3}
-
+% 目录
 \setcounter{secnumdepth}{4}    % 支持四级编号
 \setcounter{tocdepth}{4}       % 目录显示到第四级
 
@@ -151,18 +176,13 @@
 \renewcommand{\thesection}{\thechapter.\arabic{section}} % 1.1
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}} % 1.1.1
 
-% 全局设置列表间距：条目间距（itemsep）和段落间距（parsep）
-\setlist[enumerate]{itemsep=1pt, parsep=1pt, topsep=2pt} % 有序列表
-\setlist[itemize]{itemsep=1pt, parsep=1pt, topsep=2pt}   % 无序列表
-% 若需调整嵌套列表缩进，可添加 leftmargin=*
-%\setlist[itemize,1]{leftmargin=2em}  % 一级列表缩进
-%\setlist[itemize,2]{leftmargin=3em}  % 二级列表缩进
-% 列表标题
-%\setlist[enumerate,1]{label=(\arabic*), leftmargin=3em}
-%\setlist[enumerate,2]{label=(\alph*), leftmargin=4.5em}
+%  目录格式
+% \dottedcontents{part}[4em]{\addvspace{1em}\bfseries}{4em}{1pc}
+% \dottedcontents{chapter}[2.5em]{\addvspace{0.5em}}{2.3em}{1pc}
+% \dottedcontents{section}[4.5em]{}{3.2em}{1pc}
+% \dottedcontents{subsection}[7em]{}{4.2em}{1pc}
 
-
-% ===== part篇格式设置 =====
+% part篇格式设置 
 \titleformat{\part}[block]
   {\filcenter\Huge\bfseries\sffamily}
   {Part \thepart} % 编号前缀
@@ -170,7 +190,7 @@
   {}
 \titlespacing*{\part}{0pt}{3cm}{3cm}
 
-% ===== chapter章格式设置 =====
+% chapter章格式设置 
 \titleformat{\chapter}[block]
     {\LARGE\bfseries\sffamily}
     {\thechapter}
@@ -178,7 +198,7 @@
     {}  % 标题前内容
 \titlespacing{\chapter}{0pt}{2\baselineskip}{1\baselineskip}
 
-% ===== section节格式设置 =====
+% section节格式设置
 \titleformat{\section}[block]
     {\large\bfseries\sffamily}
     {\thesection}
@@ -186,19 +206,13 @@
     {}
  \titlespacing{\section}{0pt}{1.2\baselineskip}{0.6\baselineskip}
 
-% ===== subsection子节格式设置 =====
+% subsection子节格式设置
 \titleformat{\subsection}[block]
     {\large\bfseries\sffamily}
     {\thesubsection}
     {1em}
     {}
 \titlespacing{\subsection}{0pt}{0.8\baselineskip}{0.4\baselineskip}
-
-% ===== 目录格式设置 =====
-% \dottedcontents{part}[4em]{\addvspace{1em}\bfseries}{4em}{1pc}
-% \dottedcontents{chapter}[2.5em]{\addvspace{0.5em}}{2.3em}{1pc}
-% \dottedcontents{section}[4.5em]{}{3.2em}{1pc}
-% \dottedcontents{subsection}[7em]{}{4.2em}{1pc}
 
 
 % ======================= 部分调试 ============================
@@ -214,37 +228,48 @@
 \include{front/preface}
 \tableofcontents
 
-% ===== 主体内容 =====
+
+% ======================= 主体内容 =======================
 \mainmatter
+
 
 % 第一篇：量化宏观基础
 \part{量化宏观基础}
-\include{parts/part1/p1c1-dynamic-opt-solow-sequence}
-\include{parts/part1/p1c2-dynamic-programming}
-\include{parts/part1/p1c3-numerical-methods}
-\include{parts/part1/p1c4-equilibrium-ad}
-\include{parts/part1/p1c5-dsge}
-\include{parts/part1/p1c6-macro-econometrics}
+
+\include{parts/part1/p1c1/main-p1c1-dynamic-opt-sq}
+\include{parts/part1/p1c2/main-p1c2-dynamic-programming}
+\include{parts/part1/p1c3/main-p1c3-numerical-methods}
+\include{parts/part1/p1c4/main-p1c4-equilibrium}
+\include{parts/part1/p1c5/main-p1c5-dsge}
+\include{parts/part1/p1c6/main-p1c6-macro-econometrics}
+
 
 % 第二篇：量化核心理论
 \part{量化宏观核心理论}
-\include{parts/part2/p2c1-incomplete-market}
-\include{parts/part2/p2c2-ha-model}
-\include{parts/part2/p2c3-firm-dynamics}
+
+\include{parts/part2/p2c1/main-p2c1-incomplete-market}
+\include{parts/part2/p2c2/main-p2c2-ha-agg-uncertainty}
+\include{parts/part2/p2c3/main-p2c3-firm-dynamics}
+
 
 % 第三篇：HANK模型
 \part{现代量化宏观主要模型：HANK}
-\include{parts/part3/p3c1-household-heterogeneity}
-\include{parts/part3/p3c2-firm-heterogeneity}
+
+\include{parts/part3/p3c1/main-p3c1-house-hetero}
+\include{parts/part3/p3c2/main-p3c2-firm-hetero}
+
 
 % 第四篇：量化专题
 \part{量化宏观专题}
-\include{parts/part4/p4c1-bank}
-\include{parts/part4/p4c2-macro-debt}
-\include{parts/part4/p4c3-ha-computation}
+
+\include{parts/part4/p4c1/main-p4c1-macro-debt-policy}
+\include{parts/part4/p4c2/main-p4c2-bank-financial-crisis-policy}
+\include{parts/part4/p4c3/main-p4c3-computation-hetero}
+
 
 % ===== 后辅文 =====
 \appendix
+
 \include{back/appendix}
 
 \backmatter

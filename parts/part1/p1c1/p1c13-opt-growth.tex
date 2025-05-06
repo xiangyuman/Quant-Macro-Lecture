@@ -1,0 +1,112 @@
+% 1.3 =============== 最优增长模型 ===============
+
+\section{最优增长：RCK模型} \label{sec-opt-growth}
+
+Solow（1956）和Swan（1956）的工作标志新古典增长理论的诞生。但Solow模型的主要问题在于，模型中储蓄率是外生给定的。
+Cass（1965）和Koopmans（1965）在Solow工作的基础上，通过引入微观基础对新古典理论进行了拓展，
+建立了确定性情形下的\textbf{最优增长模型}：他们利用家庭偏好来解释为何储蓄是一种内生理性选择的结果。
+最优增长模型通常被称为RCK模型（Ramsey-Cass-Koopmans Model），它与消费-储蓄模型的核心区别在于：经济是生产经济而不是禀赋经济。
+我们将利用这一模型，深入研究序列视角下的动态优化问题。
+
+典型的确定性最优增长模型形式如下：假设时间是离散且无穷的，由$t=0,1,\dots, \infty$表示，第0期资本存量$k_0>0$给定。
+生产函数$F$与索洛模型中类似，具有新古典特征，同样假设总劳动投入被正则化为$L=1$，从而人均形式生产函数为：$y_t=f(k_t)$。
+不难证明，索洛模型对$F$的假设对$f$同样成立：
+\begin{assumption} \label{as-f}
+    $f$关于$k$严格增
+\end{assumption}
+\begin{assumption}
+    $f$关于$k$严格拟凹
+\end{assumption}
+\begin{assumption}
+    f(0)=0
+\end{assumption}
+\begin{assumption} \label{as-f-inada}
+    生产函数Inada条件：
+        $\lim\limits_{k \rightarrow 0} f^{\prime}(k)=\infty, \quad \lim\limits_{k \rightarrow \infty} f^{\prime}(k)=0$
+\end{assumption}
+\begin{assumption}
+    方便起见额外假设：$f\left(k\right)$连续，二次可微。
+\end{assumption}
+计划者（Social Planner）（或代表性家庭）在资源约束:
+$$c_t+k_{t+1}=f\left(k_t\right)+(1-\delta)k_t,\quad \forall t \geq 0$$
+和资源非负的约束下：
+$$c_t \geq 0, \quad k_{t+1} \geq 0, \quad \forall t \geq 0$$
+选择无穷期序列：
+$$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$$
+来最大化效用函数：
+$$\sum_{t=0}^{T} \beta^t u\left(c_t\right)$$
+其中$T$可以取无穷。这一形式的问题通常被称为\textbf{序列问题（Sequence Probem）}。
+同时，模型对效用函数也有类似生产函数的的规范化假设：
+\begin{assumption} \label{as-u}
+    效用函数$u$连续，二次可微
+        且$u^{\prime}\left(c\right)>0,\quad u^{\prime\prime}\left(c\right)<0$
+\end{assumption}
+\begin{assumption} \label{as-u-inada}
+    效用函数Inada条件：
+    $\lim\limits_{c \rightarrow 0} u^{\prime}(c)=\infty, \quad \lim\limits_{c \rightarrow \infty} U^{\prime}(c)=0$
+\end{assumption}
+
+利用Lagrangian函数是处理类似优化问题的基本方法。但当问题拓展到上面无穷期形式时，需要一些额外条件来确保问题的可解性。
+我们将从有限期情形开始，逐步推广至无限期的情形。
+
+
+% 1.3.1 ===== 有限期情形 =====
+\subsection{有限期情形} \label{subsec-finite-h}
+
+首先考虑上面问题的有限期形式，
+即时间$t \in$ $\{0,1, \ldots T\}$。对于最大化问题，记第$t$期资源约束相关的乘子为$\beta^t \lambda_t$，进而可构造如下拉格朗日方程：
+$$
+\mathcal{L}=\sum_{t=0}^T \beta^t u\left(c_t\right)-\sum_{t=0}^T \beta^t \lambda_t\left[c_t+k_{t+1}-(1-\delta) k_t-f\left(k_t\right)\right]
+$$
+也即：
+$$
+\mathcal{L}=\sum_{t=0}^T \beta^t\left\{u\left(c_t\right)-\lambda_t\left[c_t+k_{t+1}-(1-\delta) k_t-f\left(k_t\right)\right]\right\}
+$$
+不难看出，$\lambda_t$是计划者第$t$期资源约束的影子价格，或者说是边际价值。在生产函数和效用函数满足规范化假设时，只要$k_t>0$，这一问题有内点解。
+分别对$c_t$和$k_{t+1}$求一阶条件，可得：
+$$u^{\prime}\left(c_t\right)-\lambda_t=0$$
+$$-\lambda_t+\beta\lambda_{t+1}\left[1-\delta+f^{\prime}\left(k_{t+1}\right)\right]=0$$
+与乘子$\lambda_t$相关的一阶条件即为资源约束：在第$t$期，如果经济额外获得$\epsilon$足够小单位的商品，那么从第$t$期看，
+福利增加了$\lambda_t\epsilon$；从第0期看，则福利增加了$\beta^t\lambda_t$单位。
+合并两个一阶条件可得：
+$$
+\frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
+$$
+这一条件表明：计划者的最优选择是使得今明两天消费的MRS与MRT相等
+
+对于资本$k$，一个自然的问题是：
+终期$T$时如何选择，即$k_{T+1}$的最优值?由$k_{T+1}$的KT条件:
+$$\frac{\partial \mathcal{L}}{\partial k_{T+1}} \geq 0, \quad k_{T+1} \geq 0$$
+且满足互补松弛条件。这等价于：
+$$
+\beta^T \lambda_T \geq 0, \quad k_{T+1} \geq 0, \quad \beta^T \lambda_T k_{T+1}=0
+$$
+这意味着在终期第$T$期选择的$k_{T+1}=0$或$k_{T+1}$的影子价值为0，因为不存在$T+1$期，从而在第$T$期选择$k_{T+1}$没有意义。
+又由于$\lambda_T=u^{\prime}\left(c_T\right)$，而模型\textbf{假设}$u^{\prime} > 0$，因此，终期T存在角点解：
+$$k_{T+1}=0$$
+或者说，如果终期选择$k_{T+1}>0$，则计划者会余下未使用资源，在规范化假设下这不会是最优策略（因为$u^{\prime}>0$）。
+
+
+% 1.3.2 ===== 无限期情形 =====
+\subsection{无限期情形} \label{subsec-infinit-h}
+
+现在，\textbf{由有限期转向无限期问题}。回忆在有限期问题中，终期时$k_{T+1}$的最优条件满足：
+$$\beta^T \lambda_T k_{T+1}=0$$
+从直觉出发，令$T \rightarrow \infty$，那么可以得到无限期情形下的\textbf{横截性条件}（Transversality Condition）：
+\begin{equation}
+    \lim _{T \rightarrow \infty} \beta^T \lambda_T k_{T+1}=0
+\end{equation}
+\textbf{这一条件排除了无限期情形下资本无限增长的可能性}。计划者的最优配置$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$是符合
+如下欧拉方程（optimality）、资源约束（feasibility）和边界条件的一条\textbf{唯一路径}（unique path）：
+\begin{equation}    \label{eq-euler-sp}
+    \frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
+\end{equation}
+\begin{equation}    \label{eq-res-const-sp}
+    k_{t+1}=f\left(k_t\right)+(1-\delta) k_t-c_t
+\end{equation}
+以及两个边界条件
+$$
+k_0>0, \quad \lim _{t \rightarrow \infty} \beta^t u^{\prime}\left(c_t\right) k_{t+1}=0
+$$
+式\eqref{eq-euler-sp}被称为\textbf{欧拉方程（Euler Equation）}。
+事实上，符合前两条条件的$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$路径可能有多条，但在两个边界条件约束下，这条路径是唯一确定的。后续将会证明。

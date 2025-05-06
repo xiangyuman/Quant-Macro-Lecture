@@ -1,0 +1,87 @@
+% 2.4 =============== 稳态 ===============
+
+\section{最优增长模型的稳态}    \label{sec-steady}
+
+回顾已经完成的工作：我们将原始的序列问题（Sequence Problem）转化为了递归形式（Recursive Formulation），
+进而引入了动态规划的基本概念与方法，建立了如下形式的贝尔曼方程：
+$$
+v\left(k\right)=\max _{k^{\prime}}\left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+$$
+其中$\gamma\left(k\right)\equiv f\left(k\right)+\left(1-\delta\right)k$。通过对贝尔曼方程的研究，我们证明了值函数的存在性和唯一性，
+同时还发现，计划者序列问题的最优条件和递归形式的最优条件形式一致：
+\begin{equation*}    
+    u^{\prime}\left(\gamma\left(k_t\right)-k_{t+1}\right) = 
+        \beta u^{\prime}\left(\gamma\left(k_{t+1}\right)-k_{t+2}\right)\gamma^{\prime}\left(k_{t+1}\right)
+\end{equation*}
+等价于：
+\begin{equation*}
+    \begin{aligned}
+        u^{\prime}\left(f\left(k_t\right)+\left(1-\delta\right)k_t-k_{t+1}\right) &= 
+        \beta u^{\prime}\left(f\left(k_{t+1}\right)+\left(1-\delta\right)k_{t+1}-k_{t+2}\right)\left(f^{\prime}\left(k_{t+1}\right)+1-\delta\right) \\
+        u^{\prime}\left(c_t\right)&=\beta u^{\prime}\left(c_{t+1}\right)\left(f^{\prime}\left(k_{t+1}\right)+1-\delta\right)
+    \end{aligned}
+\end{equation*}
+在本节，我们将进一步研究最优增长模型的稳态特征。
+
+\begin{definition}[\textbf{稳态}]
+    如果$k^*$满足：$k^*=g(k^*)$，则称$k^*$为一个稳态（Steady State）。
+\end{definition}
+
+\begin{theorem}[\textbf{稳态存在性}]    \label{th-ss-exist}
+    确定性最优增长模型存在唯一非零稳态。在稳态下，资本存量$k=k^*$，其中$k^*$满足：
+    $$1=\beta\left[f^{\prime}\left(k^*\right)+1-\delta\right]$$
+    也即：
+    \begin{equation} \label{eq-ss-rho}
+        f^{\prime}\left(k^*\right)-\delta = \rho \equiv \frac{1}{\beta}-1
+    \end{equation}
+\end{theorem}
+其中$\rho$被称为时间贴现因子（time discount rate）。这一等式也就是黄金率（Golden Rule），它表明：稳态时储蓄的社会回报等于储蓄的社会成本（时间贴现因子）。
+\begin{proof}
+    由欧拉方程，在任意非零稳态时必定成立：
+    \begin{equation*}
+        u^{\prime}\left(\gamma\left(k^*\right)-g\left(k^*\right)\right)
+            = \beta u^{\prime}\left(\gamma\left(k^*\right)-g\left(k^*\right)\right)\left(f^{\prime}\left(k^*\right)+1-\delta\right)
+    \end{equation*}
+    由于$u^{\prime}>0$，因此：
+    \begin{equation*}
+        \beta\left(f^{\prime}\left(k^*\right)+1-\delta\right) = 1
+    \end{equation*}
+\end{proof}
+
+\begin{property}[稳态时$k^*$的决定]
+    稳态时的资本存量$k^*$关于$\rho$和$\delta$都递减。
+\end{property}
+\begin{proof}
+    由\cref{eq-ss-rho}立得.
+\end{proof}
+
+接下来，我们对稳态的全局或局部稳定性进行研究。首先介绍如下引理：
+\begin{lemma}   \label{lemma-ss-stable}
+    稳态$k^*$满足\cref{eq-ss-rho}和最优政策函数$g$满足$k<g(k)$，当且仅当$k<k^*$。
+\end{lemma}
+\begin{proof}
+    由值函数性质可知：
+    $$v^{\prime}(k)>v^{\prime}\left(g\left(k\right)\right) \quad \text{iff} \quad k < g(k)$$
+    又由于$k>0$和包络定理及FOC：
+    $$
+    \begin{aligned}
+        v^{\prime}(k) & =\left[f^{\prime}(k)+(1-\delta)\right] u^{\prime}(f(k)+(1-\delta) k-g(k)) \\
+            \beta v^{\prime}(g(k)) & =u^{\prime}(f(k)+(1-\delta) k-g(k))
+    \end{aligned}
+    $$
+    进而可得：
+    $$
+    \beta\left[f^{\prime}(k)+(1-\delta)\right] u^{\prime}(f(k)+(1-\delta) k-g(k)) 
+        >u^{\prime}(f(k)+(1-\delta) k-g(k)) \quad \text{iff} \quad k<g(k)
+    $$
+    因此：
+    $$\beta\left[f^{\prime}\left(k\right)+1-\delta\right]>1 \quad \text{iff} \quad k<g(k)$$
+    由于$f^{\prime}$递减且稳态时$k^*$满足$\beta\left[f^{\prime}\left(k^*\right)+1-\delta\right]=1$，从而：
+    $$k < k^* \quad \text{iff} \quad k<g(k)$$
+\end{proof}
+
+现在，考虑$k_0\in (0, k^*)$，根据\cref{lemma-ss-stable}可知，由$k_{t+1}=g(k_t)$生成的资本路径递增且有上界$k^*$。
+从而易得资本路径序列收敛，且由$g$的连续性，极限为$g(k^*$)。同理可推知$k_0>k^*$时的相关结论。进而有如下定理成立：
+\begin{theorem}[稳态的稳定性]
+    稳态是全局稳定的，并且转移路径是单调的：当$k_0\in (0, k^*)$，资本路径逐渐递增到$k^*$；当$k_0>k^*$，资本路径逐渐递减到$k^*$。
+\end{theorem}

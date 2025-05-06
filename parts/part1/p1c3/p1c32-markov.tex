@@ -1,0 +1,198 @@
+% 3.2 =============== Markov ===============
+
+\section{马尔可夫过程与条件期望}    \label{sec-markov}
+
+本节先对马尔可夫过程理论进行讲解。上一节曾指出，
+处理连续动态规划的总体思路主要有离散化估计和平滑估计，例如VFI和Collocation，
+但无论选取何种方法，\textbf{计算的主要难点}都在于高维的状态及期望（积分）的计算。
+之所以先对马尔可夫过程进行学习，原因就在于它在两种方法中都发挥着重要作用：\textbf{它决定了条件期望的结构仅依赖当前状态。}
+如果使用马尔科夫链近似AR(1)过程，马尔可夫性质将在期望计算中发挥直接作用；
+即使是使用数值积分算法，它仍然依赖状态变量的马尔可夫性质：对未来的积分只依赖于当前。
+换句话说，马尔可夫近似虽然与数值积分不等同，但缺少这一性质，数值积分也很难进行。因此，马尔可夫假设对于宏观模型至关重要。
+
+\begin{definition}
+    \textbf{随机过程}（Stochastic Process）是某一\textbf{随机变量}（Random Variable）$z_t$构成的时间序列$\{z_t\}_{t=0}^{\infty}$。
+    若$z_t$的\textbf{状态空间}$\mathbb{Z}$是有限或可数的，则称这一随机过程是离散取值的。
+\end{definition}
+
+\begin{definition}
+    随机过程$\{z_t\}_{t=0}^{\infty}$被称为\textbf{马尔可夫过程}，若对任意$k\geq1$和任意$t$，成立：
+    \begin{equation*}
+        \operatorname{Pr}\left(z_{t+1}\mid z_t,z_{t-1},\cdots,z_{t-k}\right)=\operatorname{Pr}\left(z_{t+1}\mid z_t\right)
+    \end{equation*}
+    即条件于当前$z_t$，未来独立于历史$z^{t-1}$。如果上述概率不依赖于时间$t$，则称这一马尔可夫过程是\textbf{时间齐次}的。
+\end{definition}
+
+\begin{definition}
+    \textbf{马尔科夫链}（Markov Chain）是离散取值的马尔可夫过程，即状态空间$\mathbb{Z}$可数或有限。
+\end{definition}
+
+我们将主要考虑时间齐次的马尔可夫链。为了记号的方便，同时不失一般性，假设随机变量$z_t$的取值空间
+$\mathbb{Z}=\{\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\}$。
+\footnote{通常我们用大写字母如$Z_t$表示随机变量，用小写字母如$z_t$表示样本的实现。这里是为了记号的方便以及与随机增长模型中一致，
+我们使用小写的$z_t$表示随机变量}
+通常，$n$维马尔可夫链可用三元符号$\left(\boldsymbol{\mathbbm{z}},\boldsymbol{\pi}_0, \boldsymbol{P}\right)$表示。
+其中：
+
+（1）\textbf{状态空间}$\boldsymbol{\mathbbm{z}}=\left(\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\right)^{\prime}$
+是包含状态所有可能取值的$n$维列向量；
+
+（2）\textbf{初始分布}$\boldsymbol{\pi}_0=\left(\pi_{01},\pi_{01},\cdots,\pi_{0n}\right)^{\prime}$是一个$n$维列向量，
+其元素$\pi_{0i}=\operatorname{Pr}\left(s_0=s_i\right)$表示初始状态$z_0=\mathbbm{z}_i$，满足$\sum_{i=1}^{n}\pi_{0i}=1$。
+在应用中，通常选定某一$i$，使$\pi_{0i}=1$，即从确定的初始状态$\mathbbm{z}_i$开始。
+
+（3）\textbf{转移概率矩阵}$\boldsymbol{P}$具有如下形式：
+\begin{equation*}
+    \boldsymbol{P}=\left(\begin{array}{cccccc}
+        p_{11} & p_{12} & \cdots & \vdots & \cdots & p_{1 n} \\
+        p_{21} & & & \vdots & & \vdots \\
+        \vdots & & & \vdots & & \vdots \\
+        p_{i 1} & \cdots & \cdots & p_{i j} & \cdots & p_{i n} \\
+        \vdots & & & \vdots & & \vdots \\
+        p_{n 1} & \cdots & \cdots & \vdots & \cdots & p_{n n}
+        \end{array}\right)
+\end{equation*}
+满足：
+\begin{equation*}   
+    \sum_{j=1}^{n}p_{ij}=1 \quad 0\leq p_{ij}\leq 1 \quad \forall i
+\end{equation*}
+这一矩阵也被称为\textbf{随机矩阵}（Stochastic Matrix）。矩阵中的代表元素$\left(i,j\right)$元$p_{ij}$是一个条件概率，表示：
+\begin{equation*}
+    p_{ij}=\operatorname{Pr}\left(z_{t+1}=\mathbbm{z}_j\mid z_t = \mathbbm{z}_i\right)
+\end{equation*}
+
+
+% 3.2.1 ===== Law of Motion for Pr =====
+\subsection{转移路径与概率分布的运动方程}
+
+马尔科夫链假设能够极大简化模型转移路径的计算。给定转移概率矩阵$\boldsymbol{P}$，
+我们可以计算$m=1,2,3,\cdots$步内从状态$\mathbbm{z}_i$转移到状态$\mathbbm{z}_j$的概率。例如，对2步转移：
+\begin{equation*}
+    \begin{aligned}
+        \operatorname{Pr}\left(z_{t+2}=\mathbbm{z}_j \mid z_t=\mathbbm{z}_i\right) 
+            &= \sum_{k=1}^n \operatorname{Pr}\left(z_{t+2}=\mathbbm{z}_j \mid z_{t+1}=\mathbbm{z}_k\right) 
+                    \operatorname{Pr}\left(z_{t+1}=\mathbbm{z}_k \mid z_t=\mathbbm{z}_i\right) \\
+            &= \sum_{k=1}^n p_{k j} p_{i k} = \sum_{k=1}^n p_{i k} p_{k j} \\
+            &= p^{\left(2\right)}_{i j} 
+    \end{aligned}
+\end{equation*}
+其中$p^{\left(2\right)}_{i j}$表示两步转移概率矩阵$\boldsymbol{P}^2=\boldsymbol{P}\boldsymbol{P}$的$(i,j)$元。
+容易验证若$\boldsymbol{P}$是一个转移概率矩阵，则$\boldsymbol{P}$的$m$次幂$\boldsymbol{P}^{m}$也是一个转移概率矩阵。
+一般而言，$\boldsymbol{P}^{m}$的$(i,j)$元不一定等于$\boldsymbol{P}$的$(i,j)$元的$m$次方，
+即$p^{\left(m\right)}_{i j}\neq \left(p_{i j}\right)^m$。
+进一步归纳后不难得到：
+\begin{equation}
+    \operatorname{Pr}\left(z_{t+m}= \mathbbm{z}_j\mid z_t=\mathbbm{z}_i\right) = p^{\left(m\right)}_{i j}
+\end{equation}
+其中右侧表示$m$步转移概率矩阵$\boldsymbol{P}^m$的$(i,j)$元。
+更一般化的，我们有如下查普曼-柯尔莫哥洛夫方程（Chapman-Kolmogorov Equation）：
+\begin{equation}
+    \begin{aligned}
+        \boldsymbol{P}^{m+k} &= \boldsymbol{P}^k\boldsymbol{P}^m \\
+        & \Leftrightarrow \\
+        p^{(m+k)}_{i j} &= \sum_{r=1}^{n}p^{(k)}_{i r}p^{(m)}_{r j}
+    \end{aligned}
+\end{equation}
+
+令$n$维列向量$\boldsymbol{\pi}_t=\left(\pi_{t,1},\cdots,\pi_{t,n}\right)^{\prime}$
+表示随机变量$z_t$其状态空间$\mathbb{S}$上的\textbf{无条件概率分布}，其中的元素：
+\begin{equation*}
+    \pi_{t,i} = \operatorname{Pr}\left(z_t = \mathbbm{z}_i\right), \quad i=1,\cdots n
+\end{equation*}
+由转移概率可得概率随时间的变化：
+\begin{equation*}
+    \begin{aligned}
+        \pi_{1, i} &= \sum_{j=1}^n \operatorname{Pr}\left[z_1=\mathbbm{z}_i \mid z_0=\mathbbm{z}_j\right] 
+                        \operatorname{Pr}\left[z_0=\mathbbm{z}_j\right] 
+                    =  \sum_{j=1}^n \operatorname{Pr}\left[z_1=\mathbbm{z}_i \mid z_0=\mathbbm{z}_j\right]\pi_{0,j}  \\
+        \vdots & \\
+        \pi_{t, i} &= \sum_{j=1}^n \operatorname{Pr}\left[z_t=\mathbbm{z}_i \mid z_{t-1}=\mathbbm{z}_j\right] 
+                        \operatorname{Pr}\left[z_{t-1}=\mathbbm{z}_j\right] 
+                    =  \sum_{j=1}^n \operatorname{Pr}\left[z_t=\mathbbm{z}_i \mid z_{t-1}=\mathbbm{z}_j\right]\pi_{t-1,j}  \\
+        \pi_{t+1, i} &= \sum_{j=1}^n \operatorname{Pr}\left[z_{t+1}=\mathbbm{z}_i \mid z_t=\mathbbm{z}_j\right] 
+                        \operatorname{Pr}\left[z_t=\mathbbm{z}_j\right]
+                    =  \sum_{j=1}^n \operatorname{Pr}\left[z_{t+1}=\mathbbm{z}_i \mid z_t=\mathbbm{z}_j\right]\pi_{t,j}
+        \end{aligned}
+\end{equation*}
+以矩阵形式表示，可得\textbf{概率分布的运动方程}（Law of Motion）为：
+\begin{equation*}
+    \begin{aligned}
+        \boldsymbol{\pi}_1^{\prime} &= \boldsymbol{\pi}_0^{\prime}\boldsymbol{P} \\
+        \boldsymbol{\pi}_2^{\prime} &= \boldsymbol{\pi}_1^{\prime}\boldsymbol{P} 
+            = \boldsymbol{\pi}_0^{\prime}\boldsymbol{P}^2 \\
+        \vdots & \\
+        \boldsymbol{\pi}_t^{\prime} &= \boldsymbol{\pi}_{t-1}^{\prime}\boldsymbol{P} 
+            = \boldsymbol{\pi}_0^{\prime}\boldsymbol{P}^t
+    \end{aligned}
+\end{equation*}
+从而有：
+\begin{equation}    \label{eq-markov-pr-motion}
+    \boldsymbol{\pi}_{t+1} = \boldsymbol{P}^{\prime}\boldsymbol{\pi}_t 
+        = \left(\boldsymbol{P}^{\prime}\right)^{t+1}\boldsymbol{\pi}_0
+\end{equation}
+
+
+% 3.2.2 ===== Stationary Distribution =====
+\subsection{平稳分布}
+
+\begin{definition}
+    \textbf{稳态或平稳分布}（Stationary Distribution）是指满足如下条件的一个无条件概率分布：
+    \begin{equation*}
+        \boldsymbol{\pi}_{t+1} = \boldsymbol{\pi}_t
+    \end{equation*}
+\end{definition}
+根据概率分布的运动方程\ref{eq-markov-pr-motion}，平稳分布必须满足：
+\begin{equation}    \label{eq-markov-stationary}
+    \boldsymbol{\pi} = \boldsymbol{P}^{\prime}\boldsymbol{\pi}
+\end{equation}
+等价于：
+\begin{equation}
+    \left(\boldsymbol{I}-\boldsymbol{P}^{\prime}\right)\boldsymbol{\pi} = \boldsymbol{0}
+\end{equation}
+这表明：\textbf{平稳分布$\boldsymbol{\pi}$是矩阵$\boldsymbol{P}^{\prime}$对应特征值为1的特征向量}（正则化使$\sum_{i=1}^{n}\pi_i=1$）。
+
+\begin{definition}
+    $\boldsymbol{P}, \boldsymbol{\pi}$被称为\textbf{平稳马尔科夫链}，若分布$\boldsymbol{\pi}$满足\ref{eq-markov-stationary}式。
+\end{definition}
+
+事实上，$\boldsymbol{P}$是随机矩阵（元素非负并且$\sum_{1}^{n}p_{ij}=1$）保证了$\boldsymbol{P}$至少有一个特征根为1，
+进而至少有一个特征向量$\boldsymbol{\pi}$是平稳分布。但是，平稳分布可能不唯一，因为可能有重复为1的特征根。
+平稳分布唯一的一个充分条件是：$0<p_{i j}<1, \forall i, j$。
+
+
+% 3.2.3 ===== Conditional Expectation and Discrete AR(1) =====
+\subsection{马尔可夫性与条件期望}
+
+马尔可夫性的存在极大简化了宏观模型中条件期望的计算，因为它使得下期状态只依赖于当前而不依赖于历史。
+假设随机过程$\{z_t\}_{t=0}^{\infty}$是一个马尔科夫链，
+取值空间为$\boldsymbol{\mathbbm{z}}=\left(\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\right)^{\prime}$。
+那么给定$z_t=\mathbbm{z}_i$，$z_{t+1}$的条件期望为：
+\begin{equation}
+    \mathbb{E}\left(z_{t+1} \mid z_t=\mathbbm{z}_i\right) = \boldsymbol{P}_i\boldsymbol{\mathbbm{z}}
+\end{equation}
+其中，$\boldsymbol{P}_i$为转移概率矩阵$\boldsymbol{P}$的第$i$行（即条件于当前状态为$\mathbbm{z}_i$）。
+
+对于随机最优增长模型，假设$z_t$服从一个$n$维马尔可夫链，取值空间同上。
+给定$k=k_m,~z=z_i$，对值函数$v\left(k_m,z_i\right)$，利用转移概率军阵可以直接写出如下贝尔曼方程：
+\begin{equation*}
+    \begin{aligned}
+        v\left(k_m,z_i\right) &= \max_{k^{\prime}}u\left[zf(k_m)+(1-\delta)k_m-k^{\prime}\right] + 
+            \mathbbm{E}\left[v\left(k^{\prime},z^{\prime}\right)\mid z=z_i\right] \\
+        &= \max_{k^{\prime}}u\left[zf(k_m)+(1-\delta)k_m-k^{\prime}\right] +
+            \boldsymbol{P}_i v\left(k^{\prime},\mathbbm{z}\right)
+    \end{aligned}
+\end{equation*}
+其中$v\left(k^{\prime},\mathbbm{z}\right)$是一个$n$维列向量，每行对应下期$z^{\prime}$在空间$\mathbbm{z}$上可能的取值
+$\left(z_1,\cdots,z_n\right)$。
+
+我们可以将其写为更为紧凑的矩阵形式。记$v\left(k_m,\mathbbm{z}\right)$是$n$维值函数，每行对应TFP的一种可能取值下的最优值。
+令$\vec{\boldsymbol{1}}$是元素全部维1的$n$维列向量，$\boldsymbol{z}^{\prime}$表示下期的$n$维列向量，从而有：
+\begin{equation*}
+    \begin{aligned}
+        v\left(k_m,\mathbbm{z}\right) 
+        &= \max_{k^{\prime}}u\left[\mathbbm{z}f(k_m)+\vec{\boldsymbol{1}}(1-\delta)k_m-\vec{\boldsymbol{1}}k^{\prime}\right] + 
+            \mathbbm{E}\left[v\left(k^{\prime},\boldsymbol{z}^{\prime}\right)\mid \mathbbm{z}\right] \\
+        &= \max_{k^{\prime}}u\left[\mathbbm{z}f(k_m)+\vec{\boldsymbol{1}}(1-\delta)k_m-\vec{\boldsymbol{1}}k^{\prime}\right] +
+            \boldsymbol{P} v\left(k^{\prime},\mathbbm{z}\right)
+    \end{aligned}
+\end{equation*}
