@@ -3,40 +3,54 @@
 \section{最优增长：RCK模型} \label{sec-opt-growth}
 
 Solow（1956）和Swan（1956）的工作标志新古典增长理论的诞生。但Solow模型的主要问题在于，模型中储蓄率是外生给定的。
-Cass（1965）和Koopmans（1965）在Solow工作的基础上，通过引入微观基础对新古典理论进行了拓展，
-建立了确定性情形下的\textbf{最优增长模型}：他们利用家庭偏好来解释为何储蓄是一种内生理性选择的结果。
-最优增长模型通常被称为RCK模型（Ramsey-Cass-Koopmans Model），它与消费-储蓄模型的核心区别在于：经济是生产经济而不是禀赋经济。
+Cass（1965）和Koopmans（1965）在Solow工作的基础上，通过引入微观基础对新古典理论进行了拓展，将储蓄作为理性选择下的内生结果，
+建立了确定性情形下的\textbf{最优增长模型}，因此最优增长模型通常被称为RCK模型（Ramsey-Cass-Koopmans Model），
+它与另一个典型的动态优化问题——消费-储蓄模型的核心区别在于：经济是生产经济而不是禀赋经济；
 我们将利用这一模型，深入研究序列视角下的动态优化问题。
 
-典型的确定性最优增长模型形式如下：假设时间是离散且无穷的，由$t=0,1,\dots, \infty$表示，第0期资本存量$k_0>0$给定。
-生产函数$F$与索洛模型中类似，具有新古典特征，同样假设总劳动投入被正则化为$L=1$，从而人均形式生产函数为：$y_t=f(k_t)$。
-不难证明，索洛模型对$F$的假设对$f$同样成立：
+确定性最优增长模型形式如下：生产函数$F(K,L)$与索洛模型中类似，具有新古典特征，同样假设总劳动投入被正则化为$L=1$，
+从而人均形式生产函数为：$y_t=f(k_t)$。不难证明，索洛模型对$F$的假设对$f$同样成立：
 \begin{assumption} \label{as-f}
-    $f$关于$k$严格增
+    $f$关于$k$严格增；
 \end{assumption}
 \begin{assumption}
-    $f$关于$k$严格拟凹
+    $f$关于$k$严格拟凹；
 \end{assumption}
 \begin{assumption}
-    f(0)=0
+    f(0)=0；
 \end{assumption}
 \begin{assumption} \label{as-f-inada}
     生产函数Inada条件：
-        $\lim\limits_{k \rightarrow 0} f^{\prime}(k)=\infty, \quad \lim\limits_{k \rightarrow \infty} f^{\prime}(k)=0$
+    $\lim\limits_{k \rightarrow 0} f^{\prime}(k)=\infty, \quad \lim\limits_{k \rightarrow \infty} f^{\prime}(k)=0$；
 \end{assumption}
 \begin{assumption}
     方便起见额外假设：$f\left(k\right)$连续，二次可微。
 \end{assumption}
-计划者（Social Planner）（或代表性家庭）在资源约束:
-$$c_t+k_{t+1}=f\left(k_t\right)+(1-\delta)k_t,\quad \forall t \geq 0$$
-和资源非负的约束下：
-$$c_t \geq 0, \quad k_{t+1} \geq 0, \quad \forall t \geq 0$$
-选择无穷期序列：
-$$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$$
-来最大化效用函数：
-$$\sum_{t=0}^{T} \beta^t u\left(c_t\right)$$
-其中$T$可以取无穷。这一形式的问题通常被称为\textbf{序列问题（Sequence Probem）}。
-同时，模型对效用函数也有类似生产函数的的规范化假设：
+假设时间是离散的，由$t=0,1,\dots,T$表示，$T$可取无穷，第0期资本存量$k_0>0$给定。
+资本运动方程为：
+\begin{equation*}
+    k_{t+1} = (1-\delta)k_t + i_t
+\end{equation*}
+资源约束$c_t+i_t\leq y_t$可进一步写为：
+\begin{equation*}
+    c_t+k_{t+1}=f\left(k_t\right)+(1-\delta)k_t
+\end{equation*}
+
+实际上，模型中对于资本和消费的设定形式是多样的.例如：可以假设厂商拥有并积累资本；也可以假设家庭拥有资本，
+进行投资决策并将其租赁给厂商。在类似的设定下，经济主体在市场上互动，价格使市场出清，
+通常我们称之为\textbf{分散经济}（Decentralized Economy）。我们将在第\ref{ch-equilibrium}章详细讨论。
+本节的重点在于分析动态优化问题，因此我们进行简化，假设经济中存在一个计划者（Social Planner）来为代表性家庭进行决策。
+我们将这样的设定称为\textbf{计划者问题}（Planning Problem），它与分散经济的最主要区别在于：
+经济中没有显示的价格变量，因为计划者可以直接调配资源。计划者面临的动态优化问题为：
+\begin{equation}
+    \begin{aligned}
+        \max _{\left\{c_t, k_{t+1}\right\}_{t=0}^T} & \sum_{t=0}^T \beta^t u\left(c_t\right) \\
+            \text { s.t. } & c_t+k_{t+1} \leq f\left(k_t\right)+(1-\delta) k_t, ~\forall t \in\{0, \ldots, T\} \\
+            & c_t, k_{t+1} \geq 0, \forall t \in\{0, \ldots, T\}
+    \end{aligned}
+    \tag{P3} \label{problem-rck-planer}
+\end{equation}
+其中关于当期效用函数$u(\cdot)$有如下规范化假设：
 \begin{assumption} \label{as-u}
     效用函数$u$连续，二次可微
         且$u^{\prime}\left(c\right)>0,\quad u^{\prime\prime}\left(c\right)<0$
@@ -45,68 +59,171 @@ $$\sum_{t=0}^{T} \beta^t u\left(c_t\right)$$
     效用函数Inada条件：
     $\lim\limits_{c \rightarrow 0} u^{\prime}(c)=\infty, \quad \lim\limits_{c \rightarrow \infty} U^{\prime}(c)=0$
 \end{assumption}
+这一问题的核心就是\textbf{求解最优消费和资本序列}$\{c_t,k_{t+1}\}_{t=0}^T$。消费者（计划者）面临的权衡是：
+减少今天的消费降低了当期边际效用，但是它被用于储蓄，进而投资于新的资本，带来未来更多的产出$f^{\prime}(k_t)+1-\delta$。
+这与消费储蓄模型的逻辑一致。此外，由于我们假设严格正的边际效用，因此资源约束必定取等号，不再详细证明。
 
-利用Lagrangian函数是处理类似优化问题的基本方法。但当问题拓展到上面无穷期形式时，需要一些额外条件来确保问题的可解性。
-我们将从有限期情形开始，逐步推广至无限期的情形。
+我们可以将最优增长模型对应到此前建立的一般形式的动态优化问题上，
+其中：当期目标$\hat{\mathcal{F}}(\cdot)$即为当期效用函数$u(\cdot)$；控制变量是消费序列$\{c_t\}_{t=0}^T$；
+状态变量是（期初）资本存量$k_t$；将状态变量与控制变量相连接的方程为$h(k_t,c_t) = f(k_t)+(1-\delta)k_t-c_t$；
+可行集为$\Gamma\left(k_t\right)=\left[0,f(k_t)+(1-\delta)k_t\right]$，其下界确保了$k_{t+1}\geq 0$，上界确保了$c_t\geq 0$。
+下面求解最优序列。
 
 
 % 1.3.1 ===== 有限期情形 =====
-\subsection{有限期情形} \label{subsec-finite-h}
+\subsection{最优增长模型求解：有限期情形} \label{subsec-rck-finite}
 
-首先考虑上面问题的有限期形式，
-即时间$t \in$ $\{0,1, \ldots T\}$。对于最大化问题，记第$t$期资源约束相关的乘子为$\beta^t \lambda_t$，进而可构造如下拉格朗日方程：
-$$
-\mathcal{L}=\sum_{t=0}^T \beta^t u\left(c_t\right)-\sum_{t=0}^T \beta^t \lambda_t\left[c_t+k_{t+1}-(1-\delta) k_t-f\left(k_t\right)\right]
-$$
-也即：
-$$
-\mathcal{L}=\sum_{t=0}^T \beta^t\left\{u\left(c_t\right)-\lambda_t\left[c_t+k_{t+1}-(1-\delta) k_t-f\left(k_t\right)\right]\right\}
-$$
-不难看出，$\lambda_t$是计划者第$t$期资源约束的影子价格，或者说是边际价值。在生产函数和效用函数满足规范化假设时，只要$k_t>0$，这一问题有内点解。
-分别对$c_t$和$k_{t+1}$求一阶条件，可得：
-$$u^{\prime}\left(c_t\right)-\lambda_t=0$$
-$$-\lambda_t+\beta\lambda_{t+1}\left[1-\delta+f^{\prime}\left(k_{t+1}\right)\right]=0$$
-与乘子$\lambda_t$相关的一阶条件即为资源约束：在第$t$期，如果经济额外获得$\epsilon$足够小单位的商品，那么从第$t$期看，
-福利增加了$\lambda_t\epsilon$；从第0期看，则福利增加了$\beta^t\lambda_t$单位。
-合并两个一阶条件可得：
-$$
-\frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
-$$
-这一条件表明：计划者的最优选择是使得今明两天消费的MRS与MRT相等
+与消费-储蓄模型类似，我们希望利用Lagrangian函数和库恩塔克定理求解序列问题。对有限期情形这是容易的，正如我们已经给出的：
+只要目标函数是严格凹并且约束集是有界闭凸集，那么库恩塔克条件是最优解的充分必要条件。
+但当问题拓展到无穷期形式时，需要一些额外条件来确保问题的可解性。我们将从有限期情形开始，逐步推广至无限期的情形。
 
-对于资本$k$，一个自然的问题是：
-终期$T$时如何选择，即$k_{T+1}$的最优值?由$k_{T+1}$的KT条件:
-$$\frac{\partial \mathcal{L}}{\partial k_{T+1}} \geq 0, \quad k_{T+1} \geq 0$$
-且满足互补松弛条件。这等价于：
-$$
-\beta^T \lambda_T \geq 0, \quad k_{T+1} \geq 0, \quad \beta^T \lambda_T k_{T+1}=0
-$$
-这意味着在终期第$T$期选择的$k_{T+1}=0$或$k_{T+1}$的影子价值为0，因为不存在$T+1$期，从而在第$T$期选择$k_{T+1}$没有意义。
-又由于$\lambda_T=u^{\prime}\left(c_T\right)$，而模型\textbf{假设}$u^{\prime} > 0$，因此，终期T存在角点解：
-$$k_{T+1}=0$$
-或者说，如果终期选择$k_{T+1}>0$，则计划者会余下未使用资源，在规范化假设下这不会是最优策略（因为$u^{\prime}>0$）。
+在有限期情形下，计划者问题为：
+\begin{equation*}
+    \begin{aligned}
+        \max_{\left\{k_{t+1}\right\}_{t=0}^{\infty}} & \sum_{t=0}^T \beta^t 
+            u\left(f\left(k_t\right)+\left(1-\delta\right)k_t-k_{t+1}\right)    \\
+        \text { s.t. } & k_{t+1} \geq 0 \quad t \leq T
+    \end{aligned}
+\end{equation*}
+由效用函数的Inada条件，$c_t\geq 0$必然满足；同时，关于效用函数和生产函数的假设确保了目标函数的凹性和可行集是有界闭凸集，
+从而存在唯一的最大值，不再证明。\footnote{证明目标函数关于$(k_t,k_{t+1})$是联合凹的需要检查黑塞矩阵负定。}
+上述问题的拉格朗日函数为：
+\begin{equation*}
+    \mathcal{L}
+        = \sum_{t=0}^T \beta^t\left\{u\left(f\left(k_t\right)+(1-\delta) k_t-k_{t+1}\right)+\mu_t k_{t+1}\right\}
+\end{equation*}
+其中第$t$期非负资本约束的拉格朗日（库恩塔克）乘子为$\beta^t \mu_t$。两个一阶条件为：
+\begin{align}
+    & \frac{\partial \mathcal{L}}{\partial k_{t+1}}:
+        -u^{\prime}\left(c_t\right)+\beta u^{\prime}\left(c_{t+1}\right)
+        \left[f^{\prime}\left(k_{t+1}\right)+1-\delta\right]+\mu_t=0, \quad t \in\{0, \ldots, T-1\} 
+        \label{eq-rck-foc-before-terminal}  \\
+    & \frac{\partial \mathcal{L}}{\partial k_{T+1}}:
+        -u^{\prime}\left(c_T\right)+\mu_T = 0   \label{eq-rck-foc-terminal}
+\end{align}
+最后一期$T$的一阶条件与其余期不同是因为经济在终期$T$后结束。
+此外，库恩塔克条件还包括\textbf{互补松弛条件}（Complementary Slackness Condition）：
+\begin{equation}
+    \begin{aligned}
+        \mu_t k_{t+1} & =0, t \in\{0, \ldots, T\} \\
+        k_{t+1} & \geq 0, t \in\{0, \ldots, T\} \\
+        \mu_t & \geq 0, t \in\{0, \ldots, T\} 
+    \end{aligned}
+\end{equation}
+由于我们假设效用函数$u(c_t)$关于第一个变量递增，因此\cref{eq-rck-foc-terminal}意味着$\mu_T>0$。
+根据$t=T$时的互补松弛条件可知，\textbf{终端条件}为：
+\begin{equation*}
+    k_{T+1} = 0
+\end{equation*}
+这表明，在最后一期，计划者不会选择积累资本，而是会选择消费完所有资源。这与有限期消费-储蓄模型的逻辑是一致的；
+并且这一条件对理解后续无限期RCK模型的终端条件也有重要含义。
+
+给定两个Inada条件：$\lim\limits_{k\rightarrow 0}f^{\prime}(k) = \infty$
+和$\lim\limits_{c\rightarrow 0}u^{\prime}(c) = \infty$，任意$t<T$时，最优选择下的$k_{t+1}>0$。
+因此资本非负约束不会为紧，从而$\mu_t=0,~\forall t< T$。将其代入\cref{eq-rck-foc-before-terminal}，
+即可得到$t\in\{0,1,\cdots,T-1\}$时的\textbf{欧拉方程}：
+\begin{equation}    \label{eq-rck-euler-finite}
+    u^{\prime}\left[f\left(k_t\right)+(1-\delta) k_t-k_{t+1}\right]
+        = \beta u^{\prime}\left[f\left(k_{t+1}\right)+(1-\delta) k_{t+1}-k_{t+2}\right]
+            \left[f^{\prime}\left(k_{t+1}\right)+1-\delta\right]
+\end{equation}
+注意到，系统共有$T+2$个方程和$T+2$个未知量。其中，$T+2$个方程包括$T-1$个欧拉方程和给定的初始条件$k_0$以及终端条件$k_{T+1}=0$，
+它们决定了资本序列$\{k_{t+1}\}_{t=0}^T$（即$T+2$个未知量）。
+由于一阶条件是充分的，因此\cref{eq-rck-euler-finite}有唯一解。
+事实上，我们可以把欧拉方程写成更为熟悉的形式：
+\begin{equation*}
+    \underbrace{u^{\prime}\left(c_t\right)}_
+    {\begin{array}{c}
+        \text { marginal cost } \\
+        \text { of investment }
+    \end{array}}
+    =\underbrace{\beta u^{\prime}\left(c_{t+1}\right)}_
+    {\begin{array}{c}
+        \text { utility increase } \\
+        \text { per unit invested }
+    \end{array}} 
+    \cdot \underbrace{\left[f^{\prime}\left(k_{t+1}\right)+1-\delta\right]}_{\text {return on investment }}
+\end{equation*}
+它由三部分构成：左侧是在今天将1单位消费品用于投资的边际成本，导致效用损失$u^{\prime}(c_t)$；
+右侧是这一投资带来的边际收益，更多的投资在下期带来更多的产出（包括未折旧部分）$f^{\prime}(k_{t+1})+1-\delta$，
+使消费提高，效用增加一个折现量$\beta u^{\prime}(c_{t+1})$。
+
+目前，我们得到了能够决定最优解序列的差分系统，但具体如何求解？一个常用方法是后向法（Backwards）：从终期$T$开始，
+利用资源约束和欧拉方程迭代向后。我们通过一个具有解析解的具体例子来看。
+\begin{example}
+    $T<\infty$，效用函数$u(c) = \log c$，生产函数是柯布道格拉斯型$f(k) = Ak^{\alpha}$，假设完全折旧$\delta = 1$。
+    从而$t<T$时的欧拉方程为：
+    \begin{equation*}
+        \frac{1}{A k_t^\alpha-k_{t+1}}=\beta \frac{1}{A k_{t+1}^\alpha-k_{t+2}} \cdot \alpha A k_{t+1}^{\alpha-1}
+    \end{equation*}
+    对$t=T-1$，将$k_{T+1}=0$代入上式右侧，化简可得：
+    \begin{equation*}
+        k_T=\frac{\alpha \beta}{1+\alpha \beta} A k_{T-1}^\alpha
+    \end{equation*}
+    利用这一结果，并结合欧拉方程，可知对$t=T-2$成立：
+    \begin{equation*}
+        k_{T-1}=\frac{\alpha \beta(1+\alpha \beta)}{1+\alpha \beta+(\alpha \beta)^2} A k_{T-2}^\alpha
+    \end{equation*}
+    依次向后迭代可得：
+    \begin{equation*}
+        k_{T-t} = \frac{\alpha \beta\left(1+\alpha \beta+\ldots+(\alpha \beta)^t\right)}
+            {1+\alpha \beta+\ldots+(\alpha \beta)^{t+1}} A k_{T-t+1}^\alpha
+    \end{equation*}
+    由于$\alpha\beta<1$，根据几何级数知识，并将变量时间脚标适当变换，可得如下关系：
+    \begin{equation*}
+        k_{t+1}=\alpha \beta \frac{1-(\alpha \beta)^{T-t}}{1-(\alpha \beta)^{T-t+1}} A k_t^\alpha
+    \end{equation*}
+    从而消费序列的关系为：
+    \begin{equation*}
+        c_t=\frac{1-\alpha \beta}{1-(\alpha \beta)^{T-t+1}} A k_t^\alpha
+    \end{equation*}
+\end{example}
 
 
 % 1.3.2 ===== 无限期情形 =====
-\subsection{无限期情形} \label{subsec-infinit-h}
+\subsection{最优增长模型：无限期情形} \label{subsec-rck-infinite}
 
-现在，\textbf{由有限期转向无限期问题}。回忆在有限期问题中，终期时$k_{T+1}$的最优条件满足：
-$$\beta^T \lambda_T k_{T+1}=0$$
-从直觉出发，令$T \rightarrow \infty$，那么可以得到无限期情形下的\textbf{横截性条件}（Transversality Condition）：
-\begin{equation}
-    \lim _{T \rightarrow \infty} \beta^T \lambda_T k_{T+1}=0
-\end{equation}
-\textbf{这一条件排除了无限期情形下资本无限增长的可能性}。计划者的最优配置$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$是符合
-如下欧拉方程（optimality）、资源约束（feasibility）和边界条件的一条\textbf{唯一路径}（unique path）：
-\begin{equation}    \label{eq-euler-sp}
-    \frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
-\end{equation}
-\begin{equation}    \label{eq-res-const-sp}
-    k_{t+1}=f\left(k_t\right)+(1-\delta) k_t-c_t
-\end{equation}
-以及两个边界条件
-$$
-k_0>0, \quad \lim _{t \rightarrow \infty} \beta^t u^{\prime}\left(c_t\right) k_{t+1}=0
-$$
-式\eqref{eq-euler-sp}被称为\textbf{欧拉方程（Euler Equation）}。
-事实上，符合前两条条件的$\left\{c_t, k_{t+1}\right\}_{t=0}^{\infty}$路径可能有多条，但在两个边界条件约束下，这条路径是唯一确定的。后续将会证明。
+本节转向无限期最优增长模型的序列化求解。回忆消费-储蓄模型，我们发现有限期情形下的最优终期选择正是终端条件$a_{T+1}=0$，
+建立了有限期情形下最优解的存在条件；依照这一终端条件，为了避免无限期情形下出现庞氏骗局，我们给出了非庞氏条件；
+最后我们找到了确保解的最优性的横截性条件。
+
+对有限期最优增长模型，我们也已经得到终端条件为$k_{T+1}=0$，并在此基础上提出了后向解法和具体例子。
+在无限期情形下，只需对有限期中的解取极限并确保TVC成立即可。
+我们仍然利用上面的例子：
+\begin{example}
+    $T=\infty$，效用函数$u(c) = \log c$，生产函数是柯布道格拉斯型$f(k) = Ak^{\alpha}$，假设完全折旧$\delta = 1$。
+    显然，在$t=T$处截断的话，资本序列最优条件和解析解与之前相同，记为$k_{t+1}^T$。取极限，可得无限期情形下的候选解$k_{t+1}$：
+    \begin{equation*}
+        \begin{aligned}
+            \lim _{T \rightarrow \infty} k_{t+1}^T & =\lim _{T \rightarrow \infty} \alpha \beta 
+                \frac{1-(\alpha \beta)^{T-t}}{1-(\alpha \beta)^{T-t+1}} A k_t^\alpha \\
+            k_{t+1} & =\alpha \beta A k_t^\alpha
+        \end{aligned}
+    \end{equation*}
+    下面需要检查TVC成立，即确保这一解是最优的。我们只需检查极限（无穷远处）即可。
+    一方面，由于$\alpha\beta<1$，因此资本序列$k_{t+1}  =\alpha \beta A k_t^\alpha$必然收敛，从而消费也收敛；
+    另一方面，回忆\cref{property-dynamic-opt-general}中给出的最优序列的TVC：
+    $\lim\limits_{t\rightarrow\infty}\beta^t \mathcal{F}_1\left(x_t^*,x_{t+1}^*\right) x_t^*=0$。
+    在本例中，对应TVC左侧为：
+    \begin{equation*}
+        \lim _{t \rightarrow \infty} \beta^t u^{\prime}\left(c_t\right) f^{\prime}\left(k_t\right) k_t
+            =\lim _{t \rightarrow \infty} \beta^t \frac{A \alpha k_t^{\alpha-1}}{A k_t^\alpha-k_{t+1}} k_t
+    \end{equation*}
+    由于资本序列收敛，并且$\lim\limits_{t\rightarrow \infty}\beta^t \alpha / (1-\alpha\beta)=0$，因此TVC条件成立，即
+    \begin{equation*}
+        \lim _{t \rightarrow \infty} \beta^t u^{\prime}\left(c_t\right) f^{\prime}\left(k_t\right) k_t = 0
+    \end{equation*}
+\end{example}
+
+对于RCK模型这类较为简单的模型，我们可以利用相图分析动力系统的特征，其解系统可以表示为关于两个变量$(k_t,c_t)$的两组差分方程：
+\begin{equation*}
+    \begin{aligned}
+        k_{t+1} - k_t = f(k_t) - \delta k_t - c_t \\
+        u^{\prime}(c_t) = \beta u^{\prime}(c_{t+1})\left(f^{\prime}\left(k_{t+1}\right)+1-\delta\right)
+    \end{aligned}
+\end{equation*}
+求解的过程就是寻找符合差分方程的$(k_t,c_t)$的路径的过程，如果不加限制，可能存在很多解。
+但事实上，正如我们所证明的，符合两个边界条件（给定的$k_0$和TVC）的解是唯一的。
+
+此外，求解无限期模型解析解的另一个方法是\textbf{猜测验证法}（Guess and Verify）。
+但是，有解析解的例子在宏观模型中十分少见，因此我们在下一章将研究动态规划和数值方法。

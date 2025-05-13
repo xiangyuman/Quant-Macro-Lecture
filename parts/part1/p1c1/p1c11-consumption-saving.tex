@@ -1,5 +1,417 @@
 % 1.1 =============== 消费-储蓄模型 ===============
 
-\section{动态优化引例：消费-储蓄问题} \label{sec-consumption-saving}
+\section{动态优化引例：消费-储蓄模型} \label{sec-consumption-saving}
+
+一个典型的宏观模型包含如下结构：
+（1）个体（家庭）通过优化问题决定其消费；
+（2）企业决定其生产；
+（3）政府政策的决定。
+本章将对第一个方面——个体决策进行介绍，进而掌握求解动态优化问题的初步理论方法，为后续量化模型的学习奠定基础。
+事实上，动态优化是宏观模型能够刻画经济动态的核心所在。个体在今天和未来间进行权衡：通过牺牲一些今天的利益来获取将来的收益。
+例如，在我们将要看到的引例——消费-储蓄模型中，个体可以选择在今天储蓄（降低当前消费）来换取增加未来消费的可能。
+这背后的一个关键假设是个体是关注未来的（Forward Looking），这一概念最早由Friedman（1957）提出。
+这意味着，个体不仅基于当前收入进行选择，同时还考虑他们未来的\textbf{期望收入}。换句话说，消费和储蓄是依赖于期望的。
+后续的研究进一步引入了\textbf{理性预期}（Rational Expectation）的思想，
+即个体在利用所有可得的信息对未来做出最优预测的基础上，进行当前决策。我们后续看到的大部分模型都将这一假设作为默认。
+对于理性预期的偏离一般涉及行为经济学的内容，不是我们的重点。
+下面我们介绍基本的消费-储蓄模型，用于引出动态优化问题和其序列化求解方法。
 
 
+% 1.1.1 ===== sheding =====
+\subsection{消费储蓄模型设定}
+
+模型中存在一个代表性个体（Representative Agent），生存$T$期，偏好为$U\left(\{c_t\}_{t=0}^T\right)$,
+选择最优的第$t$期的消费流$\{c_t\}_{t=0}^T$来最大化其偏好。假设偏好是可加可分的（Additive Separability）：
+\begin{equation*}
+    U\left(\left\{c_t\right\}_{t=0}^T\right)=\sum_{t=0}^T \beta^t u\left(c_t\right)
+\end{equation*}
+可加可分意味着$t$期消费的边际效用不会依赖其余时刻的消费。折现因子$0<\beta<1$，这与消费者通常更重视近期而不是更远的未来相合。
+当期效用（瞬时效用）$u(\cdot)$不依赖时间，并作如下假设：
+\begin{assumption}
+    $u(c)$严格递增；
+\end{assumption}
+\begin{assumption}
+    $u(c)$严格凹；
+\end{assumption}
+\begin{assumption}
+    \textbf{Inada条件}：$\lim\limits_{c\rightarrow 0}u^{\prime}(c) = \infty$
+\end{assumption}
+
+方便起见，假设\textbf{禀赋经济}：个体每期得到一单位时间劳动并将其无弹性地用于生产，以获得工资$w_t$。
+\footnote{也可直接假设外生禀赋流$\{y_t\}_{t=0}^T$，没有本质区别。}
+个体能够在金融市场进行借贷，记其资产为$a_t$，负的资产即表示负债。假设储蓄的利率为$r_t$，从而\textbf{预算约束}为：
+\begin{equation*}
+    c_t = w_t + (1+r_t)a_t - a_{t+1}
+\end{equation*}
+当个体选择借入，那么他今天能够消费的更多，但是由于需要支付本息，因此未来的消费降低。
+另一个规范化的假设是假定借款上限，即$a_{t+1}\geq \underbar{a}$，其中$\underbar{a}$是外生常数。
+这一假设的存在通常是为了排除庞氏骗局，我们将最弱的$\underbar{a}$取值称为自然债务限制，
+我们将在下文和第\ref{ch-equilibrium}章完全市场的讨论中详细研究这一概念。
+由于我们假设有限期的$T$，因此终期必须要求$a_{T+1}\geq 0$，否则个体在$T$时刻会直接选择借入至限制并且不还款，
+这在均衡时是不可能实现的，因为金融市场上不再存在贷出方。我们可以将\textbf{动态优化问题}写为：
+\begin{equation}
+    \begin{aligned}
+        \max _{\left\{c_t, a_{t+1}\right\}_{t=0}^T} & \sum_{t=0}^T \beta^t u\left(c_t\right) \\
+        \text { s.t. } & c_t=w_t+\left(1+r_t\right) a_t-a_{t+1}, \forall t \in\{0, \ldots, T\} \\
+        & c_t \geq 0, \forall t \in\{0, \ldots, T\} \\
+        & a_{t+1} \geq \underline{a}, \forall t \in\{0, \ldots, T\} \\
+        & a_{T+1} \geq 0
+    \end{aligned}
+    \tag{P1} \label{problem-cs-finite}
+\end{equation}
+
+在上述问题中，我们假设个体在决策时知道价格（工资和利率）序列，并将其\textbf{视为给定}。
+我们将在第\ref{ch-equilibrium}章竞争均衡的讨论中详细研究价格的决定。
+我们的目标是得到最大化终身效用的消费和资产最优序列$\{c_t,a_{t+1}\}_{t=0}^T$。下面进行求解。
+
+
+% 1.1.2 ===== 消费-储蓄 两期 =====
+\subsection{两期情形下的序列化求解}
+
+由于$T<\infty$，自然想到利用库恩塔克定理进行\textbf{序列问题优化}。事实上，\textbf{如果目标函数严格凹并且
+约束集是有界闭凸集，那么库恩塔克条件是最优性的充分必要条件}。
+不失一般性，假设两期模型$t=0,1$，即经济从第0期初开始，在第1期末结束，$T=1$。
+假设$\underbar{a}=0$，初始资产$a_0 = 0$。为了方便解释，假设禀赋递减，即$w_0\geq w_1$和$r_t = r$。
+因此，预算约束序列为：
+\begin{equation*}
+    c_0=w_0-a_1 \quad \text { and } \quad c_1=w_1+(1+r) a_1
+\end{equation*}
+其中，第二个预算约束中我们用到了末期借款上限约束为紧$a_2=0$。这是符合直觉的，因为如果经济在第1期末结束，
+那么个体不可能在第一期决策时选择储蓄$a_2>0$。
+我们可以将序列约束合并为\textbf{终身预算约束}：
+\begin{equation*}
+    c_0+\frac{c_1}{1+r}=w_0+\frac{w_1}{1+r}
+\end{equation*}
+它表明折现后的终身消费价值等于折现后的终身收入，折现因子$1/(1+r)$是第0期和第1期消费的相对价格。
+此外，$a_1\geq 0$等价于$w_0-c_0\geq 0$。拉格朗日方程为：
+\begin{equation*}
+    \begin{aligned}
+        \mathcal{L} 
+            &= u\left(c_0\right)+\beta u\left(c_1\right)+\mu\left\{w_0+\frac{w_1}{1+r}-c_0-\frac{c_1}{1+r}\right\} \\
+            &+ \lambda\left\{w_0-c_0\right\},
+    \end{aligned}
+\end{equation*}
+我们\textbf{无需考虑消费的非负约束}，因为效用函数的Inada条件$\lim\limits_{c_t\rightarrow 0}u^{\prime}(c_t)=\infty$
+保证了个体用于会选择$c_t>0$。关于$c_0$和$c_1$的一阶条件为：
+\begin{equation*}
+    \begin{aligned}
+        & \frac{\partial \mathcal{L}}{\partial c_0}: \quad u^{\prime}\left(c_0\right)-\mu-\lambda=0 \\
+        & \frac{\partial \mathcal{L}}{\partial c_1}: \quad \beta u^{\prime}\left(c_1\right)-\mu \frac{1}{1+r}=0
+    \end{aligned}
+\end{equation*}
+相关的KT条件为：
+\begin{equation*}
+    \begin{aligned}
+        \lambda\left[w_0-c_0\right] & =0 \\
+        w_0-c_0 & \geq 0 \quad \text { and } \quad \lambda \geq 0
+    \end{aligned}
+\end{equation*}
+
+考虑内点解情形$w_0-c_0>0$，即$\lambda=0$。由于假设工资禀赋递减，$w_0>w_1$，结合消费的边际消费效用递减
+和一个关于$\beta(1+r)$的温和的假设，可以保证内点解的存在，进而可以写出\textbf{消费欧拉方程}：
+\begin{equation*}
+    u^{\prime}\left(c_0\right)=\beta(1+r) u^{\prime}\left(c_1\right)
+\end{equation*}
+方程左侧是多储蓄一单位在$t=0$的边际成本，右侧是其在$t=1$带来的边际效用。
+注意到，当$\beta(1+r)=1$，个体每期会选择消费其终身效用的一个常数部分，即：
+\begin{equation*}
+    c_0=c_1=\frac{w_0+\beta w_1}{1+\beta}
+\end{equation*}
+带回预算约束验证可以发现：$w_0-c_0\equiv a_1 = \frac{w_0-w_1}{r+2}>0$。
+
+
+% 1.1.3 ===== 动态优化问题典型形式 =====
+\subsection{一般化形式的动态优化问题}
+
+我们可以将经济中各主体面临的动态优化问题写为如下更一般化的形式：
+\begin{equation}
+    \begin{aligned}
+        \max _{\left\{y_t, x_{t+1}\right\}_{t=0}^T} & \sum_{t=0}^T \beta^t \hat{\mathcal{F}}\left(y_t\right) \\
+        \text { s.t. } & x_{t+1}=h\left(x_t, y_t\right) \\
+        & x_{t+1} \in \Gamma\left(x_t\right) .
+    \end{aligned}
+    \tag{P2} \label{problem-general-dynamic-opt}
+\end{equation}
+其中，$\sum_{t=0}^T \beta^t \hat{\mathcal{F}}\left(y_t\right)$称为目标函数（Objective Function）。
+$\beta$是折现因子，$1/\beta - 1$被称为\textbf{折现率}。由于任意两期间折现因子的比值仅依赖于两期间的间隔，而不依赖具体时刻，
+因此它们又被称为平稳的。简单说，$\frac{\beta^{t+k}}{\beta^t}=\beta^k$。$T$可以取无穷。
+
+序列$\{y_t\}_{t=0}^T$是需要决定的变量，被称为\textbf{控制变量}，例如上面的消费、储蓄。
+序列$\{x_t\}_{t=0}^T$表征了当前系统的状态，被称为\textbf{状态变量}，例如上面每期的初始资产（债务）。
+控制变量和状态变量由约束$x_{t+1}=h(x_t,y_t)$相联系，例如$h$可能是上面的预算约束。初始状态$x_0$是外生给定的。
+一般，控制变量和状态变量是不难区分开的：注意到，如果个体在第0期选择了$y_0$，那么由于$x_0$外生给定，
+下期的状态$x_1$自动由约束$x_1=h(x_0,y_0)$确定下来；同理，在第1期，个体选择的$y_1$和已经确定的$x_1$决定了下期的状态$x_2$，
+依次类推。简单说，$t$期选择的最优控制变量决定了$t+1$期的状态变量。
+$\Gamma\left(x_t\right)$是可行集，它表示：给定当前状态$x_t$，$x_{t+1}$的可取值范围。
+
+我们希望建立的优化问题是良定义的（解存在），这需要一些假设。由瓦尔斯特拉斯定理：连续函数在非空紧集上可以取到最大和最小值。
+其中，紧集即为有界闭集。使这一定理适用的充分条件如下：
+（1）$\hat{\mathcal{F}}\left(y_t\right)$对所有$y_t$连续；
+（2）$h(x_t,y_t)$连续，关于所有$(x_t,y_t)$严格单调；
+（3）$\Gamma\left(x_t\right)$对所有$x_t$是非空有界闭集。
+其中第2条假设使我们可以将$y_t$表达为$(x_t,x_{t+1})$的（连续）函数，进而单期目标函数$\hat{\mathcal{F}}\left(y_t\right)$
+可以写成关于向量$(x_t,x_{t+1})$的连续函数。因此，我们得到了总体上连续的函数（关于序列$\{x_1,x_2,\cdots,x_T,x_{T+1}\}$），
+我们要在非空紧集上对其最大化。由定理，这是可以实现的。
+
+我们可以将前面建立的消费-储蓄模型对应到这一一般形式上。其中，单期目标函数$\hat{\mathcal{F}}\left(\cdot\right)$
+即为效用函数$u\left(\cdot\right)$；控制变量$y_t$由消费序列$\{c_t\}_{t=0}^T$构成；
+状态变量$x_t$是资产：$x_t=a_t$；约束$h(a_t,c_t)=w_t+(1+r_t)a_t-c_t$；
+可行集为$\Gamma\left(a_t\right)=\left[\underline{a}, w_t+\left(1+r_t\right) a_t\right]$，其中上界确保了储蓄不超过当期收入，
+即消费的非负性。
+
+
+% 1.1.4 ===== 一般化问题的序列解 =====
+\subsection{有限期情形下的序列解}
+
+我们已经利用拉格朗日函数和库恩塔克定理求解出了一个特定的两期、线性约束的\textbf{序列问题}。
+但是，对一般化形式的动态优化问题，若其中的约束$h$是非线性的，我们可能无法构建终身预算约束，这样的序列问题还能够求解吗？
+事实上，对一般化问题，只要$T$取\textbf{有限值}，库恩塔克定理依然使用。我们直接给出相应结论：
+\footnote{在无限期情形下也存在类似结论，我们届时将会证明。而证明过程中也包含有限期情形，因此此处证明略去。}
+\begin{property}
+    对一般化的动态优化问题\cref{problem-general-dynamic-opt}：
+    \begin{equation*}
+        \begin{aligned}
+            \max _{\left\{y_t, x_{t+1}\right\}_{t=0}^T} & \sum_{t=0}^T \beta^t \hat{\mathcal{F}}\left(y_t\right) \\
+            \text { s.t. } & x_{t+1}=h\left(x_t, y_t\right) \\
+            & x_{t+1} \in \Gamma\left(x_t\right) .
+        \end{aligned}
+    \end{equation*}
+    在\textbf{有限期情形}下，记$\Gamma\left(x_t\right)=\left[\underline{x}, \gamma\left(x_t\right)\right]$，
+    利用约束$x_{t+1}=h(x_t,y_t)$可以解得$y_t$，记为$y_t=\hat{h}(x_t,x_{t+1})$，将其带入当期目标函数，
+    可记$\mathcal{F}\left(x_t, x_{t+1}\right) \equiv \hat{\mathcal{F}}\left(\hat{h}\left(x_t, x_{t+1}\right)\right)$，
+    从而我们可得改写后的最大化问题：
+    \begin{equation*}
+        \max _{\left\{x_{t+1} \in \Gamma\left(x_t\right)\right\}_{t=0}^T} 
+            \sum_{t=0}^T \beta^t \mathcal{F}\left(x_t, x_{t+1}\right)
+    \end{equation*}
+    假设$\mathcal{F}\left(x_t, x_{t+1}\right)$关于第一个参数递增，关于第二个参数递减，连续可微，并且关于$(x_t,x_{t+1})$凹。
+    若成立：
+    \begin{itemize}
+        \item $\mathcal{F}_2\left(x_t^*,x_{t+1}^*\right)+\beta\mathcal{F}_1\left(x_{t+1}^*,x_{t+2}^*\right)=0,~\forall t<T$，
+            其中$\left\{x_{t+1}^*\right\}_{t=0}^{T-1} \in \operatorname{int} \Gamma\left(x_t\right)$；
+        \item $x_{T+1}^{*}=\underbar{x}$；
+    \end{itemize}
+    那么序列$\{x_{t+1}^*\}_{t=0}^T$最大化目标。
+\end{property}
+
+这一结论表明，对\textbf{有限期动态优化问题}：末期的最优选择是可行集的下界$\underbar{x}$；
+$t<T$时的\textbf{内点解}满足一阶条件，这一条件是一般化问题的欧拉方程。注意到，共有关于$T+2$个未知变量（即状态序列）的$T+2$个方程，
+以及一个期初和一个终期条件。通常称之为状态变量序列的\textbf{差分方程}。由于方程中存在$x$的两期滞后项，因此这是一个二阶差分方程。
+又由于未知量数目等于方程数目，因此这一差分系统是有解的。
+
+
+% 1.1.5 ===== 一般化问题的序列解 =====
+\subsection{无限期情形、非庞氏条件与横截性条件}
+
+无限期情形相比于有限期情形的优点在于：个体问题是\textbf{平稳}的，即$t$期的最优化问题与$t+1$期的最优化问题完全一致
+（只要两期起始的资本存量水平相同）；而在有限期情形下，最优决策是与剩余时间相关的（在后面我们将举例）。
+但是，无限期设定也会带来相应问题，其中最为核心的是：由于要求解的（无穷）最优序列不再是欧几里得空间中的元素，动态优化问题的解是否还存在？
+具体看：假设需要最大化函数$U(x)$，$x\in S$，其中$S$是包含无穷序列的集合。
+我们提到，若函数$U$连续，$S$是非空紧集，那么可以利用威尔斯特拉斯定理。这里的连续、紧、开闭对于有限维序列集合是容易定义的；
+但是对无穷维序列，如何定义连续、集合开闭、紧集等？
+事实上，对无限期情形，的确需要一些额外条件来保证问题是良定义的，Stokey \& Lucas（1989）解决了这些问题，我们不再具体讨论。
+我们给出一些导致解不存在的例子来帮助理解。
+
+\begin{example}
+    \textbf{无界效用/无界报酬}：目标函数的连续性需要有界性来保障。确保终身效用$U$有界的一个必要条件是：消费流不会产生无限效用。
+    若存在两个消费流，他们都产生无限效用，那么他们就无法被比较，导致最大化问题不是良定义的。考虑如下一个消费流：
+    $\{c_t\}_{t=0}^{\infty} = \{\bar{c}\}_{t=0}^{\infty}$。只有$\beta<1$时，
+    $U = \sum_{t=0}^{\infty}\beta^t u(\bar{c})$才是有界的。
+\end{example}
+
+\begin{example}
+    \textbf{可行集过大}：可行集范围过大也可能导致问题不是良定义的。典型的例子就是上面消费储蓄模型中的借款上限，这一约束条件
+    使得可行集有界，进而确保了解的存在性。但是，对任意时刻$t$施加$a_{t+1}\geq\underbar{a}$过于严格，可能导致一些可行方案被挤出。
+    我们可以只对\textbf{终端}施加约束$a_{T+1}\geq 0$，即个体在最后不能借款。这一\textbf{终端约束}（Terminal Constraint）十分重要，
+    否则，个体存在积累无穷债务至终期的激励。但是，由于债权方知道债务方的这一计划，即一定会被违约，因此无人会提供资金。
+
+    在\textbf{无限期情形下}，由于没有终结时间，因此此前的终端约束失去了意义，但是我们仍然需要一个条件来排除庞氏骗局（Ponzi Scheme），
+    即债务现值超过收入现值（个体无限地滚动债务来借新还旧）。我们称这样的条件为\textbf{非庞氏条件}（No Ponzi Game Condition），
+    它确保了可行集不会过大，否则个体将能获得任意高的效用水平。下面通过具体例子来认识：
+\end{example}
+
+\begin{example} \label{eg-npg-condition}
+    \textbf{非庞氏条件}：假设个体初始净资产为$a_0$，代表对其他个体的索取权，假设没有其余收入来源，利率$r>0$，从而预算约束为：
+    \begin{equation*}
+        c_t+a_{t+1}=(1+r) a_t, \forall t \geq 0
+    \end{equation*}
+    假设个体最优消费有如下一组待选解$\{c_t^*\}_{t=0}^{\infty}$。若没有其余约束，那么个体可以用如下方案改善消费：
+    \begin{itemize}
+        \item 令$\tilde{c}_0 = c_0^*+\epsilon,~\epsilon > 0$，进而令$\tilde{a}_1=a_1^*-\epsilon$；
+        \item 对每一期$t\geq 1$，保留$\tilde{c}_t=c_t^*$即可并令$\tilde{a}_{t+1}=a_{t+1}^*-\epsilon(1+r)^t$。
+    \end{itemize}
+    给定严格递增的效用函数，在新消费配置下，个体明显效用更好，并且预算约束序列全部满足。但是，这一改善方案对任一可行消费序列均成立，
+    因此不可能找到最大值。并且注意到，在这一配置方案下，个体的债务以$1+r$无界增长：即在每期$t$都借$(1+r)a_t$来滚动债务，
+    这正是上面所说的庞氏骗局。因此在\textbf{无限期情形下}，必须施加\textbf{非庞氏条件}，它具有如下形式：
+    \begin{equation}    \label{eq-npg-condition}
+        \lim _{t \rightarrow \infty} \frac{a_{t+1}}{(1+r)^t} \geq 0
+    \end{equation}
+    这一约束的作用十分直观：个体在借贷过程中终端（无穷远处）资产的现值不能为负，否则他们不会偿还债务。
+
+    利用非庞氏条件，我们可以简化原来的无穷预算约束序列：
+    首先，用第1期的预算约束表达出$a_1$，即$a_1 = (c_1+a_2)/(1+r)$，将其表达式代回第0期的预算约束，
+    从而得到包含$c_0,c_1,a_0,a_2$的第0期预算约束为：
+    \begin{equation*}
+        c_0+\frac{c_1}{1+r} = a_0(1+r) - \frac{a_2}{1+r}
+    \end{equation*}
+    其次，用第2期的预算约束表达出$a_2$，即$a_2 = (c_2+a_3)/(1+r)$，将其表达式代入上一步更新的预算约束可得：
+    \begin{equation*}
+        c_0+\frac{c_1}{1+r}+\frac{c_2}{(1+r)^2} = a_0(1+r) - \frac{a_3}{(1+r)^2}
+    \end{equation*}
+    依次类推，在$T$次后，第0期的预算约束被更新为：
+    \begin{equation*}
+        \sum_{t=0}^T c_t \frac{1}{(1+r)^t}=a_0(1+r)-\frac{a_{T+1}}{(1+r)^T}
+    \end{equation*}
+    取极限得到：
+    \begin{equation}    \label{eq-bc-cs-infinite}
+        \sum_{t=0}^{\infty} c_t \frac{1}{(1+r)^t}
+            = a_0(1+r)-\lim _{T \rightarrow \infty} \frac{a_{T+1}}{(1+r)^T} \leq a_0(1+r)
+    \end{equation}
+    其中不等号是根据非庞氏条件而来。\cref{eq-bc-cs-infinite}就是\textbf{无限期情形下的终身预算约束}。
+\end{example}
+
+无限期情形下的非庞氏博弈条件是由有限期情形下的终端条件$a_{T+1}\geq 0$扩展而来的。更一般化的，
+宏观经济学家提出了\textbf{自然债务限制}（Natural Debt Limit）的概念，它是保障个体还款的最弱条件
+（即设置未来消费全部为0时，能够偿还的数额的现值），它同时适用于有限期和无限期。在上面特定的例子中，
+自然债务限制时刻为0。不过一般来说，它依赖于未来的非资产收入流，我们在第\ref{ch-equilibrium}章均衡和完全市场理论中将会看到。
+
+更进一步看，只要效用函数严格递增，$\lim\limits_{T\rightarrow \infty}a_{T+1}/(1+r)^T$就不可能为正数：
+因为资产本身不会带来效用，从而只要其为正，最优的选择就是将其消费完，即：
+\begin{equation}    \label{eq-tvc}
+    \lim _{T \rightarrow \infty} \frac{a_{T+1}}{(1+r)^T} \leq 0
+\end{equation}
+\cref{eq-tvc}被称为\textbf{横截性条件}（Transversality Condition，TCV），它\textbf{保证了选择的最优性}。
+又由于非庞氏条件\cref{eq-npg-condition}表明$\lim\limits_{T\rightarrow \infty}a_{T+1}/(1+r)^T\geq 0$，因此有：
+\begin{equation}
+    \lim _{T \rightarrow \infty} \frac{a_{T+1}}{(1+r)^T} = 0
+\end{equation}
+也就是说，只要效用函数严格递增，终身预算约束\cref{eq-bc-cs-infinite}就会取等号，即消费完所有资源：
+\begin{equation}
+    \sum_{t=0}^{\infty} c_t \frac{1}{(1+r)^t}=a_0(1+r)
+\end{equation}
+换句话说，\textbf{预算约束取等}就是由\cref{eq-bc-cs-infinite}（由\textbf{非庞氏条件}\cref{eq-npg-condition}而来）
+和\textbf{横截性条件}\cref{eq-tvc}组合得到的。
+
+\textbf{需要注意：非庞氏条件和TVC在本质上是不同的}：
+前者是对个体消费路径的限制，\textbf{保证解的存在性}；
+后者则是个体自我施加的条件（Self-imposed Condition），或者说是\textbf{保证最优性的条件}。
+在有限期情形下，个体终期选择不进行储蓄是直观的；但在无限期情形下，没有这样的终期条件来帮助我们确定解序列，
+因此符合一阶条件的差分方程可能有无穷多解。为了确定一组解，我们施加\textbf{TVC}这一额外的最优性条件。
+
+下面将给出一个充分性的性质，这一性质表明：对凸优化问题（目标函数凹，可行集凸），若某一序列满足库恩塔克一阶条件和TVC，
+那么这一序列达到了优化问题的最大值。
+
+\begin{property}    \label{property-dynamic-opt-general}
+    考虑一般化形式的动态优化问题\cref{problem-general-dynamic-opt}：
+    \begin{equation*}
+        \begin{aligned}
+            \max _{\left\{y_t,x_{t+1}\right\}_{t=0}^T} & \sum_{t=0}^T\beta^t\hat{\mathcal{F}}\left(y_t\right) \\
+            \text { s.t. } & x_{t+1}=h\left(x_t, y_t\right) \\
+            & x_{t+1} \in \Gamma\left(x_t\right) .
+        \end{aligned}
+    \end{equation*}
+    用$x_{t+1} = h(x_t,y_t)$替换目标中的$y_t$，从而最大化目标可以写为：
+    \begin{equation*}
+        \max _{\left\{x_{t+1} \in \Gamma\left(x_t\right)\right\}_{t=0}^{\infty}}
+            \sum_{t=0}^{\infty} \beta^t \mathcal{F}\left(x_t, x_{t+1}\right)
+    \end{equation*}
+    若对所有$t$，$x_{t+1}^* \in \operatorname{int} \Gamma\left(x_t\right)$满足如下条件：
+    \begin{itemize}
+        \item \textbf{欧拉方程}：
+            $\mathcal{F}_2\left(x_t^*,x_{t+1}^*\right)+\beta\mathcal{F}_1\left(x_{t+1}^*,x_{t+2}^*\right)=0,~\forall t$
+        \item \textbf{TVC}：$\lim\limits_{t\rightarrow\infty}\beta^t \mathcal{F}_1\left(x_t^*,x_{t+1}^*\right) x_t^*=0$
+    \end{itemize}
+    并且$\mathcal{F}(x_t,x_{t+1})$关于$(x_t,x_{t+1})$联合凹，关于第一个变量递增，可行集$\Gamma(x)$对所有$x$是凸集，
+    那么$\{x_{t+1}^*\}$使得目标函数最大化。
+\end{property}
+
+\begin{proof}
+    考虑另一个可行的内点序列$\mathbf{x} \equiv\left\{x_{t+1}\right\}_{t=0}^{\infty}$，
+    即序列中所有元素都是可行集$\Gamma(x_t)$的内点，往证对任意这样的序列，成立：
+    \begin{equation*}
+        \lim _{T \rightarrow \infty} \sum_{t=0}^T \beta^t
+            \left[\mathcal{F}\left(x_t^*, x_{t+1}^*\right)-\mathcal{F}\left(x_t, x_{t+1}\right)\right] \geq 0
+    \end{equation*}
+    定义：
+    \begin{equation*}
+        A_T(\mathbf{x}) \equiv 
+            \sum_{t=0}^T\beta^t\left[\mathcal{F}\left(x_t^*,x_{t+1}^*\right)-\mathcal{F}\left(x_t,x_{t+1}\right)\right]
+    \end{equation*}
+    我们只需证明，当$T$趋向于无穷，$A_T(\mathbf{x})$的下界由0保证。
+
+    由于目标$\mathcal{F}$是凹的，因此：
+    \begin{equation*}
+        A_T(\mathbf{x}) \geq 
+            \sum_{t=0}^T \beta^t
+            \left[\mathcal{F}_1\left(x_t^*, x_{t+1}^*\right)\left(x_t^*-x_t\right)
+                +\mathcal{F}_2\left(x_t^*, x_{t+1}^*\right)\left(x_{t+1}^*-x_{t+1}\right)\right]
+    \end{equation*}
+    注意到对任意$t$，$x_{t+1}$在求和中出现了两次，上式可整理为：
+    \begin{equation*}
+        \begin{aligned}
+            A_T(\mathbf{x}) \geq & \sum_{t=0}^{T-1} \beta^t
+            \left\{\left(x_{t+1}^*-x_{t+1}\right)\left[\mathcal{F}_2\left(x_t^*, x_{t+1}^*\right)
+                +\beta \mathcal{F}_1\left(x_{t+1}^*, x_{t+2}^*\right)\right]\right\} \\
+            & +\mathcal{F}_1\left(x_0^*, x_1^*\right)\left(x_0^*-x_0\right)
+                + \beta^T \mathcal{F}_2\left(x_T^*, x_{T+1}^*\right)\left(x_{T+1}^*-x_{T+1}\right)
+        \end{aligned}
+    \end{equation*}
+    又由一阶条件（欧拉方程）：
+    \begin{equation*}
+        \mathcal{F}_2\left(x_t^*,x_{t+1}^*\right)+\beta\mathcal{F}_1\left(x_{t+1}^*,x_{t+2}^*\right)=0
+    \end{equation*}
+    以及$x_0^*-x_0=0$（因为$x_0$是给定的），从而化简可得：
+    \begin{equation*}
+        A_T(\mathbf{x}) \geq \beta^T \mathcal{F}_2\left(x_T^*, x_{T+1}^*\right)\left(x_{T+1}^*-x_{T+1}\right)
+    \end{equation*}
+    此外,根据$\mathcal{F}_2\left(x_T^*,x_{T+1}^*\right) = - \beta\mathcal{F}_1\left(x_{T+1}^*,x_{T+2}^*\right)$：
+    \begin{equation*}
+        A_T(\mathbf{x}) \geq \beta^{T+1} \mathcal{F}_1\left(x_{T+1}^*, x_{T+2}^*\right)\left(x_{T+1}-x_{T+1}^*\right) 
+            \geq-\beta^{T+1} \mathcal{F}_1\left(x_{T+1}^*, x_{T+2}^*\right) x_{T+1}^*
+    \end{equation*}
+    对此前$T$有限的情形，终期的最优选择显然为$x_{T+1}^*=0$，即不再储蓄（或积累资本）；
+    而当$T$趋于无穷，根据\textbf{TVC}，最后一个不等式右侧趋于0。
+    也就是说，新的可行路径$\mathbf{x} \equiv\left\{x_{t+1}\right\}_{t=0}^{\infty}$比$\{x_{t+1}^*\}$下获得的效用低。
+\end{proof}
+
+
+% 1.1.6 ===== 无限期情形下的消费-储蓄模型
+\subsection{无限期情形下的消费-储蓄模型}
+
+我们之前利用拉格朗日函数和库恩塔克条件得到了有限期（两期）消费储蓄模型的解；
+在此基础上引出了动态优化问题的一般化形式，并分别讨论了有限期和无限期情形下动态优化问题最优解的相关条件。
+在本节，我们将利用相应结论，完整求解无限期的消费-储蓄模型。
+
+假设对数效用函数$u(c) = \log c$，个体优化问题为：\footnote{为了得到显示解方面理解，我们进行了部分改动，省去了外省禀赋流。}
+\begin{equation*}
+    \begin{aligned}
+        \max _{\left\{c_t, a_{t+1}\right\}_{t=0}^{\infty}} & \sum_{t=0}^{\infty} \beta^t \log c_t \\
+        \text { s.t. } & c_t+a_{t+1}=a_t(1+r), ~\forall t \geq 0 \\
+        & non-ponzi-game \text { condition. }
+    \end{aligned}
+\end{equation*}
+这里，预算约束取等号已经蕴含了TVC条件（在无穷远处拥有现值为正的储蓄不是最优的）。
+与\cref{eg-npg-condition}一致，我们将预算约束序列写为终身预算约束：
+\begin{equation*}
+    \sum_{t=0}^{\infty} c_t\left(\frac{1}{1+r}\right)^t=a_0(1+r)
+\end{equation*}
+利用拉格朗日函数容易得到一阶条件为：
+\begin{equation*}
+    \beta^t \frac{1}{c_t}=\lambda\left(\frac{1}{1+r}\right)^t, ~\forall t \geq 0
+\end{equation*}
+其中$\lambda$是与终身预算约束对应的拉格朗日乘子。令$t=0$，从而$\lambda = 1/c_0$，因此：
+\begin{equation*}
+    c_t = \left[\beta(1+r)\right]^tc_0, ~\forall t \geq 1
+\end{equation*}
+将上式代入终身预算约束可得：
+\begin{equation*}
+    \begin{aligned}
+        \sum_{t=0}^{\infty} \beta^t(1+r)^t \frac{1}{(1+r)^t} c_0 & =a_0(1+r) \\
+        c_0 \sum_{t=0}^{\infty} \beta^t & =a_0(1+r)
+    \end{aligned}
+\end{equation*}
+从而我们解得了：
+\begin{equation*}
+    c_0 = a_0(1-\beta)(1+r)
+\end{equation*}
+后续消费序列均可由$c_t=\left[\beta(1+r)\right]^tc_0$得到。
