@@ -1,0 +1,206 @@
+% 2.2 =============== 递归形式下的最优增长模型 ===============
+
+\section{递归形式下的最优增长模型}  \label{sec-rck-fe}
+
+通常，将序列问题转化为递归形式能够帮助我们更好地进行分析。当一个动态问题被写为递归形式后，经济的行为唯一依赖的就是\textbf{状态变量}。
+此外，目前已经发展出了许多与递归问题相关的方便的计算方法，我们将在后面的章节详细学习。
+在本节，我们将会把无限期最优增长模型写为递归形式，基于上一节的思路和工具，深入研究动态规划的相关理论方法。
+
+
+% 2.2.1 ===== 贝尔曼方程与一阶条件 =====
+\subsection{贝尔曼方程与一阶条件} \label{subsec-rck-bellman-foc}
+
+对于无限期最优增长模型，不难看出问题是平稳的，状态变量是每期的期初资本存量$k$，值函数仅依赖于$k$，
+给定不同的资本存量将会得到不同的最优化序列和最优值。因此我们可以将值函数记为$v(k)$。控制变量是$c = f(k)+(1-\delta)k-k^{\prime}$。
+为了记号方便，记$\gamma(k)\equiv f\left(k\right)+\left(1-\delta\right)k$，从而RCK模型的贝尔曼方程为：
+\begin{equation}    \label{eq-rck-bellman}
+    v\left(k\right) = \max _{k^{\prime}\in \Gamma(k)}
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+\end{equation}
+其中，可行集$\Gamma(k) = \left[0,\gamma(k)\right],~\forall k$。记其决策规则为$k^{\prime}=g(k)$：
+\begin{equation*}
+    g\left(k\right) \equiv \underset{k^{\prime}\in\Gamma(k)}{\operatorname{argmax}}
+        [u(\gamma\left(k\right)-k^{\prime})+\beta v\left(k^{\prime}\right)]
+\end{equation*}
+与上一节类似，\textbf{假设值函数$v\left(\cdot\right)$已知}，那么贝尔曼方程就被就简化为一个两期优化问题：
+\begin{equation*}
+    \max _{k^{\prime}\in\Gamma(k)}
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+\end{equation*}
+对$k^{\prime}$求导可得\textbf{一阶条件}：
+\begin{equation}    \label{eq-rck-bellman-foc}
+    u^{\prime}\left(\gamma\left(k\right)-k^{\prime}\right) = \beta v^{\prime}\left(k^{\prime}\right)
+\end{equation}
+假设存在决策规则时内点解，从而$k^{\prime}=g(k)$满足一阶条件，即：
+\begin{equation}    \label{eq-rck-bellman-foc-opt}
+    u^{\prime}\left(\gamma(k)-g(k)\right) = \beta v^{\prime}\left(g(k)\right)
+\end{equation}
+
+在序列问题下，结合一阶条件和边界条件，理论上可以解得最优序列。
+但是，对于递归问题，正如上一节指出的，\textbf{核心问题在于}：$v$未知，进而$v^{\prime}$也未知。换句话说，我们需要得到$v^{\prime}$。
+不过我们已经知道，通过包络定理，我们可以很方便的得到$v^{\prime}$，进而得到欧拉泛函。下面进一步求解这一最优条件。
+
+
+% 2.2.2 ===== Euler =====
+\subsection{包络定理与欧拉泛函} \label{subsec-rck-euler-fe}
+
+注意到，在问题取到最优，即$k^{\prime}=g\left(k\right)$时，贝尔曼方程的最大化算子消去，对任意$k$下式恒成立：
+\begin{equation*}
+    v\left(k\right) = 
+        u\left(\gamma\left(k\right)-g\left(k\right)\right)+\beta v\left(g\left(k\right)\right),\quad \forall k
+\end{equation*}
+方程两边同时对$k$做微分可得：
+\begin{equation}
+    \begin{aligned}
+    v^{\prime}\left(k\right) 
+    &= u^{\prime}\left(\gamma\left(k\right)-g\left(k\right)\right)
+            \left(\gamma^{\prime}\left(k\right)-g^{\prime}\left(k\right)\right)
+            + \beta v^{\prime}\left(g\left(k\right)\right)g^{\prime}\left(k\right) \\
+    &= u^{\prime}\left(\gamma\left(k\right)-g\left(k\right)\right)\gamma^{\prime}\left(k\right) 
+            -u^{\prime}\left(\gamma\left(k\right)-g\left(k\right)\right)g^{\prime}\left(k\right) 
+            + \beta v^{\prime}\left(g\left(k\right)\right)g^{\prime}\left(k\right) \\
+    & = u^{\prime}\left(\gamma\left(k\right)-g\left(k\right)\right)\gamma^{\prime}\left(k\right)
+            +g^{\prime}\left(k\right)\left[-u^{\prime}\left(\gamma\left(k\right)-g\left(k\right)\right)
+            +\beta v^{\prime}\left(g\left(k\right)\right)\right] \\
+    &= \underbrace{u^{\prime}\left(c\right)\left[f^{\prime}\left(k\right)
+            +\left(1-\delta\right)\right]}_{\text{k变化的直接效应}}
+            + \underbrace{\left[-u^{\prime}\left(c\right)+\beta v^{\prime}\left(g\left(k\right)\right)\right]
+            g^{\prime}\left(k\right)}_{\text{选择最优$k^{\prime}=g\left(k\right)$的间接效应}}
+    \end{aligned}
+\end{equation}
+由于决策规则满足一阶条件，即有\cref{eq-rck-bellman-foc-opt}成立
+将其带入全微分的恒等式,发现右侧第二项中括号部分为0——即由选择最优$k^{\prime}=g(k)$带来的间接影响为0，进而得到值函数导数为：
+\begin{equation}    \label{eq-rck-v-prime}
+    \begin{aligned}
+        v^{\prime}\left(k\right) &= 
+            u^{\prime}\left(\gamma\left(k\right)-g\left(k\right)\right)\gamma^{\prime}\left(k\right) \\
+        &\equiv u^{\prime}\left(c\right)\left[f^{\prime}\left(k\right)+1-\delta\right] 
+    \end{aligned}
+\end{equation}
+同样，推导过程实际就是\textbf{包络定理}的应用：状态变量$k$的变化会通过两条途径影响值函数：
+\begin{itemize}
+    \item 直接路径：$k$变化-当期产出$f\left(k\right)$变化-消费$c$变化
+    \item 间接路径：$k$变化-最优选择$k^{\prime}$变化-影响未来效用$v\left(k^{\prime}\right)$
+\end{itemize}
+而包络定理表明，由于一阶条件的最优性，间接效应被抵消，只剩下直接效应。
+基于所得到的值函数导数\cref{eq-rck-v-prime}，可进一步知道在$g(k)$处有：
+\begin{equation*}
+    v^{\prime}\left(g(k)\right) = 
+        u^{\prime}\left(\gamma\left(g(k)\right)-g\left(g(k)\right)\right)\gamma^{\prime}\left(g(k)\right)
+\end{equation*}
+进而可以将最优时的一阶条件\cref{eq-rck-bellman-foc-opt}进一步写为\textbf{欧拉泛函}：
+\begin{equation}   \label{eq-rck-euler-fe}
+    \begin{aligned}
+        u^{\prime}\left(\gamma\left(k\right)-g\left(k\right)\right) &= 
+            \beta v^{\prime}\left(g\left(k\right)\right) \\
+        &= \beta u^{\prime}\left(\gamma\left(g\left(k\right)\right)-g\left(g\left(k\right)\right)\right)
+            \gamma^{\prime}\left(g\left(k\right)\right)
+    \end{aligned}
+\end{equation}
+也即：
+\begin{equation*}
+    u^{\prime}\left(c\right)=\beta u^{\prime}\left(c^{\prime}\right)
+        \left[f^{\prime}\left(k^{\prime}\right)+\left(1-\delta\right)\right]
+\end{equation*}
+回顾此前序列问题中得到的欧拉方程：
+\begin{equation*}
+    \frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
+\end{equation*}
+
+二者形式十分近似，但有着重要区别：前者要求解的未知量是资本的无穷序列值；后者是一个泛函，未知量是策略函数$g$。
+
+与前一节类似，贝尔曼方程与欧拉泛函对应了两种不同的解法思路：基于值函数求解和基于策略函数求解。我们将在后面展开具体研究。
+但在此之前，我们在将先学习泛函分析的数学工具，进而建立值函数与策略函数的相关性质，为分析模型性质和具体求解奠定基础。
+
+
+% 2.2.3 ===== 引例 =====
+\subsection{引利：连续逼近法求解}
+
+为了理解使用数学工具的必要性，在此处先抛出一个引例。事实上，如果能够解决这个问题，值函数的性质与解法自然得到证明。
+目前，我们虽然推出了欧拉泛函这一最优条件，但对于最为关注的初始目标——值函数$v$的形式、存在性与唯一性等还没有任何认识。
+
+上述递归问题的古典方法是连续逼近法（Method of Successive Approximations）。对于RCK模型的贝尔曼方程：
+\begin{equation*}
+    v\left(k\right)=\max_{k^{\prime}\in\Gamma(k)}
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+\end{equation*}
+我们的一种思路是从这个泛函中直接求解值函数$v$。假设有任意的一个备选函数$v_0\left(k\right)$。接着，定义一个新的值函数：
+\begin{equation*}
+    v_1\left(k\right) = \max_{k^{\prime}}
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v_0\left(k^{\prime}\right)\right]
+\end{equation*}
+如果对所有$k\geq 0$，都有$v_0\left(k\right)=v_1\left(k\right)$，那么我们幸运地解决了问题。
+但通常$v_0\left(k\right) \neq v_1\left(k\right)$，继续迭代：
+\begin{equation*}
+    v_{n+1}\left(k\right) = \max _{k^{\prime}}
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v_n\left(k^{\prime}\right)\right],\quad n = 0,1,\dots
+\end{equation*}
+我们感兴趣的是：当\textbf{迭代次数}$n$趋于无穷时，$v_n$如何变化？
+
+为了分析这一问题，首先，假设有一个可行（feasibale）策略$g_0\left(k\right)$，这个策略未必是最优的，
+因此被称为次优策略（Suboptimal Policy），引入的目的是作为逼近法的初始猜测。
+定义$v_0\left(k\right)$是这个次优策略下对应的值函数值：
+\begin{equation*}
+    v_0\left(k_0\right) = \sum_{t=0}^{\infty} \beta^t u\left(\gamma\left(k_t\right)-g_0\left(k_t\right)\right)
+\end{equation*}
+其中资本路径由$k_{t+1}=g_0\left(k_t\right)$生成。显然，如下递归形式恒成立：
+\begin{equation*}
+    v_0\left(k\right) = u\left(\gamma\left(k\right)-g_0\left(k\right)\right) + \beta v_0\left(g_0\left(k\right)\right)
+\end{equation*}
+此时，我们通过假定一个可行的次优策略$g_0\left(k\right)$，得到了上面所说的备选值函数$v_0\left(k\right)$。
+接着，根据上面$n$的迭代法则，可得到：
+\begin{equation*}
+    \begin{aligned}
+        v_1\left(k\right) &= \max _{k^{\prime}}\left[u\left(\gamma\left(k\right)-k^{\prime}\right) 
+            + \beta v_0\left(k^{\prime}\right)\right] \\
+        &\geq \left[u\left(\gamma\left(k\right)-g_0\left(k\right)\right) 
+            + \beta v_0\left(g_0\left(k\right)\right)\right] \\
+        &= v_0\left(k\right)   
+    \end{aligned}
+\end{equation*}
+其中大于等于号是因为：若我们今天能取到方程最大化的最优值，它一定优于任意取的可行次优策略
+（计划者不会比始终遵循策略$g_0(k)$做得更差）。类似地，继续进行迭代：
+\begin{equation*}
+    \begin{aligned}
+        v_2\left(k\right) &= \max _{k^{\prime}}\left[u\left(\gamma\left(k\right)-k^{\prime}\right) 
+            + \beta v_1\left(k^{\prime}\right)\right] \\
+        &\geq \max _{k^{\prime}}\left[u\left(\gamma\left(k\right)-k^{\prime}\right) 
+            + \beta v_0\left(k^{\prime}\right)\right] \\
+        &= v_1\left(k\right)   
+    \end{aligned}
+\end{equation*}
+最终不难得到：
+\begin{equation*}
+    v_{n+1}\left(k\right) \geq v_{n}\left(k\right),~ n=0,1,\dots
+\end{equation*}
+需要注意,这里的$n$是迭代次数而不是时间标记。回到贝尔曼方程上：
+\begin{equation*}
+    v\left(k\right) = \max _{k^{\prime}}
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+\end{equation*}
+\textbf{定义其右侧为}：
+\begin{equation}    \label{eq-rck-bellman-operator}
+    Tv\left(k\right) \equiv \max _{k^{\prime}} 
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]
+\end{equation}
+$T$是一个\textbf{算子}（Operator）：其输入是一个函数$v$，返回的是一个新的函数$Tv$。
+我们称之为\textbf{贝尔曼算子}（Bellman Operator）。类似地，第$n+1$次迭代过程的\textbf{右侧}可以定义为：
+\begin{equation*}
+    Tv_n\left(k\right) \equiv \max_{k^{\prime}}
+        \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v_n\left(k^{\prime}\right)\right]
+\end{equation*}
+利用这一记号可得：$v_{n+1}=Tv_n, ~ n=0,1,\dots$。进一步将贝尔曼方程\textbf{左侧}纳入观察，
+不难看出，对于贝尔曼方程的求解等价于求解如下的\textbf{不动点问题}（Fixed Point Problem）：
+\begin{equation*}
+    v = Tv
+\end{equation*}
+另外，对上面次优策略下的迭代过程我们已经得到：
+\begin{equation*}
+    v_{n+1}=Tv_n \geq v_n
+\end{equation*}
+与不动点问题相结合来看，我们现在的目标就是证明：当$n$趋于无穷大时，单调递增的函数序列$\{v_n\}$收敛，且极限$v$满足贝尔曼方程。
+这样我们不仅证明了贝尔曼方程的可解性，而且通过迭代实现了一个算法（构造了一个不动点），得到数值解。
+为了研究类似于\cref{eq-rck-bellman-operator}定义的算子，
+我们需要运用相关数学工具。例如，为了证明算子$T$将一个函数空间$C$映射到其自身，我们必须选择合适的函数空间进行研究。
+此外，我们可能还需要相应空间上算子$T$的不动点定理。
+\textbf{后续将看到，我们所需的两个核心工具就是压缩映射定理和Blackwell充分条件}。

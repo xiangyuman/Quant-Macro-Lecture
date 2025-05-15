@@ -4,7 +4,7 @@
 
 \chapter{数值方法}  \label{ch-numerical-methods}
 
-在对确定性最有增长模型数值解的学习中，我们窥见了两种处理思路：
+在对确定性最优增长模型数值解的学习中，我们提出了两种处理思路：
 一是基于值函数（或策略函数）迭代的思路；另一是基于函数逼近直接处理值函数（或策略函数）的思路。
 确定性最优增长模型结构简单，并且状态变量维度很低，只有资本存量$k$，两种方法都可以快速得到其数值解。
 但是，量化宏观模型状态变量的维度通常较高，可能包含多个外生冲击或内生状态变量，部分异质性个体模型可能还涉及无穷维的分布作为状态，
@@ -20,10 +20,30 @@
 
 % =============== main ch3 ===============
 
-\input{parts/part1/p1c3/p1c31-eg-opt-growth.tex}
-\input{parts/part1/p1c3/p1c32-markov.tex}
-\input{parts/part1/p1c3/p1c33-discrete-approximation.tex}
-\input{parts/part1/p1c3/p1c34-numerical-integeration.tex}
-\input{parts/part1/p1c3/p1c35-func-approximation.tex}
-\input{parts/part1/p1c3/p1c36-projection.tex}
-\input{parts/part1/p1c3/p1c37-egm.tex}
+
+% 3.1 ===== consumption saving =====
+\input{parts/part1/p1c3/p1c3-1-eg-opt-growth.tex}
+
+
+% 3.2 ===== consumption saving =====
+\input{parts/part1/p1c3/p1c3-2-markov.tex}
+
+
+% 3.3 ===== consumption saving =====
+\input{parts/part1/p1c3/p1c3-3-discrete-approximation.tex}
+
+% 3.4 ===== consumption saving =====
+\input{parts/part1/p1c3/p1c3-4-numerical-integeration.tex}
+
+
+% 3.5 ===== consumption saving =====
+\input{parts/part1/p1c3/p1c3-5-func-approximation.tex}
+
+
+% 3.6 ===== consumption saving =====
+\input{parts/part1/p1c3/p1c3-6-projection.tex}
+
+
+% 3.7 ===== consumption saving =====
+\input{parts/part1/p1c3/p1c3-7-egm.tex}
+

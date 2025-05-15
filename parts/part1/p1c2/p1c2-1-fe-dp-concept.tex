@@ -1,0 +1,198 @@
+% 2.1 =============== 递归与动态规划的基本概念 ===============
+
+\section{递归与动态规划的基本概念}  \label{sec-fe-dp-concept}
+
+对于第一章中所要求解的动态优化问题，我们的目标是寻找一个最优值序列，通常我们把这样的问题称为\textbf{序列问题}。
+但这一问题形式的求解存在一定不足：处理无限期情形过于复杂，将面临无穷的差分方程序列，我们希望降维。
+Stocky、Lucas等人基于贝尔曼建立的动态规划理论，将序列问题转化为递归形式求解，由此建立了现代宏观的核心方法，
+而递归也成为绝大多数宏观模型的核心特征。
+
+具体看：无穷序列问题可以分解为一期一期的小问题：对于$t+1$期，可以在第$t$期进行选择而不用在第0期进行，即定义从当期到下期的映射，
+这一问题形式被称为\textbf{递归形式}（Recursive Formulation）。
+\textbf{序列问题求解后，我们得到了无穷个数值（Number）；对于递归问题，我们求解所得的是一个方程（Function）,其本质是一个泛函问题}。
+利用泛函方程（Function Equation）对动态优化问题进行研究就是\textbf{动态规划}（Dynamic Programmming），
+这一概念最早由Richard E. Bellman提出。在本节，我们将建立一般化形式的递归问题，进而对动态规划中的基本概念进行初步介绍。
+
+
+% 2.1.1 ===== sq-fe =====
+\subsection{由序列问题转向递归形式}
+
+回忆第\ref{ch-dynamic-opt-sq}章建立的一般化形式的动态优化问题\cref{problem-general-dynamic-opt}：
+\begin{equation*}
+    \begin{aligned}
+        \max _{\left\{y_t, x_{t+1}\right\}_{t=0}^T} & \sum_{t=0}^T \beta^t \hat{\mathcal{F}}\left(y_t\right) \\
+        \text { s.t. } & x_{t+1}=h\left(x_t, y_t\right) \\
+        & x_{t+1} \in \Gamma\left(x_t\right) .
+    \end{aligned}
+\end{equation*}
+利用$x_{t+1}=h(x_t,y_t)$，可将控制变量$y_t$表示为$y_t = \hat{h}(x_t,x_{t+1})$，将其替换到目标函数中，记
+$\mathcal{F}(x_t,x_{t+1})\equiv \hat{\mathcal{F}}\left(\hat{h}(x_t,x_{t+1})\right)$，从而无穷期序列问题可写为：
+\begin{equation*}
+    \max _{\left\{x_{t+1} \in \Gamma\left(x_t\right)\right\}_{t=0}^{\infty}}
+        \sum_{t=0}^{\infty} \beta^t \mathcal{F}\left(x_t, x_{t+1}\right)
+\end{equation*}
+在序列问题形式下，我们在初始时刻选择$x_{t+1}$的全部路径；
+而递归问题和动态规划的核心想法是：\textbf{动态决策不是一次全部做出的，而是一期一期进行的}，
+即$x_{t+1}$的值不是在第0期而是在第$t$期决定的。为了使这一想法更清晰，我们将最优化的序列问题记为：
+\begin{equation}    \label{eq-def-value-func}
+    v\left(x_0\right) \equiv 
+        \max _{\left\{x_{t+1} \in \Gamma\left(x_t\right)\right\}_{t=0}^{\infty}} 
+        \sum_{t=0}^{\infty} \beta^t \mathcal{F}\left(x_t, x_{t+1}\right)
+\end{equation}
+给定$x_t$，$\Gamma(x_t)$是$x_{t+1}$的可行集。
+在这一表达式中，我们称$V(x_0)$为\textbf{值函数}（Value Function），它代表给定起初条件$x_0$，取最优处时目标函数的值。
+我们可以将这一高维问题化简降维：
+\begin{equation}
+    \begin{aligned}
+        v\left(x_0\right) &= \max _{\left\{x_{t+1} \in \Gamma\left(x_t\right)\right\}_{t=0}^{\infty}}
+            \left\{\mathcal{F}\left(x_0, x_1\right) + 
+                \beta \sum_{t=1}^{\infty} \beta^{t-1} \mathcal{F}\left(x_t, x_{t+1}\right)\right\} \\
+        &= \max _{x_1 \in \Gamma\left(x_0\right)}
+            \left\{\mathcal{F}\left(x_0, x_1\right) + 
+                \beta\left[\max _{\left\{x_{t+1} \in \Gamma\left(x_t\right)\right\}_{t=1}^{\infty}} 
+                    \sum_{t=1}^{\infty} \beta^{t-1} \mathcal{F}\left(x_t, x_{t+1}\right)\right]\right\} \\
+        &= \max _{x_1 \in \Gamma\left(x_0\right)}
+            \{\mathcal{F}\left(x_0, x_1\right) + 
+                \beta \underbrace{\left[\max _{\left\{x_{t+2} \in \Gamma\left(x_{t+1}\right)\right\}_{t=0}^{\infty}}
+                    \sum_{t=0}^{\infty}\beta^t\mathcal{F}\left(x_{t+1},x_{t+2}\right)\right]}_{\equiv v\left(x_1\right)}\}
+    \end{aligned}
+\end{equation}
+其中利用了$\max_{x,y}f(x,y) = \max_{y}\{\max_{x}f(x,y)\}$。
+注意到，最后一行等式的中括号中最大化问题的结构和\cref{eq-def-value-func}完全相同，唯一不同的是初始条件变为了$x_1$。
+换句话说，它代表给定初始条件为$x_1$时，决策者选择最优序列$x_{t+1}$下目标函数的值。
+由于时间是无穷的，并且当期目标函数和可行集$\Gamma$都不随时间改变，因此中括号中的表达式正是$V(x_1)$，进而我们得到：
+\begin{equation*}
+    v\left(x_0\right) = 
+        \max _{\left\{x_1 \in \Gamma\left(x_0\right)\right\}}\left\{\mathcal{F}\left(x_0, x_1\right) + 
+            \beta v\left(x_1\right)\right\}
+\end{equation*}
+
+一个自然的问题是：序列问题和递归问题的两种表达形式等价吗？答案是，只要问题是\textbf{平稳的}（Stationary），等价性就存在。
+直观上讲，但只要第$t$期的问题和$t+1$期的问题结构相同，动态优化问题就是平稳的，
+或者说，决策者所有决策相关的信息都与时间无关。因此，平稳性实际包括另一层含义：\textbf{值函数不依赖于时间}。
+实际上，并非所有问题都是平稳的，例如在有限期的最优增长模型中，计划者选择资本时会关注剩余的时间。随着终期接近，决策问题也随之变化。
+此时，问题虽然仍可表征为递归形式，但值函数会依赖于时间，即$v_t$。而在无限期情形下，任意时刻后剩余的时间都是相同的。
+虽然决策会随值函数自变量的不同而改变，但不会受作出这一决策的时刻的影响，在任意时刻与决策唯一相关的就是当期的资本水平。
+
+
+% 2.1.2 ===== 贝尔曼方程 =====
+\subsection{状态变量、贝尔曼方程与决策规则}
+
+一般，我们称对决策者而言前定的（Predetermined）、回报相关度（Payoff-Relevant）的信息为\textbf{状态变量}（State Variable）。
+例如最优增长模型中的当期资本存量$k_t$、一般化形式问题中的$x_t$。当我们把序列问题转化为递归问题时，
+选择合适的状态变量来确保转化后的问题确实具有递归形式是十分重要的。当问题是平稳的，决策的形式也是平稳的：
+\begin{equation*}
+    x_{t+1} = g(x_t)
+\end{equation*}
+即决定未来资本如何依赖于档期状态的函数不依赖于时间。我们称函数$g(\cdot)$为\textbf{决策规则（}Decision Rule）或
+\textbf{策略函数}（Policy Function）。
+
+对任意给定的初始条件$x_t$，我们可以将递归问题写为：
+\begin{equation*}
+    v\left(x_t\right) = 
+        \max _{x_{t+1} \in \Gamma\left(x_t\right)}
+        \left\{\mathcal{F}\left(x_t, x_{t+1}\right)+\beta v\left(x_{t+1}\right)\right\}
+\end{equation*}
+这一问题形式被称为\textbf{动态规划}（Dynamic Programming）。
+不难看出，对平稳的无限期问题是，那么时间记号并不重要，以记号$x$表示状态变量的当期值，以记号$x^{\prime}$表示下期值，
+从而动态规划问题为：
+\footnote{我们也可以将贝尔曼方程形式写为如下形式$v(x)=\max _{y \in \Gamma(x)}\left\{\mathcal{F}\left(x, y\right)
++\beta v\left(x^{\prime}\right)\right\}$，只是记号差异，分析并没有本质不同。
+因为一旦确定了$y_t$，就相当于确定了$x_{t+1}$。我们在后面将频繁看到这一记号的使用。}
+\begin{equation}    \label{eq-dp-bellman}
+    v(x) = \max _{x^{\prime} \in \Gamma(x)}
+        \left\{\mathcal{F}\left(x, x^{\prime}\right)+\beta v\left(x^{\prime}\right)\right\}
+\end{equation}
+这一方程就是\textbf{贝尔曼方程}（Bellman Equation）。
+注意到，方程左右两侧都包含值函数$V(\cdot)$，但是我们并不知道其具体形式，即方程的未知量是函数$v(\cdot)$:
+对任意$x$，$v(\cdot)$都需满足\cref{eq-dp-bellman}。因此，贝尔曼方程本质是一个\textbf{泛函方程}（Functional Equation）。
+记函数$g(\cdot)$使贝尔曼方程取最大化，即：
+\begin{equation*}
+    g(x) = \arg \max _{x^{\prime} \in \Gamma(x)}
+        \left\{\mathcal{F}\left(x, x^{\prime}\right)+\beta v\left(x^{\prime}\right)\right\}
+\end{equation*}
+因此对所有$x$，下期$x^{\prime}$的决策规则为：$x^{\prime}=g(x)$。
+需要注意，在当前记号下，我们实际假定了最大值存在并且唯一。否则，$g$可能不存在或者说不是一个函数而是对应（Corresponsence）。
+
+
+% 2.1.3 ===== 欧拉泛函 =====
+\subsection{欧拉泛函}
+
+在序列问题下，通过求解一阶条件得到的欧拉方程是刻画解特征的关键。
+自然的，我们希望通过对贝尔曼方程求解一阶条件来寻找决策规则的特征。但是一个核心问题在于:
+我们并不知道$v$的形式，进而也不知道$v^{\prime}$的形式，求解得到一阶条件难以发挥作用。具体看，对如下贝尔曼方程：
+\begin{equation*}
+    v(x)=\max _{x^{\prime} \in \Gamma(x)}
+        \left\{\mathcal{F}\left(x, x^{\prime}\right)+\beta v\left(x^{\prime}\right)\right\}
+\end{equation*}
+若\textbf{假设值函数$v\left(\cdot\right)$已知}，那么贝尔曼方程就被就简化为一个两期优化问题：
+\begin{equation*}
+    \max _{x^{\prime} \in \Gamma(x)}
+        \left\{\mathcal{F}\left(x, x^{\prime}\right)+\beta v\left(x^{\prime}\right)\right\}
+\end{equation*}
+对$x^{\prime}$求导可得\textbf{一阶条件}：
+\begin{equation}   \label{eq-bellman-foc} 
+    \mathcal{F}_2(x,x^{\prime}) + \beta v^{\prime}(x^{\prime}) = 0
+\end{equation}
+也就是说，内点解必须满足上式。假设存在决策规则$g(x)$是内点解，因此有：
+\begin{equation}   \label{eq-bellman-foc-opt}
+    \mathcal{F}_2\left(x, g(x)\right) + \beta v^{\prime}\left(g(x)\right)=0
+\end{equation}
+但是，在对$v$或$v^{\prime}$有更多了解前，我们无法做更多分析。幸运的是，利用\textbf{包络定理}可以解决这一问题。
+
+注意到，根据决策规则的定义，在最优处时（$x^{\prime} = g(x)$）最大化算子消失，下式对所有$x$恒成立：
+\begin{equation}    \label{eq-bellman-opt}
+    v(x)=\mathcal{F}(x, g(x))+\beta v(g(x))
+\end{equation}
+对其两侧同时关于$x$全微分得到：
+\begin{equation*}
+    v^{\prime}(x) = \mathcal{F}_1(x, g(x))
+        +\underbrace{g^{\prime}(x)\left[\mathcal{F}_2(x, g(x))
+        +\beta v^{\prime}(g(x))\right]}_{\text {间接效应 } }
+\end{equation*}
+策略函数导数的出现似乎使问题变得更加复杂，但根据一阶条件的最优性（即\cref{eq-bellman-foc-opt}），中括号中的项正为0，
+从而我们得到：
+\begin{equation*}
+    v^{\prime}(x) = \mathcal{F}_1\left(x,g(x)\right)
+\end{equation*}
+实际上，$x$的变动对值函数有两方面影响：一方面是直接对当期目标函数产生作用；
+另一方面是其导致决策规则变化，进而间接影响未来的效用，然而一阶条件的最优性使得间接效用消失——这本质上是\textbf{包络定理}的运用。
+在动态规划问题中，上述条件也被称为\textbf{Benveniste-Schenkman条件}。
+
+现在，我们得到了值函数导数的表达式，进而也可知
+$v^{\prime}\left(g(x)\right)=\mathcal{F}_{1}\left(g\left(x\right),g\left(g\left(x\right)\right)\right)$。
+因此，最优处时的一阶条件\cref{eq-bellman-foc-opt}可以进一步写为：
+\begin{equation}    \label{eq-bellman-euler-fe}
+    \mathcal{F}_2(x, g(x))+\beta \mathcal{F}_1(g(x), g(g(x)))=0, ~ \forall x 
+\end{equation}
+回顾序列问题中欧拉方程的形式：
+\begin{equation*}
+    \mathcal{F}_2\left(x_t, x_{t+1}\right)+\beta \mathcal{F}_1\left(x_{t+1}, x_{t+2}\right)=0, ~ \forall t
+\end{equation*}
+其未知成分是数值构成的序列$\{x_t\}_{t=1}^{\infty}$。
+在递归形式下，\cref{eq-bellman-euler-fe}并不包含特定的未知量如$x_t,~x_{t+1},~x_{t+2}$，而是对对所有$x$成立，
+\textbf{其未知是策略函数}$g$。因此，它实际是将欧拉方程表达为泛函，通常称之为\textbf{欧拉泛函}（Functional Euler Equation）。
+
+
+% ===== 解法启示 =====
+\subsection{对递归问题解法的启示：贝尔曼方程 vs 欧拉泛函}
+
+对于动态优化问题,
+在前一章的\textbf{序列视角下}：我们通过利用非线性差分方程（欧拉方程）和横截性条件来求解最有序列；
+在本章的\textbf{递归视角下}：我们首先建立了关于值函数的贝尔曼方程：
+\begin{equation*}
+    v(x) = \max _{x^{\prime} \in \Gamma(x)}
+        \left\{\mathcal{F}\left(x, x^{\prime}\right)+\beta v\left(x^{\prime}\right)\right\}
+\end{equation*}
+接着推导出了关于决策规则的欧拉泛函：
+\begin{equation*}
+    \mathcal{F}_2(x, g(x))+\beta \mathcal{F}_1(g(x), g(g(x)))=0, ~ \forall x
+\end{equation*}
+他们都是泛函方程，但前者的未知量是值函数，后者的未知量是策略函数（决策规则）。
+这实际上对应了两种动态规划问题求解思路：直接利用贝尔曼方程求解值函数或利用欧拉泛函求解策略函数，
+二者是不同的。通过求解值函数，我们可以进一步得到决策规则$k^{\prime} = g(k)$，这是一维动力系统；
+而直接处理泛函的话，我们面对的是一个二维动力系统。在后面我们将看到，贝尔曼方程符合压缩映射定理的条件，可以迭代求得唯一解，较为稳健；
+欧拉泛函并不是压缩映射，它只是最优策略函数$g$的一个必要条件，因此存在多重解的可能，但求解速度更快。
+
+从下一节开始，我们将运用本节所介绍的思路及工具，对递归形式的RCK模型展开分析。
+并且，我们将在RCK模型的基础上，深入讨论值函数性质、动态规划求解等关键问题。

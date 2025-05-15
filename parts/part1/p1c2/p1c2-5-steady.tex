@@ -1,0 +1,85 @@
+% 2.4 =============== 稳态 ===============
+
+\section{最优增长模型的稳态}    \label{sec-rck-ss}
+
+在上一章，我们并未像分析索洛模型那样对RCK模型的稳态进行分析。在本节，我们对其存在性和特征进行研究。
+
+\begin{definition}[\textbf{稳态}]
+    如果$\bar{k}$满足：$\bar{k}=g(\bar{k})$，则称$\bar{k}$为一个稳态（Steady State）。
+\end{definition}
+
+\begin{theorem}[\textbf{稳态存在性}]    \label{th-rck-ss-exist}
+    确定性最优增长模型存在唯一非零稳态。在稳态下，资本存量$k=\bar{k}$，其中$\bar{k}$满足：
+    \begin{equation*}
+        1=\beta\left[f^{\prime}\left(\bar{k}\right)+1-\delta\right]
+    \end{equation*}
+    也即：
+    \begin{equation} \label{eq-rck-ss-rho}
+        f^{\prime}\left(\bar{k}\right)-\delta = \rho \equiv \frac{1}{\beta}-1
+    \end{equation}
+\end{theorem}
+
+其中$\rho$被称为时间贴现因子（time discount rate）。这一等式也就是黄金率（Golden Rule），
+它表明：稳态时储蓄的社会回报等于储蓄的社会成本（时间贴现因子）。
+\begin{proof}
+    首先注意到，RCK模型存在唯一的最大可行资本存量$k_u$：若资本存量从低于或等于$k_u$开始，那么未来它不可能超过$k_u$。
+    原因在于：对任意状态$k$，$f(k)+(1-\delta)k$是$k^{\prime}$的最大可行值，而根据$f$单调递增和凹性，
+    $f(k_u)+(1-\delta)k_u=k_u$存在严格正的$k_u$和$0$两个解，从而我们可以将关注点缩小到有界闭集$\left[0,k_u\right]$上。
+
+    由RCK模型的欧拉泛函条件\cref{eq-rck-euler-fe}，在任意非零稳态时必定成立：
+    \begin{equation*}
+        u^{\prime}\left(\gamma\left(\bar{k}\right)-g\left(\bar{k}\right)\right)
+            = \beta u^{\prime}\left(\gamma\left(\bar{k}\right) - 
+                g\left(g(\bar{k})\right)\right)\left(f^{\prime}\left(\bar{k}\right)+1-\delta\right)
+    \end{equation*}
+    由$u^{\prime}>0$和$\bar{k} = g(\bar{k})$，若稳态存在必然成立：
+    \begin{equation*}
+        \beta\left(f^{\prime}\left(\bar{k}\right)+1-\delta\right) = 1
+    \end{equation*}
+    根据$f$单调递增和凹性，上式存在唯一非零解，即存在唯一非零稳态。
+\end{proof}
+
+\begin{property}[稳态时$\bar{k}$的决定]
+    稳态时的资本存量$\bar{k}$关于$\rho$和$\delta$都递减。
+\end{property}
+\begin{proof}
+    由\cref{eq-rck-ss-rho}立得.
+\end{proof}
+
+接下来，我们对稳态的全局或局部稳定性进行研究。
+\begin{theorem}[全局稳定性]
+    稳态是全局稳定的，并且转移路径是单调的：当$k_0\in (0, \bar{k})$，资本路径逐渐递增到$\bar{k}$；
+    当$k_0>\bar{k}$，资本路径逐渐递减到$\bar{k}$。
+\end{theorem}
+\begin{proof}
+    由值函数的凹性，下式成立：
+    \begin{equation*}
+        \left[v^{\prime}(k)-v^{\prime}(g(k))\right][k-g(k)] \leq 0,~ \forall k \in\left[0, k_u\right]
+    \end{equation*}
+    包络定理表明：
+    \begin{equation*}
+        v^{\prime}(k) = u^{\prime}\left(f(k)+(1-\delta) k-g(k)\right) \left[f^{\prime}(k)+(1-\delta)\right]
+    \end{equation*}
+    贝尔曼方程在最优处的一阶条件表明：
+    \begin{equation*}
+        v^{\prime}(g(k)) = u^{\prime}\left(f(k)+(1-\delta) k-g(k)\right)\frac{1}{\beta}
+    \end{equation*}
+    因此左侧第一个中括号可以表示为：
+    \begin{equation*}
+        v^{\prime}(k)-v^{\prime}(g(k)) = 
+            u^{\prime}\left(f(k)+(1-\delta)k-g(k)\right)\left[f^{\prime}(k)+1-\delta-\frac{1}{\beta}\right]
+    \end{equation*}
+    从而有：
+    \begin{equation}    \label{eq-rck-ss-global}
+        u^{\prime}\left(f(k)+(1-\delta)k-g(k)\right)\left[f^{\prime}(k)+1-\delta-\frac{1}{\beta}\right]
+            \left[k-g(k)\right] \leq 0,~ \forall k \in\left[0, k_u\right]
+    \end{equation}
+
+    由稳态的特征：
+    （1）当$k=\bar{k}$，$f^{\prime}(k)+1-\delta=\frac{1}{\beta}$和$k=g(k)$成立；
+    （2）当$k<\bar{k}$，根据$f$的凹性有$f^{\prime}(k)+1-\delta>\frac{1}{\beta}$，
+    由\cref{eq-rck-ss-global}可知$g(k)>k$，即资本逐渐上升；
+    （3）反之当$k>\bar{k}$，根据$f$的凹性有$f^{\prime}(k)+1-\delta<\frac{1}{\beta}$，
+    由\cref{eq-rck-ss-global}可知$g(k)<k$，即资本逐渐递减。
+    又结合策略函数$g$是递增的，因此系统是全局稳定的，单调收敛到稳态$\bar{k}$。
+\end{proof}
