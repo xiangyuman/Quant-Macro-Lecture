@@ -1,0 +1,1026 @@
+% 5.1 ===============  Solve by Linearization ===============
+
+\section{线性化求解}    \label{sec-linearization}
+
+基于宏观模型的解法的不同，可以将其分为全局求解和局部求解。
+此前所接触的VFI、投影法等等都属于全局解法，他们主要利用的是函数逼近与收敛的思路；
+局部求解则主要是基于稳态附近函数的泰勒展开，对系统的局部动态（Local Dynamics）进行估计，
+例如我们将要介绍的最为常见的（一阶）线性化求解。
+
+
+% 5.1.1 ===== log-linear =====
+\subsection{对数线性化}
+
+对于模型中诸如消费$c_t$、资本$k_t$、产出$y_t$、劳动$l_t$等表示水平值的变量，
+线性化求解的第一步是通过\textbf{对数线性化}（Log-Linearized）将其变换为\textbf{对自身稳态的百分比偏离}。
+记$x_t$为一个表示水平值的变量，$\bar{x}$为其稳态值。那么，根据一阶泰勒展开，$x_t$对于$\bar{x}$的百分比偏离可表示为：
+\begin{equation*}
+    \hat{x}_t \equiv \log \left(\frac{x_t}{\bar{x}}\right) \approx \frac{x_t-\bar{x}}{\bar{x}}
+\end{equation*}
+从而我们可以将$x_t$表示为：
+\begin{equation}
+    x_t=\bar{x} e^{\hat{x}_t}
+\end{equation}
+同时，由一阶泰勒展开，还成立：
+\begin{equation}
+    x_t = \bar{x} e^{\hat{x}_t} \approx \bar{x}(1+\hat{x})
+\end{equation}
+
+需要注意的是，与对数线性化相对应的还有线性化这一概念，二者相似但不相同。一般而言，对于百分比变量，
+我们习惯对其进行线性化，而不是表示为对稳态的百分比偏离。例如某一模型中净利率为$r_t$，稳态为$\bar{r}$，
+则其线性化表示为：
+\begin{equation*}
+    \hat{r} = r_t - \bar{r}
+\end{equation*}
+
+
+% 2.6.2 ==== Linear RCK =====
+\subsection{线性化RCK模型的稳定性}
+
+在相关最优条件下，我们可以将RCK模型写为紧凑的形式：
+\begin{equation*}
+    x_{t+1} = \Psi(x_t)
+\end{equation*}
+其中，$x_t = (c_t,k_t)$，$\Psi$是包含欧拉方程和资源约束的向量值函数，从而线性化的RCK模型系统可以写为：
+\begin{equation*}
+    x_{t+1} = \bar{x} + \Psi^{\prime}(\bar{x})(x_t-\bar{x})
+\end{equation*}
+或利用对数线性化方法，取对数后在稳态处进行全微分，直接将系统表示为对数偏离形式的齐次方程：
+\begin{equation*}
+    \begin{aligned}
+        \log x_{t+1} &= \log \Psi(x_t) \\
+        \frac{x_{t+1}-\bar{x}}{\bar{x}} &= \Psi^{\prime}(\bar{x})\frac{x_t-\bar{x}}{\Psi(\bar{x})} \\
+    \end{aligned}
+\end{equation*}
+又由：
+\begin{equation*}
+    \hat{x}_t \equiv \frac{x_t-\bar{x}}{\bar{x}}
+\end{equation*}
+且在稳态处：
+\begin{equation*}
+    \bar{x} = \Psi(\bar{x})
+\end{equation*}
+可得对数线性化后的RCK模型为：
+\begin{equation}
+    \hat{x}_{t+1}= \Psi^{\prime}(\bar{x})\hat{x_t}
+\end{equation}
+记$A \equiv \Psi^{\prime}(\bar{x})$，这是一个$2 \times 2$的常系数矩阵，
+根据线性差分方程相关知识，线性化RCK模型系统的稳定性取决于$A$的特征值和特征向量。
+
+我们先进一步将对数线性化后的系统写为更清晰的变量的形式。回忆刻画RCK模型动态的两个关键方程：欧拉方程和资源约束，
+\begin{equation*}
+    \begin{aligned}
+        u^{\prime}(c_t) &= \beta u^{\prime}(c_{t+1})\left(f^{\prime}(k_{t+1})+1-\delta\right) \\
+        k_{t+1} &= f(k_t) + (1 - \delta) k_t - c_t
+    \end{aligned}
+\end{equation*}
+对欧拉方程进行对数线性化，取对数后在稳态处全微分：
+\begin{equation*}
+    \begin{aligned}
+        \log u^{\prime}(c_t) &= \log \beta + 
+            \log u^{\prime}(c_{t+1}) + \log \left(f^{\prime}(k_{t+1})+1-\delta\right)  \\
+        u^{\prime\prime}(\bar{c})\frac{c_t-\bar{c}}{u^{\prime}(\bar{c})} &= 
+            u^{\prime\prime}(\bar{c})\frac{c_{t+1}-\bar{c}}{u^{\prime}(\bar{c})}
+            + f^{\prime\prime}(\bar{k})\frac{k_{t+1}-\bar{k}}{f^{\prime}(\bar{k})+1-\delta}
+    \end{aligned}
+\end{equation*}
+记$\hat{x}_t \equiv (x_t-\bar{x}) / \bar{x}$，左侧项和右侧第一项同时乘以再除以$\bar{c}$，
+右侧第二项同时乘以再除以$\bar{k}$，可得：
+\begin{equation*}
+    \frac{u^{\prime\prime}(\bar{c})\bar{c}}{u^{\prime}(\bar{c})} \hat{c}_t = 
+        \frac{u^{\prime\prime}(\bar{c})\bar{c}}{u^{\prime}(\bar{c})} \hat{c}_{t+1}
+        + \frac{f^{\prime\prime}(\bar{k})\bar{k}}{f^{\prime}(\bar{k})+1-\delta} \hat{k}_{t+1}
+\end{equation*}
+令：
+\begin{equation*}
+    \mathcal{R}(c) \equiv-\frac{U^{\prime \prime}(c) c}{U^{\prime}(c)} \geq 0
+\end{equation*}
+并结合稳态处$1/\beta = f^{\prime}(\bar{k})+1-\delta$，从而对数线性化后的欧拉方程为：
+\begin{equation}
+     \hat{c}_{t+1} - \frac{\beta f^{\prime\prime}(\bar{k}) \bar{k}}{\mathcal{R}(\bar{c})}\hat{k}_{t+1}= \hat{c}_t
+\end{equation}
+类似地，对资源约束为：
+\begin{equation*}
+    \log k_{t+1} = \log \left[f(k_t) + (1-\delta)k_t - c_t\right]
+\end{equation*}
+在稳态处全微分：
+\begin{equation*}
+    \hat{k}_{t+1} = \frac{1}{f(\bar{k})+(1-\delta)\bar{k}-\bar{c}}
+        \left[f^{\prime}(\bar{k})(k_t-\bar{k}) + (1-\delta)(k_t-\bar{k}) + (c_t-\bar{c})\right]
+\end{equation*}
+又由稳态时$\bar{k} = f(\bar{k})+(1-\delta)\bar{k}-\bar{c}$以及$1/\beta = f^{\prime}(\bar{k})+1-\delta$，
+整理可得对数线性化后的资源约束为：
+\begin{equation}
+    \hat{k}_{t+1} = \frac{1}{\beta}\hat{k}_t - \frac{\bar{c}}{\bar{k}}\hat{c}_t
+\end{equation}
+将两个差分方程写为矩阵形式：
+\[
+    \begin{bmatrix}
+        1 & -\frac{\beta f^{\prime \prime}(\bar{k}) \bar{k}}{\mathcal{R}(\bar{c})} \\
+        0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        \hat{c}_{t+1} \\
+        \hat{k}_{t+1}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 & 0 \\
+        -\frac{\bar{c}}{\bar{k}} & \frac{1}{\beta}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \hat{c}_{t} \\
+        \hat{k}_{t}
+    \end{bmatrix}
+\]
+整理后可得：
+\[
+    \begin{aligned}
+        \begin{bmatrix}
+            \hat{c}_{t+1} \\
+            \hat{k}_{t+1}
+        \end{bmatrix}
+        &=
+        \begin{bmatrix}
+            1 & \frac{\beta f^{\prime \prime}(\bar{k}) \bar{k}}{\mathcal{R}(\bar{c})} \\
+            0 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0 \\
+            -\frac{\bar{c}}{\bar{k}} & \frac{1}{\beta}
+        \end{bmatrix}
+        \begin{bmatrix}
+            \hat{c}_{t} \\
+            \hat{k}_{t}
+        \end{bmatrix}   \\
+        &=
+        \begin{bmatrix}
+            1-\frac{\beta f^{\prime \prime}(\bar{k}) \bar{c}}{\mathcal{R}(\bar{c})} &
+            - \frac{\beta f^{\prime \prime}(\bar{k}) \bar{k}}{\mathcal{R}(\bar{c})} \frac{1}{\beta} \\
+            -\frac{\bar{c}}{\bar{k}} & \frac{1}{\beta}
+        \end{bmatrix}
+        \begin{bmatrix}
+            \hat{c}_{t} \\
+            \hat{k}_{t}
+        \end{bmatrix}
+    \end{aligned}
+\]
+也即：
+\[
+    A \equiv
+    \begin{bmatrix}
+        1-\frac{\beta f^{\prime \prime}(\bar{k}) \bar{c}}{\mathcal{R}(\bar{c})} &
+        - \frac{\beta f^{\prime \prime}(\bar{k}) \bar{k}}{\mathcal{R}(\bar{c})} \frac{1}{\beta} \\
+        -\frac{\bar{c}}{\bar{k}} & \frac{1}{\beta}
+    \end{bmatrix}
+\]
+下面对系统稳定性，即矩阵$A$的特征值进行分析。根据代数知识，矩阵的判别式大于0：
+\begin{equation}
+    \begin{aligned}
+        \Delta & \equiv \operatorname{tr}(A)^2-4 \operatorname{det}(A) \\
+        & =\left(1-\frac{\beta f^{\prime \prime}(\bar{k}) \bar{c}}{\mathcal{R}(\bar{c})}
+            +\operatorname{det}(A)\right)^2-4 \operatorname{det}(A) \\
+        & =\left(1-\frac{\beta f^{\prime \prime}(\bar{k}) \bar{c}}{\mathcal{R}(\bar{c})}
+            -\operatorname{det}(A)\right)^2>0
+    \end{aligned}
+\end{equation}
+因此特征值为实数。又根据矩阵的迹等于特征值的和，矩阵的行列式等于特征值的乘积，从而有：
+\begin{equation}
+    \begin{aligned}
+        \operatorname{tr}(A) & =\lambda_1+\lambda_2 = 
+            1-\frac{\beta f^{\prime \prime}(\bar{k}) \bar{c}}{\mathcal{R}(\bar{c})}+\frac{1}{\beta}>2 \\
+        \operatorname{det}(A) & =\lambda_1 \times \lambda_2 =\frac{1}{\beta}>1
+    \end{aligned}
+\end{equation}
+特征值乘积大于0说明其符号相同，而和大于0说明两个特征值都为正数。可以进一步利矩阵的特征多项式进行判断。
+根据特征值是矩阵特征多项式的根：
+\begin{equation*}
+    p(\lambda)=\lambda^2-\operatorname{tr}(A) \lambda+\operatorname{det}(A)
+        =\left(\lambda-\lambda_1\right)\left(\lambda-\lambda_2\right)=0
+\end{equation*}
+但是：
+\begin{equation*}
+    p(1)=\left(1-\lambda_1\right)\left(1-\lambda_2\right)
+        =1-\operatorname{tr}(A)+\operatorname{det}(A)
+        =-\frac{\beta f^{\prime \prime}(\bar{k}) \bar{c}}{\mathcal{R}(\bar{c})}<0
+\end{equation*}
+由于两个特征值均为正，因此必有一个不稳定特征根$\lambda_1 > 1$，另一个稳定特征根$\lambda_2 \in (0,1)$。
+
+
+% 2.6.3 ===== 线性差分方程 =====
+\subsection{线性差分方程解的性质}
+
+在进一步研究线性化RCK模型的特征前，需要对差分方程有所了解。首先，给定$a,~b,~x_0$和线性差分方程：
+\begin{equation*}
+    x_{t+1} - ax_t = b, \quad t=0,1,2,\cdots
+\end{equation*}
+当$b=0$，称其为\textbf{齐次方程}，解为：
+\begin{equation*}
+    \begin{aligned}
+        x_1= & a^1 x_0 \\
+        x_2= & a^1 x_1=a^2 x_0 \\
+        & \vdots \\
+        x_t= & a^1 x_{t-1}=a^t x_0
+    \end{aligned}
+\end{equation*}
+当$b\neq0$，称其为\textbf{非齐次方程}，只要$a\neq 1$，系统就存在稳态
+\begin{equation*}
+    \bar{x} = \frac{b}{1-a}
+\end{equation*}
+不难得到解为：
+\begin{equation*}
+    \left(x_t-\bar{x}\right)=a^t\left(x_0-\bar{x}\right), \quad t=0,1,2, \cdots
+\end{equation*}
+或可写为：
+\begin{equation*}
+    x_t=\left(1-a^t\right) \bar{x}+a^t x_0, \quad t=0,1,2, \cdots
+\end{equation*}
+若$a=1$，稳态不存在，但仍有解：
+\begin{equation*}
+    x_t = tb + x_0
+\end{equation*}
+对上述线性差分方程，其稳定性取决于$a$：当$|a|<1$，$a^t\rightarrow 0,~t\rightarrow \infty$，
+从而$x_t\rightarrow \bar{x}$；当$|a|>1$，$a^t \rightarrow \pm \infty,~t\rightarrow \infty$，稳态是不稳定的。
+注意到当$a>0$，系统是单调的；当$a<0$，系统是震荡的；当系统初始就在稳态处，那么无论$a$取何值，系统始终在稳态。
+
+对\textbf{多维情形}，不失一般性，考虑$x_t$为二维的线性差分方程：
+\begin{equation*}
+    x_{t+1} - Ax_t = b, ~t\geq 0
+\end{equation*}
+若$A$为\textbf{对角阵}，形如：
+\[
+    A = 
+    \begin{bmatrix}
+        a_{11} & 0 \\
+        0 & a_{22}
+    \end{bmatrix}
+\]
+那么两组方程间是独立的：
+\begin{equation*}
+    \begin{aligned}
+        & x_{1, t+1}-a_{11} x_{1, t}=b_1 \\
+        & x_{2, t+1}-a_{22} x_{2, t}=b_2
+    \end{aligned}
+\end{equation*}
+容易得到解为：
+\begin{equation*}
+    \begin{aligned}
+        & x_{1, t}=\left(1-a_{11}^t\right) \bar{x}_1+a_{11}^t x_{1,0} \\
+        & x_{2, t}=\left(1-a_{22}^t\right) \bar{x}_2+a_{22}^t x_{2,0}
+    \end{aligned}
+\end{equation*}
+将解写为矩阵形式为：
+\begin{equation*}
+    x_t=\left(I-A^t\right) \bar{x}+A^t x_0
+\end{equation*}
+其中稳态为：
+\begin{equation*}
+    \bar{x} = \left(I-A\right)^{-1}b
+\end{equation*}
+显然，系统的稳定性取决于系数矩阵$A$的性质；同时注意到，在多维情形下，我们需要多个初始条件来确定解。
+
+若$A$\textbf{不是对角阵}，即不同差分方程间存在关联，我们称其为耦合的（Coupled）。显然，在这情形下求解是复杂的，
+我们希望寻求将其转化为非耦合（对角化）的情形，矩阵对角化可以帮助我们。
+\begin{lemma}
+    方阵$A$可被对角化，若存在可逆阵$Q$使得矩阵$D$满足：
+    \begin{equation*}
+        D = Q^{-1}AQ
+    \end{equation*}
+    其中$D$是对角阵。
+\end{lemma}
+
+也就是说，当$A$\textbf{不是对角阵}，但是是可以对角化的，那么我们可以利用这一引理对变量进行变换：
+\begin{equation*}
+    z_t = Q^{-1}x_t
+\end{equation*}
+进而原差分系统可以被改写为：
+\begin{equation*}
+    x_{t+1}-A x_t=b \Longleftrightarrow Q z_{t+1}-A Q z_t=b
+\end{equation*}
+即：
+\begin{equation*}
+    z_{t+1}-Q^{-1} A Q z_t=z_{t+1}-D z_t=Q^{-1} b
+\end{equation*}
+从而新的非耦合的差分系统为：
+\begin{equation*}
+    z_{t+1} = Dz_t + Q^{-1}b
+\end{equation*}
+其中$D$为对角阵。因此我们可以利用对角化情形下的结论，得到变换后方程的解：
+\begin{equation*}
+    \begin{aligned}
+        z_t & =\left(I-D^t\right) \bar{z}+D^t z_0 \\
+        \bar{z} & =(I-D)^{-1} Q^{-1} b
+    \end{aligned}
+\end{equation*}
+而根据$x_t=Qz_t$，我们也就解决了原系统。
+
+问题的关键在于如何确定与$A$对应的对角阵。我们希望将$A$写为$AQ=QD$，其中$Q$是可逆的：
+\[
+    A 
+    \begin{pmatrix}
+        q_1 & q_2
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        q_1 & q_2
+    \end{pmatrix}
+    \begin{pmatrix}
+        \lambda_1 & 0 \\
+        0 & \lambda_2
+    \end{pmatrix}
+\]
+也即：
+\begin{equation*}
+    \begin{aligned}
+        & A q_1=\lambda_1 q_1 \\
+        & A q_2=\lambda_2 q_2
+    \end{aligned}
+\end{equation*}
+显然，矩阵的对角化与其特征值和特征向量密切相关：只要矩阵$A$的特征根不重复，那么$Q$的列向量就是特征根对应的特征值，
+对角阵$D$的对角元素就是相应的特征根。
+
+我们简要进行总结，然后回到线性化后的RCK模型上。假设系数矩阵$A$是良定义的（特征根不重复），那么可将其对角化：$A=QDQ^{-1}$，
+其中$D$为对角阵，元素是$A$的特征根，矩阵$Q$的列向量是与特征根对应的特征向量。那么对如下线性差分系统：
+\begin{equation*}
+    x_{t+1} = Ax_t + b,~ t\geq 0
+\end{equation*}
+处理步骤如下：
+
+Step 1. 计算稳态：
+\begin{equation*}
+    \bar{x} = \left(I-A\right)^{-1}b
+\end{equation*}
+
+Step 2. 将系统写为齐次形式，定义：
+\begin{equation*}
+    y_t \equiv x_t - \bar{x}
+\end{equation*}
+从而得到：
+\begin{equation*}
+    \begin{aligned}
+        y_{t+1}=x_{t+1}-\bar{x} & =A x_t+b-\bar{x} \\
+        & =A y_t+A \bar{x}+b-\bar{x} \\
+        & =A y_t+(A-I)(I-A)^{-1} b+b \\
+        & =A y_t-b+b \\
+        & =A y_t
+    \end{aligned}
+\end{equation*}
+
+Step 3. 对角化：当$A$有不重复特征根，进行变量替换：
+\begin{equation*}
+    y_t \equiv Qz_t
+\end{equation*}
+从而得到：
+\begin{equation*}
+    Qz_{t+1} = AQz_t
+\end{equation*}
+或写为：
+\begin{equation*}
+    z_{t+1} = Q^{-1}AQz_t = Dz_t
+\end{equation*}
+不难得到这一齐次非耦合系统的解为：
+\begin{equation*}
+    z_t = D^t z_0
+\end{equation*}
+
+Step 4. 由$z_t = Q^{-1}y_t$，可写出耦合方程：
+\begin{equation*}
+    y_t = QD^tQ^{-1}y_0
+\end{equation*}
+
+Step 5. 由$x_t=y_t + \bar{x}$，写为原始变量形式：
+\begin{equation*}
+    \begin{aligned}
+        x_t & =Q D^t Q^{-1}\left(x_0-\bar{x}\right)+\bar{x} \\
+        & =\left(I-Q D^t Q^{-1}\right) \bar{x}+Q D^t Q^{-1} x_0
+    \end{aligned}
+\end{equation*}
+
+现在，研究系统的稳定性是容易的：若$A$的所有特征根绝对值都小于1，那么当$t\rightarrow \infty$，$D^t\rightarrow 0$，
+从而$x_t\rightarrow \bar{x}$。此时，系统被称为全局稳定的。若$A$有任意特征根的绝对值大于1，那么系统是不稳定的。
+根据$y_t = Qz_t=QD^tz_0$，有：
+\begin{equation*}
+    y_t = \sum_{i=1}^{n}q_i\lambda_i^tz_{i,0}
+\end{equation*}
+也就是说，系统的解$y_t$是特征向量和特征根的某种加权平均。因此，若任意$\lambda_i$的绝对值大于1，
+那么$y_t$会发散，除非分配给那个特征根的权重为0。
+
+
+% 2.6.4 ===== RCK转移动态 =====
+\subsection{转移路径求解}
+
+对确定性RCK模型，唯一知道的就是外生参数和外生给定的初始状态$k_0$，我们\textbf{希望将消费和资本的路径表示为这些已知元素的函数。}
+目前我们已经将抽象的最优化条件转化为了齐次线性系统：
+\[
+    \begin{bmatrix}
+        \hat{c}_{t+1} \\
+        \hat{k}_{t+1}
+    \end{bmatrix}
+    =
+    A
+    \begin{bmatrix}
+        \hat{c}_{t} \\
+        \hat{k}_{t}
+    \end{bmatrix}
+\]
+其中：
+\[
+    A \equiv
+    \begin{bmatrix}
+        1-\frac{\beta f^{\prime \prime}(\bar{k}) \bar{c}}{\mathcal{R}(\bar{c})} &
+        - \frac{\beta f^{\prime \prime}(\bar{k}) \bar{k}}{\mathcal{R}(\bar{c})} \frac{1}{\beta} \\
+        -\frac{\bar{c}}{\bar{k}} & \frac{1}{\beta}
+    \end{bmatrix}
+\]
+并且，我们找到了一个不稳定特征根$\lambda_1 > 1$和一个稳定特征根$\lambda_2 \in (0,1)$，但我们还没有找到具体的解。
+下面我们进一步求解这一系统。根据对角化方法，这一齐次系统的解可以写为：
+\[
+    \begin{bmatrix}
+        \hat{c}_{t} \\
+        \hat{k}_{t}
+    \end{bmatrix}
+    =
+    Q
+    \begin{bmatrix}
+        \lambda_1^t & 0 \\
+        0 & \lambda_2^t
+    \end{bmatrix}
+    Q^{-1}
+    \begin{bmatrix}
+        \hat{c}_0 \\
+        \hat{k}_0
+    \end{bmatrix}
+\]
+其中$Q$的列向量是$A$的特征根对应的特征向量。
+
+但是，目前的问题在于：$\hat{k}_0$已经给定，但$\hat{c}_0$未知。
+同时，有一个特征根是大于1的，那么当$t\rightarrow \infty$，系统会爆炸。
+只有$\hat{c}_0$恰好以正确的方式\textbf{跳跃}（Jump）到正确路径上，爆炸动态才会消失。具体看：
+\[
+    \begin{aligned}
+        \begin{bmatrix}
+            \hat{c}_{t} \\
+            \hat{k}_{t}
+        \end{bmatrix}
+        &=
+        \begin{bmatrix}
+            q_{11} & q_{12} \\
+            q_{21} & q_{22}
+        \end{bmatrix}
+        \begin{bmatrix}
+            \lambda_1^t & 0 \\
+            0 & \lambda_2^t
+        \end{bmatrix}
+        \frac{1}{\operatorname{det}(Q)}
+        \begin{bmatrix}
+            q_{22} & -q_{12} \\
+            -q_{21} & q_{11}
+        \end{bmatrix}
+        \begin{bmatrix}
+            \hat{c}_0 \\
+            \hat{k}_0
+        \end{bmatrix}   \\
+        &=
+        \begin{bmatrix}
+            q_{11} \lambda_1^t & q_{12} \lambda_2^t \\
+            q_{21} \lambda_1^t & q_{22} \lambda_2^t
+        \end{bmatrix}
+        \begin{bmatrix}
+            q_{22} \hat{c}_0-q_{12} \hat{k}_0 \\
+            -q_{21} \hat{c}_0+q_{11} \hat{k}_0
+        \end{bmatrix}
+        \frac{1}{\operatorname{det}(Q)} \\
+        &=
+        \begin{bmatrix}
+            q_{11} \lambda_1^t\left(q_{22} \hat{c}_0-q_{12} \hat{k}_0\right) - 
+            q_{12} \lambda_2^t\left(q_{21} \hat{c}_0-q_{11} \hat{k}_0\right) \\
+            q_{21} \lambda_1^t\left(q_{22} \hat{c}_0-q_{12} \hat{k}_0\right) - 
+            q_{22} \lambda_2^t\left(q_{21} \hat{c}_0-q_{11} \hat{k}_0\right)
+        \end{bmatrix}
+        \frac{1}{\operatorname{det}(Q)}
+    \end{aligned}
+\]
+由于当$t\rightarrow \infty$时$\lambda_1^t\rightarrow \infty$，因此需要通过正确的设置$\hat{c}_0$来关闭爆炸路径
+（我们使用了一个自由度，这是唯一的一个不是由系统决定的内生变量）。也就是说，我们需要选择消费，确保不会出现违背预算约束
+或横截性条件的爆炸路径。显然，若设置：
+\begin{equation*}
+    \hat{c}_0 = \frac{q_{12}}{q_{22}}\hat{k}_0
+\end{equation*}
+那么$q_{22}\hat{c}_0-q_{12}\hat{k}_0 = 0$，可以消除大于1的特征根的影响，即排除不稳定动态。因此线性化RCK模型的解为：
+\[
+    \begin{bmatrix}
+        \hat{c}_{t} \\
+        \hat{k}_{t}
+    \end{bmatrix}
+    =
+    \frac{1}{\operatorname{det}(Q)}
+    \begin{bmatrix}
+        q_{12}\left(q_{11}-q_{21} \frac{q_{12}}{q_{22}}\right) \\
+        q_{22}\left(q_{11}-q_{21} \frac{q_{12}}{q_{22}}\right)
+    \end{bmatrix}
+    \lambda_2^t \hat{k}_0
+\]
+在实践中：我们需要先找到并计算\textbf{系数矩阵}$A$；然后计算其特征根和特征值，得到矩阵$Q$来进行对角化；
+最后找到稳定的特征根来确保解的稳定性。
+
+
+% 2.6.5 ===== BK条件 =====
+\subsection{Blanchard-Khan条件：求解线性理性预期模型}
+
+\textbf{何谓宏观模型的求解？简言之，就是将模型中内生变量的动态表示为状态变量和外生变量的函数，}
+例如上一小节对确定性RCK模型所进行的处理。
+不过，更为一般的情形是：模型中可能还有技术冲击等诸多外生随机过程，均衡条件涉及条件期望算子，因此线性化所得的系统是包含条件期望的。
+对于这样的\textbf{线性理性预期模型}，我们需要通过更一般化的方法来研究其解的性质：这就是\textbf{Blanchard-Khan条件}（BK条件）。
+
+在进一步学习BK条件前，我们需要再对模型中的变量类型进行强调与定义。更一般化地，模型的变量可以分为两类：\textbf{前定变量}
+（Predetermind Variables）和\textbf{非前定变量}（Non-Predetermind Variables），后者也被称为\textbf{跳跃变量}（Jump Variables）。
+顾名思义，前定变量是指：\textbf{当进入第$t$期时}，取值已经确定的变量，
+如RCK模型中的资本存量$k_t$、随机最优增长中的技术冲击$z_t$；
+非前定变量则是指：\textbf{当进入第$t$期时}，取值需要在当期决定的变量，如RCK模型中的消费。
+先通过如下两个例子来简单理解均衡的唯一性和（非）前定变量的特点。
+
+\begin{example} \label{eg-one-non-predetermind}
+    \textbf{一维跳跃变量的动态系统：}假设动态系统中只有一个跳跃变量$y_t$，满足：
+    \begin{equation*}
+        y_t = \phi y_{t+1}
+    \end{equation*}
+    其中参数$\phi>0$。方便起见，将上述关系写为：
+    \begin{equation}    \label{eq-on-non-predetermind-dynamic-yprime}
+        y_{t+1} = \lambda y_t, ~\lambda = 1/\phi
+    \end{equation}
+    写出第一个条件是为了强调这一关系并不意味着$y_{t+1}$是由$y_t$决定的。
+    \textbf{均衡的一个隐含条件是$y_t$的路径不会爆炸}，即$\lim_{T\rightarrow \infty }y_{t+T}$是有限值。
+    我们感兴趣的问题是：（1）$\phi$需要满足何种条件来保证均衡的唯一性？（2）在这种条件下，均衡有什么特征？
+    通过迭代\cref{eq-on-non-predetermind-dynamic-yprime}可知：
+    \begin{equation*}
+        y_{t+T} = \lambda^T y_t 
+    \end{equation*}
+    显然，当$\lambda>1$时，唯一能保证$\lim_{T\rightarrow \infty }y_{t+T}$有限的情形是$y_t\equiv 0$，
+    这样均衡是存在且唯一的；
+    当$0<\lambda\leq 1$时，任意取值的$y_t$都符合$\lim_{T\rightarrow \infty }y_{t+T}$有限这一条件，
+    这一情形被称为\textbf{未定}（Indeterminacy），即无法确定唯一的$y_t$。
+    因此，确保均衡\textbf{唯一性}的条件是：$\lambda>1$，同时均衡解为：
+    \begin{equation*}
+        y_t = 0, ~\forall t
+    \end{equation*}
+    换句话说，为了保证唯一性，参数$\lambda$需要满足：若不选择正确的$y_t$，系统就会爆炸。
+\end{example}
+
+进一步研究一个\textbf{包含预期的动态系统：}
+\begin{example} \label{eg-one-non-predetermind-one-exo}
+    \textbf{一维跳跃变量和一维前定（或外生）变量的动态系统：}在这一情形下，由于外生冲击（或前定变量）$z_t$的影响，
+    $y_t$是随机的。考虑如下动态系统：
+    \begin{equation*}
+        y_t = \phi \mathbb{E}_t \left[y_{t+1}\right] + \hat{z}_t
+    \end{equation*}
+    其中参数$\phi>0$，$\hat{z}_t$是服从如下过程的外生冲击：
+    \begin{equation*}
+        \hat{z}_{t+1} = \rho \hat{z}_t + \hat{\varepsilon}_{t+1}
+    \end{equation*}
+    其中，$\hat{z}_t$，$\varepsilon$是均值为0，标准差为$\hat{\sigma}>0$的独立同分布随机变量，取值在第$t$期初确定。
+    不难看出，$\hat{z}_t$是前定变量。与之前类似，将上述关系重新表示为：
+    \begin{equation}   \label{eq-one-non-predetermind-one-exo-dynamic-yprime}
+        \mathbb{E}_t \left[y_{t+1}\right] = \lambda y_t + z_t 
+    \end{equation}
+    其中，$\lambda = 1/\phi$，$z_t = -\hat{z}_t / \phi$，从而有：
+    \begin{equation*}
+        z_{t+1} = \rho z_t + \varepsilon_{t+1}
+    \end{equation*}
+    其中$\varepsilon$均值为0，标准差为$\sigma = \hat{\sigma}/\phi$。
+
+    均衡的存在要求$\lim_{T\rightarrow \infty}E_t\left[y_{t+T}\right]$是有限的，
+    即我们希望得到$\lim_{T\rightarrow \infty}E_t\left[y_{t+T}\right]$有限的解。
+    向后迭代\cref{eq-one-non-predetermind-one-exo-dynamic-yprime}可得：
+    \begin{equation*}
+        \mathbb{E}_{t+1}[y_{t+2}] = \lambda y_{t+1} + z_{t+1}
+    \end{equation*}
+    由迭代期望定律：
+    \begin{equation*}
+        \begin{aligned}
+            \mathbb{E}_{t+1}[y_{t+2}] = \mathbb{E}_{t}\left[\mathbb{E}_{t+1}\left[y_{t+2}\right]\right]
+                &= \lambda \mathbb{E}_t \left[y_{t+1}\right] + \mathbb{E}_t\left[z_{t+1}\right]  \\
+                &= \lambda^2y_t + \lambda z_t + \rho z_t  \\
+                &= \lambda^2\left[y_t+\frac{1}{\lambda}\left[1+\frac{\rho}{\lambda}\right]z_t\right]
+        \end{aligned}
+    \end{equation*}
+    假设$\lambda \neq \rho$，重复上述过程可得：
+    \begin{equation*}
+        \begin{aligned}
+            \mathbb{E}_t \left[y_{t+T}\right] &= 
+            \lambda^T\left[y_t + \frac{1}{\lambda}\left[1 + \frac{\rho}{\lambda} + 
+            \left(\frac{\rho}{\lambda}\right)^2+\cdots+\left(\frac{\rho}{\lambda}\right)^{T-1}\right]z_t\right] \\
+                &= \lambda^T\left[y_t + \frac{1-\left(\rho / \lambda\right)^T}{\lambda-\rho}z_t\right]
+        \end{aligned}
+    \end{equation*}
+    显然，当$\lambda > 1$，能够保证$\lim_{T\rightarrow \infty}E_t\left[y_{t+T}\right]$有限的唯一均衡解是：
+    \begin{equation*}
+        y_t = -\lim_{T\rightarrow \infty}\frac{1-\left(\rho/\lambda\right)^T}{\lambda - \rho}z_t 
+            = -\frac{1}{\lambda-\rho}z_t
+    \end{equation*}
+    当$\lambda\leq 1$，由于有任意多的$y_t$取值路径都能保证$\lim_{T\rightarrow \infty}E_t\left[y_{t+T}\right]$有限，
+    因此系统未定。
+\end{example}
+
+现在，考虑一般化情形的\textbf{线性理性预期模型}：模型中有$n+k$个前定变量和$m$个非前定变量，其中前定变量由
+$n$个内生变量（例如资本存量$k_t$）和$k$个外生变量（例如对生产函数的冲击$z_t$）构成。假设线性化后系统形式如下：
+\begin{equation}    \label{eq-linear-ration-expectation}
+    \underset{(n+m) \times(n+m)}{B} \times 
+        \begin{bmatrix}
+            \underset{n\times 1}{x_{t+1}} \\
+            \underset{m\times 1}{\mathbb{E}_t\left[y_{t+1}\right]}
+        \end{bmatrix}
+     = \underset{(n+m) \times(n+m)}{A}
+        \begin{bmatrix}
+            \underset{n\times 1}{x_{t}} \\
+            \underset{m\times 1}{y_{t}}
+        \end{bmatrix}
+        +
+        \underset{(n+m) \times k}{E} ~ \underset{k \times 1}{a_t}
+\end{equation}
+其中：$x_t$是$n\times 1$维的\textbf{内生前定变量}（注意不含外生前定变量）；$y_t$是$m\times 1$维的\textbf{非前定变量}（一定非外生）；
+$a_t$是$k\times 1$维的\textbf{外生（前定）变量}（外生冲击）；$B$和$A$是$(n+m)\times(n+m)$矩阵；$E$是$(n+m)\times k$矩阵。
+\footnote{大多数宏观模型线性化后具有这种形式，但也有特例。}
+方便起见，假设外生冲击均服从AR（1）过程，对第$i$个冲击：
+\begin{equation*}
+    a_{t+1}^i = \rho_i a_t^i + \varepsilon_{t+1}^i,~ \forall i=1,\cdots,k
+\end{equation*}
+其中$\varepsilon_{t+1}$均值为0且独立同分布。
+
+\textbf{若矩阵$B$可逆}，\cref{eq-linear-ration-expectation}可写为：
+\begin{equation}    \label{eq-linear-ration-expectation-invB}
+    \begin{bmatrix}
+        x_{t+1} \\
+        \mathbb{E}_t \left[y_{t+1}\right]
+    \end{bmatrix}
+    =
+    B^{-1}A
+        \begin{bmatrix}
+            x_t \\
+            y_t
+        \end{bmatrix}
+    + B^{-1}E a_t
+\end{equation}
+记$F=B^{-1}A$，$G=B^{-1}E$，
+由若当分解（Jordan Decomposition），$F$可变换为：
+\begin{equation*}
+    F = HJH^{-1}
+\end{equation*}
+从而：
+\begin{equation}    \label{eq-linear-ration-expectation-jordan}
+    \begin{bmatrix}
+        x_{t+1} \\
+        \mathbb{E}_t\left[y_{t+1}\right]
+    \end{bmatrix}
+    =
+    HJH^{-1}
+    \begin{bmatrix}
+        x_t \\
+        y_t
+    \end{bmatrix}
+    + G a_t
+\end{equation}
+其中矩阵$J$是由矩阵F的特征根构成的对角阵：
+\[
+    \begin{bmatrix}
+        \lambda_1 & 0 & \cdots & 0 \\
+        0 & \lambda_2 & \cdots & 0 \\
+        \vdots & ~ & \ddots & \vdots \\
+        0 & 0 & \cdots & \lambda_{n+m}
+    \end{bmatrix}
+\]
+并且分解可以按照特征根绝对值从小到大排列进行的，
+即$\left|\lambda_1\right|<\left|\lambda_2\right|<\cdots<\left|\lambda_{n+m}\right|$，记其中绝对值大于1的特征根数目为$h$。
+矩阵$H$由相应特征根对应的列向量构成：
+\[
+    \begin{bmatrix}
+        v_1 & v_2 \cdots v_{n+m}
+    \end{bmatrix}
+\]
+
+\textbf{BK条件表明：}均衡唯一（$x_t$和$y_t$的解路径不会爆炸）的条件是$h=m$，
+即单位圆外的特征根数等于非前定变量个数。这与此前例子中的直觉一致：这里的矩阵$F$类似于前例中的$\lambda$。
+事实上，矩阵与向量相乘本质上就是在矩阵的特征向量方向上对向量进行扩展（压缩）或旋转；
+而特征值则告诉我们矩阵乘法究竟是沿特征向量所在方向扩展（特征值大于1）还是压缩（特征值小于1）了原向量。
+当$h=m$时，我们可以选择唯一的均衡集合需要使得变换后的向量
+$\left[x_t^{\prime} ~ y_t^{\prime}\right]^{\prime}$在相应扩展方向上为0，即不会出现爆炸路径。
+
+下面进一步求解和验证。将\cref{eq-linear-ration-expectation-jordan}两侧同时左乘$H^{-1}$得到：
+\begin{equation}    \label{eq-linear-ration-expectation-jordan-invH}
+    H^{-1}
+    \begin{bmatrix}
+        x_{t+1} \\
+        \mathbb{E}_t\left[y_{t+1}\right]
+    \end{bmatrix}
+    =
+    JH^{-1}
+    \begin{bmatrix}
+        x_t \\
+        y_t
+    \end{bmatrix}
+    +
+    H^{-1}Ga_t
+\end{equation}
+注意到矩阵$H^{-1}$和$J$是$(n+m)\times (n+m)$维的，可以对它们\textbf{进行分块运算}：将其行分为$n$和$m$行两部分，
+将其列分为$n$和$m$列两部分，即
+\[
+    H^{-1} =
+    \begin{bmatrix}
+       \underset{n\times n}{\tilde{H}_{11}} & \underset{n\times m}{\tilde{H}_{12}} \\
+       \underset{m\times n}{\tilde{H}_{21}} & \underset{m\times m}{\tilde{H}_{22}}
+    \end{bmatrix}
+\]
+\[
+    J = 
+    \begin{bmatrix}
+       \underset{n\times n}{J_1} & 0 \\
+       0 & \underset{m\times m}{J_2} 
+    \end{bmatrix}
+\]
+其中$J_1$和$J_2$都是对角阵。为了与分块的形式对应，令：
+\[
+    H^{-1}G = 
+    \begin{bmatrix}
+        \underset{n\times k}{\Gamma_1} \\
+        \underset{m\times k}{\Gamma_2}
+    \end{bmatrix}
+\]
+并定义：
+\begin{equation}    \label{eq-linear-ration-expectation-def-tilde}
+    \begin{bmatrix}
+        \underset{n\times 1}{\tilde{x}_t} \\
+        \underset{m\times 1}{\tilde{y}_t}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \tilde{H}_{11} & \tilde{H}_{12} \\
+        \tilde{H}_{21} & \tilde{H}_{22}
+    \end{bmatrix}
+    \begin{bmatrix}
+        x_t \\
+        y_t 
+    \end{bmatrix}
+\end{equation}
+在上述记号和定义下，\cref{eq-linear-ration-expectation-jordan-invH}可写为：
+\begin{equation*}
+    \begin{bmatrix}
+        \underset{n\times 1}{\tilde{x}_{t+1}} \\
+        \underset{m\times 1}{\mathbb{E}_t \left[\tilde{y}_{t+1}\right]}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \underset{n\times n}{J_1} & 0 \\
+        0 & \underset{m\times m}{J_2}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \underset{n\times 1}{\tilde{x}_t+1} \\
+        \underset{m\times 1}{y_t}
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        \underset{n\times k}{\Gamma_1} \\
+        \underset{m\times k}{\Gamma_2}
+    \end{bmatrix}
+    \underset{k\times 1}{a_t}
+\end{equation*}
+
+\textbf{我们重点关注后$m$个方程}（$i=n+1,\cdots,n+m$），希望它们能与单位圆外的特征根相对应（但实际未必成立$m=h$）：
+\begin{equation*}
+    \underset{m\times 1}{\mathbb{E}_t\left[\tilde{y}_{t+1}\right]} = 
+        \underset{m\times m}{J_2} ~ \underset{m\times 1}{\tilde{y}_t} + 
+            \underset{m\times k}{\Gamma_2} ~ \underset{k\times 1}{a_t}
+\end{equation*}
+注意到上式与\cref{eg-one-non-predetermind-one-exo}中\cref{eq-one-non-predetermind-one-exo-dynamic-yprime}
+$=\lambda y_t + z_t$十分相似。
+事实上，由于$J_2$是对角阵，我们可以利用与处理\cref{eg-one-non-predetermind-one-exo}相同的步骤来处理当前的每个元素，
+进而确保迭代后取极限得到的$m\times 1$维向量$\lim_{T\rightarrow}\mathbb{E}_t\left[\tilde{y}_{t+T}\right]$中的元素都是有限值。
+将$m\times k$维矩阵$\Gamma_2$记为：
+\[
+    \Gamma_2 = 
+    \begin{bmatrix}
+        \gamma_2^{n+1}  \\
+        \gamma_2^{n+2}  \\
+        \vdots \\
+        \gamma_2^{n+m}
+    \end{bmatrix}
+\]
+其中$\gamma_2^i$（$i=n+1,\cdots,n+m$）是$1\times k$维行向量。
+那么，对向量$\mathbb{E}_t\left[\tilde{y}_{t+1}\right]$中的第$i$个元素（$i=n+1,\cdots,n+m$）：
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{E}_t\left[\tilde{y}_{t+T}^i\right] &= 
+            \lambda_i^T\left[\tilde{y}_t^i + \frac{1}{\lambda_i}\left[1 + \frac{\rho_i}{\lambda_i} + 
+            \left(\frac{\rho_i}{\lambda_i}\right)^2 + \cdots + 
+            \left(\frac{\rho_i}{\lambda_i}\right)^{T-1}\right]\gamma_2^i a_t^i\right] \\
+        &= \lambda_i^T\left[\tilde{y}_t^i + \frac{1-\left(\rho_i / \lambda_i\right)^T}{\lambda_i-\rho_i}
+                \gamma_2^i a_t^i\right], \quad \forall i = n+1,\cdots,n+m
+    \end{aligned}
+\end{equation*}
+显然，若$\lambda_i \in [0,1]$，那么系统未定（任意取值的$\tilde{y}_t^i$都能保证极限有限）；
+若$\lambda_i \in [-1,0]$，系统同样未定；
+因此要保证均衡存在且唯一，必须要求后$m$个方程中都成立$\left|\lambda_i\right| > 1,~i=n+1,\cdots,n+m$，
+即$m\geq h$，原因在于若$m<h$，那么后$m$个方程中必然有发散的$\tilde{y}_t^i$
+但若$m>h$，这违背了的定义（注意$h$是我们\textbf{定义的单位圆外特征根数}），
+因此必然有$h=m$，也就是BK条件；
+并且均衡解$\tilde{y}_t$必须满足：
+\begin{equation*}
+    \tilde{y}_t^i = -\lim_{T\rightarrow \infty}\frac{1-\left(\rho_i/\lambda_i\right)^T}{\lambda_i-\rho_i}\gamma_2^i a_t^i
+        = -\frac{1}{\lambda_i-\rho_i}\gamma_2^i a_t^i, \quad \forall i = n+1,\cdots,n+m
+\end{equation*}
+将其写为紧凑的矩阵形式：
+\begin{equation*}
+    \underset{m\times 1}{\tilde{y_t}} = \underset{m\times m}{\Lambda} ~ \underset{m\times k}{\Gamma_2} ~ 
+        \underset{k\times 1}{a_t}
+\end{equation*}
+其中矩阵$\Gamma$是$m\times m$维对角阵，对角元为$-1/(\lambda_i - \rho_i), ~i=n+1,\cdots,n+m$。
+
+\textbf{下面我们可以将$y_t$和$x_{t+1}$用$x_t$表出。}
+根据\cref{eq-linear-ration-expectation-def-tilde}中$\tilde{y_t}$的定义可知：
+\begin{equation*}
+    \Lambda \Gamma_2 a_t = \tilde{H}_{21}x_t + \tilde{H}_{22}y_t
+\end{equation*}
+从而非前定变量（跳跃变量）$y_t$的解可用前定变量$x_t$表示为：
+\begin{equation}    \label{eq-linear-rational-expectation-solution-y}
+    y_t=-\tilde{H}_{22}^{-1} \tilde{H}_{21} x_t+\tilde{H}_{22}^{-1} \Lambda \Gamma_2 a_t
+\end{equation}
+又由\cref{eq-linear-ration-expectation-jordan}和$F=HJH^{-1}$，可写出：
+\begin{equation*}
+    \begin{bmatrix}
+        \underset{n\times 1}{x_{t+1}} \\
+        \underset{m\times 1}{\mathbb{E}_t\left[y_{t+1}\right]}
+    \end{bmatrix}
+    =
+    \underset{(n+m)\times (n+m)}{F}
+    \begin{bmatrix}
+        \underset{n\times 1}{x_t} \\
+        \underset{m\times 1}{y_t}
+    \end{bmatrix}
+    + \underset{(n+m)\times k}{G} ~ \underset{k\times 1}{a_t}
+\end{equation*}
+将其进行分块表示：
+\[
+    F = 
+    \begin{bmatrix}
+        \underset{n\times n}{F_{11}} & \underset{n\times m}{F_{12}} \\
+        \underset{m\times n}{F_{21}} & \underset{m\times m}{F_{22}}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+       \underset{n\times n}{H_{11}} & \underset{n\times m}{H_{12}} \\
+       \underset{m\times n}{H_{21}} & \underset{m\times m}{H_{22}}
+    \end{bmatrix}
+    \begin{bmatrix}
+       \underset{n\times n}{J_1} & 0 \\
+       0 & \underset{m\times m}{J_2} 
+    \end{bmatrix}
+    \begin{bmatrix}
+       \underset{n\times n}{\tilde{H}_{11}} & \underset{n\times m}{\tilde{H}_{12}} \\
+       \underset{m\times n}{\tilde{H}_{21}} & \underset{m\times m}{\tilde{H}_{22}}
+    \end{bmatrix}
+\]
+\[
+    G = 
+    \begin{bmatrix}
+        \underset{n\times k}{G_1} \\ 
+        \underset{m\times k}{G_2}
+    \end{bmatrix}
+\]
+从而$x_{t+1}$可用$x_t$表示为：
+\begin{equation}   \label{eq-linear-rational-expectation-solution-xprime}
+    x_{t+1} = F_{11} x_t+F_{12} y_t+G_1 a_t
+        = \left(F_{11}-F_{12} \tilde{H}_{22}^{-1} \tilde{H}_{21}\right) x_t + 
+            \left(G_1+F_{12} \tilde{H}_{22}^{-1} \Lambda \Gamma_2\right) a_t
+\end{equation}
+
+我们将上述可以将上述过程应用于线性化后的随机最优增长模型。
+\begin{example}
+    \textbf{随机最优增长模型的BK解法：}我们对此前介绍的随机最优增长模型进行适当扩展，假设代表性家庭的目标函数为：
+    \begin{equation*}
+        \mathbb{E}_0\left[\sum_{t=0}^{\infty} \beta^t\left(\log \left(C_t\right)-\xi H_t\right)\right]
+    \end{equation*}
+    资源约束为：
+    \begin{equation*}
+        K_{t+1}+C_t=\exp \left(z_t\right) K_t^\alpha H_t^{1-\alpha}+(1-\delta) K_t
+    \end{equation*}
+    其中，资本存量$K_t$为（内生）前定变量，消费$C_t$和劳动供给$H_t$为非前定变量，技术冲击$z_t$是（外生）前定变量，服从：
+    \begin{equation*}
+        z_{t+1} = \rho z_t + \varepsilon_{t+1}
+    \end{equation*}
+    不难得到欧拉方程为：
+    \begin{equation*}
+        \frac{1}{C_t} = \mathbb{E}_t\left[\beta
+            \left(1+\alpha \exp \left(z_{t+1}\right) K_{t+1}^{\alpha-1} H_{t+1}^{1-\alpha}-\delta\right) 
+                \frac{1}{C_{t+1}}\right]
+    \end{equation*}
+    劳动供给方程为：
+    \begin{equation*}
+        \frac{1}{C_t}(1-\alpha) \exp \left(z_t\right) K_t^\alpha H_t^{-\alpha}=\xi
+    \end{equation*}
+    在本例中我们以大写字母$X_t$表示水平值，$\bar{X}$表示稳态值，小写字母$x_t\equiv \log(X_t/\bar{X})$为对稳态值的偏离。
+    \footnote{$Z_t = exp(z_t)$，使用这种记号只是为了对数线性化时书写的方便。}
+    对资源约束、欧拉方程和劳动供给方程进行对数线性化可得：
+    \begin{equation*}
+        \bar{K} k_{t+1}+\bar{C} c_t = 
+            \bar{K}^\alpha \bar{H}^{1-\alpha}\left(z_t+\alpha k_t+(1-\alpha) h_t\right)+(1-\delta) \bar{K} k_t
+    \end{equation*}
+    \begin{equation*}
+        -c_t = \mathbb{E}_t
+            \left[\beta \alpha \bar{K}^{\alpha-1} \bar{H}^{1-\alpha}
+                \left(z_{t+1}+(\alpha-1) k_{t+1}+(1-\alpha) h_{t+1}\right)-c_{t+1}\right]
+    \end{equation*}
+    \begin{equation*}
+        h_t = \frac{1}{\alpha}(z_t+\alpha k_t - c_t)
+    \end{equation*}
+    由于劳动供给的选择是静态的，将其代入前两个方程，并对第二个方程利用$\mathbb{E}_t [z_{t+1}] = \rho z_t$，整理可得：
+    \begin{equation*}
+        \bar{K} k_{t+1}=\frac{\bar{K}^\alpha \bar{H}^{1-\alpha}}{\alpha}z_t + 
+            \left(\bar{K}^\alpha \bar{H}^{1-\alpha}+(1-\delta) \bar{K}\right) 
+            k_t-\left(\frac{1-\alpha}{\alpha} \bar{K}^\alpha \bar{H}^{1-\alpha}+\bar{C}\right) c_t
+    \end{equation*}
+    \begin{equation*}
+        \left(\beta(1-\alpha) \bar{K}^{\alpha-1} \bar{H}^{1-\alpha}+1\right) \mathbb{E}_t\left[c_{t+1}\right] = 
+            \beta \bar{K}^{\alpha-1} \bar{H}^{1-\alpha} \rho z_t+c_t
+    \end{equation*}
+    我们希望将这两个方程（即线性化后的模型）以如下矩阵形式表出：
+    \begin{equation*}
+        B
+        \begin{bmatrix}
+            x_{t+1} \\
+            \mathbb{E}_t[y_{t+1}]
+        \end{bmatrix}
+        =
+        A
+        \begin{bmatrix}
+            x_t \\
+            y_t
+        \end{bmatrix}
+        + E a_t
+    \end{equation*}
+    在本例中，$x_t = k_t$，$y_t = c_t$，$a_t = z_t$，从而有：
+    \begin{equation*}
+        B
+        \begin{bmatrix}
+            k_{t+1} \\
+            \mathbb{E}_t[c_{t+1}]
+        \end{bmatrix}
+        =
+        A
+        \begin{bmatrix}
+            k_t \\
+            c_t
+        \end{bmatrix}
+        + E z_t
+    \end{equation*}
+    其中：
+    \[
+        B = 
+        \begin{bmatrix}
+            \bar{K} & 0 \\
+            0 & \beta(1-\alpha)\bar{K}^{\alpha-1}\bar{H}^{1-\alpha} + 1
+        \end{bmatrix}
+    \]
+    \[
+        A = 
+        \begin{bmatrix}
+            \bar{K}^\alpha + (1-\delta)\bar{K} & -\left(\left(1-\alpha\right)\bar{K}^alpha 
+                \bar{H}^{1-\alpha}/\alpha + \bar{C}\right) \\
+            0 & 1
+        \end{bmatrix}
+    \]
+    \[
+        E = 
+        \begin{bmatrix}
+            \bar{K}^\alpha \bar{H}^{1-\alpha} / \alpha \\
+            \beta \bar{K}^{\alpha-1}\bar{H}^{1-\alpha}\rho
+        \end{bmatrix}
+    \]
+    假设在模型参数下，矩阵$B$可逆，将方程两侧左乘$B^{-1}$，并令$F=B^{-1}A$，$G = B^{-1}E$，根据此前的推导和记号可得：
+    \begin{equation*}
+        \begin{aligned}
+            c_t &= -\tilde{H}_{22}^{-1} \tilde{H}_{21} k_t+\tilde{H}_{22}^{-1} \Lambda \Gamma_2 z_t \\
+            k_{t+1} &= \left(F_{11}-F_{12} \tilde{H}_{22}^{-1} \tilde{H}_{21}\right) k_t + 
+                \left(G_1+F_{12} \tilde{H}_{22}^{-1} \Lambda \Gamma_2\right) z_t
+        \end{aligned}
+    \end{equation*}
+\end{example}
+
+
+% ===== 广义Shur方法 =====
+\subsection{广义Shur方法}
+
+对线性理性预期模型：
+\begin{equation*}
+        B
+        \begin{bmatrix}
+            x_{t+1} \\
+            \mathbb{E}_t[y_{t+1}]
+        \end{bmatrix}
+        =
+        A
+        \begin{bmatrix}
+            x_t \\
+            y_t
+        \end{bmatrix}
+        + E a_t
+    \end{equation*}
+应用BK条件的前提是矩阵$B$可逆。若\textbf{矩阵$B$不可逆}，我们需要利用\textbf{广义Shur分解}（又被称为QZ分解）
+而不再是Jordan分解。

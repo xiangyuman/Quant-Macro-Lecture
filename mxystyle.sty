@@ -1,0 +1,226 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mxystyle}
+
+% ===== 包 =====
+
+% 中英文字体配置
+\usepackage[UTF8,fontset=windows]{ctex}
+
+% 主要包：排版、公式、图表、引用、文献
+\usepackage[inner=2.5cm, outer=2.5cm, top=2.5cm, bottom=2.5cm, bindingoffset=0.5cm]{geometry} % 页边距、页眉页脚
+\usepackage{siunitx, mdframed}
+\usepackage{datetime2}  % 封面
+\usepackage{fancyhdr} % 页眉显示内容
+
+\usepackage{microtype} % 提升字体边缘对齐
+\usepackage{titlesec,titletoc,setspace,enumitem,indentfirst}  % 版式
+\usepackage{amsmath, amssymb, amsthm, bm, mathtools, bbm, etoolbox} % 公式
+\usepackage{hyperref,cleveref}  % 引用
+%\usepackage{algorithm, algpseudocodex} % 代码块
+%\usepackage[linesnumbered,ruled,boxed]{algorithm2e}
+\usepackage{graphicx, subcaption,float} % 图片
+\usepackage{caption, float}
+
+\usepackage[style=authoryear, backend=bibtex]{biblatex} % 文献
+%\usepackage{natlib}
+
+\usepackage{listings}
+\usepackage[framed,numbered,autolinebreaks]{mcode}  % matlab code in context
+
+\usepackage{tikz}
+\usepackage[dvipsnames]{xcolor} % 自定义环境外观
+
+
+% ===== 自定义设置 =====
+
+% cover
+\newcommand{\cover}[1][]{
+    \begin{titlepage}
+        \begin{center}
+            \begin{tabular}{c}
+                {\Huge\bfseries 量化宏观经济学} \\
+                \\\\\\\\\\
+                {\Large Liu，满翔宇}
+            \end{tabular}
+    \end{center}
+    \end{titlepage}
+}
+
+% 封面 \usepackage{datetime2}
+\title{\Huge\bfseries 量化宏观经济学}
+\author{\LARGE 满翔宇}
+%\date{\vspace{5cm}\Large 2025}
+\date{\vspace{5cm}\DTMnow}
+
+% 引用 
+\hypersetup{
+    colorlinks = true,
+    linkcolor = blue,
+    citecolor = red,
+    urlcolor = cyan
+}
+
+% 伪代码
+%\renewcommand{\algorithmicrequire}{\textbf{输入:}}  % Use Input in the format of Algorithm  
+%\renewcommand{\algorithmicensure}{\textbf{输出:}} % Use Output in the format of Algorithm  
+
+% 行距
+\setstretch{1.3}
+
+% 公式间距
+\mathtoolsset{mathic=true} % 改善行内公式对齐
+
+\setlength{\abovedisplayskip}{1.5pt}  % 公式上方间距
+\setlength{\belowdisplayskip}{1.5pt}  % 公式下方间距
+\setlength{\abovedisplayshortskip}{1.5pt} % 短公式上方间距
+\setlength{\belowdisplayshortskip}{1.5pt} % 短公式下方间距
+
+% 列表间距：条目间距（itemsep）和段落间距（parsep）
+\setlist[enumerate]{itemsep=1pt, parsep=1pt, topsep=2pt} % 有序列表
+\setlist[itemize]{itemsep=1pt, parsep=1pt, topsep=2pt}   % 无序列表
+% 嵌套列表缩进
+\setlist[enumerate,1]{label=(\arabic*), leftmargin=2.5em}
+\setlist[enumerate,2]{label=(\alph*), leftmargin=4em}
+\setlist[itemize,1]{label=$\bullet$, leftmargin=2.5em}
+\setlist[itemize,2]{label=$\circ$, leftmargin=4em}
+
+% 参考文献包设置 \usepackage[style=authoryear, backend=bibtex]{biblatex} / %usepackage{natlib}
+\addbibresource{back/refs.bib}
+%\bibliographystyle{apalike}
+%\bibliography{back/refs}
+
+% 定义定理样式（统一为 "definition" 风格）
+\newtheoremstyle{mytheorem}
+  {3pt}               % 上方间距
+  {3pt}               % 下方间距
+  {\normalfont}       % 正文字体
+  {0pt}               % 缩进
+  {\bfseries}         % 标题字体
+  {}                  % 标点符号
+  {0.5em}             % 标题后间距
+  {}                  % 定理头格式
+
+% 应用样式到所有定理类环境
+\theoremstyle{mytheorem}
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{lemma}{引理}[chapter]
+\newtheorem{definition}{定义}[chapter]
+\newtheorem{example}{例}[chapter]
+\newtheorem{property}{性质}[chapter]
+\newtheorem{assumption}{假设}[chapter]
+
+% 定理类环境添加背景色
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Blue,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{theorem}
+
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Cyan,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{lemma}
+
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor=Red,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{definition}
+
+\surroundwithmdframed[
+  %backgroundcolor=gray!10,
+  backgroundcolor = white,
+  linewidth=1pt, linecolor = Purple,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{example}
+
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Green,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{property}
+
+% 引用、链接包 \usepackage{hyperref,cleveref}
+\crefname{theorem}{定理}{定理}
+\crefname{lemma}{引理}{引理}
+\crefname{definition}{定义}{定义}
+\crefname{example}{例}{例}
+\crefname{property}{性质}{性质}
+\crefname{assumption}{假设}{假设}
+\crefname{equation}{式}{式}
+\crefname{figure}{图}{图}
+
+
+% ===== 排版设置 =====
+
+% 页面
+\setlength{\headheight}{15pt} % 防止页眉高度警告
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\leftmark} % 靠左显示章标题
+%\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\color{Blue!60} \hrule width\textwidth height 0.8pt} % 蓝色页眉线
+\fancyfoot[C]{\thepage}
+
+% 目录
+\setcounter{secnumdepth}{4}    % 支持四级编号
+\setcounter{tocdepth}{4}       % 目录显示到第四级
+
+\renewcommand{\thepart}{\Roman{part}}   % 篇：罗马数字
+\renewcommand{\thechapter}{\arabic{chapter}} % 章：阿拉伯数字
+\renewcommand{\thesection}{\thechapter.\arabic{section}} % 1.1
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}} % 1.1.1
+
+%  目录格式
+% \dottedcontents{part}[4em]{\addvspace{1em}\bfseries}{4em}{1pc}
+% \dottedcontents{chapter}[2.5em]{\addvspace{0.5em}}{2.3em}{1pc}
+% \dottedcontents{section}[4.5em]{}{3.2em}{1pc}
+% \dottedcontents{subsection}[7em]{}{4.2em}{1pc}
+
+% part篇格式设置 
+\titleformat{\part}[block]
+  {\filcenter\Huge\bfseries\sffamily}
+  {Part \thepart} % 编号前缀
+  {1em}
+  {}
+\titlespacing*{\part}{0pt}{3cm}{3cm}
+
+% chapter章格式设置 
+\titleformat{\chapter}[block]
+    {\LARGE\bfseries\sffamily}
+    {\thechapter}
+    {1em}   % 编号与标题间距
+    {}  % 标题前内容
+\titlespacing{\chapter}{0pt}{2\baselineskip}{1\baselineskip}
+
+% section节格式设置
+\titleformat{\section}[block]
+    {\large\bfseries\sffamily}
+    {\thesection}
+    {1em}
+    {}
+ \titlespacing{\section}{0pt}{1.2\baselineskip}{0.6\baselineskip}
+
+% subsection子节格式设置
+\titleformat{\subsection}[block]
+    {\large\bfseries\sffamily}
+    {\thesubsection}
+    {1em}
+    {}
+\titlespacing{\subsection}{0pt}{0.8\baselineskip}{0.4\baselineskip}

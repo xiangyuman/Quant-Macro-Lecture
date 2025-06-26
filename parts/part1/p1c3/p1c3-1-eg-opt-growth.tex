@@ -5,13 +5,13 @@
 本节对随机最优增长模型（Stochastic Optimal Growth Model / Stochastic Neoclassical Growth Model）进行介绍。
 一方面，自Brock and Mirman（1972）首次将随机TFP冲击引入计划者问题，将其作为宏观变量内生波动的解释后，
 随机最优增长模型就逐渐成为几乎所有经济周期模型的基本框架。
-另一方面，以随机最优增长作为引例，我们将说明外生冲击给模型计算带来的难点，并初步窥探相应数值方法的运用。
+另一方面，以随机最优增长作为引例，我们将说明外生冲击和高维状态给模型计算带来的难点，并初步窥探相应数值方法的运用。
 
 
 % 3.1.1 ===== 基本概念与模型设定 =====
 \subsection{基本概念与模型设定}
 
-在确定性模型中，给定期初资本存量，生产函数是确定的，代表性家庭（计划者）面临的资源约束为：
+在确定性最优增长中，给定期初资本存量，生产函数是确定的，代表性家庭（计划者）面临的资源约束为：
 \begin{equation*}
     c_t + k_{t+1} \leq f(k_t)+\left(1-\delta\right)k_t
 \end{equation*}
@@ -52,7 +52,8 @@
 $\{c_t\left(z^t\right)\}_{t=0}^{\infty},~ \{k_{t+1}\left(z^t\right)\}_{t=0}^{\infty}$也是随机过程，
 通常我们将其称为\textbf{状态依存计划}（Contingent Plans）。我们将先利用序列方法求解状态依存计划的最优条件。
 
-在序列问题下，家庭将概率序列$\pi_t\left(s^t\right)$视为给定，选择消费和资本序列来最大化自身期望效用\ref{eq-s-opt-growth-preference}：
+在序列问题下，家庭将概率序列$\pi_t\left(s^t\right)$视为给定，选择消费和资本序列
+来最大化自身期望效用\cref{eq-s-opt-growth-preference}：
 \begin{equation*}
     \max _{\left\{c_t\left(s^t\right), k_{t+1}\left(s^t\right)\right\}_{t=0}^{\infty}} 
         \sum_{t=0}^{\infty} \sum_{s^t} \beta^t u\left(c_t\left(s^t\right)\right) \pi_t\left(s^t\right)
@@ -115,7 +116,7 @@ $\{c_t\left(z^t\right)\}_{t=0}^{\infty},~ \{k_{t+1}\left(z^t\right)\}_{t=0}^{\in
         = \operatorname{Pr}\left(s_{t+1}\mid s_t\right), \quad \forall k\geq 1 \quad \forall t
 \end{equation}
 我们将在下一节详细学习马尔可夫过程的性质与模型的求解。
-现在我们继续讨论模型递归形式下的最优条件与随机动态规划（Stochastic Dynamic Programming）。
+现在我们继续讨论递归形式下的最优条件与随机动态规划（Stochastic Dynamic Programming）。
 
 在递归形式下，模型通过选择合适的\textbf{状态变量}来追踪经济的历史事件，习惯上我们可以省去随机事件历史$s^t$符号。
 给定当前TFP水平为$z$，记$\pi\left(z^{\prime}\mid z\right)$为下期$z^{\prime}$发生的概率。
@@ -145,7 +146,7 @@ $\mathbb{E}\left[\left(z^{\prime\prime},k^{\prime\prime}\right)\mid z^{\prime}\r
 包络定理表明：
 \begin{equation}
     v_k\left(z,k\right) 
-        = u^{\prime}\left(zf(k)+(1-\delta)k-k^{\prime}\right)\left(zf^{\prime}+\left(1-\delta\right)\right)
+        = u^{\prime}\left(zf(k)+(1-\delta)k-k^{\prime}\right)\left(zf^{\prime}(k)+\left(1-\delta\right)\right)
 \end{equation}
 从而我们可以得到递归形式下的\textbf{欧拉泛函}：
 \begin{equation}    \label{eq-s-opt-growth-euler-dp}
@@ -156,12 +157,12 @@ $\mathbb{E}\left[\left(z^{\prime\prime},k^{\prime\prime}\right)\mid z^{\prime}\r
                     \left[z^{\prime}f^{\prime}\left(k^{\prime}\right)+\left(1-\delta\right)\right]\right\}
     \end{aligned}
 \end{equation}
-将消费的定义代入并利用条件期望符号可以写出如下常见形式：
+将消费的定义代入并利用条件期望符号可将欧拉泛函写为如下常见形式：
 \begin{equation*}
     u^{\prime}(c_t) = 
         \beta \mathbb{E}_t\{u^{\prime}(c_{t+1})\left[z_{t+1}f^{\prime}(k_{t+1})+\left(1-\delta\right)\right]\}
 \end{equation*}
-上述欧拉泛函对所有$(z,k)$组合都成立，并且隐式地定义了计划者问题的解（策略函数）：
+它对所有$(z,k)$组合都成立，并且隐式地定义了计划者问题的解（策略函数）：
 \begin{equation*}
     k^{\prime} = g\left(k,z\right)
 \end{equation*}
@@ -173,36 +174,57 @@ $\mathbb{E}\left[\left(z^{\prime\prime},k^{\prime\prime}\right)\mid z^{\prime}\r
 对于离散时间下的动态规划，整体上可以分为两种类型：离散动态规划（Disrete Dynamic Programming）
 和连续动态规划（Continuous Dynamic Programming）——这里的离散和动态是针对状态变量和控制变量的取值空间而言的。
 我们的精力主要集中于后者，因为其在宏观模型中更为普遍，同时我们目前所接触的模型也属于这一范围。
-求解计算有\textbf{两种整体思路}：
+连续动态规划的计算求解整体有\textbf{两种思路}：
 
-一是\textbf{离散化估计}（Discrete Approximation），这与之前VFI的思路相近：
+一是\textbf{离散化估计}（Discrete Approximation）：这与之前VFI的思路相近，
 通过离散化状态变量和控制变量空间，在一定范围的格点上寻找最优值。实际上，相当于将连续规划转化为离散规划。
 
-二是\textbf{平滑估计}（Smooth Approximation），类似于此前的Collocation方法：
-思路是使用连续或平滑函数直接近似值函数或策略函数。这一方法更快速，但不如离散化可靠。
-我们将在函数逼近和投影法章节中重点介绍相关理论。
+二是\textbf{平滑估计}（Smooth Approximation）：类似于此前的Collocation方法，思路是使用连续或平滑函数直接近似值函数
+或策略函数。这一方法更快速，但不如离散化可靠。我们将在函数逼近和投影法章节中重点介绍相关理论。
 
-在确定性模型中，值函数迭代过程包含了对于最优$k^{\prime}$的选取（一个最大化的过程），然后能够得到更新后的值函数；
-但在随机模型中，对于贝尔曼方程右侧的条件期望，我们并不清楚下期TFP水平$z^{\prime}$的取值。
-如果外生过程天然服从马尔科夫链，那么如我们后面将看到的，利用转移概率矩阵可以简化求和。
-然而更一般的情况是，外生冲击服从连续过程，例如AR(1)，并非一个离散的马尔科夫链，导致原始贝尔曼方程右侧包含一个积分：
+无论选取何种方法，在求解模型过程中的\textbf{主要难点}都可概括如下：
+
+\textbf{一是高维状态带来复杂的计算量：}相比确定性最优增长模型，随机最优增长的关键点在于TFP冲击$z_t$，
+这一要素和资本存量$k_t$都是模型的状态变量。如果采用此前的VFI方法，那么离散化工作就要在两个维度上进行，
+由此产生的不同$(k,z)$的组合数量呈指数增长。
+
+\textbf{二是最优化或求根问题：}在实际处理贝尔曼方程时，贝尔曼算子要求寻找方程右侧的最大值。在一些复杂问题中，
+计算机自带的函数无法完成这一工作，只能通过相关算法寻找最优点。此外，许多时候最优化问题可以转化为求根问题。
+
+\textbf{三是处理条件期望：}在确定性模型中，值函数迭代过程包含了对于最优$k^{\prime}$的选取（一个最大化的过程），
+然后能够得到更新后的值函数；但在随机模型中，对于贝尔曼方程右侧的条件期望，我们并不清楚下期TFP水平$z^{\prime}$的取值。
+如果外生过程天然服从马尔科夫链，那么可以直接利用转移概率矩阵简化期望。不过更一般的情况是，
+外生冲击服从连续过程，例如AR(1)，并非一个离散的马尔科夫链，导致原始贝尔曼方程右侧包含一个积分：
 \begin{equation*}
     v(k, z)=\max _{k^{\prime}}
         \left[u\left(zf(k)+(1-\delta)k-k^{\prime}\right)
-            +\beta \int v\left(k^{\prime}, z^{\prime}\right) \pi\left(z^{\prime} \mid z\right) d z^{\prime}\right]
+        +\beta \int v\left(k^{\prime}, z^{\prime}\right) \pi\left(z^{\prime} \mid z\right) d z^{\prime}\right]
 \end{equation*}
-
-简单来讲，\textbf{无论整体思路是采用离散化估计还是平滑估计，都面临处理贝尔曼方程右侧条件期望的问题}。
-对于外生冲击连续的情形，我们主要有\textbf{两种具体处理办法来处理期望（积分）}：
-
-一是\textbf{利用马尔可夫过程的性质离散化AR(1)的状态空间}，用有限维马尔科夫链及其转移概率矩阵近似AR(1)过程，
+实际上，\textbf{处理贝尔曼方程右侧条件的期望（积分）是经常遇到的一般化问题}，主要有\textbf{两种处理办法}：
+\textbf{一是利用马尔可夫过程的性质离散化AR(1)的状态空间}：用有限维马尔科夫链及其转移概率矩阵近似AR(1)过程，
 简化右侧的条件期望，然后通过离散化估计方法（如值函数迭代）求解。
+\textbf{二是数值积分}：这是更为灵活的积分计算方法，在特定的格点和权重下用求和形式近似右侧的积分。
 
-二是\textbf{数值积分}，这是更为灵活的积分计算方法，在特定的格点和权重下用求和形式近似右侧的积分。
+需要强调：\textbf{离散化估计和平滑估计是求解动态规划的总体思路；而马尔可夫近似和数值积分则是具体的计算方法}。
+为了更清晰的领会相应难点，考虑用VFI求解如下例子：
+对随机最优增长框架，假设冲击$z_t$服从两状态马尔科夫链，状态空间为$\{H=1.015,L=0.985\}$。
+两种状态间从状态$i$转移到状态$j$的概率为$\pi_{ij},~i,j=H,L$，其中：$\pi_{HH}=\pi_{LL}=0.95$，$\pi_{LH}=\pi_{HL}=0.05$，
+以行为当前状态，以列为下一期状态，我们可以将其表示为如下转移矩阵：
+\[
+    P =
+    \begin{pmatrix}
+        0.95 & 0.05 \\
+        0.05 & 0.95 \\
+    \end{pmatrix}
+\]
+代码。。。。耗时。。。。
 
-在进一步学习前，我们希望强调：\textbf{离散化估计和平滑估计是求解动态规划的总体思路；
-而马尔可夫近似和数值积分则是具体的计算方法}。此后章节里，我们将先对离散化估计进行学习：
-首先将会看到，马尔科夫链可以用于连续AR(1)过程的近似，进而将积分转化为依赖于转移概率矩阵的求和；
-接着我们将学习数值积分方法，它同样用求和近似积分，但是是在特定节点和权重下的求和，并且未必与马尔可夫近似等同。
-在学习完离散化估计后，我们将重点学习平滑估计方法：先介绍函数逼近的基本理论，之后重点研究投影法的应用。
+从下一节开始，我们将展开对数值求根方法和最优化算法的介绍，这是用代码实现数值求解的基础；
+接着，我们会介绍马尔可夫过程，将其引入随机最优增长模型，这是为处理条件期望所作的准备；
+然后，我们将针对离散化估计和平滑估计的进行学习：
+先介绍离散化估计：
+首先，学习如何将马尔科夫链可以用于近似连续AR(1)过程，进而将积分转化为以转移概率矩阵为权重的求和；
+接着，我们将学习数值积分方法，它同样用求和近似积分，但是是在特定节点和权重下的求和，并且未必与马尔可夫近似等同；
+在介绍完离散化估计后，我们将介绍平滑估计方法：
+先学习所需要的函数逼近理论，之后重点研究投影法的应用。
 此外，本章还将对一些其他重要算法进行介绍。

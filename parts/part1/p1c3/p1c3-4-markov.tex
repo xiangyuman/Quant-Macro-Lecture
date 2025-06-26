@@ -2,13 +2,10 @@
 
 \section{马尔可夫过程与条件期望}    \label{sec-markov}
 
-本节先对马尔可夫过程理论进行讲解。上一节曾指出，
-处理连续动态规划的总体思路主要有离散化估计和平滑估计，例如VFI和Collocation，
-但无论选取何种方法，\textbf{计算的主要难点}都在于高维的状态及期望（积分）的计算。
+本节对马尔可夫过程理论进行讲解，并将其引入随机最优增长。
+我们曾指出，处理连续动态规划的总体思路主要有离散化估计和平滑估计，例如VFI和Collocation，
+但无论选取何种方法，\textbf{计算的主要难点之一}都在于期望（积分）的计算。
 之所以先对马尔可夫过程进行学习，原因就在于它在两种方法中都发挥着重要作用：\textbf{它决定了条件期望的结构仅依赖当前状态。}
-如果使用马尔科夫链近似AR(1)过程，马尔可夫性质将在期望计算中发挥直接作用；
-即使是使用数值积分算法，它仍然依赖状态变量的马尔可夫性质：对未来的积分只依赖于当前。
-换句话说，马尔可夫近似虽然与数值积分不等同，但缺少这一性质，数值积分也很难进行。因此，马尔可夫假设对于宏观模型至关重要。
 
 \begin{definition}
     \textbf{随机过程}（Stochastic Process）是某一\textbf{随机变量}（Random Variable）$z_t$构成的时间序列$\{z_t\}_{t=0}^{\infty}$。
@@ -62,7 +59,7 @@ $\mathbb{Z}=\{\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\}$。
 \end{equation*}
 
 
-% 3.2.1 ===== Law of Motion for Pr =====
+% 3.4.1 ===== Law of Motion for Pr =====
 \subsection{转移路径与概率分布的运动方程}
 
 马尔科夫链假设能够极大简化模型转移路径的计算。给定转移概率矩阵$\boldsymbol{P}$，
@@ -99,7 +96,7 @@ $\mathbb{Z}=\{\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\}$。
 \begin{equation*}
     \pi_{t,i} = \operatorname{Pr}\left(z_t = \mathbbm{z}_i\right), \quad i=1,\cdots n
 \end{equation*}
-由转移概率可得概率随时间的变化：
+由转移概率可得上述概率分布随时间的变化：
 \begin{equation*}
     \begin{aligned}
         \pi_{1, i} &= \sum_{j=1}^n \operatorname{Pr}\left[z_1=\mathbbm{z}_i \mid z_0=\mathbbm{z}_j\right] 
@@ -132,11 +129,11 @@ $\mathbb{Z}=\{\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\}$。
 \end{equation}
 
 
-% 3.2.2 ===== Stationary Distribution =====
+% 3.4.2 ===== Stationary Distribution =====
 \subsection{平稳分布}
 
 \begin{definition}
-    \textbf{稳态或平稳分布}（Stationary Distribution）是指满足如下条件的一个无条件概率分布：
+    \textbf{稳态/平稳分布}（Stationary Distribution）是指满足如下条件的一个无条件概率分布：
     \begin{equation*}
         \boldsymbol{\pi}_{t+1} = \boldsymbol{\pi}_t
     \end{equation*}
@@ -157,42 +154,181 @@ $\mathbb{Z}=\{\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\}$。
 
 事实上，$\boldsymbol{P}$是随机矩阵（元素非负并且$\sum_{1}^{n}p_{ij}=1$）保证了$\boldsymbol{P}$至少有一个特征根为1，
 进而至少有一个特征向量$\boldsymbol{\pi}$是平稳分布。但是，平稳分布可能不唯一，因为可能有重复为1的特征根。
-平稳分布唯一的一个充分条件是：$0<p_{i j}<1, \forall i, j$。
+确保平稳分布唯一的一个充分条件是：$0<p_{i j}<1, ~ \forall i, j$。
+
+\begin{example}
+    考虑一个两状态马尔科夫链，转移矩阵为：
+    \begin{equation*}
+        \boldsymbol{P} = 
+        \begin{bmatrix}
+            1-p & p \\
+            q & 1-q
+        \end{bmatrix}
+    \end{equation*}
+    平稳分布$\boldsymbol{\pi}=\left(\pi^1, \pi^2\right)^{\prime}$是如下方程的解：
+    \begin{equation*}
+        \left[
+            \begin{pmatrix}
+                1 & 0 \\
+                 0 & 1
+            \end{pmatrix}
+            -
+            \begin{pmatrix}
+                1-p & q \\
+                p & 1-q
+            \end{pmatrix}
+        \right]
+        \begin{pmatrix}
+            \pi^1 \\
+            \pi^2
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            0 \\
+            0
+        \end{pmatrix}
+    \end{equation*}
+    可以解得：
+    \begin{equation*}
+        \begin{pmatrix}
+            \pi^1 \\
+            \pi^2
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            \frac{q}{p+q} \\
+            \frac{p}{p+q}
+        \end{pmatrix}
+    \end{equation*}
+    不难看出，当$q\rightarrow 0$，状态2会吸收状态1。
+\end{example}
+
+有时，我们也会考虑连续支撑上的马尔可夫过程，此时原有概率分布的概念相应变为了\textbf{概率密度}。
+假设$z_t$的\textbf{概率密度}为$\pi_t(z)$，根据转移方程有：
+\begin{equation*}
+    \pi_{t+1}\left(z^{\prime}\right)=\int p\left(z^{\prime} \mid z\right) \pi_t(z) dz
+\end{equation*}
+其中，$p\left(z^{\prime}\mid z\right)$是条件于$z_t=z$下$z_{t+1}=z^{\prime}$的\textbf{概率密度}。
+\textbf{平稳的概率密度函数$\pi(z)$}满足如下不动点条件：
+\begin{equation*}
+    \pi(z^{\prime}) = \int  p\left(z^{\prime} \mid z\right) \pi(z) dz
+\end{equation*}
+
+\begin{example}
+    假设$\{z_t\}$是一个线性高斯AR(1)过程：
+    \begin{equation*}
+        z_{t+1}=(1-\rho) \mu+\rho z_t+\sigma \varepsilon_{t+1}, \quad 
+            \varepsilon_{t+1} \sim \operatorname{iid} ~ N(0,1)
+    \end{equation*}
+    那么：
+    \begin{equation*}
+        p\left(z^{\prime} \mid z\right)=\frac{1}{\sigma} \phi\left(\frac{z^{\prime}-(1-\rho) \mu-\rho z}{\sigma}\right)
+    \end{equation*}
+    其中，$\phi(\varepsilon)$是标准正态分布的概率密度函数：
+    \begin{equation*}
+        \phi(\varepsilon) \equiv \frac{1}{\sqrt{2 \pi}} e^{-\varepsilon^2 / 2}
+    \end{equation*}
+    若$\left|\rho\right|<1$，那么存在唯一的平稳概率密度：
+    \begin{equation*}
+        \pi(z) = \frac{\sqrt{1-\rho^2}}{\sigma} \phi\left(\sqrt{1-\rho^2}\frac{(z-\mu)}{\sigma}\right)
+    \end{equation*}
+\end{example}
 
 
-% 3.2.3 ===== Conditional Expectation and Discrete AR(1) =====
-\subsection{马尔可夫性与条件期望}
+% 3.4.3 ===== 马尔可夫假设下的随机最优增长 =====
+\subsection{马尔可夫假设下的随机最优增长}
 
-马尔可夫性的存在极大简化了宏观模型中条件期望的计算，因为它使得下期状态只依赖于当前而不依赖于历史。
-假设随机过程$\{z_t\}_{t=0}^{\infty}$是一个马尔科夫链，
+在马尔可夫假设下，$z_t$服从一个一阶马尔可夫过程，条件概率（密度）为$\pi(z^{\prime}\mid z)$，这使得未来不依赖于众多可能的历史
+而只依赖于当前，进而我们可以写出递归形式的随机最优增长：
+\begin{equation*}
+    v(k, z)=\max _{k^{\prime}}
+        \left[u\left(zf(k)+(1-\delta)k-k^{\prime}\right)
+        +\beta \int v\left(k^{\prime}, z^{\prime}\right) \pi\left(z^{\prime} \mid z\right) d z^{\prime}\right]
+\end{equation*}
+不难得到欧拉泛函为：
+\begin{equation*}
+    u^{\prime}\left(z f(k)-k^{\prime}\right)=
+        \beta \int u^{\prime}\left(z^{\prime} f\left(k^{\prime}\right) - 
+            k^{\prime \prime}\right) z^{\prime} f^{\prime}\left(k^{\prime}\right) 
+                \pi\left(z^{\prime} \mid z\right) d z^{\prime}
+\end{equation*}
+我们指出它隐式地定义了动态规划问题的策略函数$k^{\prime}=g(k,z)$。形式上，我们可以写出：
+\begin{equation*}
+    k_{t+1} = g(k_t,z_t)
+\end{equation*}
+现在，只从模型性质分析的角度出发，我们面临的一个问题是：$\{k_t\}$未必收敛至某一稳态，那么\textbf{$k$的分布是怎样的？}
+
+假设策略函数具有乘积形式，即$k_{t+1}=z_tg(k_t)$，并且$z_t$随时间是独立同分布的，因此可记累积分布函数为：
+\begin{equation*}
+    H(z)\equiv \operatorname{Pr}[z_t\leq z]
+\end{equation*}
+接下来考虑$t$时刻资本$k$的累计分布函数：
+\begin{equation*}
+    \Psi_t(k) \equiv \operatorname{Pr}[k_t\leq k]
+\end{equation*}
+例如，对$t=1$：
+\begin{equation*}
+    \begin{aligned}
+        \Psi_1(k) & =\operatorname{Prob}\left[k_1 \leq k\right] \\
+            &= \operatorname{Prob}\left[z_0 g\left(k_0\right) \leq k\right]
+                =\operatorname{Prob}\left[z_0 \leq \frac{k}{g\left(k_0\right)}\right] \\
+            &= H\left(\frac{k}{g\left(k_0\right)}\right)
+    \end{aligned}
+\end{equation*}
+记$P(k^{\prime}\mid k)$为条件分布：
+\begin{equation*}
+    P\left(k^{\prime} \mid k\right) \equiv \operatorname{Prob}\left[k_{t+1} \leq k^{\prime} \mid k_t=k\right]
+\end{equation*}
+在独立同分布的假设下，可以得到：
+\begin{equation*}
+    P(k^{\prime} \mid k) = H\left(\frac{k^{\prime}}{g(k)}\right)
+\end{equation*}
+资本$k$的累计分布函数$\Psi(\cdot)$的运动方程为：
+\begin{equation*}
+    \Psi_{t+1}\left(k^{\prime}\right)=\int P\left(k^{\prime} \mid k\right) d \Psi_t(k)
+\end{equation*}
+用概率密度函数$\psi(\cdot)$表示这一运动方程，则有：
+\begin{equation*}
+    \psi_{t+1}\left(k^{\prime}\right)=\int p\left(k^{\prime} \mid k\right) \psi_t(k) dk
+\end{equation*}
+平稳概率密度是这一运动方程的不动点，即：
+\begin{equation*}
+    \psi\left(k^{\prime}\right)=\int p\left(k^{\prime} \mid k\right) \psi(k) dk
+\end{equation*}
+更一般的来说，由策略函数$k^{\prime}=g(k,z)$和外生冲击的条件密度函数$\pi\left(z^{\prime}\mid z\right)$，
+可以得到状态$(k,z)$的联合分布（Joint Distribution）的运动方程，我们希望找到其不动点。
+
+马尔可夫性的另一个好处是简化了模型中条件期望的计算，因为它使得下期状态只依赖于当前而不依赖于历史。
+例如，假设随机过程$\{z_t\}_{t=0}^{\infty}$是一个马尔科夫链，
 取值空间为$\boldsymbol{\mathbbm{z}}=\left(\mathbbm{z}_1,\mathbbm{z}_2,\cdots,\mathbbm{z}_n\right)^{\prime}$。
 那么给定$z_t=\mathbbm{z}_i$，$z_{t+1}$的条件期望为：
 \begin{equation}
     \mathbb{E}\left(z_{t+1} \mid z_t=\mathbbm{z}_i\right) = \boldsymbol{P}_i\boldsymbol{\mathbbm{z}}
 \end{equation}
 其中，$\boldsymbol{P}_i$为转移概率矩阵$\boldsymbol{P}$的第$i$行（即条件于当前状态为$\mathbbm{z}_i$）。
-
 对于随机最优增长模型，假设$z_t$服从一个$n$维马尔可夫链，取值空间同上。
-给定$k=k_m,~z=z_i$，对值函数$v\left(k_m,z_i\right)$，利用转移概率军阵可以直接写出如下贝尔曼方程：
+给定$k=k_m,~z=z_i$，对值函数$v\left(k_m,z_i\right)$，利用转移概率可以直接写出如下贝尔曼方程：
 \begin{equation*}
     \begin{aligned}
         v\left(k_m,z_i\right) &= \max_{k^{\prime}}u\left[zf(k_m)+(1-\delta)k_m-k^{\prime}\right] + 
-            \mathbbm{E}\left[v\left(k^{\prime},z^{\prime}\right)\mid z=z_i\right] \\
+            \beta\mathbbm{E}\left[v\left(k^{\prime},z^{\prime}\right)\mid z=z_i\right] \\
         &= \max_{k^{\prime}}u\left[zf(k_m)+(1-\delta)k_m-k^{\prime}\right] +
-            \boldsymbol{P}_i v\left(k^{\prime},\mathbbm{z}\right)
+            \beta\boldsymbol{P}_i v\left(k^{\prime},\mathbbm{z}\right)
     \end{aligned}
 \end{equation*}
 其中$v\left(k^{\prime},\mathbbm{z}\right)$是一个$n$维列向量，每行对应下期$z^{\prime}$在空间$\mathbbm{z}$上可能的取值
-$\left(z_1,\cdots,z_n\right)$。
+$\left(z_1,\cdots,z_n\right)$，$\boldsymbol{P}_i$则是转移矩阵的第$i$行，它表示条件于当前TFP状态为$z_i$。
 
-我们可以将其写为更为紧凑的矩阵形式。记$v\left(k_m,\mathbbm{z}\right)$是$n$维值函数，每行对应TFP的一种可能取值下的最优值。
+我们可以将其写为更为紧凑的矩阵形式。记$v\left(k_m,\mathbbm{z}\right)$是$n$维值函数，每行对应TFP的一种可能状态下的最优值。
 令$\vec{\boldsymbol{1}}$是元素全部维1的$n$维列向量，$\boldsymbol{z}^{\prime}$表示下期的$n$维列向量，从而有：
 \begin{equation*}
     \begin{aligned}
         v\left(k_m,\mathbbm{z}\right) 
         &= \max_{k^{\prime}}u\left[\mathbbm{z}f(k_m)+\vec{\boldsymbol{1}}(1-\delta)k_m-\vec{\boldsymbol{1}}k^{\prime}\right] + 
-            \mathbbm{E}\left[v\left(k^{\prime},\boldsymbol{z}^{\prime}\right)\mid \mathbbm{z}\right] \\
+            \beta\mathbbm{E}\left[v\left(k^{\prime},\boldsymbol{z}^{\prime}\right)\mid \mathbbm{z}\right] \\
         &= \max_{k^{\prime}}u\left[\mathbbm{z}f(k_m)+\vec{\boldsymbol{1}}(1-\delta)k_m-\vec{\boldsymbol{1}}k^{\prime}\right] +
-            \boldsymbol{P} v\left(k^{\prime},\mathbbm{z}\right)
+            \beta\boldsymbol{P} v\left(k^{\prime},\mathbbm{z}\right)
     \end{aligned}
 \end{equation*}
+
+

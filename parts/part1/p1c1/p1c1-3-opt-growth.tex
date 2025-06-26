@@ -1,6 +1,6 @@
 % 1.3 =============== 最优增长模型 ===============
 
-\section{最优增长：RCK模型} \label{sec-opt-growth}
+\section{确定性最优增长：RCK模型} \label{sec-opt-growth}
 
 Solow（1956）和Swan（1956）的工作标志新古典增长理论的诞生。但Solow模型的主要问题在于，模型中储蓄率是外生给定的。
 Cass（1965）和Koopmans（1965）在Solow工作的基础上，通过引入微观基础对新古典理论进行了拓展，将储蓄作为理性选择下的内生结果，
@@ -71,7 +71,7 @@ Cass（1965）和Koopmans（1965）在Solow工作的基础上，通过引入微�
 
 
 % 1.3.1 ===== 有限期情形 =====
-\subsection{最优增长模型求解：有限期情形} \label{subsec-rck-finite}
+\subsection{有限期情形} \label{subsec-rck-finite}
 
 与消费-储蓄模型类似，我们希望利用Lagrangian函数和库恩塔克定理求解序列问题。对有限期情形这是容易的，正如我们已经给出的：
 只要目标函数是严格凹并且约束集是有界闭凸集，那么库恩塔克条件是最优解的充分必要条件。
@@ -181,7 +181,7 @@ Cass（1965）和Koopmans（1965）在Solow工作的基础上，通过引入微�
 
 
 % 1.3.2 ===== 无限期情形 =====
-\subsection{最优增长模型：无限期情形} \label{subsec-rck-infinite}
+\subsection{无限期情形} \label{subsec-rck-infinite}
 
 本节转向无限期最优增长模型的序列化求解。回忆消费-储蓄模型，我们发现有限期情形下的最优终期选择正是终端条件$a_{T+1}=0$，
 建立了有限期情形下最优解的存在条件；依照这一终端条件，为了避免无限期情形下出现庞氏骗局，我们给出了非庞氏条件；
@@ -208,8 +208,10 @@ Cass（1965）和Koopmans（1965）在Solow工作的基础上，通过引入微�
     \begin{equation*}
         \lim _{t \rightarrow \infty} \beta^t u^{\prime}\left(c_t\right) f^{\prime}\left(k_t\right) k_t
             =\lim _{t \rightarrow \infty} \beta^t \frac{A \alpha k_t^{\alpha-1}}{A k_t^\alpha-k_{t+1}} k_t
+            =\lim_{t \rightarrow \infty} \beta^t \frac{\alpha}{1-\alpha\beta}
     \end{equation*}
-    由于资本序列收敛，并且$\lim\limits_{t\rightarrow \infty}\beta^t \alpha / (1-\alpha\beta)=0$，因此TVC条件成立，即
+    由于$\beta\in (0,1)$，从而$\lim\limits_{t\rightarrow \infty}\beta^t \alpha / (1-\alpha\beta)=0$，
+    因此性质中要求的TVC条件成立，即
     \begin{equation*}
         \lim _{t \rightarrow \infty} \beta^t u^{\prime}\left(c_t\right) f^{\prime}\left(k_t\right) k_t = 0
     \end{equation*}
@@ -225,10 +227,83 @@ Cass（1965）和Koopmans（1965）在Solow工作的基础上，通过引入微�
 求解的过程就是寻找符合差分方程的$(k_t,c_t)$的路径的过程，如果不加限制，可能存在很多解。
 但事实上，正如我们所证明的，符合两个边界条件（给定的$k_0$和TVC）的解是唯一的。
 
-求解无限期模型解析解的另一个方法是\textbf{猜测验证法}（Guess and Verify）。但是，有解析解的例子在宏观模型中十分少见。
-因此，我们在后续章节将研究动态规划和数值方法。
+求解无限期模型解析解的另一个方法是\textbf{猜测验证法}（Guess and Verify），也称待定系数法。
+此处给出一个带有解析解的例子。
+\begin{example}
+    \textbf{待定系数法}：模型环境与上一例子中相同。假设$u(c)=\log c$，生产函数为柯布-道格拉斯型$f(k)=Ak^{\alpha}$，
+    假设完全折旧$\delta=1$。在$t=T$时刻截断，记此时资本为$k_{t+1}^T$。
+    \textbf{猜测：}
+    \begin{equation*}
+        k_{t+1} = s Ak_t^{\alpha}
+    \end{equation*}
+    其中$s$是未知的待定系数。将这一猜测代入欧拉方程\cref{eq-rck-euler-finite}可得：
+    \begin{equation*}
+        \frac{1}{A k_t^\alpha-s A k_t^\alpha} = 
+            \beta \alpha A \frac{k_{t+1}^{\alpha-1}}{A k_{t+1}^\alpha-s A k_{t+1}^\alpha}
+    \end{equation*}
+    代数运算后即可知$s=\alpha\beta$，即：
+    \begin{equation*}
+        k_{t+1} = \alpha \beta A k_t^{\alpha}
+    \end{equation*}
+\end{example}
+
+猜测法通常与在$T$时刻截断的方法相结合：先依据最优条件后向求解几期模型，寻找一个可能的形式，然后验证。
+不过，有解析解的例子在宏观模型中十分少见，因此我们在后面需要详细学习动态规划和数值方法。
+此外，我们还留下一个问题没有处理：RCK模型是否像Solow模型那样全局收敛至某一稳态？
+稳态的存在是显然的。根据欧拉方程\cref{eq-rck-euler-finite}，对恒定水平的消费（资本），成立：
+\begin{equation}
+    1 = \beta \left(f^{\prime}(\bar{k})+1-\delta\right)
+\end{equation}
+由$f$的凹性和Inanda条件，上式存在唯一解。对于收敛性的讨论，我们将在下一章动态规划的学习中讨论。
 
 
 % 1.3.3 ===== BGP =====
 \subsection{RCK模型中的平衡增长路径}
 
+在上面的基准RCK模型中：一方面我们简化了长期中增长的可能；另一方面假设没有随机技术冲击。
+在本小节我们将研究RCK模型下的平衡增长问题；对于随机冲击模型的讨论将在数值方法章节讨论，用于引出相关数值求解技巧。
+
+假设经济中人口和技术分别以$n$和$\gamma$的速度增长，计划者最大化如下目标：
+\begin{equation*}
+    \sum_{t=0}^{\infty} \beta^t L_t u\left(c_t\right)
+\end{equation*}
+即计划者同时关注当代人口和未来出生的人口。其中$c_t = C_t/L_t$表示人均消费。经济的资源约束为：
+\begin{equation*}
+    C_t = F(K_t, A_tL_t) + (1-\delta)K_t - K_{t+1}
+\end{equation*}
+定义\textbf{有效人均劳动变量}：$\tilde{x}_t = X_t / (A_tL_t)$，从而可将预算约束写为平稳形式：
+\begin{equation}
+    \tilde{c}_t=f\left(\tilde{k}_t\right)+(1-\delta) \tilde{k}_t-(1+\gamma)(1+n) \tilde{k}_{t+1}
+\end{equation}
+假设瞬时效用函数为$u(c_t) = c_t^{1-\sigma}/(1-\sigma)$，$\sigma>0$且$\sigma \neq 1$。
+\footnote{这一效用函数形式被证明是唯一与平衡增长相合的形式。}
+正则化$A_0=1$和$L_0=1$，则计划者目标可写为：
+\begin{equation}
+    \begin{aligned}
+    \sum_{t=0}^{\infty} \beta^t L_t \frac{c_t^{1-\sigma}}{1-\sigma} &=
+        \sum_{t=0}^{\infty} \beta^t(1+n)^t \frac{\left((1+\gamma)^t \tilde{c}_t\right)^{1-\sigma}}{1-\sigma} \\
+    & =\sum_{t=0}^{\infty} \tilde{\beta}^t \frac{\tilde{c}_t^{1-\sigma}}{1-\sigma},
+    \end{aligned}
+\end{equation}
+其中定义了调整后的折现因子：
+\begin{equation}
+    \tilde{\beta} \equiv \beta(1+n)(1+\gamma)^{1-\sigma}
+\end{equation}
+不难得到如下欧拉方程：
+\begin{equation*}
+    (1+n)(1+\gamma)\left(\tilde{c}_t\right)^{-\sigma} = 
+    \tilde{\beta}\left(\tilde{c}_{t+1}\right)^{-\sigma}\left[f^{\prime}\left(\tilde{k}_{t+1}\right)+(1-\delta)\right]
+\end{equation*}
+将$\tilde{\beta}$代入可得：
+\begin{equation*}
+    \left(\tilde{c}_t\right)^{-\sigma} = \beta \left(1+\gamma\right)^{-\sigma}
+        \left(\tilde{c}_{t+1}\right)^{-\sigma}\left[f^{\prime}\left(\tilde{k}_{t+1}\right)+(1-\delta)\right]
+\end{equation*}
+这表明，计划者的最优条件并未受到人口增长和技术进步的影响。
+
+在平衡增长路径上，所有变量以相同速率增长。
+对上面平稳化后的模型，通过向$(\tilde{c_t},\tilde{k_{t+1}})$施加稳态条件即可得到平衡增长路径，此时欧拉方程简化为：
+\begin{equation*}
+    (1+n)(1+\gamma) = \tilde{\beta}\left[f^{\prime}(\bar{\tilde{k}})+1-\delta\right]
+\end{equation*}
+令$n=\gamma=0$，可验证与无人口增长与技术进步模型的稳态相同。

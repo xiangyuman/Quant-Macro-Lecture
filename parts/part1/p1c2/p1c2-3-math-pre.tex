@@ -23,6 +23,7 @@
         \item $d(x,y) \leq d\left(x,z\right)+d\left(z,y\right) $
     \end{itemize}
 \end{definition}
+
 在这里，集合$S$不止于数集，也可能是函数集（例如我们感兴趣的值函数集）等。
 因此，度量空间的定义比普通欧氏距离（Euclidean Distance）更复杂。
 但显然，实数集$S = \mathbb{R}$和绝对距离$d\left(x,y\right)=\left|x-y\right|$构成一个度量空间。
@@ -246,7 +247,7 @@
 （1）\textbf{完备空间}上定义的压缩映射存在唯一不动点；（2）从\textbf{完备空间}$S$中任意初始点$x_0 \in S$出发，
 在其上迭代压缩映射$T$，可以无限接近唯一的不动点。即我们找到了一个求解不动点的算法。
 
-再次回顾目标：我们通过迭代贝尔曼算子：
+\textbf{再次回顾目标}：我们通过迭代贝尔曼算子：
 \begin{equation*}
     Tv\left(k\right) \equiv \max_{k^{\prime}} 
         \left[u\left(\gamma\left(k\right)-k^{\prime}\right)+\beta v\left(k^{\prime}\right)\right]

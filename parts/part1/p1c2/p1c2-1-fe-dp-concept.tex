@@ -94,8 +94,8 @@ $\mathcal{F}(x_t,x_{t+1})\equiv \hat{\mathcal{F}}\left(\hat{h}(x_t,x_{t+1})\righ
         \left\{\mathcal{F}\left(x_t, x_{t+1}\right)+\beta v\left(x_{t+1}\right)\right\}
 \end{equation*}
 这一问题形式被称为\textbf{动态规划}（Dynamic Programming）。
-不难看出，对平稳的无限期问题是，那么时间记号并不重要，以记号$x$表示状态变量的当期值，以记号$x^{\prime}$表示下期值，
-从而动态规划问题为：
+不难看出，对平稳的无限期问题，时间记号并不重要，以记号$x$表示状态变量的当期值，以记号$x^{\prime}$表示下期值，
+从而动态规划问题可以写为：
 \footnote{我们也可以将贝尔曼方程形式写为如下形式$v(x)=\max _{y \in \Gamma(x)}\left\{\mathcal{F}\left(x, y\right)
 +\beta v\left(x^{\prime}\right)\right\}$，只是记号差异，分析并没有本质不同。
 因为一旦确定了$y_t$，就相当于确定了$x_{t+1}$。我们在后面将频繁看到这一记号的使用。}
@@ -104,11 +104,11 @@ $\mathcal{F}(x_t,x_{t+1})\equiv \hat{\mathcal{F}}\left(\hat{h}(x_t,x_{t+1})\righ
         \left\{\mathcal{F}\left(x, x^{\prime}\right)+\beta v\left(x^{\prime}\right)\right\}
 \end{equation}
 这一方程就是\textbf{贝尔曼方程}（Bellman Equation）。
-注意到，方程左右两侧都包含值函数$V(\cdot)$，但是我们并不知道其具体形式，即方程的未知量是函数$v(\cdot)$:
+注意到，方程左右两侧都包含值函数$v(\cdot)$，但是我们并不知道其具体形式，即方程的未知量是函数$v(\cdot)$:
 对任意$x$，$v(\cdot)$都需满足\cref{eq-dp-bellman}。因此，贝尔曼方程本质是一个\textbf{泛函方程}（Functional Equation）。
 记函数$g(\cdot)$使贝尔曼方程取最大化，即：
 \begin{equation*}
-    g(x) = \arg \max _{x^{\prime} \in \Gamma(x)}
+    g(x) = \underset{x^{\prime} \in \Gamma(x)}{\operatorname{argmax}}
         \left\{\mathcal{F}\left(x, x^{\prime}\right)+\beta v\left(x^{\prime}\right)\right\}
 \end{equation*}
 因此对所有$x$，下期$x^{\prime}$的决策规则为：$x^{\prime}=g(x)$。
@@ -170,21 +170,21 @@ $v^{\prime}\left(g(x)\right)=\mathcal{F}_{1}\left(g\left(x\right),g\left(g\left(
     \mathcal{F}_2\left(x_t, x_{t+1}\right)+\beta \mathcal{F}_1\left(x_{t+1}, x_{t+2}\right)=0, ~ \forall t
 \end{equation*}
 其未知成分是数值构成的序列$\{x_t\}_{t=1}^{\infty}$。
-在递归形式下，\cref{eq-bellman-euler-fe}并不包含特定的未知量如$x_t,~x_{t+1},~x_{t+2}$，而是对对所有$x$成立，
+在递归形式下，\cref{eq-bellman-euler-fe}并不包含特定的未知量如$x_t,~x_{t+1},~x_{t+2}$，而是对所有$x$成立，
 \textbf{其未知是策略函数}$g$。因此，它实际是将欧拉方程表达为泛函，通常称之为\textbf{欧拉泛函}（Functional Euler Equation）。
 
 
 % ===== 解法启示 =====
-\subsection{对递归问题解法的启示：贝尔曼方程 vs 欧拉泛函}
+\subsection{递归问题解法的启示：贝尔曼方程 vs 欧拉泛函}
 
 对于动态优化问题,
-在前一章的\textbf{序列视角下}：我们通过利用非线性差分方程（欧拉方程）和横截性条件来求解最有序列；
+在\textbf{序列视角下}：我们通过利用非线性差分方程（欧拉方程）和横截性条件来求解最优序列；
 在本章的\textbf{递归视角下}：我们首先建立了关于值函数的贝尔曼方程：
 \begin{equation*}
     v(x) = \max _{x^{\prime} \in \Gamma(x)}
         \left\{\mathcal{F}\left(x, x^{\prime}\right)+\beta v\left(x^{\prime}\right)\right\}
 \end{equation*}
-接着推导出了关于决策规则的欧拉泛函：
+接着利用最优处的一阶条件和包络定理推导出了关于决策规则的欧拉泛函：
 \begin{equation*}
     \mathcal{F}_2(x, g(x))+\beta \mathcal{F}_1(g(x), g(g(x)))=0, ~ \forall x
 \end{equation*}
@@ -194,5 +194,5 @@ $v^{\prime}\left(g(x)\right)=\mathcal{F}_{1}\left(g\left(x\right),g\left(g\left(
 而直接处理泛函的话，我们面对的是一个二维动力系统。在后面我们将看到，贝尔曼方程符合压缩映射定理的条件，可以迭代求得唯一解，较为稳健；
 欧拉泛函并不是压缩映射，它只是最优策略函数$g$的一个必要条件，因此存在多重解的可能，但求解速度更快。
 
-从下一节开始，我们将运用本节所介绍的思路及工具，对递归形式的RCK模型展开分析。
+从下一节开始，我们将运用本节提出的思路及工具，对递归形式的RCK模型展开分析。
 并且，我们将在RCK模型的基础上，深入讨论值函数性质、动态规划求解等关键问题。

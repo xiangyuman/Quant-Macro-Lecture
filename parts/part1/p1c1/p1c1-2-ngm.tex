@@ -1,8 +1,8 @@
 % 1.2 =============== 新古典理论 ===============
 
-\section{新古典增长理论} \label{sec-ngm}
+\section{新古典增长理论基础} \label{sec-ngm}
 
-接下来，我们将通过另一个重要模型来深入对序列视角下动态优化问题的认知，这就是新古典增长模型（或称最优增长模型）。
+接下来，我们将通过另一个重要模型来深入对序列视角下动态优化问题的认知，这就是新古典增长模型。
 新古典理论是在Solow等人的工作之上建立起来的。在当时，美国长期稳定的资本产出比引起了许多经济学家的关注。
 早期增长理论如哈罗德-多马模型将这一特征直接作为模型的前提假设：资本与劳动必须按固定比例结合（互补）才能进行生产。
 但是索罗发现，资本和劳动明显是可替代的，传统理论不能解释现实问题：
@@ -15,11 +15,11 @@ Solow（1956）和Swan（1956）在Ramsey（1928）、哈罗德-多马模型等�
 奠定了新古典增长理论（Neoclassical Growth）和现代宏观经济学的基础。
 
 在本节我们将重点介绍新古典增长模型的起源——索洛模型，并引出相关宏观经济学的概念。
-我们将在下一节重点研究最优增长模型的序列化解法。
+我们将在下一节重点研究新古典增长模型（最优增长模型）的序列化解法。
 
 
 % 1.2.1 ===== 基准 =====
-\subsection{基准索洛模型}
+\subsection{索洛模型}
 
 索洛模型的核心要素是\textbf{总量生产函数}（Aggregate Production Function），
 通常由总资本$K_t$，总劳动投入$L_t$（人口乘人均工作时间）和技术$A_t$构成。
@@ -64,7 +64,7 @@ Solow（1956）和Swan（1956）在Ramsey（1928）、哈罗德-多马模型等�
     y_t = c_t + i_t
 \end{equation}
 在索洛模型中，并没有对消费者的消费-储蓄问题建模，而是假设\textbf{外生储蓄率}$s\in(0,1)$。
-由于$y_t$不仅是产品供给，同时也是消费者的总收入，即它不是被用于消费就是被用于储蓄，因此总投资等于总储蓄：
+由于$y_t$不仅是产品供给，同时也是消费者的总收入，即它不是被用于消费就是被用于储蓄。因此总投资等于总储蓄：
 \begin{equation}
     i_t = s y_t
 \end{equation}
@@ -95,7 +95,7 @@ $\lim\limits_{k\rightarrow 0}F_1(k,1)>\delta/s$和$\lim\limits_{k\rightarrow \in
 \end{equation*}
 
 接下来，我们利用\textbf{相图}（Diagram）分析当初始$k_0>0$不处于稳态值时，$k_t$的\textbf{动态}。
-\cref{dynamics-solow}绘制了资本运动方程\cref{eq-k-law-of-motion}和45度线，其中横轴是当期资本，纵轴是下期资本，
+\cref{fig-dynamics-solow}绘制了资本运动方程\cref{eq-k-law-of-motion}和45度线，其中横轴是当期资本，纵轴是下期资本，
 因此45度线代表资本处于稳态。给定横轴上一个初始$k_0$，由\cref{eq-k-law-of-motion}可以在纵轴上得到下期的$k_1$；
 再将$k_1$做为新的初始状态，利用\cref{eq-k-law-of-motion}在纵轴上得到$k_2$，依次进行下去，
 可以得到资本序列$\{k_{t+1}\}_{t=0}^{\infty}$。显然，只要初始$k_0>0$，无论从何处开始，系统最终都会收敛至稳态$\bar{k}$。
@@ -108,7 +108,7 @@ $\lim\limits_{k\rightarrow 0}F_1(k,1)>\delta/s$和$\lim\limits_{k\rightarrow \in
     \centering
     \includegraphics[width=0.8\textwidth]{figures/part1/ch1/dynamics-solow.png}
     \caption{索洛模型的动态}
-    \label{dynamics-solow}
+    \label{fig-dynamics-solow}
 \end{figure}
 
 直觉上讲，收敛的原因在于生产函数关于资本的边际报酬递减（\cref{as-F-quasiconcave}）。根据资本运动方程：
@@ -187,8 +187,8 @@ $i_t=sf(k_t)$相对于折旧的资本更高，从而资本存量逐渐提高。�
 \end{equation*}
 也就是说，在平衡增长路径上，人均产出以$\gamma$的速率增长，其余参数如储蓄率$s$不会影响\textbf{长期速率}。
 
-需要注意的是，上述结果说外生储蓄率对经济没有影响：它会影响人均产出的\textbf{水平值}。
-同时，当经济尚未收敛到平衡增长路径上时，外生储蓄率的水平也会影响经济短期的增长率，因为短期内$\tilde{k}_t$的变动会产生影响：
+需要注意的是，上述结果并不是说外生储蓄率对经济没有影响：它会影响人均产出的\textbf{水平值}。
+同时，当经济尚未收敛到平衡增长路径时，外生储蓄率的水平也会影响经济短期的增长率，因为经济会对短期内$\tilde{k}_t$的变动作出反应：
 \begin{equation*}
     \frac{y_{t+1}-y_t}{y_t} = 
         \frac{f(\tilde{k}_{t+1}) A_{t+1}-f(\tilde{k}_t) A_t}{f(\tilde{k}_t) A_t} = 

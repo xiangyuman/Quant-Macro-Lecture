@@ -1,0 +1,198 @@
+% 3.3 =============== Conditional Expectation and Discrete AR(1) ===============
+
+\section{马尔可夫近似与离散化估计}    \label{sec-markov-approximation}
+
+我们已经初步了解了马尔可夫性质对于条件期望结构的关键作用——使未来的分布只依赖于当前。
+截至目前，我们基本都是在离散空间上研究马尔可夫过程和贝尔曼方程，但我们曾指出，多数情形下外生冲击服从连续过程，
+即我们求解的是连续动态规划问题。对此我们也提出了两种总体思路：离散化估计和平滑估计。但无论选择何种总体思路，
+\textbf{主要的难点都是处理连续的AR(1)过程，或者说计算积分}。
+本节，我们将学习如何利用马尔可夫性近似AR(1)过程，并将其运用于离散化估计的整体框架。
+下一节我们将介绍另一种处理条件期望的方法：数值积分。
+
+如果选择离散化估计处理动态规划，并且想要在期望（积分）计算中直接利用马尔可夫性质，\textbf{这就要求离散化后的外生过程服从马尔可夫链}，
+并且需要找到对应的转移概率矩阵。因此，对于外生过程的离散化并不像离散化资本那样简单。假设一个典型的AR(1)冲击形式如下：
+\begin{equation}    \label{eq-z-ar1}
+    z_{t+1}=(1-\rho) \mu+\rho z_t + \varepsilon_{t+1}, \quad 
+        \varepsilon_{t+1} \sim \operatorname{IID} N(0,\sigma_{\varepsilon}^2)
+\end{equation}
+其中，$\mu$为$z_t$的无条件均值，$\rho\in(0,1)$。不失一般性，令$\mu=0$。
+$\varepsilon_t$互相独立，服从均值为$\mathbb{E}_t[\varepsilon_{t+1}]=0$、方差为$Var[\epsilon_{t+1}] = \sigma_{\varepsilon}^2$
+的正态分布，即：
+\begin{equation*}
+    \operatorname{Pr}[\varepsilon\leq u] = F(u/\sigma_{\varepsilon})
+\end{equation*}
+其中$F(\cdot)$是标准正态分布函数。显然，$z_t$的无条件方差为：
+\begin{equation*}
+    \sigma_z^2 = \frac{1}{1-\rho^2}\sigma_{\varepsilon}^2
+\end{equation*}
+
+我们的目标是：构建一个状态空间为$\{z^i\}_{i=1}^N$、转移矩阵为$\pi=(\pi_{ij})$的马尔科夫链，使其能较好的近似原有的连续AR（1）过程。
+其中$N$为格点数量，取值越大，那么近似越精确。简言之，用马尔科夫链将连续的AR（1）过程离散化。
+目前，已经发展了许多不同技巧来实现这一目标，我们简要介绍如下几种重要和常见的方法。
+
+
+% 3.5.1 ===== TauChen（1986） ===== 
+\subsection{TauChen（1986）方法}
+
+TauChen（1986）的方法通过如下三步将连续AR（1）过程离散化为马尔可夫链：
+
+\textbf{Step 1.}构造具有$N$个\textbf{等距格点}的离散空间：
+\begin{equation*}
+    \left(z^i\right)_{i=1}^N =
+        \left\{z_{min }, z_{min }+\frac{z_{max }-z_{min }}{N-1}, \ldots, 
+            z_{min }+\frac{N-2}{N-1}\left(z_{max }-z_{min }\right), z_{max }\right\}
+\end{equation*}
+其中：
+\begin{equation*}
+    z_{min} = -m\sigma_z,~z_{max} = m\sigma_z
+\end{equation*}
+$m$反映了这一估计能够覆盖的取值范围，通常取3或者4就足够。
+
+\textbf{Step 2.}根据格点找到$N$个区间：
+\begin{equation*}
+    \begin{aligned}
+        & I_1 = \left(-\infty, z_{\min }+\frac{z_{\max }-z_{\min }}{2(N-1)}\right) \\
+        & I_2 = \left(z_{\min }+\frac{z_{\max }-z_{\min }}{2(N-1)}, z_{\min }
+            +\frac{3\left(z_{\max }-z_{\min }\right)}{2(N-1)}\right), \ldots, \\
+        & I_{N-1} = \left(z_{\min }+\frac{(2 N-5)\left(z_{\max }-z_{\min }\right)}{2(N-1)}, 
+            z_{\min }+\frac{(2 N-3)\left(z_{\max }-z_{\min }\right)}{2(N-1)}\right), \\
+        & I_N = \left(z_{\min }+\frac{(2 N-3)\left(z_{\max }-z_{\min }\right)}{2(N-1)}, \infty\right)
+    \end{aligned}
+\end{equation*}
+
+\textbf{Step 3.}依据正态概率分布函数，计算$z_t$落入相应区间的概率作为转移概率，即：
+\begin{equation*}
+    \pi_{ij} = \operatorname{Pr}\left(z_{t+1}\in I_j\mid z_t = z^i\right)
+\end{equation*}
+具体看，若记格点的间距为$\omega$，那么通过计算$z_t$落入相应区间
+$\left[z^j-\omega/2,z^j+\omega/2\right]$（$j=2,\cdots,N-1$）的概率以及落入两端的概率
+（小于$z^1+\omega/2$对应$j=1$，大于$z^N-\omega/2$对应$j=N$），可得转移矩阵元素$\pi_{ij}$为：
+\begin{equation*}
+    \pi_{i j} = 
+        \begin{cases}
+            F\left(\frac{\bar{z}^1-\rho \bar{z}^i+\omega / 2}{\sigma_{\varepsilon}}\right) & \text { for } j=1 \\ 
+            F\left(\frac{\bar{z}^j-\rho \bar{z}^i-\omega / 2}{\sigma_{\varepsilon}}\right) - 
+                F\left(\frac{\bar{z}^j-\rho \bar{z}^i+\omega / 2}{\sigma_{\varepsilon}}\right) & 
+                    \text { for } j=2, \ldots, N-1 \\ 
+            1-F\left(\frac{\bar{z}^j-\rho \bar{z}^i-\omega / 2}{\sigma_{\varepsilon}}\right) & \text { for } j=N,
+        \end{cases}
+\end{equation*}
+
+
+% 3.5.2 ===== Rouwenhorst =====
+\subsection{Rouwenhorst方法}
+
+TauChen（1986）的方法简单方便，但是也有学者指出，当$\rho$接近1时，这一近似不够准确。与此同时，在宏观经济中，
+许多外生冲击的自回归系数实际是很接近1的，因此如下的Rouwenhorst（1995）近似方法受到推崇。
+我们在此介绍这一方法的一个特例，实现步骤如下：
+
+\textbf{Step 1.}与TauChen（1986）相同，构造具有$N$个\textbf{等距格点}的离散空间：
+\begin{equation*}
+    \left(z^i\right)_{i=1}^N =
+        \left\{z_{min }, z_{min }+\frac{z_{max }-z_{min }}{N-1}, \ldots, 
+            z_{min }+\frac{N-2}{N-1}\left(z_{max }-z_{min }\right), z_{max }\right\}
+\end{equation*}
+其中：
+\begin{equation*}
+    z_{min} = -m\sigma_z,~z_{max} = m\sigma_z
+\end{equation*}
+\textbf{但是此处$m$不能任意取值。}
+
+\textbf{Step 2.}\textbf{递归构建$N\times N$维马尔可夫矩阵$\Pi_N$}：
+\begin{itemize}
+    \item 对$N=2$，取：
+        \begin{equation*}
+            \Pi_2 = 
+            \begin{bmatrix}
+                p & 1-p \\
+                1-p & p
+            \end{bmatrix}
+        \end{equation*}
+    \item 对$N\geq 3$，先构建$N \times N$维矩阵：
+        \begin{equation*}
+            \begin{aligned}
+                \Pi_N &= p
+                \begin{bmatrix}
+                    \underset{(N-1)\times (N-1)}{\Pi_{N-1}} & \underset{(N-1)\times 1}{\mathbf{0}} \\
+                    \underset{1 \times (N-1)}{\mathbf{0}^{\prime}} & 0
+                \end{bmatrix}
+                + (1-p)
+                \begin{bmatrix}
+                    \mathbf{0} & \Pi_{N-1} \\
+                    0 & \mathbf{0}^{\prime}
+                \end{bmatrix}   \\
+                &+ p
+                \begin{bmatrix}
+                    \underset{1\times (N-1)}{\mathbf{0}^{\prime}} & 0 \\
+                    \underset{(N-1)\times (N-1)}{\Pi_{N-1}} & \underset{(N-1)\times 1}{\mathbf{0}}
+                \end{bmatrix}
+                + (1-p)
+                \begin{bmatrix}
+                    0 & \mathbf{0}^{\prime} \\
+                    \mathbf{0} & \Pi_{N-1}
+                \end{bmatrix}
+            \end{aligned}
+        \end{equation*}
+\end{itemize}
+
+\textbf{Step 3.}正则化：将\textbf{除了第一行和最后一行}的矩阵元素全部除以2，从而保证每行的行和为1。
+
+对于$p$和$m$，可以设定如下：取$p=(1+\rho)/2$和$m=\sqrt{N-1}$。通过上述过程，可以证明所构造的马尔科夫链的
+无条件均值和无条件方差与原始AR（1）过程的相同。
+这一方法只用到了均值和方差的信息以及当$N\rightarrow\infty$时马尔可夫过程的不变分布收敛至正态分布。
+当$\varepsilon_{t+1}$服从正态分布、真实$\rho$接近1时，这一方法较为有效。
+
+
+% 3.5.3 ===== Tauchen-Hussey（1991） =====
+\subsection{Tauchen-Hussey（1991）方法}
+
+这一方法与Gauss-Hermite数值积分方法有关，我们在此简要介绍，同时作为数值积分的一个引例。
+假设我们要计算条件期望：
+\begin{equation*}
+    E\left[v\left(z^{\prime}\right) \mid z\right] = 
+        \int_{-\infty}^{\infty} v\left(z^{\prime}\right) f\left(z^{\prime} \mid z\right) d z^{\prime}
+\end{equation*}
+其中$f(\cdot\mid z)$是给定$z_t=z$下$z_{t+1}$的条件密度。利用Gauss-Hermite方法，\footnote{我们将在后面介绍这一数值积分方法。}
+我们可以对这一积分进行如下估计：
+\begin{equation*}
+    \int v\left(z^{\prime}\right) f\left(z^{\prime} \mid z\right) dz^{\prime} \simeq 
+        \pi^{-1 / 2} \sum_{j=1}^N \omega_j v\left(\sqrt{2 \sigma} x_j+\rho z\right)
+\end{equation*}
+其中，$x_j$和$\omega_j$是Gauss-Hermite结点和权重。这一近似方法的问题在于，它连续地依赖取值于$z$。
+TauChen和Hussey（1991）提出了如下变换：
+\begin{equation*}
+    \int v\left(z^{\prime}\right) f\left(z^{\prime} \mid z\right) d z^{\prime} = 
+        \int v\left(z^{\prime}\right)\frac{f\left(z^{\prime} \mid z\right)}{f\left(z^{\prime} \mid 0\right)} 
+            f\left(z^{\prime} \mid 0\right) d z^{\prime} =
+        \frac{1}{\sqrt{\pi}} \sum_{j=1}^N w_j v\left(z^j\right)
+            \frac{f\left(z^j \mid z\right)}{f\left(z^j \mid 0\right)}
+\end{equation*}
+其中$z^j=\sqrt{2}\sigma x_j$。进而可得：
+\begin{equation*}
+    E\left[v\left(z^{\prime}\right) \mid z^i\right] \simeq \sum_{j=1}^N \tilde{\pi}_{i j} v\left(z^j\right), \quad
+        \tilde{\pi}_{i j}=\pi^{-1 / 2} w_j \frac{f\left(z^j \mid z^i\right)}{f\left(z^j \mid 0\right)}
+\end{equation*}
+由于此时可能出现：
+\begin{equation*}
+    \sum_{j=1}^N \tilde{\pi}_{i j} \neq 1
+\end{equation*}
+因此可以进行正则化：
+\begin{equation*}
+    \pi_{i j} = \frac{\tilde{\pi}_{i j}}{\sum_{j=1}^N \tilde{\pi}_{i j}}
+\end{equation*}
+并做如下估计：
+\begin{equation*}
+    E\left[v\left(z^{\prime}\right) \mid z^i\right] \simeq \sum_{j=1}^N \pi_{i j} v\left(z^j\right)
+\end{equation*}
+需要注意\textbf{这里并不是积分的Gauss-Hermite估计}。
+当$N$足够大时，$\sum_{j=1}^{N}\tilde{p}_{ij}$收敛到1。
+因此，我们可以用取值空间为$\{z^1,z^2,\cdots,z^N\}$、转移矩阵为$(\pi_{ij})$的马尔可夫链近似AR（1）过程。
+
+
+% 3.5.4 ===== 离散化求解模型 =====
+\subsection{求解离散化的随机最优增长}
+
+
+
+
+离散化后求和仍有V，可以通过离散化后VFI，也可作为后面函数逼近和Projection的引入，即用函数逼近V

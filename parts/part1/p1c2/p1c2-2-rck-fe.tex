@@ -31,7 +31,7 @@
 \begin{equation}    \label{eq-rck-bellman-foc}
     u^{\prime}\left(\gamma\left(k\right)-k^{\prime}\right) = \beta v^{\prime}\left(k^{\prime}\right)
 \end{equation}
-假设存在决策规则时内点解，从而$k^{\prime}=g(k)$满足一阶条件，即：
+假设存在决策规则时内点解，从而$k^{\prime}=g(k)$满足一阶条件，即最优处的一阶条件为：
 \begin{equation}    \label{eq-rck-bellman-foc-opt}
     u^{\prime}\left(\gamma(k)-g(k)\right) = \beta v^{\prime}\left(g(k)\right)
 \end{equation}
@@ -106,11 +106,10 @@
 \begin{equation*}
     \frac{u^{\prime}\left(c_t\right)}{\beta u^{\prime}\left(c_{t+1}\right)}=f^{\prime}\left(k_{t+1}\right)+1-\delta
 \end{equation*}
-
 二者形式十分近似，但有着重要区别：前者要求解的未知量是资本的无穷序列值；后者是一个泛函，未知量是策略函数$g$。
 
 与前一节类似，贝尔曼方程与欧拉泛函对应了两种不同的解法思路：基于值函数求解和基于策略函数求解。我们将在后面展开具体研究。
-但在此之前，我们在将先学习泛函分析的数学工具，进而建立值函数与策略函数的相关性质，为分析模型性质和具体求解奠定基础。
+但在此之前，我们需要先掌握一些泛函分析的数学工具，进而建立值函数与策略函数的相关性质，为分析模型性质和具体求解奠定基础。
 
 
 % 2.2.3 ===== 引例 =====
