@@ -40,7 +40,7 @@ $\mathcal{F}(x_t,x_{t+1})\equiv \hat{\mathcal{F}}\left(\hat{h}(x_t,x_{t+1})\righ
         \sum_{t=0}^{\infty} \beta^t \mathcal{F}\left(x_t, x_{t+1}\right)
 \end{equation}
 给定$x_t$，$\Gamma(x_t)$是$x_{t+1}$的可行集。
-在这一表达式中，我们称$V(x_0)$为\textbf{值函数}（Value Function），它代表给定起初条件$x_0$，取最优处时目标函数的值。
+在这一表达式中，我们称$v(x_0)$为\textbf{值函数}（Value Function），它代表给定起初条件$x_0$，取最优处时目标函数的值。
 我们可以将这一高维问题化简降维：
 \begin{equation}
     \begin{aligned}
@@ -60,15 +60,15 @@ $\mathcal{F}(x_t,x_{t+1})\equiv \hat{\mathcal{F}}\left(\hat{h}(x_t,x_{t+1})\righ
 其中利用了$\max_{x,y}f(x,y) = \max_{y}\{\max_{x}f(x,y)\}$。
 注意到，最后一行等式的中括号中最大化问题的结构和\cref{eq-def-value-func}完全相同，唯一不同的是初始条件变为了$x_1$。
 换句话说，它代表给定初始条件为$x_1$时，决策者选择最优序列$x_{t+1}$下目标函数的值。
-由于时间是无穷的，并且当期目标函数和可行集$\Gamma$都不随时间改变，因此中括号中的表达式正是$V(x_1)$，进而我们得到：
+由于时间是无穷的，并且当期目标函数和可行集$\Gamma$都不随时间改变，因此中括号中的表达式正是$v(x_1)$，进而我们得到：
 \begin{equation*}
     v\left(x_0\right) = 
         \max _{\left\{x_1 \in \Gamma\left(x_0\right)\right\}}\left\{\mathcal{F}\left(x_0, x_1\right) + 
             \beta v\left(x_1\right)\right\}
 \end{equation*}
 
-一个自然的问题是：序列问题和递归问题的两种表达形式等价吗？答案是，只要问题是\textbf{平稳的}（Stationary），等价性就存在。
-直观上讲，但只要第$t$期的问题和$t+1$期的问题结构相同，动态优化问题就是平稳的，
+一个自然的问题是：序列问题和递归问题的两种表达形式等价吗？答案是，只要问题是\textbf{平稳的}（Stationary），等价性就成立。
+直观上讲，只要第$t$期的问题和$t+1$期的问题结构相同，动态优化问题就是平稳的，
 或者说，决策者所有决策相关的信息都与时间无关。因此，平稳性实际包括另一层含义：\textbf{值函数不依赖于时间}。
 实际上，并非所有问题都是平稳的，例如在有限期的最优增长模型中，计划者选择资本时会关注剩余的时间。随着终期接近，决策问题也随之变化。
 此时，问题虽然仍可表征为递归形式，但值函数会依赖于时间，即$v_t$。而在无限期情形下，任意时刻后剩余的时间都是相同的。
@@ -84,7 +84,7 @@ $\mathcal{F}(x_t,x_{t+1})\equiv \hat{\mathcal{F}}\left(\hat{h}(x_t,x_{t+1})\righ
 \begin{equation*}
     x_{t+1} = g(x_t)
 \end{equation*}
-即决定未来资本如何依赖于档期状态的函数不依赖于时间。我们称函数$g(\cdot)$为\textbf{决策规则（}Decision Rule）或
+即决定未来资本如何依赖于当期状态的函数不依赖于时间。我们称函数$g(\cdot)$为\textbf{决策规则（}Decision Rule）或
 \textbf{策略函数}（Policy Function）。
 
 对任意给定的初始条件$x_t$，我们可以将递归问题写为：

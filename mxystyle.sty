@@ -1,58 +1,85 @@
+%% customlized package
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{mxystyle}
 
-% ===== 包 =====
 
-% 中英文字体配置
-\usepackage[UTF8,fontset=windows]{ctex}
-
-% 主要包：排版、公式、图表、引用、文献
-\usepackage[inner=2.5cm, outer=2.5cm, top=2.5cm, bottom=2.5cm, bindingoffset=0.5cm]{geometry} % 页边距、页眉页脚
-\usepackage{siunitx, mdframed}
-\usepackage{datetime2}  % 封面
-\usepackage{fancyhdr} % 页眉显示内容
-
-\usepackage{microtype} % 提升字体边缘对齐
-\usepackage{titlesec,titletoc,setspace,enumitem,indentfirst}  % 版式
-\usepackage{amsmath, amssymb, amsthm, bm, mathtools, bbm, etoolbox} % 公式
-\usepackage{hyperref,cleveref}  % 引用
-%\usepackage{algorithm, algpseudocodex} % 代码块
-%\usepackage[linesnumbered,ruled,boxed]{algorithm2e}
-\usepackage{graphicx, subcaption,float} % 图片
-\usepackage{caption, float}
-
-\usepackage[style=authoryear, backend=bibtex]{biblatex} % 文献
-%\usepackage{natlib}
-
-\usepackage{listings}
-\usepackage[framed,numbered,autolinebreaks]{mcode}  % matlab code in context
-
-\usepackage{tikz}
-\usepackage[dvipsnames]{xcolor} % 自定义环境外观
+%% =============== 中英文字体配置 ===============
+\RequirePackage[UTF8,fontset=windows]{ctex} % 中文包
 
 
-% ===== 自定义设置 =====
+%% =============== 页面布局 ===============
+\RequirePackage{geometry} % 页面布局
+\RequirePackage{fancyhdr} % 页面、页眉
 
-% cover
-\newcommand{\cover}[1][]{
-    \begin{titlepage}
-        \begin{center}
-            \begin{tabular}{c}
-                {\Huge\bfseries 量化宏观经济学} \\
-                \\\\\\\\\\
-                {\Large Liu，满翔宇}
-            \end{tabular}
-    \end{center}
-    \end{titlepage}
+% ===== 页面大小 =====
+\geometry{inner=2.5cm, outer=2.5cm, top=2.5cm, bottom=2.5cm, bindingoffset=0.5cm}
+
+
+% ===== 前言、正文部分页码控制 =====
+% 取消frontmatter页码
+\fancypagestyle{frontstyle}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+}
+% 取消目录页码
+\fancypagestyle{tocstyle}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+% 正文页码样式
+\fancypagestyle{mainstyle}{
+    \fancyhf{}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0.4pt}
+}
+% 自动应用页码样式
+\AtBeginDocument{
+  \pagestyle{frontstyle} % 文档开始时应用无页码样式
+  \let\oldtableofcontents\tableofcontents % 重定义目录命令
+  \renewcommand{\tableofcontents}{
+    \pagestyle{tocstyle} % 应用目录专用样式
+    \oldtableofcontents
+    \thispagestyle{tocstyle} % 确保目录第一页无页码
+    \cleardoublepage
+  }
+}
+% 增强frontmatter命令
+\let\oldfrontmatter\frontmatter
+\renewcommand{\frontmatter}{
+  \oldfrontmatter
+  \pagestyle{frontstyle} % 确保前言部分应用无页码样式
+  \pagenumbering{gobble} % 完全禁用页码编号
+}
+% 增强mainmatter命令
+\let\oldmainmatter\mainmatter
+\renewcommand{\mainmatter}{
+  \oldmainmatter
+  \pagestyle{mainstyle} % 应用正文页码样式
+  \pagenumbering{arabic} % 启用阿拉伯数字页码
 }
 
-% 封面 \usepackage{datetime2}
-\title{\Huge\bfseries 量化宏观经济学}
-\author{\LARGE 满翔宇}
-%\date{\vspace{5cm}\Large 2025}
-\date{\vspace{5cm}\DTMnow}
+% ===== 页眉控制 =====
+\setlength{\headheight}{15pt} % 防止页眉高度警告
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\leftmark} % 靠左显示章标题
+%\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\color{Blue!60} \hrule width\textwidth height 0.8pt} % 蓝色页眉线
+\fancyfoot[C]{\thepage}
 
-% 引用 
+% ===== 目录 =====
+\setcounter{secnumdepth}{4}    % 支持四级编号
+\setcounter{tocdepth}{4}       % 目录显示到第四级
+
+
+%% =============== 数学环境 ===============
+\RequirePackage{amsmath, amssymb, amsthm, bm, mathtools, bbm, etoolbox} % 公式
+
+%% =============== 引用环境 ===============
+\RequirePackage{hyperref,cleveref}  % 引用
+
+% ===== 文中引用设定 =====
 \hypersetup{
     colorlinks = true,
     linkcolor = blue,
@@ -60,9 +87,143 @@
     urlcolor = cyan
 }
 
-% 伪代码
-%\renewcommand{\algorithmicrequire}{\textbf{输入:}}  % Use Input in the format of Algorithm  
-%\renewcommand{\algorithmicensure}{\textbf{输出:}} % Use Output in the format of Algorithm  
+% ===== 引用名称 ====
+\crefname{equation}{式}{式}
+\crefname{figure}{图}{图}
+\crefname{definition}{定义}{定义}
+\crefname{theorem}{定理}{定理}
+\crefname{lemma}{引理}{引理}
+\crefname{property}{性质}{性质}
+\crefname{example}{例}{例}
+\crefname{assumption}{假设}{假设}
+
+
+%% ================ 图环境 ===============
+\RequirePackage{graphicx, subcaption,float} % 图片
+\RequirePackage{caption}
+\RequirePackage{tikz}
+
+
+%% =============== 代码环境 ===============
+\RequirePackage{listings}
+\RequirePackage[framed,numbered,autolinebreaks]{mcode}  % matlab code in context
+
+
+%% =============== 定义、定理、引理、性质、例、假设 环境 ===============
+\RequirePackage[most, listings, theorems]{tcolorbox}
+\RequirePackage{siunitx, mdframed}
+\RequirePackage[dvipsnames]{xcolor} % 自定义环境外观
+
+% \definecolor{grey}{rgb}{0.5,0.5,0.5}
+% \definecolor{orange}{rgb}{1,0.5,0}
+% \definecolor{purple}{rgb}{0.7,0,1}
+% \definecolor{darkgreen}{rgb}{0,0.5,0.2}
+% \definecolor{darkblue}{rgb}{0,0,1}
+% \definecolor{linkc}{rgb}{0.4,0.2,0.4}
+
+\newtheoremstyle{mytheorem}
+  {3pt}               % 上方间距
+  {3pt}               % 下方间距
+  {\normalfont}       % 正文字体
+  {0pt}               % 缩进
+  {\bfseries}         % 标题字体
+  {}                  % 标点符号
+  {0.5em}             % 标题后间距
+  {}                  % 定理头格式
+\theoremstyle{mytheorem}
+
+% ===== 定义 =====
+\newtheorem{definition}{定义}[chapter]
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor=Red,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{definition}
+% \newtcolorbox[auto counter, number within = chapter]{definition}[2][]{%
+% fonttitle= \bfseries\upshape, fontupper= \upshape, arc=0mm,
+% colback=blue!5,colframe=blue!75!black, 
+% title={Definition  \thetcbcounter\; #2},#1}
+
+% ===== 定理 =====
+\newtheorem{theorem}{定理}[chapter]
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Blue,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{theorem}
+% \newtcolorbox[auto counter, number within = chapter]{theorem}[2][]{%
+% fonttitle= \bfseries\upshape, fontupper= \upshape,  arc=0mm,
+% colback=red!5,colframe=red!80!black,
+% title={Theorem \thetcbcounter\; #2},#1}
+
+% ===== 证明 =====
+% \newtcolorbox{myproof}[1]{%
+% fonttitle= \bfseries\upshape, fontupper= \upshape, arc=0mm,
+% colback=grey!10,colframe=grey!50!black, colbacktitle=grey!75!black,
+% enhanced, attach boxed title to top center={yshift=-2mm}, title={#1}}
+
+% ===== 引理 =====
+\newtheorem{lemma}{引理}[chapter]
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Cyan,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{lemma}
+% \newtcolorbox[use counter from = theorem, number within = chapter]{lemma}[2][]{%
+% fonttitle= \bfseries\upshape, fontupper= \upshape,
+% arc=0mm, colback=green!10,colframe=green!50!black,
+% title={Lemma \thetcbcounter\; #2},#1}
+
+% ===== 性质 =====
+\newtheorem{property}{性质}[chapter]
+\surroundwithmdframed[
+  backgroundcolor=white,
+  linewidth=1pt, linecolor = Green,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{property}
+% \newtcolorbox[use counter from = theorem, number within = chapter]{property}[2][]{%
+% fonttitle= \bfseries\upshape, fontupper= \upshape, arc=0mm,
+% colback=green!10,colframe=green!50!black,
+% title={Corollary \thetcbcounter\; #2},#1}
+
+% ===== 例 =====
+\newtheorem{example}{例}[chapter]
+\surroundwithmdframed[
+  %backgroundcolor=gray!10,
+  backgroundcolor = white,
+  linewidth=1pt, linecolor = Purple,
+  innertopmargin=4pt, innerbottommargin=4pt,
+  innerleftmargin = 4pt, innerrightmargin = 4pt,
+  skipabove = 6pt, skipbelow = 6pt,
+  nobreak = false
+]{example}
+% \newtcolorbox[auto counter, number within = chapter]{example}[2][]{%
+% fonttitle= \bfseries\upshape, fontupper= \upshape, arc=0mm,
+% colback=orange!15,colframe=orange!55!black,
+% title={Example \thetcbcounter\; #2},#1}
+
+
+% ===== 假设 =====
+\newtheorem{assumption}{假设}[chapter]
+% \newtcolorbox[auto counter, number within = chapter]{assumption}[2][]{%
+% fonttitle= \bfseries\upshape, fontupper= \upshape, arc=0mm,
+% colback=purple!5,colframe=purple!75!black, title={\linkt Question #2\linko},#1}
+
+
+%% =============== 正文格式 ===============
+\RequirePackage{titlesec,titletoc,setspace,enumitem,indentfirst}  % 版式
 
 % 行距
 \setstretch{1.3}
@@ -84,88 +245,6 @@
 \setlist[itemize,1]{label=$\bullet$, leftmargin=2.5em}
 \setlist[itemize,2]{label=$\circ$, leftmargin=4em}
 
-% 参考文献包设置 \usepackage[style=authoryear, backend=bibtex]{biblatex} / %usepackage{natlib}
-\addbibresource{back/refs.bib}
-%\bibliographystyle{apalike}
-%\bibliography{back/refs}
-
-% 定义定理样式（统一为 "definition" 风格）
-\newtheoremstyle{mytheorem}
-  {3pt}               % 上方间距
-  {3pt}               % 下方间距
-  {\normalfont}       % 正文字体
-  {0pt}               % 缩进
-  {\bfseries}         % 标题字体
-  {}                  % 标点符号
-  {0.5em}             % 标题后间距
-  {}                  % 定理头格式
-
-% 应用样式到所有定理类环境
-\theoremstyle{mytheorem}
-\newtheorem{theorem}{定理}[chapter]
-\newtheorem{lemma}{引理}[chapter]
-\newtheorem{definition}{定义}[chapter]
-\newtheorem{example}{例}[chapter]
-\newtheorem{property}{性质}[chapter]
-\newtheorem{assumption}{假设}[chapter]
-
-% 定理类环境添加背景色
-\surroundwithmdframed[
-  backgroundcolor=white,
-  linewidth=1pt, linecolor = Blue,
-  innertopmargin=4pt, innerbottommargin=4pt,
-  innerleftmargin = 4pt, innerrightmargin = 4pt,
-  skipabove = 6pt, skipbelow = 6pt,
-  nobreak = false
-]{theorem}
-
-\surroundwithmdframed[
-  backgroundcolor=white,
-  linewidth=1pt, linecolor = Cyan,
-  innertopmargin=4pt, innerbottommargin=4pt,
-  innerleftmargin = 4pt, innerrightmargin = 4pt,
-  skipabove = 6pt, skipbelow = 6pt,
-  nobreak = false
-]{lemma}
-
-\surroundwithmdframed[
-  backgroundcolor=white,
-  linewidth=1pt, linecolor=Red,
-  innertopmargin=4pt, innerbottommargin=4pt,
-  innerleftmargin = 4pt, innerrightmargin = 4pt,
-  skipabove = 6pt, skipbelow = 6pt,
-  nobreak = false
-]{definition}
-
-\surroundwithmdframed[
-  %backgroundcolor=gray!10,
-  backgroundcolor = white,
-  linewidth=1pt, linecolor = Purple,
-  innertopmargin=4pt, innerbottommargin=4pt,
-  innerleftmargin = 4pt, innerrightmargin = 4pt,
-  skipabove = 6pt, skipbelow = 6pt,
-  nobreak = false
-]{example}
-
-\surroundwithmdframed[
-  backgroundcolor=white,
-  linewidth=1pt, linecolor = Green,
-  innertopmargin=4pt, innerbottommargin=4pt,
-  innerleftmargin = 4pt, innerrightmargin = 4pt,
-  skipabove = 6pt, skipbelow = 6pt,
-  nobreak = false
-]{property}
-
-% 引用、链接包 \usepackage{hyperref,cleveref}
-\crefname{theorem}{定理}{定理}
-\crefname{lemma}{引理}{引理}
-\crefname{definition}{定义}{定义}
-\crefname{example}{例}{例}
-\crefname{property}{性质}{性质}
-\crefname{assumption}{假设}{假设}
-\crefname{equation}{式}{式}
-\crefname{figure}{图}{图}
-
 
 % ===== 排版设置 =====
 
@@ -178,9 +257,6 @@
 \renewcommand{\headrule}{\color{Blue!60} \hrule width\textwidth height 0.8pt} % 蓝色页眉线
 \fancyfoot[C]{\thepage}
 
-% 目录
-\setcounter{secnumdepth}{4}    % 支持四级编号
-\setcounter{tocdepth}{4}       % 目录显示到第四级
 
 \renewcommand{\thepart}{\Roman{part}}   % 篇：罗马数字
 \renewcommand{\thechapter}{\arabic{chapter}} % 章：阿拉伯数字
@@ -224,3 +300,13 @@
     {1em}
     {}
 \titlespacing{\subsection}{0pt}{0.8\baselineskip}{0.4\baselineskip}
+
+
+%% =============== 文献格式 ===============
+% 参考文献包设置 \usepackage[style=authoryear, backend=bibtex]{biblatex} / %usepackage{natlib}
+\RequirePackage[style=authoryear, backend=bibtex]{biblatex} % 文献
+
+\addbibresource{back/refs.bib}
+%\bibliographystyle{apalike}
+%\bibliography{back/refs}
+

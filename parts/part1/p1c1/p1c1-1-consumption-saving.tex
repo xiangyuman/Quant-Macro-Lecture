@@ -92,7 +92,7 @@
     \end{aligned}
 \end{equation*}
 我们\textbf{无需考虑消费的非负约束}，因为效用函数的Inada条件$\lim\limits_{c_t\rightarrow 0}u^{\prime}(c_t)=\infty$
-保证了个体用于会选择$c_t>0$。关于$c_0$和$c_1$的一阶条件为：
+保证了个体会选择$c_t>0$。关于$c_0$和$c_1$的一阶条件为：
 \begin{equation*}
     \begin{aligned}
         & \frac{\partial \mathcal{L}}{\partial c_0}: \quad u^{\prime}\left(c_0\right)-\mu-\lambda=0 \\
@@ -113,7 +113,7 @@
     u^{\prime}\left(c_0\right)=\beta(1+r) u^{\prime}\left(c_1\right)
 \end{equation*}
 方程左侧是多储蓄一单位在$t=0$的边际成本，右侧是其在$t=1$带来的边际效用。
-注意到，当$\beta(1+r)=1$，个体每期会选择消费其终身效用的一个常数部分，即：
+注意到，当$\beta(1+r)=1$，个体每期会选择消费其终身财富的一个常数部分，即：
 \begin{equation*}
     c_0=c_1=\frac{w_0+\beta w_1}{1+\beta}
 \end{equation*}
@@ -226,7 +226,7 @@ $t<T$时的\textbf{内点解}满足一阶条件，这一条件是一般化问题
     否则个体存在积累无穷债务至终期的激励。但是，由于债权方知道债务方的这一计划，即一定会被违约，因此无人会提供资金。
 
     在\textbf{无限期情形下}，由于没有终结时间，因此上述终端约束失去了意义，但我们可以将其进行适当拓展来排除庞氏骗局（Ponzi Scheme），
-    即债务现值超过收入现值（个体无限地滚动债务来借新还旧）。我们称这样的条件为\textbf{非庞氏条件}（No Ponzi Game Condition），
+    即债务现值不能超过收入现值（防止个体无限地滚动债务来借新还旧）。我们称这样的条件为\textbf{非庞氏条件}（No Ponzi Game Condition），
     它确保了可行集不会过大，否则个体将能获得任意高的效用水平。下面的例子说明了如何得到这一条件。
 \end{example}
 
@@ -382,7 +382,7 @@ $t<T$时的\textbf{内点解}满足一阶条件，这一条件是一般化问题
 在此基础上引出了动态优化问题的一般化形式，并分别讨论了有限期和无限期情形下动态优化问题最优解的相关条件。
 在本节，我们将利用相应结论，完整求解无限期的消费-储蓄模型。
 
-假设对数效用函数$u(c) = \log c$，个体优化问题为：\footnote{为了得到显示解方面理解，我们进行了部分改动，省去了外省禀赋流。}
+假设对数效用函数$u(c) = \log c$，个体优化问题为：\footnote{为了得到显示解来方便理解，我们进行了部分改动，省去了外省禀赋流。}
 \begin{equation*}
     \begin{aligned}
         \max _{\left\{c_t, a_{t+1}\right\}_{t=0}^{\infty}} & \sum_{t=0}^{\infty} \beta^t \log c_t \\

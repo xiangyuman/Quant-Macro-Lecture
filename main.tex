@@ -5,6 +5,12 @@
 
 \usepackage{mxystyle}
 
+% 标题信息（传递给\maketitle）
+\title{\Huge\bfseries 量化宏观经济学}
+\author{\LARGE 满翔宇}
+\date{\vspace{5cm}\Large 2025年6月}
+
+
 % ======================= 部分调试 ============================
 %\includeonly{parts/part1/p1c1-dynamic-macro}
 
@@ -12,15 +18,18 @@
 % ======================= 开始 ============================
 \begin{document}
 
+%\include{front/cover}
+
 % ===== 前辅文 =====
 \frontmatter
 
-\maketitle
+\pagestyle{frontstyle}
+
 % 封面、前言
-%\include{front/cover}
-%\include{front/title}
-%\include{front/copyright}
-%\include{front/preface}
+% \include{front/title}
+\maketitle
+% \include{front/copyright}
+% \include{front/preface}
 
 % 目录
 \tableofcontents
@@ -29,6 +38,7 @@
 
 % ===== 主体内容 =====
 \mainmatter
+\pagestyle{mainstyle}
 
 % 第一篇：量化宏观基础
 \part{量化宏观基础}
@@ -65,11 +75,11 @@
 
 
 % ===== 后辅文 =====
-\appendix
+\backmatter
 
+\appendix
 \include{back/appendix}
 
-\backmatter
 
 %\bibliographystyle{apalike}
 %\bibliography{back/refs}
